@@ -40,6 +40,10 @@ h1 {
     letter-spacing: -1px;
 }
 
+h2 {
+    margin-top: 0;
+}
+
 .subtitle {
     color: #666;
     margin: 0 0 28px;
@@ -132,6 +136,15 @@ button {
     margin-top: 18px;
 }
 
+.delete-document-button {
+    width: auto;
+    padding: 8px 12px;
+    background: #f5f5f5;
+    color: #b00020;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
 input,
 select {
     width: 100%;
@@ -212,6 +225,53 @@ label {
     font-size: 14px;
 }
 
+.document-card {
+    padding: 16px;
+}
+
+.document-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.document-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.document-info {
+    flex: 1;
+}
+
+.document-name {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.document-type {
+    color: #777;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.document-details {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #555;
+}
+
+.document-details div {
+    padding: 4px 0;
+}
+
 .hidden {
     display: none;
 }
@@ -241,7 +301,7 @@ label {
     </div>
 
 
-    <!-- ADD VIEW -->
+    <!-- ADD THING -->
     <div id="addView" class="hidden">
 
         <button class="back-button" onclick="showHome()">
@@ -253,28 +313,37 @@ label {
         <div class="card">
 
             <label for="thingName">Name</label>
+
             <input
                 id="thingName"
                 type="text"
                 placeholder="e.g. Audi A1"
             >
 
+
             <label for="thingCategory">Category</label>
+
             <select id="thingCategory">
+
                 <option value="Home">Home</option>
                 <option value="Vehicle">Vehicle</option>
                 <option value="Electronics">Electronics</option>
                 <option value="Appliance">Appliance</option>
                 <option value="Other">Other</option>
+
             </select>
 
+
             <label for="purchaseDate">Purchase date</label>
+
             <input
                 id="purchaseDate"
                 type="date"
             >
 
+
             <label for="purchasePrice">Purchase price (€)</label>
+
             <input
                 id="purchasePrice"
                 type="number"
@@ -282,13 +351,16 @@ label {
                 placeholder="0.00"
             >
 
+
             <label for="currentValue">Current value (€)</label>
+
             <input
                 id="currentValue"
                 type="number"
                 step="0.01"
                 placeholder="0.00"
             >
+
 
             <button
                 class="primary-button"
@@ -303,7 +375,7 @@ label {
     </div>
 
 
-    <!-- DETAIL VIEW -->
+    <!-- DETAIL -->
     <div id="detailView" class="hidden">
 
         <button class="back-button" onclick="showHome()">
@@ -315,7 +387,7 @@ label {
     </div>
 
 
-    <!-- EDIT VIEW -->
+    <!-- EDIT THING -->
     <div id="editView" class="hidden">
 
         <button class="back-button" onclick="showThing(currentThingId)">
@@ -327,33 +399,45 @@ label {
         <div class="card">
 
             <label for="editThingName">Name</label>
+
             <input id="editThingName" type="text">
 
+
             <label for="editThingCategory">Category</label>
+
             <select id="editThingCategory">
+
                 <option value="Home">Home</option>
                 <option value="Vehicle">Vehicle</option>
                 <option value="Electronics">Electronics</option>
                 <option value="Appliance">Appliance</option>
                 <option value="Other">Other</option>
+
             </select>
 
+
             <label for="editPurchaseDate">Purchase date</label>
+
             <input id="editPurchaseDate" type="date">
 
+
             <label for="editPurchasePrice">Purchase price (€)</label>
+
             <input
                 id="editPurchasePrice"
                 type="number"
                 step="0.01"
             >
 
+
             <label for="editCurrentValue">Current value (€)</label>
+
             <input
                 id="editCurrentValue"
                 type="number"
                 step="0.01"
             >
+
 
             <button
                 class="primary-button"
@@ -367,17 +451,121 @@ label {
 
     </div>
 
+
+    <!-- ADD DOCUMENT -->
+    <div id="addDocumentView" class="hidden">
+
+        <button
+            class="back-button"
+            onclick="showThing(currentThingId)"
+        >
+            ← Back
+        </button>
+
+        <h2>Add Document</h2>
+
+        <div class="card">
+
+            <label for="documentName">
+                Name
+            </label>
+
+            <input
+                id="documentName"
+                type="text"
+                placeholder="e.g. Car insurance"
+            >
+
+
+            <label for="documentType">
+                Type
+            </label>
+
+            <select id="documentType">
+
+                <option value="Invoice">Invoice</option>
+                <option value="Contract">Contract</option>
+                <option value="Insurance">Insurance</option>
+                <option value="Warranty">Warranty</option>
+                <option value="Tax">Tax</option>
+                <option value="Certificate">Certificate</option>
+                <option value="Repair">Repair</option>
+                <option value="Other">Other</option>
+
+            </select>
+
+
+            <label for="documentDate">
+                Date
+            </label>
+
+            <input
+                id="documentDate"
+                type="date"
+            >
+
+
+            <label for="documentExpiryDate">
+                Expiry date
+            </label>
+
+            <input
+                id="documentExpiryDate"
+                type="date"
+            >
+
+
+            <label for="documentAmount">
+                Amount (€)
+            </label>
+
+            <input
+                id="documentAmount"
+                type="number"
+                step="0.01"
+                placeholder="Optional"
+            >
+
+
+            <button
+                class="primary-button"
+                onclick="addDocument()"
+                style="margin-top:20px;"
+            >
+                Save Document
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
 
 
 <script>
 
 const categoryIcons = {
+
     Home: "🏠",
     Vehicle: "🚗",
     Electronics: "📱",
     Appliance: "🔌",
     Other: "📦"
+
+};
+
+
+const documentIcons = {
+
+    Invoice: "🧾",
+    Contract: "📜",
+    Insurance: "🛡️",
+    Warranty: "🔒",
+    Tax: "💶",
+    Certificate: "📜",
+    Repair: "🔧",
+    Other: "📄"
+
 };
 
 
@@ -386,16 +574,31 @@ let things = JSON.parse(
 );
 
 
+/*
+    Migration:
+    Make sure every Thing has a documents array.
+*/
+
 things = things.map(thing => {
 
     return {
+
         id: thing.id || Date.now() + Math.random(),
+
         name: thing.name || "",
+
         category: thing.category || "Other",
+
         purchaseDate: thing.purchaseDate || "",
+
         purchasePrice: thing.purchasePrice || "",
+
         currentValue: thing.currentValue || "",
-        documents: thing.documents || []
+
+        documents: Array.isArray(thing.documents)
+            ? thing.documents
+            : []
+
     };
 
 });
@@ -420,17 +623,24 @@ function saveThings() {
 function showView(viewId) {
 
     const views = [
+
         "homeView",
         "addView",
         "detailView",
-        "editView"
+        "editView",
+        "addDocumentView"
+
     ];
+
 
     views.forEach(id => {
 
-        document.getElementById(id).classList.add("hidden");
+        document
+            .getElementById(id)
+            .classList.add("hidden");
 
     });
+
 
     document
         .getElementById(viewId)
@@ -453,9 +663,14 @@ function showHome() {
 function showAddForm() {
 
     document.getElementById("thingName").value = "";
-    document.getElementById("thingCategory").value = "Other";
+
+    document.getElementById("thingCategory").value =
+        "Other";
+
     document.getElementById("purchaseDate").value = "";
+
     document.getElementById("purchasePrice").value = "";
+
     document.getElementById("currentValue").value = "";
 
     showView("addView");
@@ -466,7 +681,11 @@ function showAddForm() {
 function addThing() {
 
     const name =
-        document.getElementById("thingName").value.trim();
+        document
+            .getElementById("thingName")
+            .value
+            .trim();
+
 
     if (!name) {
 
@@ -484,16 +703,24 @@ function addThing() {
         name: name,
 
         category:
-            document.getElementById("thingCategory").value,
+            document
+                .getElementById("thingCategory")
+                .value,
 
         purchaseDate:
-            document.getElementById("purchaseDate").value,
+            document
+                .getElementById("purchaseDate")
+                .value,
 
         purchasePrice:
-            document.getElementById("purchasePrice").value,
+            document
+                .getElementById("purchasePrice")
+                .value,
 
         currentValue:
-            document.getElementById("currentValue").value,
+            document
+                .getElementById("currentValue")
+                .value,
 
         documents: []
 
@@ -518,10 +745,14 @@ function renderThings() {
     if (things.length === 0) {
 
         list.innerHTML = `
+
             <div class="card empty">
+
                 No things yet.<br>
                 Add your first thing above.
+
             </div>
+
         `;
 
         return;
@@ -546,6 +777,7 @@ function renderThings() {
                     ${icon}
                 </div>
 
+
                 <div class="thing-info">
 
                     <div class="thing-name">
@@ -557,6 +789,7 @@ function renderThings() {
                     </div>
 
                 </div>
+
 
                 <div class="arrow">
                     ›
@@ -575,6 +808,7 @@ function openThing(id) {
 
     currentThingId = id;
 
+
     const thing =
         things.find(item =>
             String(item.id) === String(id)
@@ -588,6 +822,123 @@ function openThing(id) {
         categoryIcons[thing.category] || "📦";
 
 
+    let documentsHtml = "";
+
+
+    if (!thing.documents.length) {
+
+        documentsHtml = `
+
+            <div class="placeholder">
+
+                No documents yet.
+
+            </div>
+
+        `;
+
+    } else {
+
+        documentsHtml =
+            thing.documents.map(document => {
+
+                const documentIcon =
+                    documentIcons[document.type] || "📄";
+
+
+                let details = "";
+
+
+                if (document.date) {
+
+                    details += `
+                        <div>
+                            📅 ${formatDate(document.date)}
+                        </div>
+                    `;
+
+                }
+
+
+                if (document.expiryDate) {
+
+                    details += `
+                        <div>
+                            ⏳ Expires:
+                            ${formatDate(document.expiryDate)}
+                        </div>
+                    `;
+
+                }
+
+
+                if (document.amount) {
+
+                    details += `
+                        <div>
+                            💶 ${formatMoney(document.amount)}
+                        </div>
+                    `;
+
+                }
+
+
+                return `
+
+                    <div class="card document-card">
+
+                        <div class="document-header">
+
+                            <div class="document-icon">
+                                ${documentIcon}
+                            </div>
+
+
+                            <div class="document-info">
+
+                                <div class="document-name">
+                                    ${escapeHtml(document.name)}
+                                </div>
+
+                                <div class="document-type">
+                                    ${escapeHtml(document.type)}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        ${
+                            details
+                                ? `
+                                    <div class="document-details">
+                                        ${details}
+                                    </div>
+                                  `
+                                : ""
+                        }
+
+
+                        <button
+                            class="delete-document-button"
+                            onclick="deleteDocument(
+                                '${thing.id}',
+                                '${document.id}'
+                            )"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                `;
+
+            }).join("");
+
+    }
+
+
     document.getElementById("thingDetail").innerHTML = `
 
         <div class="detail-header">
@@ -596,9 +947,11 @@ function openThing(id) {
                 ${icon}
             </div>
 
+
             <h2>
                 ${escapeHtml(thing.name)}
             </h2>
+
 
             <div class="detail-category">
                 ${escapeHtml(thing.category)}
@@ -623,6 +976,7 @@ function openThing(id) {
             Details
         </h2>
 
+
         <div class="card">
 
             <div class="detail-row">
@@ -632,11 +986,13 @@ function openThing(id) {
                 </div>
 
                 <div class="detail-value">
+
                     ${
                         thing.purchaseDate
                             ? formatDate(thing.purchaseDate)
                             : "—"
                     }
+
                 </div>
 
             </div>
@@ -649,11 +1005,13 @@ function openThing(id) {
                 </div>
 
                 <div class="detail-value">
+
                     ${
                         thing.purchasePrice
                             ? formatMoney(thing.purchasePrice)
                             : "—"
                     }
+
                 </div>
 
             </div>
@@ -666,11 +1024,13 @@ function openThing(id) {
                 </div>
 
                 <div class="detail-value">
+
                     ${
                         thing.currentValue
                             ? formatMoney(thing.currentValue)
                             : "—"
                     }
+
                 </div>
 
             </div>
@@ -682,18 +1042,22 @@ function openThing(id) {
             Documents
         </h2>
 
-        <div class="card">
 
-            <div class="placeholder">
-                Documents will live here.
-            </div>
+        ${documentsHtml}
 
-        </div>
+
+        <button
+            class="primary-button"
+            onclick="showAddDocument('${thing.id}')"
+        >
+            + Add Document
+        </button>
 
 
         <h2 class="section-title">
             History
         </h2>
+
 
         <div class="card">
 
@@ -719,9 +1083,148 @@ function openThing(id) {
 }
 
 
+function showAddDocument(id) {
+
+    currentThingId = id;
+
+
+    document.getElementById("documentName").value = "";
+
+    document.getElementById("documentType").value =
+        "Invoice";
+
+    document.getElementById("documentDate").value = "";
+
+    document.getElementById("documentExpiryDate").value = "";
+
+    document.getElementById("documentAmount").value = "";
+
+
+    showView("addDocumentView");
+
+}
+
+
+function addDocument() {
+
+    const thing =
+        things.find(item =>
+            String(item.id) === String(currentThingId)
+        );
+
+
+    if (!thing) return;
+
+
+    const name =
+        document
+            .getElementById("documentName")
+            .value
+            .trim();
+
+
+    if (!name) {
+
+        alert("Please enter a document name.");
+
+        return;
+
+    }
+
+
+    const documentItem = {
+
+        id: Date.now() + Math.random(),
+
+        name: name,
+
+        type:
+            document
+                .getElementById("documentType")
+                .value,
+
+        date:
+            document
+                .getElementById("documentDate")
+                .value,
+
+        expiryDate:
+            document
+                .getElementById("documentExpiryDate")
+                .value,
+
+        amount:
+            document
+                .getElementById("documentAmount")
+                .value
+
+    };
+
+
+    if (!Array.isArray(thing.documents)) {
+
+        thing.documents = [];
+
+    }
+
+
+    thing.documents.push(documentItem);
+
+
+    saveThings();
+
+
+    openThing(currentThingId);
+
+}
+
+
+function deleteDocument(thingId, documentId) {
+
+    const thing =
+        things.find(item =>
+            String(item.id) === String(thingId)
+        );
+
+
+    if (!thing) return;
+
+
+    const document =
+        thing.documents.find(item =>
+            String(item.id) === String(documentId)
+        );
+
+
+    if (!document) return;
+
+
+    const confirmed = confirm(
+        `Delete "${document.name}"?\n\nThis cannot be undone.`
+    );
+
+
+    if (!confirmed) return;
+
+
+    thing.documents =
+        thing.documents.filter(item =>
+            String(item.id) !== String(documentId)
+        );
+
+
+    saveThings();
+
+
+    openThing(thingId);
+
+}
+
+
 function editThing(id) {
 
     currentThingId = id;
+
 
     const thing =
         things.find(item =>
@@ -765,7 +1268,10 @@ function saveEdit() {
 
 
     const name =
-        document.getElementById("editThingName").value.trim();
+        document
+            .getElementById("editThingName")
+            .value
+            .trim();
 
 
     if (!name) {
@@ -780,16 +1286,24 @@ function saveEdit() {
     thing.name = name;
 
     thing.category =
-        document.getElementById("editThingCategory").value;
+        document
+            .getElementById("editThingCategory")
+            .value;
 
     thing.purchaseDate =
-        document.getElementById("editPurchaseDate").value;
+        document
+            .getElementById("editPurchaseDate")
+            .value;
 
     thing.purchasePrice =
-        document.getElementById("editPurchasePrice").value;
+        document
+            .getElementById("editPurchasePrice")
+            .value;
 
     thing.currentValue =
-        document.getElementById("editCurrentValue").value;
+        document
+            .getElementById("editCurrentValue")
+            .value;
 
 
     saveThings();
@@ -818,9 +1332,10 @@ function deleteThing(id) {
     if (!confirmed) return;
 
 
-    things = things.filter(item =>
-        String(item.id) !== String(id)
-    );
+    things =
+        things.filter(item =>
+            String(item.id) !== String(id)
+        );
 
 
     saveThings();
