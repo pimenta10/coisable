@@ -1478,7 +1478,7 @@ function renderTimeline(thing) {
         );
 
     container.innerHTML =
-        months.map((monthKey, index) => {
+        months.map(monthKey => {
 
             const events =
                 grouped[monthKey].sort(
@@ -1552,8 +1552,26 @@ function renderTimeline(thing) {
                             const icon =
                                 eventIcons[event.type] || "📌";
 
+                            const linkedDocument =
+                                event.documentId
+                                    ? thing.documents.find(
+                                        documentItem =>
+                                            documentItem.id === event.documentId
+                                      )
+                                    : null;
+
                             return `
-                                <div class="timeline-event">
+                                <div class="timeline-event"
+                                     ${
+                                         linkedDocument
+                                         ? `onclick="openTimelineDocument(${linkedDocument.id})"`
+                                         : ""
+                                     }
+                                     style="${
+                                         linkedDocument
+                                         ? "cursor:pointer;"
+                                         : ""
+                                     }">
 
                                     <div class="event-icon">
                                         ${icon}
@@ -1577,10 +1595,10 @@ function renderTimeline(thing) {
                                         </span>
 
                                         ${
-                                            event.documentId
+                                            linkedDocument
                                             ? `
                                                 <span>
-                                                    📄 Linked document
+                                                    📄 Document
                                                 </span>
                                             `
                                             : ""
@@ -1588,15 +1606,19 @@ function renderTimeline(thing) {
 
                                     </div>
 
-                                    <div class="event-actions">
-
-                                        <button
-                                            class="secondary small"
-                                            onclick="editEvent(${event.id})">
-                                            Edit
-                                        </button>
-
-                                    </div>
+                                    ${
+                                        linkedDocument
+                                        ? `
+                                            <div style="
+                                                color:#888;
+                                                font-size:20px;
+                                                padding-left:4px;
+                                            ">
+                                                ›
+                                            </div>
+                                        `
+                                        : ""
+                                    }
 
                                 </div>
                             `;
@@ -1638,6 +1660,31 @@ function toggleTimelineMonth(id) {
             arrow.textContent = "›";
         }
     }
+}
+
+
+/* -----------------------------
+   TIMELINE → DOCUMENT
+----------------------------- */
+
+function openTimelineDocument(documentId) {
+
+    const thing =
+        things.find(item => item.id === currentThingId);
+
+    if (!thing) return;
+
+    const documentItem =
+        thing.documents.find(
+            item => item.id === documentId
+        );
+
+    if (!documentItem) {
+        alert("Document not found.");
+        return;
+    }
+
+    editDocument(documentId);
 }
 
 
@@ -2099,11 +2146,6 @@ function escapeHtml(value) {
 /* -----------------------------
    DATA MIGRATION
 ----------------------------- */
-
-/*
-   Makes older Coisable data compatible
-   with the Timeline version.
-*/
 
 things.forEach(thing => {
 
