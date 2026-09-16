@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
@@ -24,24 +21,35 @@ body {
     font-family:
         -apple-system,
         BlinkMacSystemFont,
-        "Segoe UI",
+        "SF Pro Text",
+        "SF Pro Display",
+        Helvetica,
+        Arial,
         sans-serif;
 }
 
-.container {
+.app {
     max-width: 700px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 28px 18px 50px;
 }
 
 h1 {
-    font-size: 28px;
+    font-size: 32px;
     margin: 0;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    color: #777;
+    margin-top: 4px;
+    margin-bottom: 24px;
+    font-size: 15px;
 }
 
 h2 {
     font-size: 22px;
-    margin: 0 0 18px 0;
+    margin: 0 0 16px;
 }
 
 h3 {
@@ -49,134 +57,104 @@ h3 {
     font-size: 18px;
 }
 
-p {
-    color: #666;
-}
-
 button {
-    width: 100%;
-    padding: 14px;
+    font: inherit;
     border: none;
-    border-radius: 12px;
-    background: #111;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
     cursor: pointer;
 }
 
-button.secondary {
-    background: #e5e5e5;
-    color: #111;
-}
-
-button.danger {
-    background: #d92d20;
-}
-
-button.small {
-    width: auto;
-    padding: 9px 13px;
-    font-size: 14px;
-}
-
-input,
-select {
+.primary {
     width: 100%;
-    padding: 13px;
-    margin-top: 7px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background: white;
+    background: #111;
+    color: white;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
     font-size: 16px;
 }
 
-label {
-    font-size: 14px;
+.secondary {
+    width: 100%;
+    background: #e9e9e9;
+    color: #111;
+    padding: 13px;
+    border-radius: 12px;
     font-weight: 600;
+    font-size: 16px;
+}
+
+.danger {
+    width: 100%;
+    background: #ffe5e5;
+    color: #c40000;
+    padding: 13px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.back {
+    background: none;
+    padding: 0;
+    margin-bottom: 22px;
+    color: #555;
+    font-size: 15px;
 }
 
 .card {
     background: white;
     border-radius: 16px;
-    padding: 16px;
+    padding: 17px;
     margin-bottom: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
-.thing-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+.card.clickable {
     cursor: pointer;
 }
 
+.card-row {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
 .icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: #f1f1f1;
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    background: #f0f0f0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 25px;
+    font-size: 23px;
     flex-shrink: 0;
 }
 
-.thing-info {
+.info {
     flex: 1;
+    min-width: 0;
 }
 
-.thing-info strong {
+.info strong {
     display: block;
-    font-size: 17px;
+    font-size: 16px;
+    margin-bottom: 3px;
 }
 
-.thing-info span {
-    display: block;
-    margin-top: 3px;
+.info span {
     color: #777;
     font-size: 14px;
 }
 
-.view {
-    display: none;
-}
-
-.view.active {
-    display: block;
-}
-
-.topbar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 22px;
-}
-
-.back {
-    width: auto;
-    padding: 9px 12px;
-    background: #e5e5e5;
-    color: #111;
-    font-size: 14px;
+.chevron {
+    color: #aaa;
+    font-size: 23px;
 }
 
 .section {
     margin-top: 28px;
 }
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-/* -----------------------------
-   HOME CATEGORY GRID
------------------------------ */
 
 .category-grid {
     display: grid;
@@ -187,206 +165,270 @@ label {
 .category-card {
     background: white;
     border-radius: 16px;
-    padding: 18px;
-    min-height: 145px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    cursor: pointer;
+    padding: 20px 16px;
+    min-height: 125px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-.category-card:active {
-    transform: scale(0.98);
+    cursor: pointer;
 }
 
 .category-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 14px;
-    background: #f1f1f1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
+    font-size: 30px;
 }
 
 .category-name {
-    font-size: 17px;
     font-weight: 600;
-    margin-top: 14px;
-}
-
-.category-count {
-    color: #777;
-    font-size: 13px;
-    margin-top: 4px;
-}
-
-/* -----------------------------
-   DOCUMENTS / EVENTS
------------------------------ */
-
-.document-card,
-.event-card {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-}
-
-.document-icon,
-.event-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    background: #f1f1f1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 21px;
-    flex-shrink: 0;
-}
-
-.document-info,
-.event-info {
-    flex: 1;
-}
-
-.document-info strong,
-.event-info strong {
-    display: block;
     font-size: 16px;
 }
 
-.document-info span,
-.event-info span {
-    display: block;
-    color: #777;
+.category-count {
+    color: #888;
     font-size: 13px;
-    margin-top: 4px;
-}
-
-.document-actions,
-.event-actions {
-    display: flex;
-    gap: 6px;
-}
-
-.document-actions button,
-.event-actions button {
-    width: auto;
+    margin-top: 3px;
 }
 
 .empty {
     text-align: center;
-    padding: 25px 10px;
+    color: #888;
+    padding: 30px 10px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #ddd;
+    border-radius: 11px;
+    background: white;
+    font: inherit;
+    margin-bottom: 17px;
+    color: #111;
+}
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.detail-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.detail-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    background: #eaeaea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 29px;
+}
+
+.detail-title {
+    flex: 1;
+}
+
+.detail-title h2 {
+    margin: 0 0 4px;
+}
+
+.detail-title span {
     color: #777;
+    font-size: 14px;
 }
 
-/* -----------------------------
-   COMING UP
------------------------------ */
-
-.coming-up {
-    border-left: 4px solid #f59e0b;
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 
-.coming-up-overdue {
-    border-left: 4px solid #d92d20;
+.detail-item {
+    background: white;
+    border-radius: 13px;
+    padding: 14px;
 }
 
-.coming-up-title {
+.detail-item small {
+    display: block;
+    color: #888;
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+.detail-item strong {
+    font-size: 15px;
+}
+
+.top-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.small-button {
+    background: #e9e9e9;
+    padding: 9px 13px;
+    border-radius: 10px;
+    font-size: 14px;
     font-weight: 600;
 }
 
-.coming-up-meta {
-    font-size: 13px;
+.small-button.danger-small {
+    background: #ffe5e5;
+    color: #c40000;
+}
+
+.document-meta {
     color: #777;
-    margin-top: 3px;
-}
-
-.coming-up-status {
     font-size: 13px;
-    margin-top: 5px;
-    font-weight: 500;
+    line-height: 1.45;
 }
 
-.coming-up-actions {
-    margin-top: 10px;
+.document-amount {
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.date-badge {
+    display: inline-block;
+    margin-top: 7px;
+    padding: 5px 8px;
+    border-radius: 7px;
+    background: #f0f0f0;
+    font-size: 12px;
+    color: #555;
+}
+
+.coming-card {
+    background: white;
+    border-radius: 15px;
+    padding: 14px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.coming-row {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    gap: 11px;
 }
 
-.coming-up-acknowledge {
-    width: auto;
-    padding: 8px 12px;
+.coming-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.coming-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.coming-info strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.coming-info span {
+    color: #777;
     font-size: 13px;
 }
 
-/* -----------------------------
-   TIMELINE
------------------------------ */
+.coming-action {
+    margin-top: 10px;
+    margin-left: 53px;
+}
+
+.ack-button {
+    background: #ededed;
+    border-radius: 9px;
+    padding: 8px 11px;
+    font-size: 13px;
+    font-weight: 600;
+}
 
 .timeline-month {
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.timeline-month-header {
+    padding: 14px 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    font-weight: 600;
 }
 
-.timeline-month-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.month-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: #f1f1f1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 21px;
-}
-
-.chevron {
-    font-size: 22px;
+.timeline-month-arrow {
     color: #888;
+    font-size: 18px;
 }
 
 .timeline-events {
-    margin-top: 10px;
+    padding: 0 14px 10px;
 }
 
 .timeline-event {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
+    gap: 11px;
+    padding: 11px 2px;
+    border-top: 1px solid #f0f0f0;
     cursor: pointer;
 }
 
-.timeline-event:last-child {
-    border-bottom: none;
-}
-
-.timeline-event-date {
-    width: 24px;
+.timeline-day {
+    width: 30px;
+    text-align: center;
+    font-size: 12px;
+    color: #888;
     flex-shrink: 0;
-    text-align: right;
-    font-size: 13px;
-    font-weight: 600;
-    color: #777;
 }
 
-.timeline-event .event-icon {
-    width: 36px;
-    height: 36px;
+.timeline-event-icon {
+    width: 34px;
+    height: 34px;
     border-radius: 10px;
-    font-size: 19px;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
 }
 
 .timeline-event-info {
@@ -394,67 +436,87 @@ label {
     min-width: 0;
 }
 
-.timeline-event-info strong {
-    display: block;
-    font-size: 15px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.timeline-event-amount {
+.timeline-event-title {
     font-size: 14px;
-    color: #555;
-    white-space: nowrap;
-    flex-shrink: 0;
+    font-weight: 600;
+    line-height: 1.3;
 }
 
-.timeline-event-chevron {
-    font-size: 22px;
+.timeline-event-arrow {
+    color: #aaa;
+    font-size: 20px;
+}
+
+.search-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    margin-bottom: 0;
+    padding-left: 43px;
+    background: white;
+    border-color: #e2e2e2;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 17px;
     color: #888;
-    flex-shrink: 0;
+    pointer-events: none;
 }
 
-.checkbox-row {
+.search-result {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin: 4px 0 18px 0;
+    gap: 12px;
+    cursor: pointer;
 }
 
-.checkbox-row input {
-    width: 20px;
-    height: 20px;
-    margin: 0;
-}
-
-.checkbox-row label {
-    font-weight: 500;
-    font-size: 15px;
-}
-
-.info-box {
-    background: #f1f1f1;
+.search-result-icon {
+    width: 43px;
+    height: 43px;
     border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 18px;
-    font-size: 14px;
-    color: #555;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
 }
 
-.detail-value {
-    margin-bottom: 15px;
+.search-result-info {
+    flex: 1;
+    min-width: 0;
 }
 
-.detail-label {
-    font-size: 13px;
-    color: #777;
-}
-
-.detail-value strong {
+.search-result-info strong {
     display: block;
-    margin-top: 3px;
-    font-size: 16px;
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.search-result-info span {
+    color: #777;
+    font-size: 13px;
+}
+
+.search-result-arrow {
+    color: #aaa;
+    font-size: 21px;
+}
+
+.search-empty {
+    text-align: center;
+    color: #888;
+    padding: 30px 10px;
+}
+
+.hidden {
+    display: none !important;
 }
 
 </style>
@@ -463,458 +525,290 @@ label {
 
 <body>
 
-<div class="container">
+<div class="app">
 
     <!-- HOME -->
+    <div id="homeView">
 
-    <div id="homeView" class="view active">
+        <h1>Coisable</h1>
+        <div class="subtitle">Your things. One place.</div>
 
-        <div style="margin-bottom: 25px;">
-
-            <h1>Coisable</h1>
-
-            <p style="margin-top: 5px;">
-                Your things. One place.
-            </p>
-
+        <div class="search-box">
+            <span class="search-icon">🔎</span>
+            <input
+                id="searchInput"
+                type="search"
+                placeholder="Search your things..."
+                autocomplete="off"
+                oninput="renderSearchResults()"
+            >
         </div>
 
-        <div class="category-grid">
+        <div id="homeCategories">
 
-            <div class="category-card"
-                 onclick="showCategory('Real Estate')">
+            <div class="category-grid">
 
-                <div class="category-icon">
-                    🏠
+                <div class="category-card"
+                     onclick="showCategory('Real Estate')">
+                    <div class="category-icon">🏠</div>
+                    <div>
+                        <div class="category-name">Real Estate</div>
+                        <div class="category-count"
+                             id="countRealEstate">0 items</div>
+                    </div>
                 </div>
 
-                <div>
-
-                    <div class="category-name">
-                        Real Estate
+                <div class="category-card"
+                     onclick="showCategory('Vehicles')">
+                    <div class="category-icon">🚗</div>
+                    <div>
+                        <div class="category-name">Vehicles</div>
+                        <div class="category-count"
+                             id="countVehicles">0 items</div>
                     </div>
-
-                    <div class="category-count">
-
-                        <span id="realEstateCount">0</span>
-
-                        <span id="realEstateLabel">
-                            things
-                        </span>
-
-                    </div>
-
                 </div>
 
-            </div>
-
-            <div class="category-card"
-                 onclick="showCategory('Vehicles')">
-
-                <div class="category-icon">
-                    🚗
+                <div class="category-card"
+                     onclick="showCategory('Electronics')">
+                    <div class="category-icon">📱</div>
+                    <div>
+                        <div class="category-name">Electronics</div>
+                        <div class="category-count"
+                             id="countElectronics">0 items</div>
+                    </div>
                 </div>
 
-                <div>
-
-                    <div class="category-name">
-                        Vehicles
+                <div class="category-card"
+                     onclick="showCategory('Other')">
+                    <div class="category-icon">📦</div>
+                    <div>
+                        <div class="category-name">Other</div>
+                        <div class="category-count"
+                             id="countOther">0 items</div>
                     </div>
-
-                    <div class="category-count">
-
-                        <span id="vehiclesCount">0</span>
-
-                        <span id="vehiclesLabel">
-                            things
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="category-card"
-                 onclick="showCategory('Electronics')">
-
-                <div class="category-icon">
-                    📱
-                </div>
-
-                <div>
-
-                    <div class="category-name">
-                        Electronics
-                    </div>
-
-                    <div class="category-count">
-
-                        <span id="electronicsCount">0</span>
-
-                        <span id="electronicsLabel">
-                            things
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="category-card"
-                 onclick="showCategory('Other')">
-
-                <div class="category-icon">
-                    📦
-                </div>
-
-                <div>
-
-                    <div class="category-name">
-                        Other
-                    </div>
-
-                    <div class="category-count">
-
-                        <span id="otherCount">0</span>
-
-                        <span id="otherLabel">
-                            things
-                        </span>
-
-                    </div>
-
                 </div>
 
             </div>
 
         </div>
 
-        <div class="section">
+        <div id="homeComingUpSection" class="section">
 
-            <div class="section-header">
+            <h2>Coming Up</h2>
 
-                <h2>Coming Up</h2>
+            <div id="comingUpList"></div>
 
-            </div>
+        </div>
 
-            <div id="comingUp"></div>
+        <div id="searchResultsSection"
+             class="section"
+             style="display:none;">
+
+            <h2>Search Results</h2>
+
+            <div id="searchResultsList"></div>
 
         </div>
 
     </div>
+
 
     <!-- CATEGORY -->
+    <div id="categoryView" style="display:none;">
 
-    <div id="categoryView" class="view">
+        <button class="back" onclick="showHome()">‹ Back</button>
 
-        <div class="topbar">
+        <h2 id="categoryTitle"></h2>
 
-            <button class="back small"
-                    onclick="showHome()">
+        <button
+            id="categoryAddButton"
+            class="primary"
+            onclick="showAddThing()">
+        </button>
 
-                ← Back
-
-            </button>
-
-            <h2 id="categoryTitle"></h2>
-
+        <div class="section">
+            <div id="categoryThings"></div>
         </div>
-
-        <div style="margin-bottom: 18px;">
-
-            <button id="categoryAddButton"
-                    onclick="showAddForm()">
-
-                + Add
-
-            </button>
-
-        </div>
-
-        <div id="categoryThingsList"></div>
 
     </div>
 
+
+    <!-- THING DETAIL -->
+    <div id="thingView" style="display:none;">
+
+        <button class="back" onclick="backToCategory()">‹ Back</button>
+
+        <div id="thingDetail"></div>
+
+    </div>
+
+
     <!-- ADD THING -->
+    <div id="addThingView" style="display:none;">
 
-    <div id="addView" class="view">
+        <button class="back" onclick="backToCategory()">‹ Back</button>
 
-        <div class="topbar">
-
-            <button class="back small"
-                    onclick="showCategory(currentCategory)">
-
-                ← Back
-
-            </button>
-
-            <h2 id="addThingTitle">
-                Add Thing
-            </h2>
-
-        </div>
+        <h2 id="addThingTitle">Add Thing</h2>
 
         <label>Name</label>
-
-        <input id="thingName"
-               placeholder="e.g. Mazda MX-5">
+        <input id="thingName" placeholder="e.g. Mazda MX-5">
 
         <label>Category</label>
-
         <select id="thingCategory">
+            <option value="Real Estate">Real Estate</option>
+            <option value="Vehicles">Vehicles</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Other">Other</option>
+        </select>
 
-            <option value="Real Estate">
-                Real Estate
-            </option>
-
-            <option value="Vehicles">
-                Vehicles
-            </option>
-
-            <option value="Electronics">
-                Electronics
-            </option>
-
-            <option value="Other">
-                Other
-            </option>
-
+        <label>Icon</label>
+        <select id="thingIcon">
+            <option value="🏠">🏠 House</option>
+            <option value="🏢">🏢 Apartment</option>
+            <option value="🚗">🚗 Car</option>
+            <option value="🏍️">🏍️ Motorcycle</option>
+            <option value="🚲">🚲 Bicycle</option>
+            <option value="📱">📱 Phone</option>
+            <option value="💻">💻 Computer</option>
+            <option value="📺">📺 TV</option>
+            <option value="🎧">🎧 Headphones</option>
+            <option value="📦">📦 Other</option>
         </select>
 
         <label>Purchase Date</label>
-
-        <input id="thingPurchaseDate"
-               type="date">
+        <input id="thingPurchaseDate" type="date">
 
         <label>Purchase Price</label>
-
         <input id="thingPurchasePrice"
                type="number"
                step="0.01"
-               placeholder="€">
+               placeholder="0.00">
 
         <label>Current Value</label>
-
         <input id="thingCurrentValue"
                type="number"
                step="0.01"
-               placeholder="€">
+               placeholder="0.00">
 
-        <button onclick="addThing()">
-            Save Thing
-        </button>
+        <label>ID / Reference</label>
+        <input id="thingReference"
+               placeholder="Optional">
 
-    </div>
-
-    <!-- DETAIL -->
-
-    <div id="detailView" class="view">
-
-        <div class="topbar">
-
-            <button class="back small"
-                    onclick="showCategory(currentThingCategory)">
-
-                ← Back
-
+        <div class="form-actions">
+            <button class="primary"
+                    onclick="saveThing()">
+                Save Thing
             </button>
-
-            <h2 id="detailTitle"></h2>
-
-        </div>
-
-        <div id="thingDetails"></div>
-
-        <div class="section">
-
-            <div class="section-header">
-
-                <h2>Documents</h2>
-
-                <button class="small"
-                        onclick="showAddDocument()">
-
-                    + Add
-
-                </button>
-
-            </div>
-
-            <div id="documentsList"></div>
-
-        </div>
-
-        <div class="section">
-
-            <div class="section-header">
-
-                <h2>Timeline</h2>
-
-                <button class="small"
-                        onclick="showAddEvent()">
-
-                    + Add
-
-                </button>
-
-            </div>
-
-            <div id="timelineList"></div>
-
-        </div>
-
-        <div class="section">
 
             <button class="secondary"
-                    onclick="editThing()">
-
-                Edit Thing
-
+                    onclick="backToCategory()">
+                Cancel
             </button>
-
-            <br><br>
-
-            <button class="danger"
-                    onclick="deleteThing()">
-
-                Delete Thing
-
-            </button>
-
         </div>
 
     </div>
 
+
     <!-- EDIT THING -->
+    <div id="editThingView" style="display:none;">
 
-    <div id="editView" class="view">
+        <button class="back" onclick="backToThing()">‹ Back</button>
 
-        <div class="topbar">
-
-            <button class="back small"
-                    onclick="showThing(currentThingId)">
-
-                ← Back
-
-            </button>
-
-            <h2>Edit Thing</h2>
-
-        </div>
+        <h2>Edit Thing</h2>
 
         <label>Name</label>
-
         <input id="editThingName">
 
         <label>Category</label>
-
         <select id="editThingCategory">
+            <option value="Real Estate">Real Estate</option>
+            <option value="Vehicles">Vehicles</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Other">Other</option>
+        </select>
 
-            <option value="Real Estate">
-                Real Estate
-            </option>
-
-            <option value="Vehicles">
-                Vehicles
-            </option>
-
-            <option value="Electronics">
-                Electronics
-            </option>
-
-            <option value="Other">
-                Other
-            </option>
-
+        <label>Icon</label>
+        <select id="editThingIcon">
+            <option value="🏠">🏠 House</option>
+            <option value="🏢">🏢 Apartment</option>
+            <option value="🚗">🚗 Car</option>
+            <option value="🏍️">🏍️ Motorcycle</option>
+            <option value="🚲">🚲 Bicycle</option>
+            <option value="📱">📱 Phone</option>
+            <option value="💻">💻 Computer</option>
+            <option value="📺">📺 TV</option>
+            <option value="🎧">🎧 Headphones</option>
+            <option value="📦">📦 Other</option>
         </select>
 
         <label>Purchase Date</label>
-
-        <input id="editThingPurchaseDate"
-               type="date">
+        <input id="editThingPurchaseDate" type="date">
 
         <label>Purchase Price</label>
-
         <input id="editThingPurchasePrice"
                type="number"
                step="0.01">
 
         <label>Current Value</label>
-
         <input id="editThingCurrentValue"
                type="number"
                step="0.01">
 
-        <button onclick="saveEdit()">
-            Save Changes
-        </button>
+        <label>ID / Reference</label>
+        <input id="editThingReference">
 
-    </div>
+        <div class="form-actions">
 
-    <!-- ADD DOCUMENT -->
-
-    <div id="addDocumentView" class="view">
-
-        <div class="topbar">
-
-            <button class="back small"
-                    onclick="showThing(currentThingId)">
-
-                ← Back
-
+            <button class="primary"
+                    onclick="updateThing()">
+                Save Changes
             </button>
 
-            <h2>Add Document</h2>
+            <button class="danger"
+                    onclick="deleteThing()">
+                Delete Thing
+            </button>
 
         </div>
 
-        <label>Name</label>
+    </div>
 
+
+    <!-- ADD DOCUMENT -->
+    <div id="addDocumentView" style="display:none;">
+
+        <button class="back" onclick="backToThing()">‹ Back</button>
+
+        <h2>Add Document</h2>
+
+        <label>Name</label>
         <input id="documentName"
-               placeholder="e.g. Car Insurance 2026">
+               placeholder="e.g. Car Insurance">
 
         <label>Type</label>
-
         <select id="documentType">
-
-            <option value="Invoice">Invoice</option>
-            <option value="Contract">Contract</option>
-            <option value="Insurance">Insurance</option>
-            <option value="Warranty">Warranty</option>
-            <option value="Tax">Tax</option>
-            <option value="Certificate">Certificate</option>
-            <option value="Repair">Repair</option>
-            <option value="Other">Other</option>
-
+            <option>Invoice</option>
+            <option>Contract</option>
+            <option>Insurance</option>
+            <option>Warranty</option>
+            <option>Tax</option>
+            <option>Certificate</option>
+            <option>Repair</option>
+            <option>Other</option>
         </select>
 
         <label>Date</label>
-
-        <input id="documentDate"
-               type="date">
+        <input id="documentDate" type="date">
 
         <label>Date Type</label>
-
         <select id="documentDateType"
-                onchange="updateImportantDateField('')">
-
-            <option value="None">
-                None
-            </option>
-
-            <option value="Due Date">
-                Due Date
-            </option>
-
-            <option value="Expiry Date">
-                Expiry Date
-            </option>
-
+                onchange="updateImportantDateLabel('document')">
+            <option value="None">None</option>
+            <option value="Due Date">Due Date</option>
+            <option value="Expiry Date">Expiry Date</option>
         </select>
 
-        <div id="documentImportantDateGroup"
+        <div id="documentImportantDateWrapper"
              style="display:none;">
 
             <label id="documentImportantDateLabel">
@@ -926,117 +820,78 @@ label {
 
         </div>
 
-        <label>Repeat</label>
-
-        <select id="documentRepeat">
-
-            <option value="Never">
-                Never
-            </option>
-
-            <option value="Yearly">
-                Yearly
-            </option>
-
-            <option value="Monthly">
-                Monthly
-            </option>
-
-        </select>
-
         <label>Amount</label>
-
         <input id="documentAmount"
                type="number"
                step="0.01"
-               placeholder="€">
+               placeholder="0.00">
 
-        <div class="checkbox-row">
+        <label>Repeat</label>
+        <select id="documentRepeat">
+            <option value="Never">Never</option>
+            <option value="Yearly">Yearly</option>
+            <option value="Monthly">Monthly</option>
+        </select>
 
-            <input type="checkbox"
-                   id="addToTimeline"
-                   checked>
+        <label>
+            <input id="documentAddTimeline"
+                   type="checkbox"
+                   checked
+                   style="width:auto;margin:0 6px 0 0;">
+            Add to Timeline
+        </label>
 
-            <label for="addToTimeline">
-                Add to Timeline
-            </label>
+        <div class="form-actions">
+
+            <button class="primary"
+                    onclick="saveDocument()">
+                Save Document
+            </button>
+
+            <button class="secondary"
+                    onclick="backToThing()">
+                Cancel
+            </button>
 
         </div>
-
-        <div class="info-box">
-
-            Date = when the document happened or was issued.
-            You can optionally add a Due Date or Expiry Date separately.
-
-        </div>
-
-        <button onclick="addDocument()">
-            Save Document
-        </button>
 
     </div>
 
+
     <!-- EDIT DOCUMENT -->
+    <div id="editDocumentView" style="display:none;">
 
-    <div id="editDocumentView" class="view">
+        <button class="back" onclick="backToThing()">‹ Back</button>
 
-        <div class="topbar">
-
-            <button class="back small"
-                    onclick="showThing(currentThingId)">
-
-                ← Back
-
-            </button>
-
-            <h2>Edit Document</h2>
-
-        </div>
+        <h2>Edit Document</h2>
 
         <label>Name</label>
-
         <input id="editDocumentName">
 
         <label>Type</label>
-
         <select id="editDocumentType">
-
-            <option value="Invoice">Invoice</option>
-            <option value="Contract">Contract</option>
-            <option value="Insurance">Insurance</option>
-            <option value="Warranty">Warranty</option>
-            <option value="Tax">Tax</option>
-            <option value="Certificate">Certificate</option>
-            <option value="Repair">Repair</option>
-            <option value="Other">Other</option>
-
+            <option>Invoice</option>
+            <option>Contract</option>
+            <option>Insurance</option>
+            <option>Warranty</option>
+            <option>Tax</option>
+            <option>Certificate</option>
+            <option>Repair</option>
+            <option>Other</option>
         </select>
 
         <label>Date</label>
-
-        <input id="editDocumentDate"
-               type="date">
+        <input id="editDocumentDate" type="date">
 
         <label>Date Type</label>
-
         <select id="editDocumentDateType"
-                onchange="updateImportantDateField('edit')">
-
-            <option value="None">
-                None
-            </option>
-
-            <option value="Due Date">
-                Due Date
-            </option>
-
-            <option value="Expiry Date">
-                Expiry Date
-            </option>
-
+                onchange="updateImportantDateLabel('editDocument')">
+            <option value="None">None</option>
+            <option value="Due Date">Due Date</option>
+            <option value="Expiry Date">Expiry Date</option>
         </select>
 
-        <div id="editDocumentImportantDateGroup"
+        <div id="editDocumentImportantDateWrapper"
              style="display:none;">
 
             <label id="editDocumentImportantDateLabel">
@@ -1048,216 +903,179 @@ label {
 
         </div>
 
-        <label>Repeat</label>
-
-        <select id="editDocumentRepeat">
-
-            <option value="Never">
-                Never
-            </option>
-
-            <option value="Yearly">
-                Yearly
-            </option>
-
-            <option value="Monthly">
-                Monthly
-            </option>
-
-        </select>
-
         <label>Amount</label>
-
         <input id="editDocumentAmount"
                type="number"
                step="0.01">
 
-        <div class="info-box"
-             id="documentTimelineInfo">
+        <label>Repeat</label>
+        <select id="editDocumentRepeat">
+            <option value="Never">Never</option>
+            <option value="Yearly">Yearly</option>
+            <option value="Monthly">Monthly</option>
+        </select>
+
+        <div class="form-actions">
+
+            <button class="primary"
+                    onclick="updateDocument()">
+                Save Changes
+            </button>
+
+            <button class="danger"
+                    onclick="deleteDocument()">
+                Delete Document
+            </button>
+
         </div>
-
-        <button onclick="saveDocumentEdit()">
-            Save Changes
-        </button>
-
-        <br><br>
-
-        <button class="danger"
-                onclick="deleteDocument()">
-
-            Delete Document
-
-        </button>
 
     </div>
 
+
     <!-- ADD EVENT -->
+    <div id="addEventView" style="display:none;">
 
-    <div id="addEventView" class="view">
+        <button class="back" onclick="backToThing()">‹ Back</button>
 
-        <div class="topbar">
-
-            <button class="back small"
-                    onclick="showThing(currentThingId)">
-
-                ← Back
-
-            </button>
-
-            <h2>Add Event</h2>
-
-        </div>
-
-        <label>Type</label>
-
-        <select id="eventType">
-
-            <option value="Purchase">Purchase</option>
-            <option value="Repair">Repair</option>
-            <option value="Maintenance">Maintenance</option>
-            <option value="Expense">Expense</option>
-            <option value="Inspection">Inspection</option>
-            <option value="Insurance">Insurance</option>
-            <option value="Other">Other</option>
-
-        </select>
+        <h2>Add Event</h2>
 
         <label>Description</label>
-
         <input id="eventDescription"
-               placeholder="e.g. Annual inspection">
+               placeholder="e.g. 100,000 km service">
+
+        <label>Type</label>
+        <select id="eventType">
+            <option>Purchase</option>
+            <option>Repair</option>
+            <option>Maintenance</option>
+            <option>Expense</option>
+            <option>Inspection</option>
+            <option>Insurance Renewal</option>
+            <option>Other</option>
+        </select>
 
         <label>Date</label>
-
-        <input id="eventDate"
-               type="date">
+        <input id="eventDate" type="date">
 
         <label>Amount</label>
-
         <input id="eventAmount"
                type="number"
                step="0.01"
-               placeholder="€">
+               placeholder="0.00">
 
-        <button onclick="addEvent()">
-            Save Event
-        </button>
+        <div class="form-actions">
 
-    </div>
-
-    <!-- EDIT EVENT -->
-
-    <div id="editEventView" class="view">
-
-        <div class="topbar">
-
-            <button class="back small"
-                    onclick="showThing(currentThingId)">
-
-                ← Back
-
+            <button class="primary"
+                    onclick="saveEvent()">
+                Save Event
             </button>
 
-            <h2>Edit Event</h2>
+            <button class="secondary"
+                    onclick="backToThing()">
+                Cancel
+            </button>
 
         </div>
 
-        <label>Type</label>
+    </div>
 
-        <select id="editEventType">
 
-            <option value="Purchase">Purchase</option>
-            <option value="Repair">Repair</option>
-            <option value="Maintenance">Maintenance</option>
-            <option value="Expense">Expense</option>
-            <option value="Inspection">Inspection</option>
-            <option value="Insurance">Insurance</option>
-            <option value="Other">Other</option>
+    <!-- EDIT EVENT -->
+    <div id="editEventView" style="display:none;">
 
-        </select>
+        <button class="back" onclick="backToThing()">‹ Back</button>
+
+        <h2>Edit Event</h2>
 
         <label>Description</label>
-
         <input id="editEventDescription">
 
-        <label>Date</label>
+        <label>Type</label>
+        <select id="editEventType">
+            <option>Purchase</option>
+            <option>Repair</option>
+            <option>Maintenance</option>
+            <option>Expense</option>
+            <option>Inspection</option>
+            <option>Insurance Renewal</option>
+            <option>Other</option>
+        </select>
 
-        <input id="editEventDate"
-               type="date">
+        <label>Date</label>
+        <input id="editEventDate" type="date">
 
         <label>Amount</label>
-
         <input id="editEventAmount"
                type="number"
                step="0.01">
 
-        <button onclick="saveEventEdit()">
-            Save Changes
-        </button>
+        <div class="form-actions">
 
-        <br><br>
+            <button class="primary"
+                    onclick="updateEvent()">
+                Save Changes
+            </button>
 
-        <button class="danger"
-                onclick="deleteEvent()">
+            <button class="danger"
+                    onclick="deleteEvent()">
+                Delete Event
+            </button>
 
-            Delete Event
-
-        </button>
+        </div>
 
     </div>
 
 </div>
 
+
 <script>
 
 const categoryIcons = {
-
     "Real Estate": "🏠",
     "Vehicles": "🚗",
     "Electronics": "📱",
     "Other": "📦"
-
 };
 
 const documentIcons = {
-
-    Invoice: "🧾",
-    Contract: "📜",
-    Insurance: "🛡️",
-    Warranty: "🔒",
-    Tax: "💶",
-    Certificate: "📜",
-    Repair: "🔧",
-    Other: "📄"
-
+    "Invoice": "🧾",
+    "Contract": "📄",
+    "Insurance": "🛡️",
+    "Warranty": "🔧",
+    "Tax": "💶",
+    "Certificate": "📜",
+    "Repair": "🔧",
+    "Other": "📄"
 };
 
 const eventIcons = {
-
-    Purchase: "🛒",
-    Repair: "🔧",
-    Maintenance: "🛠️",
-    Expense: "💶",
-    Inspection: "🔍",
-    Insurance: "🛡️",
-    Other: "📌"
-
+    "Purchase": "🛒",
+    "Repair": "🔧",
+    "Maintenance": "🛠️",
+    "Expense": "💶",
+    "Inspection": "🔍",
+    "Insurance Renewal": "🛡️",
+    "Other": "📌"
 };
 
-let things =
-    JSON.parse(localStorage.getItem("coisableThings")) || [];
+let things = JSON.parse(
+    localStorage.getItem("coisableThings") || "[]"
+);
 
 let currentThingId = null;
 let currentThingCategory = null;
-let currentCategory = null;
 let currentDocumentId = null;
 let currentEventId = null;
 
-/* -----------------------------
-   STORAGE
------------------------------ */
+let collapsedMonths = {};
 
-function saveThings() {
+
+
+/* =========================
+   STORAGE
+========================= */
+
+function saveData() {
 
     localStorage.setItem(
         "coisableThings",
@@ -1266,79 +1084,153 @@ function saveThings() {
 
 }
 
-/* -----------------------------
-   VIEW MANAGEMENT
------------------------------ */
 
-function showView(id) {
 
-    document.querySelectorAll(".view").forEach(view => {
+/* =========================
+   VIEWS
+========================= */
 
-        view.classList.remove("active");
+function hideAllViews() {
 
+    const views = [
+        "homeView",
+        "categoryView",
+        "thingView",
+        "addThingView",
+        "editThingView",
+        "addDocumentView",
+        "editDocumentView",
+        "addEventView",
+        "editEventView"
+    ];
+
+    views.forEach(id => {
+        document.getElementById(id).style.display = "none";
     });
 
-    document.getElementById(id).classList.add("active");
-
 }
+
 
 function showHome() {
 
-    renderCategoryCounts();
-    renderComingUp();
+    hideAllViews();
 
-    showView("homeView");
+    document.getElementById("homeView").style.display = "block";
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    if (searchInput) {
+        searchInput.value = "";
+    }
+
+    renderHomeCounts();
+    renderComingUp();
+    renderSearchResults();
 
 }
 
-/* -----------------------------
-   HOME / CATEGORIES
------------------------------ */
 
-function renderCategoryCounts() {
+function showCategory(category) {
 
-    const categories = {
+    hideAllViews();
 
-        "Real Estate": "realEstate",
-        "Vehicles": "vehicles",
-        "Electronics": "electronics",
-        "Other": "other"
+    currentThingCategory = category;
 
-    };
+    document.getElementById("categoryView")
+        .style.display = "block";
 
-    Object.keys(categories).forEach(category => {
+    document.getElementById("categoryTitle")
+        .textContent = category;
 
-        const prefix =
-            categories[category];
+    const button =
+        document.getElementById("categoryAddButton");
+
+    if (category === "Real Estate") {
+        button.textContent = "+ Add Property";
+    }
+    else if (category === "Vehicles") {
+        button.textContent = "+ Add Vehicle";
+    }
+    else {
+        button.textContent = "+ Add";
+    }
+
+    renderCategory(category);
+
+}
+
+
+function showThing(id) {
+
+    hideAllViews();
+
+    currentThingId = id;
+
+    document.getElementById("thingView")
+        .style.display = "block";
+
+    renderThingDetail();
+
+}
+
+
+function backToCategory() {
+
+    if (currentThingCategory) {
+        showCategory(currentThingCategory);
+    }
+    else {
+        showHome();
+    }
+
+}
+
+
+function backToThing() {
+
+    if (currentThingId) {
+        showThing(currentThingId);
+    }
+    else {
+        showHome();
+    }
+
+}
+
+
+
+/* =========================
+   HOME
+========================= */
+
+function renderHomeCounts() {
+
+    const categories = [
+        "Real Estate",
+        "Vehicles",
+        "Electronics",
+        "Other"
+    ];
+
+    categories.forEach(category => {
 
         const count =
             things.filter(
-                thing =>
-                    thing.category === category
+                t => t.category === category
             ).length;
 
-        const countElement =
+        const el =
             document.getElementById(
-                prefix + "Count"
+                "count" + category.replace(" ", "")
             );
 
-        const labelElement =
-            document.getElementById(
-                prefix + "Label"
-            );
+        if (el) {
 
-        if (countElement) {
-
-            countElement.textContent = count;
-
-        }
-
-        if (labelElement) {
-
-            labelElement.textContent =
+            el.textContent =
                 count === 1
-                    ? "thing"
-                    : "things";
+                    ? "1 item"
+                    : `${count} items`;
 
         }
 
@@ -1346,96 +1238,686 @@ function renderCategoryCounts() {
 
 }
 
-function showCategory(category) {
 
-    currentCategory = category;
 
-    const categoryTitle =
-        document.getElementById("categoryTitle");
+/* =========================
+   CATEGORY
+========================= */
 
-    const addButton =
-        document.getElementById("categoryAddButton");
-
-    categoryTitle.textContent =
-        category;
-
-    if (category === "Real Estate") {
-
-        addButton.textContent =
-            "+ Add Property";
-
-    } else if (category === "Vehicles") {
-
-        addButton.textContent =
-            "+ Add Vehicle";
-
-    } else {
-
-        addButton.textContent =
-            "+ Add";
-
-    }
-
-    renderCategoryThings(category);
-
-    showView("categoryView");
-
-}
-
-function renderCategoryThings(category) {
+function renderCategory(category) {
 
     const container =
-        document.getElementById(
-            "categoryThingsList"
-        );
+        document.getElementById("categoryThings");
 
-    const categoryThings =
+    const filtered =
         things.filter(
-            thing =>
-                thing.category === category
+            thing => thing.category === category
         );
 
-    if (categoryThings.length === 0) {
+    if (!filtered.length) {
 
         container.innerHTML = `
-
-            <div class="card empty">
-
+            <div class="empty">
                 No things yet.
-
             </div>
-
         `;
 
         return;
-
     }
 
     container.innerHTML =
-        categoryThings.map(thing => {
+        filtered.map(thing => {
 
             const icon =
+                thing.icon ||
                 categoryIcons[thing.category] ||
                 "📦";
 
             return `
+                <div class="card clickable"
+                     onclick="showThing('${thing.id}')">
 
-                <div class="card thing-card"
-                     onclick="openThing(${thing.id})">
+                    <div class="card-row">
 
-                    <div class="icon">
-                        ${icon}
+                        <div class="icon">
+                            ${icon}
+                        </div>
+
+                        <div class="info">
+                            <strong>
+                                ${escapeHtml(thing.name)}
+                            </strong>
+
+                            <span>
+                                ${escapeHtml(thing.category)}
+                            </span>
+                        </div>
+
+                        <div class="chevron">
+                            ›
+                        </div>
+
                     </div>
 
-                    <div class="thing-info">
+                </div>
+            `;
 
-                        <strong>
-                            ${escapeHtml(thing.name)}
-                        </strong>
+        }).join("");
 
-                        <span>
-                            ${escapeHtml(thing.category)}
-                        </span>
+}
+
+
+
+/* =========================
+   ADD THING
+========================= */
+
+function showAddThing() {
+
+    hideAllViews();
+
+    document.getElementById("addThingView")
+        .style.display = "block";
+
+    document.getElementById("addThingTitle")
+        .textContent =
+        currentThingCategory === "Real Estate"
+            ? "Add Property"
+            : currentThingCategory === "Vehicles"
+                ? "Add Vehicle"
+                : "Add Thing";
+
+    document.getElementById("thingName").value = "";
+
+    document.getElementById("thingCategory").value =
+        currentThingCategory || "Other";
+
+    document.getElementById("thingIcon").value =
+        currentThingCategory === "Real Estate"
+            ? "🏠"
+            : currentThingCategory === "Vehicles"
+                ? "🚗"
+                : currentThingCategory === "Electronics"
+                    ? "📱"
+                    : "📦";
+
+    document.getElementById("thingPurchaseDate").value = "";
+    document.getElementById("thingPurchasePrice").value = "";
+    document.getElementById("thingCurrentValue").value = "";
+    document.getElementById("thingReference").value = "";
+
+}
+
+
+function saveThing() {
+
+    const name =
+        document.getElementById("thingName")
+            .value.trim();
+
+    if (!name) {
+        alert("Please enter a name.");
+        return;
+    }
+
+    const thing = {
+
+        id:
+            Date.now().toString(),
+
+        name,
+
+        category:
+            document.getElementById("thingCategory")
+                .value,
+
+        icon:
+            document.getElementById("thingIcon")
+                .value,
+
+        purchaseDate:
+            document.getElementById("thingPurchaseDate")
+                .value,
+
+        purchasePrice:
+            document.getElementById("thingPurchasePrice")
+                .value,
+
+        currentValue:
+            document.getElementById("thingCurrentValue")
+                .value,
+
+        reference:
+            document.getElementById("thingReference")
+                .value.trim(),
+
+        documents: [],
+
+        events: []
+
+    };
+
+    things.push(thing);
+
+    saveData();
+
+    currentThingId = thing.id;
+    currentThingCategory = thing.category;
+
+    showThing(thing.id);
+
+}
+
+
+
+/* =========================
+   THING DETAIL
+========================= */
+
+function renderThingDetail() {
+
+    const thing =
+        things.find(
+            t => t.id === currentThingId
+        );
+
+    if (!thing) {
+        showHome();
+        return;
+    }
+
+    const icon =
+        thing.icon ||
+        categoryIcons[thing.category] ||
+        "📦";
+
+    const container =
+        document.getElementById("thingDetail");
+
+    container.innerHTML = `
+
+        <div class="detail-header">
+
+            <div class="detail-icon">
+                ${icon}
+            </div>
+
+            <div class="detail-title">
+
+                <h2>
+                    ${escapeHtml(thing.name)}
+                </h2>
+
+                <span>
+                    ${escapeHtml(thing.category)}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <button class="small-button"
+                    onclick="showEditThing()">
+                Edit
+            </button>
+
+        </div>
+
+
+        <div class="detail-grid">
+
+            <div class="detail-item">
+                <small>Purchase Date</small>
+                <strong>
+                    ${formatDate(thing.purchaseDate)}
+                </strong>
+            </div>
+
+            <div class="detail-item">
+                <small>Purchase Price</small>
+                <strong>
+                    ${formatAmount(thing.purchasePrice)}
+                </strong>
+            </div>
+
+            <div class="detail-item">
+                <small>Current Value</small>
+                <strong>
+                    ${formatAmount(thing.currentValue)}
+                </strong>
+            </div>
+
+            <div class="detail-item">
+                <small>ID / Reference</small>
+                <strong>
+                    ${escapeHtml(thing.reference || "—")}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div style="
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                margin-bottom:14px;
+            ">
+
+                <h2 style="margin:0;">
+                    Documents
+                </h2>
+
+                <button class="small-button"
+                        onclick="showAddDocument()">
+                    + Add
+                </button>
+
+            </div>
+
+            <div id="documentsList"></div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div style="
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                margin-bottom:14px;
+            ">
+
+                <h2 style="margin:0;">
+                    Timeline
+                </h2>
+
+                <button class="small-button"
+                        onclick="showAddEvent()">
+                    + Add
+                </button>
+
+            </div>
+
+            <div id="timelineList"></div>
+
+        </div>
+
+    `;
+
+    renderDocuments();
+    renderTimeline();
+
+}
+
+
+
+/* =========================
+   EDIT THING
+========================= */
+
+function showEditThing() {
+
+    const thing =
+        things.find(
+            t => t.id === currentThingId
+        );
+
+    if (!thing) return;
+
+    hideAllViews();
+
+    document.getElementById("editThingView")
+        .style.display = "block";
+
+    document.getElementById("editThingName").value =
+        thing.name || "";
+
+    document.getElementById("editThingCategory").value =
+        thing.category || "Other";
+
+    document.getElementById("editThingIcon").value =
+        thing.icon || "📦";
+
+    document.getElementById("editThingPurchaseDate").value =
+        thing.purchaseDate || "";
+
+    document.getElementById("editThingPurchasePrice").value =
+        thing.purchasePrice || "";
+
+    document.getElementById("editThingCurrentValue").value =
+        thing.currentValue || "";
+
+    document.getElementById("editThingReference").value =
+        thing.reference || "";
+
+}
+
+
+function updateThing() {
+
+    const thing =
+        things.find(
+            t => t.id === currentThingId
+        );
+
+    if (!thing) return;
+
+    const name =
+        document.getElementById("editThingName")
+            .value.trim();
+
+    if (!name) {
+        alert("Please enter a name.");
+        return;
+    }
+
+    thing.name = name;
+
+    thing.category =
+        document.getElementById("editThingCategory")
+            .value;
+
+    thing.icon =
+        document.getElementById("editThingIcon")
+            .value;
+
+    thing.purchaseDate =
+        document.getElementById("editThingPurchaseDate")
+            .value;
+
+    thing.purchasePrice =
+        document.getElementById("editThingPurchasePrice")
+            .value;
+
+    thing.currentValue =
+        document.getElementById("editThingCurrentValue")
+            .value;
+
+    thing.reference =
+        document.getElementById("editThingReference")
+            .value.trim();
+
+    currentThingCategory = thing.category;
+
+    saveData();
+
+    showThing(currentThingId);
+
+}
+
+
+function deleteThing() {
+
+    const thing =
+        things.find(
+            t => t.id === currentThingId
+        );
+
+    if (!thing) return;
+
+    const confirmed =
+        confirm(
+            `Delete "${thing.name}" and all its documents and events?`
+        );
+
+    if (!confirmed) return;
+
+    things =
+        things.filter(
+            t => t.id !== currentThingId
+        );
+
+    saveData();
+
+    currentThingId = null;
+
+    showHome();
+
+}
+
+
+
+/* =========================
+   DOCUMENTS
+========================= */
+
+function showAddDocument() {
+
+    hideAllViews();
+
+    document.getElementById("addDocumentView")
+        .style.display = "block";
+
+    document.getElementById("documentName").value = "";
+    document.getElementById("documentType").value = "Invoice";
+    document.getElementById("documentDate").value = today();
+    document.getElementById("documentDateType").value = "None";
+    document.getElementById("documentImportantDate").value = "";
+    document.getElementById("documentAmount").value = "";
+    document.getElementById("documentRepeat").value = "Never";
+    document.getElementById("documentAddTimeline").checked = true;
+
+    updateImportantDateLabel("document");
+
+}
+
+
+function saveDocument() {
+
+    const thing =
+        things.find(
+            t => t.id === currentThingId
+        );
+
+    if (!thing) return;
+
+    const name =
+        document.getElementById("documentName")
+            .value.trim();
+
+    if (!name) {
+        alert("Please enter a document name.");
+        return;
+    }
+
+    const dateType =
+        document.getElementById("documentDateType")
+            .value;
+
+    const importantDate =
+        document.getElementById("documentImportantDate")
+            .value;
+
+    const documentItem = {
+
+        id:
+            Date.now().toString(),
+
+        name,
+
+        type:
+            document.getElementById("documentType")
+                .value,
+
+        date:
+            document.getElementById("documentDate")
+                .value,
+
+        dateType,
+
+        importantDate:
+            dateType === "None"
+                ? ""
+                : importantDate,
+
+        expiryDate:
+            dateType === "Expiry Date"
+                ? importantDate
+                : "",
+
+        amount:
+            document.getElementById("documentAmount")
+                .value,
+
+        repeat:
+            document.getElementById("documentRepeat")
+                .value,
+
+        notificationAcknowledged: false,
+
+        timelineEventId: null
+
+    };
+
+    thing.documents =
+        thing.documents || [];
+
+    thing.events =
+        thing.events || [];
+
+    const addTimeline =
+        document.getElementById("documentAddTimeline")
+            .checked;
+
+    if (addTimeline) {
+
+        const eventId =
+            Date.now().toString() + "-event";
+
+        const timelineEvent = {
+
+            id: eventId,
+
+            description: name,
+
+            type:
+                documentItem.type,
+
+            date:
+                documentItem.date,
+
+            amount:
+                documentItem.amount,
+
+            documentId:
+                documentItem.id
+
+        };
+
+        thing.events.push(timelineEvent);
+
+        documentItem.timelineEventId =
+            eventId;
+
+    }
+
+    thing.documents.push(documentItem);
+
+    saveData();
+
+    showThing(currentThingId);
+
+}
+
+
+function renderDocuments() {
+
+    const thing =
+        things.find(
+            t => t.id === currentThingId
+        );
+
+    if (!thing) return;
+
+    const container =
+        document.getElementById("documentsList");
+
+    const docs =
+        thing.documents || [];
+
+    if (!docs.length) {
+
+        container.innerHTML = `
+            <div class="empty">
+                No documents yet.
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML =
+        docs.map(doc => {
+
+            const icon =
+                documentIcons[doc.type] || "📄";
+
+            let dateInfo = "";
+
+            if (doc.dateType &&
+                doc.dateType !== "None" &&
+                doc.importantDate) {
+
+                dateInfo = `
+                    <div class="date-badge">
+                        ${escapeHtml(doc.dateType)}:
+                        ${formatDate(doc.importantDate)}
+                    </div>
+                `;
+
+            }
+
+            const repeatInfo =
+                doc.repeat &&
+                doc.repeat !== "Never"
+                    ? ` · ${escapeHtml(doc.repeat)}`
+                    : "";
+
+            return `
+
+                <div class="card clickable"
+                     onclick="editDocument('${doc.id}')">
+
+                    <div class="card-row">
+
+                        <div class="icon">
+                            ${icon}
+                        </div>
+
+                        <div class="info">
+
+                            <strong>
+                                ${escapeHtml(doc.name)}
+                            </strong>
+
+                            <span>
+                                ${escapeHtml(doc.type)}
+                                · ${formatDate(doc.date)}
+                                ${repeatInfo}
+                            </span>
+
+                            ${
+                                doc.amount
+                                    ? `<div class="document-amount">
+                                         ${formatAmount(doc.amount)}
+                                       </div>`
+                                    : ""
+                            }
+
+                            ${dateInfo}
+
+                        </div>
+
+                        <div class="chevron">
+                            ›
+                        </div>
 
                     </div>
 
@@ -1447,1122 +1929,171 @@ function renderCategoryThings(category) {
 
 }
 
-/* -----------------------------
-   ADD THING
------------------------------ */
-
-function showAddForm(category = currentCategory) {
-
-    currentCategory =
-        category || "Other";
-
-    document.getElementById(
-        "thingName"
-    ).value = "";
-
-    document.getElementById(
-        "thingCategory"
-    ).value = currentCategory;
-
-    document.getElementById(
-        "thingPurchaseDate"
-    ).value = "";
-
-    document.getElementById(
-        "thingPurchasePrice"
-    ).value = "";
-
-    document.getElementById(
-        "thingCurrentValue"
-    ).value = "";
-
-    const title =
-        document.getElementById(
-            "addThingTitle"
-        );
-
-    const categorySelect =
-        document.getElementById(
-            "thingCategory"
-        );
-
-    title.textContent =
-        getAddTitle(currentCategory);
-
-    categorySelect.style.display =
-        "none";
-
-    categorySelect.previousElementSibling.style.display =
-        "none";
-
-    showView("addView");
-
-}
-
-function getAddTitle(category) {
-
-    if (category === "Real Estate") {
-
-        return "Add Property";
-
-    }
-
-    if (category === "Vehicles") {
-
-        return "Add Vehicle";
-
-    }
-
-    return "Add";
-
-}
-
-function addThing() {
-
-    const name =
-        document.getElementById(
-            "thingName"
-        ).value.trim();
-
-    if (!name) {
-
-        alert("Please enter a name.");
-
-        return;
-
-    }
-
-    const thing = {
-
-        id: Date.now(),
-
-        name: name,
-
-        category:
-            currentCategory || "Other",
-
-        purchaseDate:
-            document.getElementById(
-                "thingPurchaseDate"
-            ).value,
-
-        purchasePrice:
-            document.getElementById(
-                "thingPurchasePrice"
-            ).value,
-
-        currentValue:
-            document.getElementById(
-                "thingCurrentValue"
-            ).value,
-
-        documents: [],
-
-        events: []
-
-    };
-
-    things.push(thing);
-
-    saveThings();
-
-    showCategory(currentCategory);
-
-}
-
-/* -----------------------------
-   THINGS
------------------------------ */
-
-function openThing(id) {
-
-    currentThingId = id;
-
-    showThing(id);
-
-}
-
-function showThing(id) {
-
-    currentThingId = id;
-
-    const thing =
-        things.find(
-            item =>
-                item.id === id
-        );
-
-    if (!thing) {
-
-        showHome();
-
-        return;
-
-    }
-
-    currentThingCategory =
-        thing.category;
-
-    if (!Array.isArray(thing.documents)) {
-
-        thing.documents = [];
-
-    }
-
-    if (!Array.isArray(thing.events)) {
-
-        thing.events = [];
-
-    }
-
-    document.getElementById(
-        "detailTitle"
-    ).textContent =
-        thing.name;
-
-    const icon =
-        categoryIcons[
-            thing.category
-        ] || "📦";
-
-    document.getElementById(
-        "thingDetails"
-    ).innerHTML = `
-
-        <div class="card">
-
-            <div style="
-                display:flex;
-                gap:14px;
-                align-items:center;
-            ">
-
-                <div class="icon">
-                    ${icon}
-                </div>
-
-                <div>
-
-                    <strong style="font-size:18px;">
-                        ${escapeHtml(thing.name)}
-                    </strong>
-
-                    <div style="
-                        color:#777;
-                        margin-top:4px;
-                    ">
-
-                        ${escapeHtml(thing.category)}
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="section">
-
-                <div class="detail-value">
-
-                    <div class="detail-label">
-                        Purchase Date
-                    </div>
-
-                    <strong>
-                        ${formatDate(
-                            thing.purchaseDate
-                        )}
-                    </strong>
-
-                </div>
-
-                <div class="detail-value">
-
-                    <div class="detail-label">
-                        Purchase Price
-                    </div>
-
-                    <strong>
-                        ${formatMoney(
-                            thing.purchasePrice
-                        )}
-                    </strong>
-
-                </div>
-
-                <div class="detail-value">
-
-                    <div class="detail-label">
-                        Current Value
-                    </div>
-
-                    <strong>
-                        ${formatMoney(
-                            thing.currentValue
-                        )}
-                    </strong>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
-
-    renderDocuments(thing);
-    renderTimeline(thing);
-
-    showView("detailView");
-
-}
-
-/* -----------------------------
-   EDIT THING
------------------------------ */
-
-function editThing() {
-
-    const thing =
-        things.find(
-            item =>
-                item.id === currentThingId
-        );
-
-    if (!thing) return;
-
-    document.getElementById(
-        "editThingName"
-    ).value =
-        thing.name || "";
-
-    document.getElementById(
-        "editThingCategory"
-    ).value =
-        thing.category || "Other";
-
-    document.getElementById(
-        "editThingPurchaseDate"
-    ).value =
-        thing.purchaseDate || "";
-
-    document.getElementById(
-        "editThingPurchasePrice"
-    ).value =
-        thing.purchasePrice || "";
-
-    document.getElementById(
-        "editThingCurrentValue"
-    ).value =
-        thing.currentValue || "";
-
-    showView("editView");
-
-}
-
-function saveEdit() {
-
-    const thing =
-        things.find(
-            item =>
-                item.id === currentThingId
-        );
-
-    if (!thing) return;
-
-    const name =
-        document.getElementById(
-            "editThingName"
-        ).value.trim();
-
-    if (!name) {
-
-        alert("Please enter a name.");
-
-        return;
-
-    }
-
-    thing.name = name;
-
-    thing.category =
-        document.getElementById(
-            "editThingCategory"
-        ).value;
-
-    thing.purchaseDate =
-        document.getElementById(
-            "editThingPurchaseDate"
-        ).value;
-
-    thing.purchasePrice =
-        document.getElementById(
-            "editThingPurchasePrice"
-        ).value;
-
-    thing.currentValue =
-        document.getElementById(
-            "editThingCurrentValue"
-        ).value;
-
-    currentThingCategory =
-        thing.category;
-
-    saveThings();
-
-    showThing(currentThingId);
-
-}
-
-function deleteThing() {
-
-    const thing =
-        things.find(
-            item =>
-                item.id === currentThingId
-        );
-
-    if (!thing) return;
-
-    const confirmed =
-        confirm(
-            `Delete "${thing.name}" and all its documents and timeline events?`
-        );
-
-    if (!confirmed) return;
-
-    things =
-        things.filter(
-            item =>
-                item.id !== currentThingId
-        );
-
-    saveThings();
-
-    currentThingId = null;
-    currentThingCategory = null;
-
-    showHome();
-
-}
-
-/* -----------------------------
-   IMPORTANT DATE
------------------------------ */
-
-function updateImportantDateField(prefix) {
-
-    const typeId =
-        prefix
-            ? "editDocumentDateType"
-            : "documentDateType";
-
-    const groupId =
-        prefix
-            ? "editDocumentImportantDateGroup"
-            : "documentImportantDateGroup";
-
-    const labelId =
-        prefix
-            ? "editDocumentImportantDateLabel"
-            : "documentImportantDateLabel";
-
-    const dateId =
-        prefix
-            ? "editDocumentImportantDate"
-            : "documentImportantDate";
-
-    const type =
-        document.getElementById(
-            typeId
-        ).value;
-
-    const group =
-        document.getElementById(
-            groupId
-        );
-
-    const label =
-        document.getElementById(
-            labelId
-        );
-
-    const date =
-        document.getElementById(
-            dateId
-        );
-
-    if (type === "None") {
-
-        group.style.display =
-            "none";
-
-        date.value = "";
-
-        return;
-
-    }
-
-    group.style.display =
-        "block";
-
-    label.textContent =
-        type;
-
-}
-
-/* -----------------------------
-   DOCUMENTS
------------------------------ */
-
-function showAddDocument() {
-
-    document.getElementById(
-        "documentName"
-    ).value = "";
-
-    document.getElementById(
-        "documentType"
-    ).value = "Invoice";
-
-    document.getElementById(
-        "documentDate"
-    ).value = "";
-
-    document.getElementById(
-        "documentDateType"
-    ).value = "None";
-
-    document.getElementById(
-        "documentImportantDate"
-    ).value = "";
-
-    document.getElementById(
-        "documentRepeat"
-    ).value = "Never";
-
-    document.getElementById(
-        "documentAmount"
-    ).value = "";
-
-    document.getElementById(
-        "addToTimeline"
-    ).checked = true;
-
-    updateImportantDateField("");
-
-    showView("addDocumentView");
-
-}
-
-function addDocument() {
-
-    const thing =
-        things.find(
-            item =>
-                item.id === currentThingId
-        );
-
-    if (!thing) return;
-
-    if (!Array.isArray(thing.documents)) {
-
-        thing.documents = [];
-
-    }
-
-    if (!Array.isArray(thing.events)) {
-
-        thing.events = [];
-
-    }
-
-    const name =
-        document.getElementById(
-            "documentName"
-        ).value.trim();
-
-    if (!name) {
-
-        alert("Please enter a document name.");
-
-        return;
-
-    }
-
-    const dateType =
-        document.getElementById(
-            "documentDateType"
-        ).value;
-
-    const importantDate =
-        dateType === "None"
-            ? ""
-            : document.getElementById(
-                "documentImportantDate"
-              ).value;
-
-    const documentItem = {
-
-        id: Date.now(),
-
-        name: name,
-
-        type:
-            document.getElementById(
-                "documentType"
-            ).value,
-
-        date:
-            document.getElementById(
-                "documentDate"
-            ).value,
-
-        dateType:
-            dateType,
-
-        importantDate:
-            importantDate,
-
-        expiryDate:
-            dateType === "Expiry Date"
-                ? importantDate
-                : "",
-
-        repeat:
-            dateType === "None"
-                ? "Never"
-                : document.getElementById(
-                    "documentRepeat"
-                  ).value,
-
-        amount:
-            document.getElementById(
-                "documentAmount"
-            ).value,
-
-        timelineEventId: null,
-
-        notificationAcknowledged: false
-
-    };
-
-    const addToTimeline =
-        document.getElementById(
-            "addToTimeline"
-        ).checked;
-
-    if (addToTimeline) {
-
-        const event = {
-
-            id: Date.now() + 1,
-
-            type:
-                mapDocumentToEvent(
-                    documentItem.type
-                ),
-
-            description:
-                documentItem.name,
-
-            date:
-                documentItem.date ||
-                today(),
-
-            amount:
-                documentItem.amount ||
-                "",
-
-            documentId:
-                documentItem.id
-
-        };
-
-        thing.events.push(event);
-
-        documentItem.timelineEventId =
-            event.id;
-
-    }
-
-    thing.documents.push(
-        documentItem
-    );
-
-    saveThings();
-
-    showThing(currentThingId);
-
-}
-
-function renderDocuments(thing) {
-
-    const container =
-        document.getElementById(
-            "documentsList"
-        );
-
-    if (
-        !thing.documents ||
-        thing.documents.length === 0
-    ) {
-
-        container.innerHTML = `
-
-            <div class="card empty">
-
-                No documents yet.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-    const sortedDocuments =
-        [...thing.documents].sort(
-            (a, b) => {
-
-                const dateA =
-                    a.date || "";
-
-                const dateB =
-                    b.date || "";
-
-                return dateB.localeCompare(
-                    dateA
-                );
-
-            }
-        );
-
-    container.innerHTML =
-        sortedDocuments.map(
-            documentItem => {
-
-                const icon =
-                    documentIcons[
-                        documentItem.type
-                    ] || "📄";
-
-                let dateType =
-                    documentItem.dateType;
-
-                let importantDate =
-                    documentItem.importantDate;
-
-                if (!dateType) {
-
-                    if (
-                        documentItem.expiryDate
-                    ) {
-
-                        dateType =
-                            "Expiry Date";
-
-                        importantDate =
-                            documentItem.expiryDate;
-
-                    } else {
-
-                        dateType =
-                            "None";
-
-                    }
-
-                }
-
-                const repeat =
-                    documentItem.repeat ||
-                    "Never";
-
-                return `
-
-                    <div class="card document-card">
-
-                        <div class="document-icon">
-                            ${icon}
-                        </div>
-
-                        <div class="document-info">
-
-                            <strong>
-                                ${escapeHtml(
-                                    documentItem.name
-                                )}
-                            </strong>
-
-                            <span>
-                                ${escapeHtml(
-                                    documentItem.type
-                                )}
-                                ·
-                                ${formatDate(
-                                    documentItem.date
-                                )}
-                            </span>
-
-                            ${
-                                importantDate &&
-                                dateType !== "None"
-                                ? `
-
-                                    <span>
-                                        ${escapeHtml(
-                                            dateType
-                                        )}
-                                        :
-                                        ${formatDate(
-                                            importantDate
-                                        )}
-                                    </span>
-
-                                `
-                                : ""
-                            }
-
-                            ${
-                                repeat !== "Never" &&
-                                importantDate &&
-                                dateType !== "None"
-                                ? `
-
-                                    <span>
-                                        Repeat: ${escapeHtml(
-                                            repeat
-                                        )}
-                                    </span>
-
-                                `
-                                : ""
-                            }
-
-                            ${
-                                documentItem.amount
-                                ? `
-
-                                    <span>
-                                        ${formatMoney(
-                                            documentItem.amount
-                                        )}
-                                    </span>
-
-                                `
-                                : ""
-                            }
-
-                        </div>
-
-                        <div class="document-actions">
-
-                            <button
-                                class="secondary small"
-                                onclick="editDocument(${documentItem.id})">
-
-                                Edit
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-
-        ).join("");
-
-}
 
 function editDocument(id) {
 
-    currentDocumentId = id;
-
     const thing =
         things.find(
-            item =>
-                item.id === currentThingId
+            t => t.id === currentThingId
         );
 
     if (!thing) return;
 
     const documentItem =
-        thing.documents.find(
-            item =>
-                item.id === id
-        );
+        (thing.documents || [])
+            .find(d => d.id === id);
 
     if (!documentItem) return;
 
-    let dateType =
-        documentItem.dateType;
+    currentDocumentId = id;
 
-    let importantDate =
-        documentItem.importantDate;
+    hideAllViews();
 
-    if (!dateType) {
+    document.getElementById("editDocumentView")
+        .style.display = "block";
 
-        if (
-            documentItem.expiryDate
-        ) {
-
-            dateType =
-                "Expiry Date";
-
-            importantDate =
-                documentItem.expiryDate;
-
-        } else {
-
-            dateType =
-                "None";
-
-            importantDate =
-                "";
-
-        }
-
-    }
-
-    document.getElementById(
-        "editDocumentName"
-    ).value =
+    document.getElementById("editDocumentName").value =
         documentItem.name || "";
 
-    document.getElementById(
-        "editDocumentType"
-    ).value =
+    document.getElementById("editDocumentType").value =
         documentItem.type || "Other";
 
-    document.getElementById(
-        "editDocumentDate"
-    ).value =
+    document.getElementById("editDocumentDate").value =
         documentItem.date || "";
 
-    document.getElementById(
-        "editDocumentDateType"
-    ).value =
-        dateType;
+    document.getElementById("editDocumentDateType").value =
+        documentItem.dateType || "None";
 
-    document.getElementById(
-        "editDocumentImportantDate"
-    ).value =
-        importantDate || "";
+    document.getElementById("editDocumentImportantDate").value =
+        documentItem.importantDate || "";
 
-    document.getElementById(
-        "editDocumentRepeat"
-    ).value =
-        documentItem.repeat || "Never";
-
-    document.getElementById(
-        "editDocumentAmount"
-    ).value =
+    document.getElementById("editDocumentAmount").value =
         documentItem.amount || "";
 
-    updateImportantDateField("edit");
+    document.getElementById("editDocumentRepeat").value =
+        documentItem.repeat || "Never";
 
-    const timelineInfo =
-        document.getElementById(
-            "documentTimelineInfo"
-        );
-
-    if (documentItem.timelineEventId) {
-
-        timelineInfo.innerHTML =
-            "🔗 This document is linked to a Timeline event. " +
-            "Changes to the document will update that event automatically.";
-
-    } else {
-
-        timelineInfo.innerHTML =
-            "This document is not currently linked to a Timeline event.";
-
-    }
-
-    showView("editDocumentView");
+    updateImportantDateLabel("editDocument");
 
 }
 
-function saveDocumentEdit() {
+
+function updateDocument() {
 
     const thing =
         things.find(
-            item =>
-                item.id === currentThingId
+            t => t.id === currentThingId
         );
 
     if (!thing) return;
 
     const documentItem =
-        thing.documents.find(
-            item =>
-                item.id === currentDocumentId
-        );
+        (thing.documents || [])
+            .find(
+                d => d.id === currentDocumentId
+            );
 
     if (!documentItem) return;
 
-    let previousDateType =
-        documentItem.dateType;
+    const oldDateType =
+        documentItem.dateType || "None";
 
-    let previousImportantDate =
-        documentItem.importantDate;
+    const oldImportantDate =
+        documentItem.importantDate || "";
 
-    if (!previousDateType) {
+    const newDateType =
+        document.getElementById("editDocumentDateType")
+            .value;
 
-        if (documentItem.expiryDate) {
-
-            previousDateType =
-                "Expiry Date";
-
-            previousImportantDate =
-                documentItem.expiryDate;
-
-        } else {
-
-            previousDateType =
-                "None";
-
-            previousImportantDate =
-                "";
-
-        }
-
-    }
-
-    const name =
-        document.getElementById(
-            "editDocumentName"
-        ).value.trim();
-
-    if (!name) {
-
-        alert("Please enter a document name.");
-
-        return;
-
-    }
-
-    const dateType =
-        document.getElementById(
-            "editDocumentDateType"
-        ).value;
-
-    const importantDate =
-        dateType === "None"
-            ? ""
-            : document.getElementById(
-                "editDocumentImportantDate"
-              ).value;
+    const newImportantDate =
+        document.getElementById("editDocumentImportantDate")
+            .value;
 
     documentItem.name =
-        name;
+        document.getElementById("editDocumentName")
+            .value.trim();
 
     documentItem.type =
-        document.getElementById(
-            "editDocumentType"
-        ).value;
+        document.getElementById("editDocumentType")
+            .value;
 
     documentItem.date =
-        document.getElementById(
-            "editDocumentDate"
-        ).value;
+        document.getElementById("editDocumentDate")
+            .value;
 
     documentItem.dateType =
-        dateType;
+        newDateType;
 
     documentItem.importantDate =
-        importantDate;
+        newDateType === "None"
+            ? ""
+            : newImportantDate;
 
     documentItem.expiryDate =
-        dateType === "Expiry Date"
-            ? importantDate
+        newDateType === "Expiry Date"
+            ? newImportantDate
             : "";
 
-    documentItem.repeat =
-        dateType === "None"
-            ? "Never"
-            : document.getElementById(
-                "editDocumentRepeat"
-              ).value;
-
     documentItem.amount =
-        document.getElementById(
-            "editDocumentAmount"
-        ).value;
+        document.getElementById("editDocumentAmount")
+            .value;
 
-    /*
-       If the important date changes,
-       the notification becomes active again.
-    */
+    documentItem.repeat =
+        document.getElementById("editDocumentRepeat")
+            .value;
 
     if (
-        previousDateType !== dateType ||
-        previousImportantDate !== importantDate
+        oldDateType !== newDateType ||
+        oldImportantDate !== newImportantDate
     ) {
-
-        documentItem.notificationAcknowledged =
-            false;
-
+        documentItem.notificationAcknowledged = false;
     }
 
-    if (
-        documentItem.timelineEventId
-    ) {
-
-        const event =
-            thing.events.find(
-                item =>
-                    item.id ===
-                    documentItem.timelineEventId
+    const linkedEvent =
+        (thing.events || [])
+            .find(
+                e =>
+                    e.documentId === documentItem.id ||
+                    e.id === documentItem.timelineEventId
             );
 
-        if (event) {
+    if (linkedEvent) {
 
-            event.type =
-                mapDocumentToEvent(
-                    documentItem.type
-                );
+        linkedEvent.description =
+            documentItem.name;
 
-            event.description =
-                documentItem.name;
+        linkedEvent.type =
+            documentItem.type;
 
-            event.date =
-                documentItem.date ||
-                today();
+        linkedEvent.date =
+            documentItem.date;
 
-            event.amount =
-                documentItem.amount ||
-                "";
-
-        }
+        linkedEvent.amount =
+            documentItem.amount;
 
     }
 
-    saveThings();
+    saveData();
 
     showThing(currentThingId);
 
 }
+
 
 function deleteDocument() {
 
     const thing =
         things.find(
-            item =>
-                item.id === currentThingId
+            t => t.id === currentThingId
         );
 
     if (!thing) return;
 
     const documentItem =
-        thing.documents.find(
-            item =>
-                item.id === currentDocumentId
-        );
+        (thing.documents || [])
+            .find(
+                d => d.id === currentDocumentId
+            );
 
     if (!documentItem) return;
 
@@ -2573,840 +2104,573 @@ function deleteDocument() {
 
     if (!confirmed) return;
 
+    thing.documents =
+        (thing.documents || [])
+            .filter(
+                d => d.id !== currentDocumentId
+            );
+
     if (documentItem.timelineEventId) {
 
         thing.events =
-            thing.events.filter(
-                event =>
-                    event.id !==
-                    documentItem.timelineEventId
-            );
+            (thing.events || [])
+                .filter(
+                    e =>
+                        e.id !==
+                        documentItem.timelineEventId
+                );
 
     }
 
-    thing.documents =
-        thing.documents.filter(
-            item =>
-                item.id !== currentDocumentId
-        );
-
-    saveThings();
-
-    currentDocumentId = null;
+    saveData();
 
     showThing(currentThingId);
 
 }
 
-/* -----------------------------
-   TIMELINE
------------------------------ */
 
-function renderTimeline(thing) {
 
-    const container =
+/* =========================
+   IMPORTANT DATE
+========================= */
+
+function updateImportantDateLabel(prefix) {
+
+    const select =
         document.getElementById(
-            "timelineList"
+            prefix + "DateType"
         );
 
-    if (
-        !thing.events ||
-        thing.events.length === 0
-    ) {
+    const wrapper =
+        document.getElementById(
+            prefix + "ImportantDateWrapper"
+        );
+
+    const label =
+        document.getElementById(
+            prefix + "ImportantDateLabel"
+        );
+
+    const value =
+        select.value;
+
+    if (value === "None") {
+
+        wrapper.style.display = "none";
+
+        return;
+    }
+
+    wrapper.style.display = "block";
+
+    label.textContent =
+        value;
+
+}
+
+
+
+/* =========================
+   TIMELINE
+========================= */
+
+function renderTimeline() {
+
+    const thing =
+        things.find(
+            t => t.id === currentThingId
+        );
+
+    if (!thing) return;
+
+    const container =
+        document.getElementById("timelineList");
+
+    const events =
+        thing.events || [];
+
+    if (!events.length) {
 
         container.innerHTML = `
-
-            <div class="card empty">
-
-                No timeline events yet.
-
+            <div class="empty">
+                No events yet.
             </div>
-
         `;
 
         return;
-
     }
+
+    const sorted =
+        [...events].sort(
+            (a,b) =>
+                new Date(b.date) -
+                new Date(a.date)
+        );
 
     const grouped = {};
 
-    thing.events.forEach(event => {
+    sorted.forEach(event => {
 
         const date =
-            event.date ||
-            today();
+            new Date(event.date);
 
         const key =
-            date.substring(0, 7);
+            date.toLocaleDateString(
+                "en-US",
+                {
+                    year: "numeric",
+                    month: "long"
+                }
+            );
 
         if (!grouped[key]) {
-
             grouped[key] = [];
-
         }
 
         grouped[key].push(event);
 
     });
 
-    const months =
-        Object.keys(grouped).sort(
-            (a, b) =>
-                b.localeCompare(a)
-        );
-
     container.innerHTML =
-        months.map(
-            monthKey => {
+        Object.keys(grouped)
+            .map(month => {
 
-                const events =
-                    grouped[monthKey].sort(
-                        (a, b) =>
-                            (b.date || "")
-                            .localeCompare(
-                                a.date || ""
-                            )
-                    );
-
-                const [year, month] =
-                    monthKey.split("-");
-
-                const monthDate =
-                    new Date(
-                        Number(year),
-                        Number(month) - 1,
-                        1
-                    );
-
-                const monthName =
-                    monthDate.toLocaleDateString(
-                        "en-GB",
-                        {
-                            month: "long",
-                            year: "numeric"
-                        }
-                    );
-
-                const sectionId =
-                    `timeline-${monthKey.replace(
-                        "-",
-                        ""
-                    )}`;
+                const collapsed =
+                    collapsedMonths[month] === true;
 
                 return `
 
-                    <div class="card">
+                    <div class="timeline-month">
 
-                        <div class="timeline-month"
-                             onclick="toggleTimelineMonth('${sectionId}')">
+                        <div class="timeline-month-header"
+                             onclick="toggleTimelineMonth('${month}')">
 
-                            <div class="timeline-month-left">
+                            <span>
+                                ${month}
+                            </span>
 
-                                <div class="month-icon">
-                                    🗓️
-                                </div>
+                            <span class="timeline-month-arrow">
+                                ${collapsed ? "›" : "⌄"}
+                            </span>
 
-                                <div>
+                        </div>
 
-                                    <strong style="font-size:17px;">
-                                        ${monthName}
-                                    </strong>
-
-                                    <div style="
-                                        color:#777;
-                                        font-size:13px;
-                                        margin-top:3px;
-                                    ">
-
-                                        ${events.length}
+                        ${
+                            collapsed
+                                ? ""
+                                : `
+                                    <div class="timeline-events">
 
                                         ${
-                                            events.length === 1
-                                            ? "event"
-                                            : "events"
+                                            grouped[month]
+                                                .map(event =>
+                                                    renderTimelineEvent(event)
+                                                )
+                                                .join("")
                                         }
 
                                     </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="chevron"
-                                 id="${sectionId}-arrow">
-
-                                ›
-
-                            </div>
-
-                        </div>
-
-                        <div class="timeline-events"
-                             id="${sectionId}"
-                             style="display:none;">
-
-                            ${
-                                events.map(
-                                    event => {
-
-                                        const icon =
-                                            eventIcons[
-                                                event.type
-                                            ] || "📌";
-
-                                        const amount =
-                                            event.amount
-                                                ? formatMoney(
-                                                    event.amount
-                                                  )
-                                                : "";
-
-                                        return `
-
-                                            <div class="timeline-event"
-                                                 onclick="openTimelineEvent(${event.id})">
-
-                                                <div class="timeline-event-date">
-
-                                                    ${formatDay(
-                                                        event.date
-                                                    )}
-
-                                                </div>
-
-                                                <div class="event-icon">
-
-                                                    ${icon}
-
-                                                </div>
-
-                                                <div class="timeline-event-info">
-
-                                                    <strong>
-                                                        ${escapeHtml(
-                                                            event.description
-                                                        )}
-                                                    </strong>
-
-                                                </div>
-
-                                                ${
-                                                    amount
-                                                    ? `
-
-                                                        <div class="timeline-event-amount">
-
-                                                            ${amount}
-
-                                                        </div>
-
-                                                    `
-                                                    : ""
-                                                }
-
-                                                <div class="timeline-event-chevron">
-
-                                                    ›
-
-                                                </div>
-
-                                            </div>
-
-                                        `;
-
-                                    }
-
-                                ).join("")
-                            }
-
-                        </div>
+                                  `
+                        }
 
                     </div>
 
                 `;
 
-            }
-
-        ).join("");
+            }).join("");
 
 }
 
-function toggleTimelineMonth(id) {
 
-    const section =
-        document.getElementById(id);
+function renderTimelineEvent(event) {
 
-    const arrow =
-        document.getElementById(
-            id + "-arrow"
-        );
+    const date =
+        new Date(event.date);
 
-    if (!section) return;
+    const day =
+        String(date.getDate())
+            .padStart(2, "0");
 
-    if (
-        section.style.display ===
-        "none"
-    ) {
+    const icon =
+        eventIcons[event.type] || "📌";
 
-        section.style.display =
-            "block";
+    const amount =
+        event.amount
+            ? `: ${formatAmount(event.amount)}`
+            : "";
 
-        if (arrow) {
+    return `
 
-            arrow.textContent = "⌄";
+        <div class="timeline-event"
+             onclick="openTimelineEvent('${event.id}')">
 
-        }
+            <div class="timeline-day">
+                ${day}
+            </div>
 
-    } else {
+            <div class="timeline-event-icon">
+                ${icon}
+            </div>
 
-        section.style.display =
-            "none";
+            <div class="timeline-event-info">
 
-        if (arrow) {
+                <div class="timeline-event-title">
+                    ${escapeHtml(event.description || event.type)}${amount}
+                </div>
 
-            arrow.textContent = "›";
+            </div>
 
-        }
+            <div class="timeline-event-arrow">
+                ›
+            </div>
 
-    }
+        </div>
+
+    `;
 
 }
 
-/* -----------------------------
-   TIMELINE NAVIGATION
------------------------------ */
+
+function toggleTimelineMonth(month) {
+
+    collapsedMonths[month] =
+        !collapsedMonths[month];
+
+    renderTimeline();
+
+}
+
 
 function openTimelineEvent(id) {
 
     const thing =
         things.find(
-            item =>
-                item.id === currentThingId
+            t => t.id === currentThingId
         );
 
     if (!thing) return;
 
     const event =
-        thing.events.find(
-            item =>
-                item.id === id
-        );
+        (thing.events || [])
+            .find(e => e.id === id);
 
     if (!event) return;
 
     if (event.documentId) {
 
-        const documentItem =
-            thing.documents.find(
-                item =>
-                    item.id === event.documentId
-            );
+        editDocument(event.documentId);
 
-        if (documentItem) {
+    }
+    else {
 
-            editDocument(
-                documentItem.id
-            );
-
-            return;
-
-        }
+        editEvent(id);
 
     }
 
-    editEvent(event.id);
-
 }
 
-function openTimelineDocument(
-    documentId
-) {
 
-    const thing =
-        things.find(
-            item =>
-                item.id === currentThingId
-        );
 
-    if (!thing) return;
-
-    const documentItem =
-        thing.documents.find(
-            item =>
-                item.id === documentId
-        );
-
-    if (!documentItem) {
-
-        alert("Document not found.");
-
-        return;
-
-    }
-
-    editDocument(documentId);
-
-}
-
-/* -----------------------------
-   ADD EVENT
------------------------------ */
+/* =========================
+   EVENTS
+========================= */
 
 function showAddEvent() {
 
-    document.getElementById(
-        "eventType"
-    ).value =
-        "Other";
+    hideAllViews();
 
-    document.getElementById(
-        "eventDescription"
-    ).value =
-        "";
+    document.getElementById("addEventView")
+        .style.display = "block";
 
-    document.getElementById(
-        "eventDate"
-    ).value =
-        today();
-
-    document.getElementById(
-        "eventAmount"
-    ).value =
-        "";
-
-    showView("addEventView");
+    document.getElementById("eventDescription").value = "";
+    document.getElementById("eventType").value = "Maintenance";
+    document.getElementById("eventDate").value = today();
+    document.getElementById("eventAmount").value = "";
 
 }
 
-function addEvent() {
+
+function saveEvent() {
 
     const thing =
         things.find(
-            item =>
-                item.id === currentThingId
+            t => t.id === currentThingId
         );
 
     if (!thing) return;
 
-    if (!Array.isArray(thing.events)) {
-
-        thing.events = [];
-
-    }
-
     const description =
-        document.getElementById(
-            "eventDescription"
-        ).value.trim();
+        document.getElementById("eventDescription")
+            .value.trim();
 
     if (!description) {
-
         alert("Please enter a description.");
-
         return;
-
     }
 
     const event = {
 
-        id: Date.now(),
+        id:
+            Date.now().toString(),
+
+        description,
 
         type:
-            document.getElementById(
-                "eventType"
-            ).value,
-
-        description:
-            description,
+            document.getElementById("eventType")
+                .value,
 
         date:
-            document.getElementById(
-                "eventDate"
-            ).value ||
-            today(),
+            document.getElementById("eventDate")
+                .value,
 
         amount:
-            document.getElementById(
-                "eventAmount"
-            ).value,
+            document.getElementById("eventAmount")
+                .value,
 
         documentId: null
 
     };
 
+    thing.events =
+        thing.events || [];
+
     thing.events.push(event);
 
-    saveThings();
+    saveData();
 
     showThing(currentThingId);
 
 }
 
-/* -----------------------------
-   EDIT EVENT
------------------------------ */
 
 function editEvent(id) {
 
-    currentEventId = id;
-
     const thing =
         things.find(
-            item =>
-                item.id === currentThingId
+            t => t.id === currentThingId
         );
 
     if (!thing) return;
 
     const event =
-        thing.events.find(
-            item =>
-                item.id === id
-        );
+        (thing.events || [])
+            .find(e => e.id === id);
 
     if (!event) return;
 
-    document.getElementById(
-        "editEventType"
-    ).value =
-        event.type || "Other";
+    currentEventId = id;
 
-    document.getElementById(
-        "editEventDescription"
-    ).value =
+    hideAllViews();
+
+    document.getElementById("editEventView")
+        .style.display = "block";
+
+    document.getElementById("editEventDescription").value =
         event.description || "";
 
-    document.getElementById(
-        "editEventDate"
-    ).value =
+    document.getElementById("editEventType").value =
+        event.type || "Other";
+
+    document.getElementById("editEventDate").value =
         event.date || "";
 
-    document.getElementById(
-        "editEventAmount"
-    ).value =
+    document.getElementById("editEventAmount").value =
         event.amount || "";
-
-    showView("editEventView");
 
 }
 
-function saveEventEdit() {
+
+function updateEvent() {
 
     const thing =
         things.find(
-            item =>
-                item.id === currentThingId
+            t => t.id === currentThingId
         );
 
     if (!thing) return;
 
     const event =
-        thing.events.find(
-            item =>
-                item.id === currentEventId
-        );
+        (thing.events || [])
+            .find(
+                e => e.id === currentEventId
+            );
 
     if (!event) return;
 
-    const description =
-        document.getElementById(
-            "editEventDescription"
-        ).value.trim();
-
-    if (!description) {
-
-        alert("Please enter a description.");
-
-        return;
-
-    }
+    event.description =
+        document.getElementById("editEventDescription")
+            .value.trim();
 
     event.type =
-        document.getElementById(
-            "editEventType"
-        ).value;
-
-    event.description =
-        description;
+        document.getElementById("editEventType")
+            .value;
 
     event.date =
-        document.getElementById(
-            "editEventDate"
-        ).value ||
-        today();
+        document.getElementById("editEventDate")
+            .value;
 
     event.amount =
-        document.getElementById(
-            "editEventAmount"
-        ).value;
+        document.getElementById("editEventAmount")
+            .value;
 
-    saveThings();
+    saveData();
 
     showThing(currentThingId);
 
 }
+
 
 function deleteEvent() {
 
     const thing =
         things.find(
-            item =>
-                item.id === currentThingId
+            t => t.id === currentThingId
         );
 
     if (!thing) return;
 
     const event =
-        thing.events.find(
-            item =>
-                item.id === currentEventId
-        );
+        (thing.events || [])
+            .find(
+                e => e.id === currentEventId
+            );
 
     if (!event) return;
 
     const confirmed =
         confirm(
-            `Delete "${event.description}" from the Timeline?`
+            `Delete "${event.description}"?`
         );
 
     if (!confirmed) return;
 
-    if (event.documentId) {
-
-        const documentItem =
-            thing.documents.find(
-                item =>
-                    item.id === event.documentId
+    thing.events =
+        (thing.events || [])
+            .filter(
+                e => e.id !== currentEventId
             );
 
-        if (documentItem) {
+    if (event.documentId) {
 
-            documentItem.timelineEventId =
-                null;
+        const linkedDocument =
+            (thing.documents || [])
+                .find(
+                    d => d.id === event.documentId
+                );
+
+        if (linkedDocument) {
+
+            linkedDocument.timelineEventId = null;
 
         }
 
     }
 
-    thing.events =
-        thing.events.filter(
-            item =>
-                item.id !== currentEventId
-        );
-
-    saveThings();
-
-    currentEventId = null;
+    saveData();
 
     showThing(currentThingId);
 
 }
 
-/* -----------------------------
+
+
+/* =========================
    COMING UP
------------------------------ */
+========================= */
 
 function renderComingUp() {
 
     const container =
-        document.getElementById(
-            "comingUp"
-        );
+        document.getElementById("comingUpList");
 
-    const todayDate =
+    if (!container) return;
+
+    const now =
         new Date();
 
-    todayDate.setHours(
-        0,
-        0,
-        0,
-        0
-    );
+    const todayDate =
+        new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate()
+        );
 
-    const limitDate =
+    const limit =
         new Date(todayDate);
 
-    limitDate.setDate(
-        limitDate.getDate() + 30
+    limit.setDate(
+        limit.getDate() + 30
     );
 
-    const upcoming = [];
+    const items = [];
 
     things.forEach(thing => {
 
-        if (
-            !Array.isArray(
-                thing.documents
-            )
-        ) {
+        (thing.documents || [])
+            .forEach(doc => {
 
-            return;
+                if (
+                    !doc.dateType ||
+                    doc.dateType === "None" ||
+                    !doc.importantDate
+                ) {
+                    return;
+                }
 
-        }
-
-        thing.documents.forEach(
-            documentItem => {
-
-                let dateType =
-                    documentItem.dateType;
-
-                let importantDate =
-                    documentItem.importantDate;
-
-                if (!dateType) {
+                if (doc.notificationAcknowledged) {
 
                     if (
-                        documentItem.expiryDate
+                        doc.repeat &&
+                        doc.repeat !== "Never"
                     ) {
 
-                        dateType =
-                            "Expiry Date";
+                        advanceRecurringNotification(
+                            doc
+                        );
 
-                        importantDate =
-                            documentItem.expiryDate;
+                    }
+                    else {
 
-                    } else {
-
-                        dateType =
-                            "None";
+                        return;
 
                     }
 
                 }
 
-                if (
-                    dateType === "None" ||
-                    !importantDate
-                ) {
+                if (!doc.importantDate) return;
 
-                    return;
-
-                }
-
-                /*
-                   Acknowledged notifications
-                   stay hidden until their
-                   next recurring occurrence.
-                */
-
-                const important =
-                    new Date(
-                        importantDate +
-                        "T00:00:00"
+                const date =
+                    parseLocalDate(
+                        doc.importantDate
                     );
 
-                /*
-                   For recurring documents,
-                   move the notification date
-                   forward until it represents
-                   the next relevant occurrence.
-                */
-
-                let notificationDate =
-                    new Date(important);
-
-                const repeat =
-                    documentItem.repeat ||
-                    "Never";
-
                 if (
-                    documentItem.notificationAcknowledged &&
-                    repeat !== "Never"
+                    date <= limit
                 ) {
 
-                    while (
-                        notificationDate <
-                        todayDate
-                    ) {
-
-                        notificationDate =
-                            addRepeat(
-                                notificationDate,
-                                repeat
-                            );
-
-                    }
-
-                }
-
-                /*
-                   If acknowledged and the next
-                   occurrence has not arrived yet,
-                   there is nothing to show.
-                */
-
-                if (
-                    documentItem.notificationAcknowledged &&
-                    notificationDate >
-                    limitDate
-                ) {
-
-                    return;
-
-                }
-
-                /*
-                   Non-recurring acknowledged
-                   notifications stay hidden.
-                */
-
-                if (
-                    documentItem.notificationAcknowledged &&
-                    repeat === "Never"
-                ) {
-
-                    return;
-
-                }
-
-                if (
-                    notificationDate <=
-                    limitDate
-                ) {
-
-                    upcoming.push({
-
+                    items.push({
                         thing,
-
-                        document:
-                            documentItem,
-
-                        dateType,
-
-                        importantDate:
-                            formatDateForStorage(
-                                notificationDate
-                            ),
-
-                        important:
-                            notificationDate
-
+                        doc,
+                        date
                     });
 
                 }
 
-            }
-        );
+            });
 
     });
 
-    upcoming.sort(
-        (a, b) =>
-            a.important - b.important
+    items.sort(
+        (a,b) =>
+            a.date - b.date
     );
 
-    if (
-        upcoming.length === 0
-    ) {
+    if (!items.length) {
 
         container.innerHTML = `
-
-            <div class="card empty">
-
+            <div class="empty">
                 Nothing coming up.
-
             </div>
-
         `;
 
         return;
@@ -3414,288 +2678,531 @@ function renderComingUp() {
     }
 
     container.innerHTML =
-        upcoming.map(
-            item => {
+        items.map(item => {
 
-                const diff =
-                    Math.ceil(
-                        (
-                            item.important -
-                            todayDate
-                        ) /
-                        (
-                            1000 *
-                            60 *
-                            60 *
-                            24
-                        )
-                    );
+            const {
+                thing,
+                doc,
+                date
+            } = item;
 
-                const isDue =
-                    item.dateType ===
-                    "Due Date";
+            const icon =
+                documentIcons[doc.type] || "📄";
 
-                let status;
-                let className;
+            const status =
+                formatImportantDateStatus(
+                    date,
+                    doc.dateType
+                );
 
-                if (
-                    diff < 0
-                ) {
+            const repeatInfo =
+                doc.repeat &&
+                doc.repeat !== "Never"
+                    ? ` · ${escapeHtml(doc.repeat)}`
+                    : "";
 
-                    const days =
-                        Math.abs(diff);
+            return `
 
-                    if (isDue) {
+                <div class="coming-card"
+                     onclick="showThing('${thing.id}')">
 
-                        status =
-                            `Overdue ${days} ${
-                                days === 1
-                                ? "day"
-                                : "days"
-                            }`;
+                    <div class="coming-row">
 
-                    } else {
+                        <div class="coming-icon">
+                            ${icon}
+                        </div>
 
-                        status =
-                            `Expired ${days} ${
-                                days === 1
-                                ? "day"
-                                : "days"
-                            } ago`;
+                        <div class="coming-info">
 
-                    }
+                            <strong>
+                                ${escapeHtml(doc.name)}
+                            </strong>
 
-                    className =
-                        "coming-up-overdue";
-
-                } else if (
-                    diff === 0
-                ) {
-
-                    status =
-                        isDue
-                            ? "Due today"
-                            : "Expires today";
-
-                    className =
-                        "coming-up-overdue";
-
-                } else {
-
-                    status =
-                        isDue
-                            ? `Due in ${diff} ${
-                                diff === 1
-                                ? "day"
-                                : "days"
-                              }`
-                            : `Expires in ${diff} ${
-                                diff === 1
-                                ? "day"
-                                : "days"
-                              }`;
-
-                    className =
-                        "coming-up";
-
-                }
-
-                const icon =
-                    documentIcons[
-                        item.document.type
-                    ] || "📄";
-
-                return `
-
-                    <div class="card ${className}"
-                         onclick="openThing(${item.thing.id})"
-                         style="cursor:pointer;">
-
-                        <div style="
-                            display:flex;
-                            gap:12px;
-                        ">
-
-                            <div class="document-icon">
-
-                                ${icon}
-
-                            </div>
-
-                            <div style="flex:1;">
-
-                                <div class="coming-up-title">
-
-                                    ${escapeHtml(
-                                        item.document.name
-                                    )}
-
-                                </div>
-
-                                <div class="coming-up-meta">
-
-                                    ${escapeHtml(
-                                        item.thing.name
-                                    )}
-
-                                </div>
-
-                                <div class="coming-up-meta">
-
-                                    ${escapeHtml(
-                                        item.dateType
-                                    )}
-                                    ·
-                                    ${formatDate(
-                                        item.importantDate
-                                    )}
-
-                                    ${
-                                        item.document.repeat &&
-                                        item.document.repeat !== "Never"
-                                        ? ` · ${escapeHtml(
-                                            item.document.repeat
-                                          )}`
-                                        : ""
-                                    }
-
-                                </div>
-
-                                <div class="coming-up-status">
-
-                                    ${status}
-
-                                </div>
-
-                            </div>
+                            <span>
+                                ${escapeHtml(thing.name)}
+                                ·
+                                ${status}
+                                ${repeatInfo}
+                            </span>
 
                         </div>
 
-                        <div class="coming-up-actions">
-
-                            <button
-                                class="secondary small coming-up-acknowledge"
-                                onclick="acknowledgeNotification(${item.document.id}, event)">
-
-                                Acknowledge
-
-                            </button>
-
+                        <div class="chevron">
+                            ›
                         </div>
 
                     </div>
 
-                `;
+                    <div class="coming-action">
 
-            }
+                        <button
+                            class="ack-button"
+                            onclick="acknowledgeNotification('${thing.id}','${doc.id}',event)">
+                            Acknowledge
+                        </button>
 
-        ).join("");
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
 
 }
 
-/* -----------------------------
-   NOTIFICATIONS
------------------------------ */
 
 function acknowledgeNotification(
+    thingId,
     documentId,
     clickEvent
 ) {
 
     if (clickEvent) {
-
         clickEvent.stopPropagation();
+    }
+
+    const thing =
+        things.find(
+            t => t.id === thingId
+        );
+
+    if (!thing) return;
+
+    const doc =
+        (thing.documents || [])
+            .find(
+                d => d.id === documentId
+            );
+
+    if (!doc) return;
+
+    if (
+        doc.repeat &&
+        doc.repeat !== "Never"
+    ) {
+
+        const nextDate =
+            addRepeat(
+                parseLocalDate(
+                    doc.importantDate
+                ),
+                doc.repeat
+            );
+
+        doc.importantDate =
+            formatDateForStorage(nextDate);
+
+        if (doc.dateType === "Expiry Date") {
+            doc.expiryDate =
+                doc.importantDate;
+        }
 
     }
 
-    let found = false;
+    doc.notificationAcknowledged = true;
 
-    things.forEach(thing => {
-
-        if (
-            !Array.isArray(
-                thing.documents
-            )
-        ) {
-
-            return;
-
-        }
-
-        const documentItem =
-            thing.documents.find(
-                item =>
-                    item.id === documentId
-            );
-
-        if (!documentItem) {
-
-            return;
-
-        }
-
-        documentItem.notificationAcknowledged =
-            true;
-
-        /*
-           For recurring notifications,
-           calculate and store the next
-           occurrence immediately.
-        */
-
-        const repeat =
-            documentItem.repeat ||
-            "Never";
-
-        if (
-            repeat !== "Never" &&
-            documentItem.importantDate
-        ) {
-
-            const currentDate =
-                new Date(
-                    documentItem.importantDate +
-                    "T00:00:00"
-                );
-
-            const nextDate =
-                addRepeat(
-                    currentDate,
-                    repeat
-                );
-
-            documentItem.importantDate =
-                formatDateForStorage(
-                    nextDate
-                );
-
-            if (
-                documentItem.dateType ===
-                "Expiry Date"
-            ) {
-
-                documentItem.expiryDate =
-                    documentItem.importantDate;
-
-            }
-
-        }
-
-        found = true;
-
-    });
-
-    if (!found) return;
-
-    saveThings();
+    saveData();
 
     renderComingUp();
 
 }
 
-/* -----------------------------
+
+function advanceRecurringNotification(doc) {
+
+    if (
+        !doc.repeat ||
+        doc.repeat === "Never" ||
+        !doc.importantDate
+    ) {
+        return;
+    }
+
+    const todayDate =
+        parseLocalDate(
+            today()
+        );
+
+    let date =
+        parseLocalDate(
+            doc.importantDate
+        );
+
+    while (date < todayDate) {
+
+        date =
+            addRepeat(
+                date,
+                doc.repeat
+            );
+
+    }
+
+    doc.importantDate =
+        formatDateForStorage(date);
+
+    if (doc.dateType === "Expiry Date") {
+        doc.expiryDate =
+            doc.importantDate;
+    }
+
+}
+
+
+function formatImportantDateStatus(
+    date,
+    dateType
+) {
+
+    const todayDate =
+        parseLocalDate(
+            today()
+        );
+
+    const diff =
+        Math.round(
+            (
+                date -
+                todayDate
+            ) /
+            86400000
+        );
+
+    const label =
+        dateType === "Due Date"
+            ? "Due"
+            : "Expires";
+
+    if (diff < 0) {
+
+        const days =
+            Math.abs(diff);
+
+        return `${label} ${days} day${days === 1 ? "" : "s"} ago`;
+
+    }
+
+    if (diff === 0) {
+
+        return `${label} today`;
+
+    }
+
+    return `${label} in ${diff} day${diff === 1 ? "" : "s"}`;
+
+}
+
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function normalizeText(value) {
+
+    return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+}
+
+
+function renderSearchResults() {
+
+    const input =
+        document.getElementById("searchInput");
+
+    const query =
+        normalizeText(
+            input ? input.value.trim() : ""
+        );
+
+    const categories =
+        document.getElementById(
+            "homeCategories"
+        );
+
+    const comingUp =
+        document.getElementById(
+            "homeComingUpSection"
+        );
+
+    const resultsSection =
+        document.getElementById(
+            "searchResultsSection"
+        );
+
+    const resultsList =
+        document.getElementById(
+            "searchResultsList"
+        );
+
+    if (!query) {
+
+        categories.style.display = "block";
+        comingUp.style.display = "block";
+        resultsSection.style.display = "none";
+        resultsList.innerHTML = "";
+
+        return;
+
+    }
+
+    categories.style.display = "none";
+    comingUp.style.display = "none";
+    resultsSection.style.display = "block";
+
+    const results = [];
+
+    things.forEach(thing => {
+
+        /* Thing */
+
+        const thingSearch =
+            normalizeText(
+                [
+                    thing.name,
+                    thing.category,
+                    thing.reference
+                ].join(" ")
+            );
+
+        if (thingSearch.includes(query)) {
+
+            results.push({
+
+                kind: "thing",
+
+                id: thing.id,
+
+                thingId: thing.id,
+
+                title: thing.name,
+
+                subtitle: thing.category,
+
+                icon:
+                    thing.icon ||
+                    categoryIcons[thing.category] ||
+                    "📦"
+
+            });
+
+        }
+
+
+        /* Documents */
+
+        (thing.documents || [])
+            .forEach(doc => {
+
+                const documentSearch =
+                    normalizeText(
+                        [
+                            doc.name,
+                            doc.type,
+                            doc.dateType,
+                            thing.name,
+                            thing.category
+                        ].join(" ")
+                    );
+
+                if (
+                    documentSearch.includes(query)
+                ) {
+
+                    results.push({
+
+                        kind: "document",
+
+                        id: doc.id,
+
+                        thingId: thing.id,
+
+                        title: doc.name,
+
+                        subtitle:
+                            `${thing.name} · Document`,
+
+                        icon:
+                            documentIcons[doc.type] ||
+                            "📄"
+
+                    });
+
+                }
+
+            });
+
+
+        /* Events */
+
+        (thing.events || [])
+            .forEach(event => {
+
+                const eventSearch =
+                    normalizeText(
+                        [
+                            event.description,
+                            event.type,
+                            thing.name,
+                            thing.category
+                        ].join(" ")
+                    );
+
+                if (
+                    eventSearch.includes(query)
+                ) {
+
+                    results.push({
+
+                        kind: "event",
+
+                        id: event.id,
+
+                        thingId: thing.id,
+
+                        title:
+                            event.description ||
+                            event.type,
+
+                        subtitle:
+                            `${thing.name} · Timeline`,
+
+                        icon:
+                            eventIcons[event.type] ||
+                            "📌"
+
+                    });
+
+                }
+
+            });
+
+    });
+
+
+    if (!results.length) {
+
+        resultsList.innerHTML = `
+            <div class="search-empty">
+                No results found.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    resultsList.innerHTML =
+        results.map(result => {
+
+            let onclick = "";
+
+            if (result.kind === "thing") {
+
+                onclick =
+                    `showThing('${result.id}')`;
+
+            }
+            else if (result.kind === "document") {
+
+                onclick =
+                    `openSearchDocument('${result.thingId}','${result.id}')`;
+
+            }
+            else if (result.kind === "event") {
+
+                onclick =
+                    `openSearchEvent('${result.thingId}','${result.id}')`;
+
+            }
+
+            return `
+
+                <div class="card search-result"
+                     onclick="${onclick}">
+
+                    <div class="search-result-icon">
+                        ${result.icon}
+                    </div>
+
+                    <div class="search-result-info">
+
+                        <strong>
+                            ${escapeHtml(result.title)}
+                        </strong>
+
+                        <span>
+                            ${escapeHtml(result.subtitle)}
+                        </span>
+
+                    </div>
+
+                    <div class="search-result-arrow">
+                        ›
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+function openSearchDocument(
+    thingId,
+    documentId
+) {
+
+    currentThingId = thingId;
+
+    const thing =
+        things.find(
+            t => t.id === thingId
+        );
+
+    if (thing) {
+        currentThingCategory =
+            thing.category;
+    }
+
+    editDocument(documentId);
+
+}
+
+
+function openSearchEvent(
+    thingId,
+    eventId
+) {
+
+    currentThingId = thingId;
+
+    const thing =
+        things.find(
+            t => t.id === thingId
+        );
+
+    if (thing) {
+        currentThingCategory =
+            thing.category;
+    }
+
+    editEvent(eventId);
+
+}
+
+
+
+/* =========================
    REPEAT HELPERS
------------------------------ */
+========================= */
 
 function addRepeat(
     date,
@@ -3711,9 +3218,8 @@ function addRepeat(
             result.getFullYear() + 1
         );
 
-    } else if (
-        repeat === "Monthly"
-    ) {
+    }
+    else if (repeat === "Monthly") {
 
         result.setMonth(
             result.getMonth() + 1
@@ -3725,351 +3231,218 @@ function addRepeat(
 
 }
 
-function formatDateForStorage(
-    date
-) {
 
-    const year =
-        date.getFullYear();
+function formatDateForStorage(date) {
 
-    const month =
+    return [
+        date.getFullYear(),
         String(
             date.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        );
-
-    const day =
+        ).padStart(2, "0"),
         String(
             date.getDate()
-        ).padStart(
-            2,
-            "0"
-        );
-
-    return `${year}-${month}-${day}`;
+        ).padStart(2, "0")
+    ].join("-");
 
 }
 
-/* -----------------------------
+
+
+/* =========================
    HELPERS
------------------------------ */
-
-function mapDocumentToEvent(type) {
-
-    const mapping = {
-
-        Invoice: "Expense",
-        Contract: "Other",
-        Insurance: "Insurance",
-        Warranty: "Other",
-        Tax: "Expense",
-        Certificate: "Other",
-        Repair: "Repair",
-        Other: "Other"
-
-    };
-
-    return mapping[type] ||
-        "Other";
-
-}
+========================= */
 
 function today() {
 
-    const date =
-        new Date();
-
-    const year =
-        date.getFullYear();
-
-    const month =
-        String(
-            date.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        );
-
-    const day =
-        String(
-            date.getDate()
-        ).padStart(
-            2,
-            "0"
-        );
-
-    return `${year}-${month}-${day}`;
-
-}
-
-function formatDate(dateString) {
-
-    if (!dateString) {
-
-        return "—";
-
-    }
-
-    const parts =
-        dateString.split("-");
-
-    if (
-        parts.length !== 3
-    ) {
-
-        return dateString;
-
-    }
-
-    return `${parts[2]}/${parts[1]}/${parts[0]}`;
-
-}
-
-function formatDay(dateString) {
-
-    if (!dateString) {
-
-        return "—";
-
-    }
-
-    const parts =
-        dateString.split("-");
-
-    if (
-        parts.length !== 3
-    ) {
-
-        return dateString;
-
-    }
-
-    return String(
-        Number(parts[2])
+    return formatDateForStorage(
+        new Date()
     );
 
 }
 
-function formatMoney(value) {
+
+function parseLocalDate(value) {
+
+    if (!value) {
+        return new Date(NaN);
+    }
+
+    const parts =
+        value.split("-")
+            .map(Number);
+
+    return new Date(
+        parts[0],
+        parts[1] - 1,
+        parts[2]
+    );
+
+}
+
+
+function formatDate(value) {
+
+    if (!value) return "—";
+
+    const date =
+        parseLocalDate(value);
+
+    if (isNaN(date.getTime())) {
+        return "—";
+    }
+
+    return date.toLocaleDateString(
+        "en-GB",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+function formatAmount(value) {
 
     if (
         value === "" ||
         value === null ||
         value === undefined
     ) {
-
         return "—";
-
     }
 
     const number =
         Number(value);
 
-    if (
-        Number.isNaN(number)
-    ) {
-
+    if (isNaN(number)) {
         return "—";
-
     }
 
-    return new Intl.NumberFormat(
+    return number.toLocaleString(
         "pt-PT",
         {
-            style: "currency",
-            currency: "EUR"
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
         }
-    ).format(number);
+    ) + " €";
 
 }
+
 
 function escapeHtml(value) {
 
-    if (
-        value === null ||
-        value === undefined
-    ) {
-
-        return "";
-
-    }
-
-    return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
 }
 
-/* -----------------------------
-   DATA MIGRATION
------------------------------ */
 
-things.forEach(thing => {
 
-    if (
-        thing.category === "Home"
-    ) {
+/* =========================
+   MIGRATION
+========================= */
 
-        thing.category =
-            "Real Estate";
+function migrateData() {
 
-    }
+    let changed = false;
 
-    if (
-        thing.category === "Vehicle"
-    ) {
+    things.forEach(thing => {
 
-        thing.category =
-            "Vehicles";
+        if (!thing.documents) {
+            thing.documents = [];
+            changed = true;
+        }
 
-    }
+        if (!thing.events) {
+            thing.events = [];
+            changed = true;
+        }
 
-    if (
-        thing.category === "Appliance"
-    ) {
 
-        thing.category =
-            "Other";
+        thing.documents.forEach(doc => {
 
-    }
+            if (!doc.dateType) {
 
-    if (
-        !Array.isArray(
-            thing.documents
-        )
-    ) {
+                if (doc.expiryDate) {
 
-        thing.documents = [];
-
-    }
-
-    if (
-        !Array.isArray(
-            thing.events
-        )
-    ) {
-
-        thing.events = [];
-
-    }
-
-    thing.documents.forEach(
-        documentItem => {
-
-            if (
-                documentItem.timelineEventId ===
-                undefined
-            ) {
-
-                documentItem.timelineEventId =
-                    null;
-
-            }
-
-            if (
-                documentItem.notificationAcknowledged ===
-                undefined
-            ) {
-
-                documentItem.notificationAcknowledged =
-                    false;
-
-            }
-
-            /*
-               0.5 date migration
-            */
-
-            if (
-                !documentItem.dateType
-            ) {
-
-                if (
-                    documentItem.expiryDate
-                ) {
-
-                    documentItem.dateType =
+                    doc.dateType =
                         "Expiry Date";
 
-                    documentItem.importantDate =
-                        documentItem.expiryDate;
+                    doc.importantDate =
+                        doc.expiryDate;
 
-                } else {
+                }
+                else {
 
-                    documentItem.dateType =
+                    doc.dateType =
                         "None";
 
-                    documentItem.importantDate =
+                    doc.importantDate =
                         "";
 
                 }
 
-            } else if (
-                documentItem.importantDate ===
-                undefined
-            ) {
-
-                documentItem.importantDate =
-                    documentItem.expiryDate ||
-                    "";
+                changed = true;
 
             }
-
-            /*
-               0.5.2 repeat migration
-            */
 
             if (
-                documentItem.repeat ===
+                doc.notificationAcknowledged ===
                 undefined
             ) {
 
-                documentItem.repeat =
-                    "Never";
+                doc.notificationAcknowledged =
+                    false;
+
+                changed = true;
 
             }
 
-        }
-    );
+            if (!doc.repeat) {
 
-});
+                doc.repeat =
+                    "Never";
 
-saveThings();
+                changed = true;
 
-/* -----------------------------
-   INITIAL LOAD
------------------------------ */
+            }
 
-renderCategoryCounts();
+            if (
+                doc.dateType === "Expiry Date" &&
+                !doc.expiryDate &&
+                doc.importantDate
+            ) {
+
+                doc.expiryDate =
+                    doc.importantDate;
+
+                changed = true;
+
+            }
+
+        });
+
+    });
+
+    if (changed) {
+        saveData();
+    }
+
+}
+
+
+migrateData();
+
+renderHomeCounts();
 renderComingUp();
 
 </script>
 
 </body>
-
 </html>
