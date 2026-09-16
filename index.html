@@ -379,6 +379,13 @@ label {
     text-overflow: ellipsis;
 }
 
+.timeline-event-amount {
+    font-size: 14px;
+    color: #555;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
 .timeline-event-chevron {
     font-size: 22px;
     color: #888;
@@ -2377,6 +2384,13 @@ function renderTimeline(thing) {
                                                 event.type
                                             ] || "📌";
 
+                                        const amount =
+                                            event.amount
+                                                ? formatMoney(
+                                                    event.amount
+                                                  )
+                                                : "";
+
                                         return `
 
                                             <div class="timeline-event"
@@ -2407,6 +2421,20 @@ function renderTimeline(thing) {
                                                     </strong>
 
                                                 </div>
+
+                                                ${
+                                                    amount
+                                                    ? `
+
+                                                        <div class="timeline-event-amount">
+
+                                                            ${amount}
+
+                                                        </div>
+
+                                                    `
+                                                    : ""
+                                                }
 
                                                 <div class="timeline-event-chevron">
 
