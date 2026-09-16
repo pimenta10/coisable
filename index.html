@@ -425,6 +425,95 @@ label {
 }
 
 /* -----------------------------
+   ATTACHMENTS
+----------------------------- */
+
+.attachment-section {
+    margin-top: 4px;
+    margin-bottom: 18px;
+}
+
+.attachment-label {
+    display: block;
+    margin-bottom: 7px;
+}
+
+.attachment-picker {
+    width: 100%;
+    padding: 13px;
+    border: 1px dashed #ccc;
+    border-radius: 10px;
+    background: white;
+    font-size: 15px;
+}
+
+.attachment-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #f7f7f7;
+    margin-top: 8px;
+}
+
+.attachment-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.attachment-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.attachment-info strong {
+    display: block;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.attachment-info span {
+    display: block;
+    color: #777;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.attachment-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.attachment-actions button {
+    width: auto;
+}
+
+.attachment-existing {
+    margin-top: 8px;
+}
+
+.attachment-remove-row {
+    margin-top: 8px;
+}
+
+.attachment-status {
+    font-size: 13px;
+    color: #777;
+    margin-top: 7px;
+}
+
+/* -----------------------------
    COMING UP
 ----------------------------- */
 
@@ -1132,6 +1221,26 @@ label {
                step="0.01"
                placeholder="€">
 
+        <!-- ATTACHMENT -->
+
+        <div class="attachment-section">
+
+            <label class="attachment-label">
+                Attachment
+            </label>
+
+            <input
+                id="documentAttachment"
+                class="attachment-picker"
+                type="file"
+                accept="application/pdf,image/*">
+
+            <div id="documentAttachmentStatus"
+                 class="attachment-status">
+            </div>
+
+        </div>
+
         <div class="checkbox-row">
 
             <input type="checkbox"
@@ -1252,6 +1361,29 @@ label {
         <input id="editDocumentAmount"
                type="number"
                step="0.01">
+
+        <!-- EXISTING / NEW ATTACHMENT -->
+
+        <div class="attachment-section">
+
+            <label class="attachment-label">
+                Attachment
+            </label>
+
+            <div id="editAttachmentContainer"></div>
+
+            <input
+                id="editDocumentAttachment"
+                class="attachment-picker"
+                type="file"
+                accept="application/pdf,image/*"
+                onchange="previewNewAttachment()">
+
+            <div id="editAttachmentStatus"
+                 class="attachment-status">
+            </div>
+
+        </div>
 
         <div class="info-box"
              id="documentTimelineInfo">
@@ -1391,6 +1523,11 @@ label {
 
 <script>
 
+/* =========================================================
+   COISABLE 0.6
+   Attachments via IndexedDB
+========================================================= */
+
 const categoryIcons = {
 
     "Real Estate": "🏠",
@@ -1434,9 +1571,677 @@ let currentCategory = null;
 let currentDocumentId = null;
 let currentEventId = null;
 
-/* -----------------------------
+/* =========================================================
+   INDEXEDDB — ATTACHMENTS
+========================================================= */
+
+const ATTACHMENT_DB_NAME =
+    "coisableAttachmentsDB";
+
+const ATTACHMENT_DB_VERSION =
+    1;
+
+const ATTACHMENT_STORE =
+    "attachments";
+
+let attachmentDB = null;
+
+function initAttachmentDB() {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            if (attachmentDB) {
+
+                resolve(
+                    attachmentDB
+                );
+
+                return;
+
+            }
+
+            if (
+                !window.indexedDB
+            ) {
+
+                reject(
+                    new Error(
+                        "IndexedDB is not supported."
+                    )
+                );
+
+                return;
+
+            }
+
+            const request =
+                indexedDB.open(
+                    ATTACHMENT_DB_NAME,
+                    ATTACHMENT_DB_VERSION
+                );
+
+            request.onupgradeneeded =
+                function(event) {
+
+                    const db =
+                        event.target.result;
+
+                    if (
+                        !db.objectStoreNames.contains(
+                            ATTACHMENT_STORE
+                        )
+                    ) {
+
+                        db.createObjectStore(
+                            ATTACHMENT_STORE,
+                            {
+                                keyPath:
+                                    "documentId"
+                            }
+                        );
+
+                    }
+
+                };
+
+            request.onsuccess =
+                function(event) {
+
+                    attachmentDB =
+                        event.target.result;
+
+                    resolve(
+                        attachmentDB
+                    );
+
+                };
+
+            request.onerror =
+                function() {
+
+                    reject(
+                        request.error
+                    );
+
+                };
+
+        }
+    );
+
+}
+
+async function saveAttachment(
+    documentId,
+    file
+) {
+
+    if (!file) return;
+
+    const db =
+        await initAttachmentDB();
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const transaction =
+                db.transaction(
+                    ATTACHMENT_STORE,
+                    "readwrite"
+                );
+
+            const store =
+                transaction.objectStore(
+                    ATTACHMENT_STORE
+                );
+
+            const request =
+                store.put({
+
+                    documentId:
+                        documentId,
+
+                    name:
+                        file.name,
+
+                    type:
+                        file.type ||
+                        "application/octet-stream",
+
+                    size:
+                        file.size,
+
+                    file:
+                        file,
+
+                    updatedAt:
+                        Date.now()
+
+                });
+
+            request.onsuccess =
+                function() {
+
+                    resolve();
+
+                };
+
+            request.onerror =
+                function() {
+
+                    reject(
+                        request.error
+                    );
+
+                };
+
+        }
+    );
+
+}
+
+async function getAttachment(
+    documentId
+) {
+
+    const db =
+        await initAttachmentDB();
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const transaction =
+                db.transaction(
+                    ATTACHMENT_STORE,
+                    "readonly"
+                );
+
+            const store =
+                transaction.objectStore(
+                    ATTACHMENT_STORE
+                );
+
+            const request =
+                store.get(
+                    documentId
+                );
+
+            request.onsuccess =
+                function() {
+
+                    resolve(
+                        request.result || null
+                    );
+
+                };
+
+            request.onerror =
+                function() {
+
+                    reject(
+                        request.error
+                    );
+
+                };
+
+        }
+    );
+
+}
+
+async function deleteAttachment(
+    documentId
+) {
+
+    if (!window.indexedDB) return;
+
+    const db =
+        await initAttachmentDB();
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const transaction =
+                db.transaction(
+                    ATTACHMENT_STORE,
+                    "readwrite"
+                );
+
+            const store =
+                transaction.objectStore(
+                    ATTACHMENT_STORE
+                );
+
+            const request =
+                store.delete(
+                    documentId
+                );
+
+            request.onsuccess =
+                function() {
+
+                    resolve();
+
+                };
+
+            request.onerror =
+                function() {
+
+                    reject(
+                        request.error
+                    );
+
+                };
+
+        }
+    );
+
+}
+
+async function deleteAttachmentsForThing(
+    thing
+) {
+
+    if (
+        !thing ||
+        !Array.isArray(
+            thing.documents
+        )
+    ) {
+
+        return;
+
+    }
+
+    for (
+        const documentItem
+        of thing.documents
+    ) {
+
+        try {
+
+            await deleteAttachment(
+                documentItem.id
+            );
+
+        } catch(error) {
+
+            console.error(
+                "Could not delete attachment:",
+                error
+            );
+
+        }
+
+    }
+
+}
+
+/* =========================================================
+   ATTACHMENT UI HELPERS
+========================================================= */
+
+function formatFileSize(
+    bytes
+) {
+
+    if (
+        bytes === undefined ||
+        bytes === null
+    ) {
+
+        return "";
+
+    }
+
+    if (
+        bytes < 1024
+    ) {
+
+        return `${bytes} B`;
+
+    }
+
+    if (
+        bytes < 1024 * 1024
+    ) {
+
+        return `${(
+            bytes / 1024
+        ).toFixed(1)} KB`;
+
+    }
+
+    return `${(
+        bytes /
+        (1024 * 1024)
+    ).toFixed(1)} MB`;
+
+}
+
+function getAttachmentIcon(
+    type,
+    name
+) {
+
+    const lower =
+        String(
+            name || ""
+        ).toLowerCase();
+
+    if (
+        type ===
+        "application/pdf" ||
+        lower.endsWith(".pdf")
+    ) {
+
+        return "📄";
+
+    }
+
+    if (
+        type &&
+        type.startsWith("image/")
+    ) {
+
+        return "🖼️";
+
+    }
+
+    return "📎";
+
+}
+
+async function openAttachment(
+    documentId
+) {
+
+    try {
+
+        const attachment =
+            await getAttachment(
+                documentId
+            );
+
+        if (!attachment) {
+
+            alert(
+                "Attachment not found."
+            );
+
+            return;
+
+        }
+
+        const blob =
+            attachment.file instanceof Blob
+                ? attachment.file
+                : new Blob(
+                    [attachment.file],
+                    {
+                        type:
+                            attachment.type ||
+                            "application/octet-stream"
+                    }
+                );
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+        const newWindow =
+            window.open(
+                url,
+                "_blank"
+            );
+
+        /*
+           On some iPhone/browser
+           configurations, popups may be
+           blocked. The current page can
+           still navigate to the file.
+        */
+
+        if (!newWindow) {
+
+            window.location.href =
+                url;
+
+        }
+
+        /*
+           Give the browser enough time
+           to load the object URL before
+           revoking it.
+        */
+
+        setTimeout(
+            function() {
+
+                URL.revokeObjectURL(
+                    url
+                );
+
+            },
+            60000
+        );
+
+    } catch(error) {
+
+        console.error(
+            error
+        );
+
+        alert(
+            "Could not open the attachment."
+        );
+
+    }
+
+}
+
+async function renderExistingAttachment(
+    documentId
+) {
+
+    const container =
+        document.getElementById(
+            "editAttachmentContainer"
+        );
+
+    if (!container) return;
+
+    container.innerHTML =
+        "";
+
+    try {
+
+        const attachment =
+            await getAttachment(
+                documentId
+            );
+
+        if (!attachment) {
+
+            container.innerHTML = `
+
+                <div class="attachment-status">
+
+                    No attachment added yet.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+        const icon =
+            getAttachmentIcon(
+                attachment.type,
+                attachment.name
+            );
+
+        container.innerHTML = `
+
+            <div class="attachment-card">
+
+                <div class="attachment-icon">
+
+                    ${icon}
+
+                </div>
+
+                <div class="attachment-info">
+
+                    <strong>
+                        ${escapeHtml(
+                            attachment.name
+                        )}
+                    </strong>
+
+                    <span>
+                        ${formatFileSize(
+                            attachment.size
+                        )}
+                    </span>
+
+                </div>
+
+                <div class="attachment-actions">
+
+                    <button
+                        class="secondary small"
+                        onclick="openAttachment(${documentId})">
+
+                        Open
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="attachment-remove-row">
+
+                <button
+                    class="secondary small"
+                    onclick="removeExistingAttachment(${documentId})">
+
+                    Remove
+
+                </button>
+
+            </div>
+
+        `;
+
+    } catch(error) {
+
+        console.error(
+            error
+        );
+
+        container.innerHTML = `
+
+            <div class="attachment-status">
+
+                Could not load attachment.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+async function removeExistingAttachment(
+    documentId
+) {
+
+    const confirmed =
+        confirm(
+            "Remove this attachment?"
+        );
+
+    if (!confirmed) return;
+
+    try {
+
+        await deleteAttachment(
+            documentId
+        );
+
+        renderExistingAttachment(
+            documentId
+        );
+
+        const status =
+            document.getElementById(
+                "editAttachmentStatus"
+            );
+
+        if (status) {
+
+            status.textContent =
+                "Attachment removed.";
+
+        }
+
+    } catch(error) {
+
+        console.error(
+            error
+        );
+
+        alert(
+            "Could not remove the attachment."
+        );
+
+    }
+
+}
+
+function previewNewAttachment() {
+
+    const input =
+        document.getElementById(
+            "editDocumentAttachment"
+        );
+
+    const status =
+        document.getElementById(
+            "editAttachmentStatus"
+        );
+
+    if (!input || !status) return;
+
+    if (
+        !input.files ||
+        !input.files[0]
+    ) {
+
+        status.textContent =
+            "";
+
+        return;
+
+    }
+
+    const file =
+        input.files[0];
+
+    status.textContent =
+        `New attachment: ${file.name} · ${formatFileSize(file.size)}`;
+
+}
+
+/* =========================================================
    STORAGE
------------------------------ */
+========================================================= */
 
 function saveThings() {
 
@@ -1447,9 +2252,9 @@ function saveThings() {
 
 }
 
-/* -----------------------------
+/* =========================================================
    VIEW MANAGEMENT
------------------------------ */
+========================================================= */
 
 function showView(id) {
 
@@ -1483,9 +2288,9 @@ function showHome() {
 
 }
 
-/* -----------------------------
+/* =========================================================
    SEARCH
------------------------------ */
+========================================================= */
 
 function normalizeSearch(value) {
 
@@ -1573,10 +2378,6 @@ function handleSearch() {
 
     const results = [];
 
-    /*
-       Search Things
-    */
-
     things.forEach(thing => {
 
         const thingName =
@@ -1619,13 +2420,6 @@ function handleSearch() {
             });
 
         }
-
-        /*
-           Search Documents
-           Includes Thing name so that
-           searching "Mazda" also finds
-           its documents.
-        */
 
         if (
             Array.isArray(
@@ -1679,13 +2473,6 @@ function handleSearch() {
             );
 
         }
-
-        /*
-           Search Timeline Events
-           Includes Thing name so that
-           searching "Mazda" also finds
-           its timeline.
-        */
 
         if (
             Array.isArray(
@@ -1779,12 +2566,6 @@ function handleSearch() {
     resultsContainer.innerHTML =
         results.map(result => {
 
-            /*
-               IMPORTANT:
-               Search navigation always
-               sets the Thing context first.
-            */
-
             let action = "";
 
             if (
@@ -1869,11 +2650,7 @@ function openThingFromSearch(
                 item.id === thingId
         );
 
-    if (!thing) {
-
-        return;
-
-    }
+    if (!thing) return;
 
     currentThingId =
         thing.id;
@@ -1898,11 +2675,7 @@ function openDocumentFromSearch(
                 item.id === thingId
         );
 
-    if (!thing) {
-
-        return;
-
-    }
+    if (!thing) return;
 
     currentThingId =
         thing.id;
@@ -1951,11 +2724,7 @@ function openEventFromSearch(
                 item.id === thingId
         );
 
-    if (!thing) {
-
-        return;
-
-    }
+    if (!thing) return;
 
     currentThingId =
         thing.id;
@@ -1993,9 +2762,9 @@ function openEventFromSearch(
 
 }
 
-/* -----------------------------
+/* =========================================================
    HOME / CATEGORIES
------------------------------ */
+========================================================= */
 
 function renderCategoryCounts() {
 
@@ -2031,7 +2800,8 @@ function renderCategoryCounts() {
 
         if (countElement) {
 
-            countElement.textContent = count;
+            countElement.textContent =
+                count;
 
         }
 
@@ -2053,20 +2823,28 @@ function showCategory(category) {
     currentCategory = category;
 
     const categoryTitle =
-        document.getElementById("categoryTitle");
+        document.getElementById(
+            "categoryTitle"
+        );
 
     const addButton =
-        document.getElementById("categoryAddButton");
+        document.getElementById(
+            "categoryAddButton"
+        );
 
     categoryTitle.textContent =
         category;
 
-    if (category === "Real Estate") {
+    if (
+        category === "Real Estate"
+    ) {
 
         addButton.textContent =
             "+ Add Property";
 
-    } else if (category === "Vehicles") {
+    } else if (
+        category === "Vehicles"
+    ) {
 
         addButton.textContent =
             "+ Add Vehicle";
@@ -2078,13 +2856,19 @@ function showCategory(category) {
 
     }
 
-    renderCategoryThings(category);
+    renderCategoryThings(
+        category
+    );
 
-    showView("categoryView");
+    showView(
+        "categoryView"
+    );
 
 }
 
-function renderCategoryThings(category) {
+function renderCategoryThings(
+    category
+) {
 
     const container =
         document.getElementById(
@@ -2097,7 +2881,9 @@ function renderCategoryThings(category) {
                 thing.category === category
         );
 
-    if (categoryThings.length === 0) {
+    if (
+        categoryThings.length === 0
+    ) {
 
         container.innerHTML = `
 
@@ -2114,46 +2900,55 @@ function renderCategoryThings(category) {
     }
 
     container.innerHTML =
-        categoryThings.map(thing => {
+        categoryThings.map(
+            thing => {
 
-            const icon =
-                categoryIcons[thing.category] ||
-                "📦";
+                const icon =
+                    categoryIcons[
+                        thing.category
+                    ] || "📦";
 
-            return `
+                return `
 
-                <div class="card thing-card"
-                     onclick="openThing(${thing.id})">
+                    <div class="card thing-card"
+                         onclick="openThing(${thing.id})">
 
-                    <div class="icon">
-                        ${icon}
+                        <div class="icon">
+                            ${icon}
+                        </div>
+
+                        <div class="thing-info">
+
+                            <strong>
+                                ${escapeHtml(
+                                    thing.name
+                                )}
+                            </strong>
+
+                            <span>
+                                ${escapeHtml(
+                                    thing.category
+                                )}
+                            </span>
+
+                        </div>
+
                     </div>
 
-                    <div class="thing-info">
+                `;
 
-                        <strong>
-                            ${escapeHtml(thing.name)}
-                        </strong>
-
-                        <span>
-                            ${escapeHtml(thing.category)}
-                        </span>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
+            }
+        ).join("");
 
 }
 
-/* -----------------------------
+/* =========================================================
    ADD THING
------------------------------ */
+========================================================= */
 
-function showAddForm(category = currentCategory) {
+function showAddForm(
+    category = currentCategory
+) {
 
     currentCategory =
         category || "Other";
@@ -2164,7 +2959,8 @@ function showAddForm(category = currentCategory) {
 
     document.getElementById(
         "thingCategory"
-    ).value = currentCategory;
+    ).value =
+        currentCategory;
 
     document.getElementById(
         "thingPurchaseDate"
@@ -2189,7 +2985,9 @@ function showAddForm(category = currentCategory) {
         );
 
     title.textContent =
-        getAddTitle(currentCategory);
+        getAddTitle(
+            currentCategory
+        );
 
     categorySelect.style.display =
         "none";
@@ -2197,19 +2995,27 @@ function showAddForm(category = currentCategory) {
     categorySelect.previousElementSibling.style.display =
         "none";
 
-    showView("addView");
+    showView(
+        "addView"
+    );
 
 }
 
-function getAddTitle(category) {
+function getAddTitle(
+    category
+) {
 
-    if (category === "Real Estate") {
+    if (
+        category === "Real Estate"
+    ) {
 
         return "Add Property";
 
     }
 
-    if (category === "Vehicles") {
+    if (
+        category === "Vehicles"
+    ) {
 
         return "Add Vehicle";
 
@@ -2228,7 +3034,9 @@ function addThing() {
 
     if (!name) {
 
-        alert("Please enter a name.");
+        alert(
+            "Please enter a name."
+        );
 
         return;
 
@@ -2236,12 +3044,15 @@ function addThing() {
 
     const thing = {
 
-        id: Date.now(),
+        id:
+            Date.now(),
 
-        name: name,
+        name:
+            name,
 
         category:
-            currentCategory || "Other",
+            currentCategory ||
+            "Other",
 
         purchaseDate:
             document.getElementById(
@@ -2264,29 +3075,41 @@ function addThing() {
 
     };
 
-    things.push(thing);
+    things.push(
+        thing
+    );
 
     saveThings();
 
-    showCategory(currentCategory);
+    showCategory(
+        currentCategory
+    );
 
 }
 
-/* -----------------------------
+/* =========================================================
    THINGS
------------------------------ */
+========================================================= */
 
-function openThing(id) {
+function openThing(
+    id
+) {
 
-    currentThingId = id;
+    currentThingId =
+        id;
 
-    showThing(id);
+    showThing(
+        id
+    );
 
 }
 
-function showThing(id) {
+function showThing(
+    id
+) {
 
-    currentThingId = id;
+    currentThingId =
+        id;
 
     const thing =
         things.find(
@@ -2305,13 +3128,21 @@ function showThing(id) {
     currentThingCategory =
         thing.category;
 
-    if (!Array.isArray(thing.documents)) {
+    if (
+        !Array.isArray(
+            thing.documents
+        )
+    ) {
 
         thing.documents = [];
 
     }
 
-    if (!Array.isArray(thing.events)) {
+    if (
+        !Array.isArray(
+            thing.events
+        )
+    ) {
 
         thing.events = [];
 
@@ -2346,7 +3177,9 @@ function showThing(id) {
                 <div>
 
                     <strong style="font-size:18px;">
-                        ${escapeHtml(thing.name)}
+                        ${escapeHtml(
+                            thing.name
+                        )}
                     </strong>
 
                     <div style="
@@ -2354,7 +3187,9 @@ function showThing(id) {
                         margin-top:4px;
                     ">
 
-                        ${escapeHtml(thing.category)}
+                        ${escapeHtml(
+                            thing.category
+                        )}
 
                     </div>
 
@@ -2412,16 +3247,23 @@ function showThing(id) {
 
     `;
 
-    renderDocuments(thing);
-    renderTimeline(thing);
+    renderDocuments(
+        thing
+    );
 
-    showView("detailView");
+    renderTimeline(
+        thing
+    );
+
+    showView(
+        "detailView"
+    );
 
 }
 
-/* -----------------------------
+/* =========================================================
    EDIT THING
------------------------------ */
+========================================================= */
 
 function editThing() {
 
@@ -2458,7 +3300,9 @@ function editThing() {
     ).value =
         thing.currentValue || "";
 
-    showView("editView");
+    showView(
+        "editView"
+    );
 
 }
 
@@ -2479,13 +3323,16 @@ function saveEdit() {
 
     if (!name) {
 
-        alert("Please enter a name.");
+        alert(
+            "Please enter a name."
+        );
 
         return;
 
     }
 
-    thing.name = name;
+    thing.name =
+        name;
 
     thing.category =
         document.getElementById(
@@ -2512,11 +3359,13 @@ function saveEdit() {
 
     saveThings();
 
-    showThing(currentThingId);
+    showThing(
+        currentThingId
+    );
 
 }
 
-function deleteThing() {
+async function deleteThing() {
 
     const thing =
         things.find(
@@ -2533,6 +3382,15 @@ function deleteThing() {
 
     if (!confirmed) return;
 
+    /*
+       Remove all physical attachments
+       before removing the Thing.
+    */
+
+    await deleteAttachmentsForThing(
+        thing
+    );
+
     things =
         things.filter(
             item =>
@@ -2541,18 +3399,23 @@ function deleteThing() {
 
     saveThings();
 
-    currentThingId = null;
-    currentThingCategory = null;
+    currentThingId =
+        null;
+
+    currentThingCategory =
+        null;
 
     showHome();
 
 }
 
-/* -----------------------------
+/* =========================================================
    IMPORTANT DATE
------------------------------ */
+========================================================= */
 
-function updateImportantDateField(prefix) {
+function updateImportantDateField(
+    prefix
+) {
 
     const typeId =
         prefix
@@ -2594,12 +3457,15 @@ function updateImportantDateField(prefix) {
             dateId
         );
 
-    if (type === "None") {
+    if (
+        type === "None"
+    ) {
 
         group.style.display =
             "none";
 
-        date.value = "";
+        date.value =
+            "";
 
         return;
 
@@ -2613,9 +3479,9 @@ function updateImportantDateField(prefix) {
 
 }
 
-/* -----------------------------
+/* =========================================================
    DOCUMENTS
------------------------------ */
+========================================================= */
 
 function showAddDocument() {
 
@@ -2625,39 +3491,60 @@ function showAddDocument() {
 
     document.getElementById(
         "documentType"
-    ).value = "Invoice";
+    ).value =
+        "Invoice";
 
     document.getElementById(
         "documentDate"
-    ).value = "";
+    ).value =
+        "";
 
     document.getElementById(
         "documentDateType"
-    ).value = "None";
+    ).value =
+        "None";
 
     document.getElementById(
         "documentImportantDate"
-    ).value = "";
+    ).value =
+        "";
 
     document.getElementById(
         "documentRepeat"
-    ).value = "Never";
+    ).value =
+        "Never";
 
     document.getElementById(
         "documentAmount"
-    ).value = "";
+    ).value =
+        "";
+
+    document.getElementById(
+        "documentAttachment"
+    ).value =
+        "";
+
+    document.getElementById(
+        "documentAttachmentStatus"
+    ).textContent =
+        "";
 
     document.getElementById(
         "addToTimeline"
-    ).checked = true;
+    ).checked =
+        true;
 
-    updateImportantDateField("");
+    updateImportantDateField(
+        ""
+    );
 
-    showView("addDocumentView");
+    showView(
+        "addDocumentView"
+    );
 
 }
 
-function addDocument() {
+async function addDocument() {
 
     const thing =
         things.find(
@@ -2667,13 +3554,21 @@ function addDocument() {
 
     if (!thing) return;
 
-    if (!Array.isArray(thing.documents)) {
+    if (
+        !Array.isArray(
+            thing.documents
+        )
+    ) {
 
         thing.documents = [];
 
     }
 
-    if (!Array.isArray(thing.events)) {
+    if (
+        !Array.isArray(
+            thing.events
+        )
+    ) {
 
         thing.events = [];
 
@@ -2686,7 +3581,9 @@ function addDocument() {
 
     if (!name) {
 
-        alert("Please enter a document name.");
+        alert(
+            "Please enter a document name."
+        );
 
         return;
 
@@ -2704,11 +3601,16 @@ function addDocument() {
                 "documentImportantDate"
               ).value;
 
+    const documentId =
+        Date.now();
+
     const documentItem = {
 
-        id: Date.now(),
+        id:
+            documentId,
 
-        name: name,
+        name:
+            name,
 
         type:
             document.getElementById(
@@ -2743,9 +3645,11 @@ function addDocument() {
                 "documentAmount"
             ).value,
 
-        timelineEventId: null,
+        timelineEventId:
+            null,
 
-        notificationAcknowledged: false
+        notificationAcknowledged:
+            false
 
     };
 
@@ -2758,7 +3662,8 @@ function addDocument() {
 
         const event = {
 
-            id: Date.now() + 1,
+            id:
+                documentId + 1,
 
             type:
                 mapDocumentToEvent(
@@ -2781,7 +3686,9 @@ function addDocument() {
 
         };
 
-        thing.events.push(event);
+        thing.events.push(
+            event
+        );
 
         documentItem.timelineEventId =
             event.id;
@@ -2792,13 +3699,58 @@ function addDocument() {
         documentItem
     );
 
+    /*
+       Save the normal document data first.
+    */
+
     saveThings();
 
-    showThing(currentThingId);
+    /*
+       Then save the physical file,
+       if one was selected.
+    */
+
+    const attachmentInput =
+        document.getElementById(
+            "documentAttachment"
+        );
+
+    if (
+        attachmentInput &&
+        attachmentInput.files &&
+        attachmentInput.files[0]
+    ) {
+
+        try {
+
+            await saveAttachment(
+                documentItem.id,
+                attachmentInput.files[0]
+            );
+
+        } catch(error) {
+
+            console.error(
+                error
+            );
+
+            alert(
+                "The document was saved, but the attachment could not be saved."
+            );
+
+        }
+
+    }
+
+    showThing(
+        currentThingId
+    );
 
 }
 
-function renderDocuments(thing) {
+function renderDocuments(
+    thing
+) {
 
     const container =
         document.getElementById(
@@ -2886,18 +3838,23 @@ function renderDocuments(thing) {
                     <div class="card document-card">
 
                         <div class="document-icon">
+
                             ${icon}
+
                         </div>
 
                         <div class="document-info">
 
                             <strong>
+
                                 ${escapeHtml(
                                     documentItem.name
                                 )}
+
                             </strong>
 
                             <span>
+
                                 ${escapeHtml(
                                     documentItem.type
                                 )}
@@ -2905,6 +3862,7 @@ function renderDocuments(thing) {
                                 ${formatDate(
                                     documentItem.date
                                 )}
+
                             </span>
 
                             ${
@@ -2913,6 +3871,7 @@ function renderDocuments(thing) {
                                 ? `
 
                                     <span>
+
                                         ${escapeHtml(
                                             dateType
                                         )}
@@ -2920,6 +3879,7 @@ function renderDocuments(thing) {
                                         ${formatDate(
                                             importantDate
                                         )}
+
                                     </span>
 
                                 `
@@ -2933,9 +3893,12 @@ function renderDocuments(thing) {
                                 ? `
 
                                     <span>
-                                        Repeat: ${escapeHtml(
+
+                                        Repeat:
+                                        ${escapeHtml(
                                             repeat
                                         )}
+
                                     </span>
 
                                 `
@@ -2947,9 +3910,11 @@ function renderDocuments(thing) {
                                 ? `
 
                                     <span>
+
                                         ${formatMoney(
                                             documentItem.amount
                                         )}
+
                                     </span>
 
                                 `
@@ -2980,9 +3945,12 @@ function renderDocuments(thing) {
 
 }
 
-function editDocument(id) {
+async function editDocument(
+    id
+) {
 
-    currentDocumentId = id;
+    currentDocumentId =
+        id;
 
     const thing =
         things.find(
@@ -3058,21 +4026,36 @@ function editDocument(id) {
     document.getElementById(
         "editDocumentRepeat"
     ).value =
-        documentItem.repeat || "Never";
+        documentItem.repeat ||
+        "Never";
 
     document.getElementById(
         "editDocumentAmount"
     ).value =
         documentItem.amount || "";
 
-    updateImportantDateField("edit");
+    document.getElementById(
+        "editDocumentAttachment"
+    ).value =
+        "";
+
+    document.getElementById(
+        "editAttachmentStatus"
+    ).textContent =
+        "";
+
+    updateImportantDateField(
+        "edit"
+    );
 
     const timelineInfo =
         document.getElementById(
             "documentTimelineInfo"
         );
 
-    if (documentItem.timelineEventId) {
+    if (
+        documentItem.timelineEventId
+    ) {
 
         timelineInfo.innerHTML =
             "🔗 This document is linked to a Timeline event. " +
@@ -3085,11 +4068,17 @@ function editDocument(id) {
 
     }
 
-    showView("editDocumentView");
+    showView(
+        "editDocumentView"
+    );
+
+    await renderExistingAttachment(
+        documentItem.id
+    );
 
 }
 
-function saveDocumentEdit() {
+async function saveDocumentEdit() {
 
     const thing =
         things.find(
@@ -3115,7 +4104,9 @@ function saveDocumentEdit() {
 
     if (!previousDateType) {
 
-        if (documentItem.expiryDate) {
+        if (
+            documentItem.expiryDate
+        ) {
 
             previousDateType =
                 "Expiry Date";
@@ -3142,7 +4133,9 @@ function saveDocumentEdit() {
 
     if (!name) {
 
-        alert("Please enter a document name.");
+        alert(
+            "Please enter a document name."
+        );
 
         return;
 
@@ -3239,13 +4232,64 @@ function saveDocumentEdit() {
 
     }
 
+    /*
+       Check whether a new attachment
+       was selected.
+    */
+
+    const attachmentInput =
+        document.getElementById(
+            "editDocumentAttachment"
+        );
+
+    const newFile =
+        attachmentInput &&
+        attachmentInput.files &&
+        attachmentInput.files[0]
+            ? attachmentInput.files[0]
+            : null;
+
+    /*
+       Save normal data.
+    */
+
     saveThings();
 
-    showThing(currentThingId);
+    /*
+       If a new file was selected,
+       replace the existing attachment.
+    */
+
+    if (newFile) {
+
+        try {
+
+            await saveAttachment(
+                documentItem.id,
+                newFile
+            );
+
+        } catch(error) {
+
+            console.error(
+                error
+            );
+
+            alert(
+                "The document was updated, but the new attachment could not be saved."
+            );
+
+        }
+
+    }
+
+    showThing(
+        currentThingId
+    );
 
 }
 
-function deleteDocument() {
+async function deleteDocument() {
 
     const thing =
         things.find(
@@ -3270,7 +4314,9 @@ function deleteDocument() {
 
     if (!confirmed) return;
 
-    if (documentItem.timelineEventId) {
+    if (
+        documentItem.timelineEventId
+    ) {
 
         thing.events =
             thing.events.filter(
@@ -3281,25 +4327,49 @@ function deleteDocument() {
 
     }
 
+    /*
+       Delete the physical attachment.
+    */
+
+    try {
+
+        await deleteAttachment(
+            documentItem.id
+        );
+
+    } catch(error) {
+
+        console.error(
+            error
+        );
+
+    }
+
     thing.documents =
         thing.documents.filter(
             item =>
-                item.id !== currentDocumentId
+                item.id !==
+                currentDocumentId
         );
 
     saveThings();
 
-    currentDocumentId = null;
+    currentDocumentId =
+        null;
 
-    showThing(currentThingId);
+    showThing(
+        currentThingId
+    );
 
 }
 
-/* -----------------------------
+/* =========================================================
    TIMELINE
------------------------------ */
+========================================================= */
 
-function renderTimeline(thing) {
+function renderTimeline(
+    thing
+) {
 
     const container =
         document.getElementById(
@@ -3327,27 +4397,36 @@ function renderTimeline(thing) {
 
     const grouped = {};
 
-    thing.events.forEach(event => {
+    thing.events.forEach(
+        event => {
 
-        const date =
-            event.date ||
-            today();
+            const date =
+                event.date ||
+                today();
 
-        const key =
-            date.substring(0, 7);
+            const key =
+                date.substring(
+                    0,
+                    7
+                );
 
-        if (!grouped[key]) {
+            if (!grouped[key]) {
 
-            grouped[key] = [];
+                grouped[key] = [];
+
+            }
+
+            grouped[key].push(
+                event
+            );
 
         }
-
-        grouped[key].push(event);
-
-    });
+    );
 
     const months =
-        Object.keys(grouped).sort(
+        Object.keys(
+            grouped
+        ).sort(
             (a, b) =>
                 b.localeCompare(a)
         );
@@ -3357,7 +4436,9 @@ function renderTimeline(thing) {
             monthKey => {
 
                 const events =
-                    grouped[monthKey].sort(
+                    grouped[
+                        monthKey
+                    ].sort(
                         (a, b) =>
                             (b.date || "")
                             .localeCompare(
@@ -3365,8 +4446,13 @@ function renderTimeline(thing) {
                             )
                     );
 
-                const [year, month] =
-                    monthKey.split("-");
+                const [
+                    year,
+                    month
+                ] =
+                    monthKey.split(
+                        "-"
+                    );
 
                 const monthDate =
                     new Date(
@@ -3379,8 +4465,10 @@ function renderTimeline(thing) {
                     monthDate.toLocaleDateString(
                         "en-GB",
                         {
-                            month: "long",
-                            year: "numeric"
+                            month:
+                                "long",
+                            year:
+                                "numeric"
                         }
                     );
 
@@ -3400,13 +4488,17 @@ function renderTimeline(thing) {
                             <div class="timeline-month-left">
 
                                 <div class="month-icon">
+
                                     🗓️
+
                                 </div>
 
                                 <div>
 
                                     <strong style="font-size:17px;">
+
                                         ${monthName}
+
                                     </strong>
 
                                     <div style="
@@ -3449,7 +4541,8 @@ function renderTimeline(thing) {
                                         const icon =
                                             eventIcons[
                                                 event.type
-                                            ] || "📌";
+                                            ] ||
+                                            "📌";
 
                                         const amount =
                                             event.amount
@@ -3480,9 +4573,11 @@ function renderTimeline(thing) {
                                                 <div class="timeline-event-info">
 
                                                     <strong>
+
                                                         ${escapeHtml(
                                                             event.description
                                                         )}
+
                                                     </strong>
 
                                                 </div>
@@ -3512,7 +4607,6 @@ function renderTimeline(thing) {
                                         `;
 
                                     }
-
                                 ).join("")
                             }
 
@@ -3523,15 +4617,18 @@ function renderTimeline(thing) {
                 `;
 
             }
-
         ).join("");
 
 }
 
-function toggleTimelineMonth(id) {
+function toggleTimelineMonth(
+    id
+) {
 
     const section =
-        document.getElementById(id);
+        document.getElementById(
+            id
+        );
 
     const arrow =
         document.getElementById(
@@ -3550,7 +4647,8 @@ function toggleTimelineMonth(id) {
 
         if (arrow) {
 
-            arrow.textContent = "⌄";
+            arrow.textContent =
+                "⌄";
 
         }
 
@@ -3561,7 +4659,8 @@ function toggleTimelineMonth(id) {
 
         if (arrow) {
 
-            arrow.textContent = "›";
+            arrow.textContent =
+                "›";
 
         }
 
@@ -3569,11 +4668,13 @@ function toggleTimelineMonth(id) {
 
 }
 
-/* -----------------------------
+/* =========================================================
    TIMELINE NAVIGATION
------------------------------ */
+========================================================= */
 
-function openTimelineEvent(id) {
+function openTimelineEvent(
+    id
+) {
 
     const thing =
         things.find(
@@ -3591,12 +4692,15 @@ function openTimelineEvent(id) {
 
     if (!event) return;
 
-    if (event.documentId) {
+    if (
+        event.documentId
+    ) {
 
         const documentItem =
             thing.documents.find(
                 item =>
-                    item.id === event.documentId
+                    item.id ===
+                    event.documentId
             );
 
         if (documentItem) {
@@ -3611,7 +4715,9 @@ function openTimelineEvent(id) {
 
     }
 
-    editEvent(event.id);
+    editEvent(
+        event.id
+    );
 
 }
 
@@ -3635,19 +4741,23 @@ function openTimelineDocument(
 
     if (!documentItem) {
 
-        alert("Document not found.");
+        alert(
+            "Document not found."
+        );
 
         return;
 
     }
 
-    editDocument(documentId);
+    editDocument(
+        documentId
+    );
 
 }
 
-/* -----------------------------
+/* =========================================================
    ADD EVENT
------------------------------ */
+========================================================= */
 
 function showAddEvent() {
 
@@ -3671,7 +4781,9 @@ function showAddEvent() {
     ).value =
         "";
 
-    showView("addEventView");
+    showView(
+        "addEventView"
+    );
 
 }
 
@@ -3685,7 +4797,11 @@ function addEvent() {
 
     if (!thing) return;
 
-    if (!Array.isArray(thing.events)) {
+    if (
+        !Array.isArray(
+            thing.events
+        )
+    ) {
 
         thing.events = [];
 
@@ -3698,7 +4814,9 @@ function addEvent() {
 
     if (!description) {
 
-        alert("Please enter a description.");
+        alert(
+            "Please enter a description."
+        );
 
         return;
 
@@ -3706,7 +4824,8 @@ function addEvent() {
 
     const event = {
 
-        id: Date.now(),
+        id:
+            Date.now(),
 
         type:
             document.getElementById(
@@ -3727,25 +4846,33 @@ function addEvent() {
                 "eventAmount"
             ).value,
 
-        documentId: null
+        documentId:
+            null
 
     };
 
-    thing.events.push(event);
+    thing.events.push(
+        event
+    );
 
     saveThings();
 
-    showThing(currentThingId);
+    showThing(
+        currentThingId
+    );
 
 }
 
-/* -----------------------------
+/* =========================================================
    EDIT EVENT
------------------------------ */
+========================================================= */
 
-function editEvent(id) {
+function editEvent(
+    id
+) {
 
-    currentEventId = id;
+    currentEventId =
+        id;
 
     const thing =
         things.find(
@@ -3766,24 +4893,30 @@ function editEvent(id) {
     document.getElementById(
         "editEventType"
     ).value =
-        event.type || "Other";
+        event.type ||
+        "Other";
 
     document.getElementById(
         "editEventDescription"
     ).value =
-        event.description || "";
+        event.description ||
+        "";
 
     document.getElementById(
         "editEventDate"
     ).value =
-        event.date || "";
+        event.date ||
+        "";
 
     document.getElementById(
         "editEventAmount"
     ).value =
-        event.amount || "";
+        event.amount ||
+        "";
 
-    showView("editEventView");
+    showView(
+        "editEventView"
+    );
 
 }
 
@@ -3812,7 +4945,9 @@ function saveEventEdit() {
 
     if (!description) {
 
-        alert("Please enter a description.");
+        alert(
+            "Please enter a description."
+        );
 
         return;
 
@@ -3839,7 +4974,9 @@ function saveEventEdit() {
 
     saveThings();
 
-    showThing(currentThingId);
+    showThing(
+        currentThingId
+    );
 
 }
 
@@ -3868,12 +5005,15 @@ function deleteEvent() {
 
     if (!confirmed) return;
 
-    if (event.documentId) {
+    if (
+        event.documentId
+    ) {
 
         const documentItem =
             thing.documents.find(
                 item =>
-                    item.id === event.documentId
+                    item.id ===
+                    event.documentId
             );
 
         if (documentItem) {
@@ -3893,15 +5033,18 @@ function deleteEvent() {
 
     saveThings();
 
-    currentEventId = null;
+    currentEventId =
+        null;
 
-    showThing(currentThingId);
+    showThing(
+        currentThingId
+    );
 
 }
 
-/* -----------------------------
+/* =========================================================
    COMING UP
------------------------------ */
+========================================================= */
 
 function renderComingUp() {
 
@@ -3921,7 +5064,9 @@ function renderComingUp() {
     );
 
     const limitDate =
-        new Date(todayDate);
+        new Date(
+            todayDate
+        );
 
     limitDate.setDate(
         limitDate.getDate() + 30
@@ -3929,143 +5074,148 @@ function renderComingUp() {
 
     const upcoming = [];
 
-    things.forEach(thing => {
+    things.forEach(
+        thing => {
 
-        if (
-            !Array.isArray(
-                thing.documents
-            )
-        ) {
+            if (
+                !Array.isArray(
+                    thing.documents
+                )
+            ) {
 
-            return;
-
-        }
-
-        thing.documents.forEach(
-            documentItem => {
-
-                let dateType =
-                    documentItem.dateType;
-
-                let importantDate =
-                    documentItem.importantDate;
-
-                if (!dateType) {
-
-                    if (
-                        documentItem.expiryDate
-                    ) {
-
-                        dateType =
-                            "Expiry Date";
-
-                        importantDate =
-                            documentItem.expiryDate;
-
-                    } else {
-
-                        dateType =
-                            "None";
-
-                    }
-
-                }
-
-                if (
-                    dateType === "None" ||
-                    !importantDate
-                ) {
-
-                    return;
-
-                }
-
-                const important =
-                    new Date(
-                        importantDate +
-                        "T00:00:00"
-                    );
-
-                let notificationDate =
-                    new Date(important);
-
-                const repeat =
-                    documentItem.repeat ||
-                    "Never";
-
-                if (
-                    documentItem.notificationAcknowledged &&
-                    repeat !== "Never"
-                ) {
-
-                    while (
-                        notificationDate <
-                        todayDate
-                    ) {
-
-                        notificationDate =
-                            addRepeat(
-                                notificationDate,
-                                repeat
-                            );
-
-                    }
-
-                }
-
-                if (
-                    documentItem.notificationAcknowledged &&
-                    notificationDate >
-                    limitDate
-                ) {
-
-                    return;
-
-                }
-
-                if (
-                    documentItem.notificationAcknowledged &&
-                    repeat === "Never"
-                ) {
-
-                    return;
-
-                }
-
-                if (
-                    notificationDate <=
-                    limitDate
-                ) {
-
-                    upcoming.push({
-
-                        thing,
-
-                        document:
-                            documentItem,
-
-                        dateType,
-
-                        importantDate:
-                            formatDateForStorage(
-                                notificationDate
-                            ),
-
-                        important:
-                            notificationDate
-
-                    });
-
-                }
+                return;
 
             }
-        );
 
-    });
+            thing.documents.forEach(
+                documentItem => {
+
+                    let dateType =
+                        documentItem.dateType;
+
+                    let importantDate =
+                        documentItem.importantDate;
+
+                    if (!dateType) {
+
+                        if (
+                            documentItem.expiryDate
+                        ) {
+
+                            dateType =
+                                "Expiry Date";
+
+                            importantDate =
+                                documentItem.expiryDate;
+
+                        } else {
+
+                            dateType =
+                                "None";
+
+                        }
+
+                    }
+
+                    if (
+                        dateType === "None" ||
+                        !importantDate
+                    ) {
+
+                        return;
+
+                    }
+
+                    const important =
+                        new Date(
+                            importantDate +
+                            "T00:00:00"
+                        );
+
+                    let notificationDate =
+                        new Date(
+                            important
+                        );
+
+                    const repeat =
+                        documentItem.repeat ||
+                        "Never";
+
+                    if (
+                        documentItem.notificationAcknowledged &&
+                        repeat !== "Never"
+                    ) {
+
+                        while (
+                            notificationDate <
+                            todayDate
+                        ) {
+
+                            notificationDate =
+                                addRepeat(
+                                    notificationDate,
+                                    repeat
+                                );
+
+                        }
+
+                    }
+
+                    if (
+                        documentItem.notificationAcknowledged &&
+                        notificationDate >
+                        limitDate
+                    ) {
+
+                        return;
+
+                    }
+
+                    if (
+                        documentItem.notificationAcknowledged &&
+                        repeat === "Never"
+                    ) {
+
+                        return;
+
+                    }
+
+                    if (
+                        notificationDate <=
+                        limitDate
+                    ) {
+
+                        upcoming.push({
+
+                            thing,
+
+                            document:
+                                documentItem,
+
+                            dateType,
+
+                            importantDate:
+                                formatDateForStorage(
+                                    notificationDate
+                                ),
+
+                            important:
+                                notificationDate
+
+                        });
+
+                    }
+
+                }
+            );
+
+        }
+    );
 
     upcoming.sort(
         (a, b) =>
-            a.important - b.important
+            a.important -
+            b.important
     );
 
     if (
@@ -4116,7 +5266,9 @@ function renderComingUp() {
                 ) {
 
                     const days =
-                        Math.abs(diff);
+                        Math.abs(
+                            diff
+                        );
 
                     if (isDue) {
 
@@ -4261,14 +5413,13 @@ function renderComingUp() {
                 `;
 
             }
-
         ).join("");
 
 }
 
-/* -----------------------------
+/* =========================================================
    NOTIFICATIONS
------------------------------ */
+========================================================= */
 
 function acknowledgeNotification(
     documentId,
@@ -4283,74 +5434,77 @@ function acknowledgeNotification(
 
     let found = false;
 
-    things.forEach(thing => {
-
-        if (
-            !Array.isArray(
-                thing.documents
-            )
-        ) {
-
-            return;
-
-        }
-
-        const documentItem =
-            thing.documents.find(
-                item =>
-                    item.id === documentId
-            );
-
-        if (!documentItem) {
-
-            return;
-
-        }
-
-        documentItem.notificationAcknowledged =
-            true;
-
-        const repeat =
-            documentItem.repeat ||
-            "Never";
-
-        if (
-            repeat !== "Never" &&
-            documentItem.importantDate
-        ) {
-
-            const currentDate =
-                new Date(
-                    documentItem.importantDate +
-                    "T00:00:00"
-                );
-
-            const nextDate =
-                addRepeat(
-                    currentDate,
-                    repeat
-                );
-
-            documentItem.importantDate =
-                formatDateForStorage(
-                    nextDate
-                );
+    things.forEach(
+        thing => {
 
             if (
-                documentItem.dateType ===
-                "Expiry Date"
+                !Array.isArray(
+                    thing.documents
+                )
             ) {
 
-                documentItem.expiryDate =
-                    documentItem.importantDate;
+                return;
 
             }
 
+            const documentItem =
+                thing.documents.find(
+                    item =>
+                        item.id ===
+                        documentId
+                );
+
+            if (!documentItem) {
+
+                return;
+
+            }
+
+            documentItem.notificationAcknowledged =
+                true;
+
+            const repeat =
+                documentItem.repeat ||
+                "Never";
+
+            if (
+                repeat !== "Never" &&
+                documentItem.importantDate
+            ) {
+
+                const currentDate =
+                    new Date(
+                        documentItem.importantDate +
+                        "T00:00:00"
+                    );
+
+                const nextDate =
+                    addRepeat(
+                        currentDate,
+                        repeat
+                    );
+
+                documentItem.importantDate =
+                    formatDateForStorage(
+                        nextDate
+                    );
+
+                if (
+                    documentItem.dateType ===
+                    "Expiry Date"
+                ) {
+
+                    documentItem.expiryDate =
+                        documentItem.importantDate;
+
+                }
+
+            }
+
+            found = true;
+
         }
-
-        found = true;
-
-    });
+    );
 
     if (!found) return;
 
@@ -4360,9 +5514,9 @@ function acknowledgeNotification(
 
 }
 
-/* -----------------------------
+/* =========================================================
    REPEAT HELPERS
------------------------------ */
+========================================================= */
 
 function addRepeat(
     date,
@@ -4370,9 +5524,13 @@ function addRepeat(
 ) {
 
     const result =
-        new Date(date);
+        new Date(
+            date
+        );
 
-    if (repeat === "Yearly") {
+    if (
+        repeat === "Yearly"
+    ) {
 
         result.setFullYear(
             result.getFullYear() + 1
@@ -4419,22 +5577,39 @@ function formatDateForStorage(
 
 }
 
-/* -----------------------------
+/* =========================================================
    HELPERS
------------------------------ */
+========================================================= */
 
-function mapDocumentToEvent(type) {
+function mapDocumentToEvent(
+    type
+) {
 
     const mapping = {
 
-        Invoice: "Expense",
-        Contract: "Other",
-        Insurance: "Insurance",
-        Warranty: "Other",
-        Tax: "Expense",
-        Certificate: "Other",
-        Repair: "Repair",
-        Other: "Other"
+        Invoice:
+            "Expense",
+
+        Contract:
+            "Other",
+
+        Insurance:
+            "Insurance",
+
+        Warranty:
+            "Other",
+
+        Tax:
+            "Expense",
+
+        Certificate:
+            "Other",
+
+        Repair:
+            "Repair",
+
+        Other:
+            "Other"
 
     };
 
@@ -4471,7 +5646,9 @@ function today() {
 
 }
 
-function formatDate(dateString) {
+function formatDate(
+    dateString
+) {
 
     if (!dateString) {
 
@@ -4480,7 +5657,9 @@ function formatDate(dateString) {
     }
 
     const parts =
-        dateString.split("-");
+        dateString.split(
+            "-"
+        );
 
     if (
         parts.length !== 3
@@ -4494,7 +5673,9 @@ function formatDate(dateString) {
 
 }
 
-function formatDay(dateString) {
+function formatDay(
+    dateString
+) {
 
     if (!dateString) {
 
@@ -4503,7 +5684,9 @@ function formatDay(dateString) {
     }
 
     const parts =
-        dateString.split("-");
+        dateString.split(
+            "-"
+        );
 
     if (
         parts.length !== 3
@@ -4514,12 +5697,16 @@ function formatDay(dateString) {
     }
 
     return String(
-        Number(parts[2])
+        Number(
+            parts[2]
+        )
     );
 
 }
 
-function formatMoney(value) {
+function formatMoney(
+    value
+) {
 
     if (
         value === "" ||
@@ -4532,10 +5719,14 @@ function formatMoney(value) {
     }
 
     const number =
-        Number(value);
+        Number(
+            value
+        );
 
     if (
-        Number.isNaN(number)
+        Number.isNaN(
+            number
+        )
     ) {
 
         return "—";
@@ -4545,14 +5736,20 @@ function formatMoney(value) {
     return new Intl.NumberFormat(
         "pt-PT",
         {
-            style: "currency",
-            currency: "EUR"
+            style:
+                "currency",
+            currency:
+                "EUR"
         }
-    ).format(number);
+    ).format(
+        number
+    );
 
 }
 
-function escapeHtml(value) {
+function escapeHtml(
+    value
+) {
 
     if (
         value === null ||
@@ -4563,7 +5760,9 @@ function escapeHtml(value) {
 
     }
 
-    return String(value)
+    return String(
+        value
+    )
 
         .replace(
             /&/g,
@@ -4592,140 +5791,166 @@ function escapeHtml(value) {
 
 }
 
-/* -----------------------------
+/* =========================================================
    DATA MIGRATION
------------------------------ */
+========================================================= */
 
-things.forEach(thing => {
+things.forEach(
+    thing => {
 
-    if (
-        thing.category === "Home"
-    ) {
+        if (
+            thing.category ===
+            "Home"
+        ) {
 
-        thing.category =
-            "Real Estate";
+            thing.category =
+                "Real Estate";
 
-    }
+        }
 
-    if (
-        thing.category === "Vehicle"
-    ) {
+        if (
+            thing.category ===
+            "Vehicle"
+        ) {
 
-        thing.category =
-            "Vehicles";
+            thing.category =
+                "Vehicles";
 
-    }
+        }
 
-    if (
-        thing.category === "Appliance"
-    ) {
+        if (
+            thing.category ===
+            "Appliance"
+        ) {
 
-        thing.category =
-            "Other";
+            thing.category =
+                "Other";
 
-    }
+        }
 
-    if (
-        !Array.isArray(
-            thing.documents
-        )
-    ) {
+        if (
+            !Array.isArray(
+                thing.documents
+            )
+        ) {
 
-        thing.documents = [];
+            thing.documents =
+                [];
 
-    }
+        }
 
-    if (
-        !Array.isArray(
-            thing.events
-        )
-    ) {
+        if (
+            !Array.isArray(
+                thing.events
+            )
+        ) {
 
-        thing.events = [];
+            thing.events =
+                [];
 
-    }
+        }
 
-    thing.documents.forEach(
-        documentItem => {
-
-            if (
-                documentItem.timelineEventId ===
-                undefined
-            ) {
-
-                documentItem.timelineEventId =
-                    null;
-
-            }
-
-            if (
-                documentItem.notificationAcknowledged ===
-                undefined
-            ) {
-
-                documentItem.notificationAcknowledged =
-                    false;
-
-            }
-
-            if (
-                !documentItem.dateType
-            ) {
+        thing.documents.forEach(
+            documentItem => {
 
                 if (
-                    documentItem.expiryDate
+                    documentItem.timelineEventId ===
+                    undefined
                 ) {
 
-                    documentItem.dateType =
-                        "Expiry Date";
+                    documentItem.timelineEventId =
+                        null;
+
+                }
+
+                if (
+                    documentItem.notificationAcknowledged ===
+                    undefined
+                ) {
+
+                    documentItem.notificationAcknowledged =
+                        false;
+
+                }
+
+                if (
+                    !documentItem.dateType
+                ) {
+
+                    if (
+                        documentItem.expiryDate
+                    ) {
+
+                        documentItem.dateType =
+                            "Expiry Date";
+
+                        documentItem.importantDate =
+                            documentItem.expiryDate;
+
+                    } else {
+
+                        documentItem.dateType =
+                            "None";
+
+                        documentItem.importantDate =
+                            "";
+
+                    }
+
+                } else if (
+                    documentItem.importantDate ===
+                    undefined
+                ) {
 
                     documentItem.importantDate =
-                        documentItem.expiryDate;
-
-                } else {
-
-                    documentItem.dateType =
-                        "None";
-
-                    documentItem.importantDate =
+                        documentItem.expiryDate ||
                         "";
 
                 }
 
-            } else if (
-                documentItem.importantDate ===
-                undefined
-            ) {
+                if (
+                    documentItem.repeat ===
+                    undefined
+                ) {
 
-                documentItem.importantDate =
-                    documentItem.expiryDate ||
-                    "";
+                    documentItem.repeat =
+                        "Never";
 
-            }
-
-            if (
-                documentItem.repeat ===
-                undefined
-            ) {
-
-                documentItem.repeat =
-                    "Never";
+                }
 
             }
+        );
 
-        }
-    );
-
-});
+    }
+);
 
 saveThings();
 
-/* -----------------------------
+/* =========================================================
    INITIAL LOAD
------------------------------ */
+========================================================= */
 
 renderCategoryCounts();
+
 renderComingUp();
+
+/*
+   Initialise IndexedDB quietly.
+   This does not affect the existing
+   localStorage data.
+*/
+
+initAttachmentDB()
+    .catch(
+        error => {
+
+            console.error(
+                "Attachment storage could not be initialized:",
+                error
+            );
+
+        }
+    );
 
 </script>
 
