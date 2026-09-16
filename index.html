@@ -418,6 +418,14 @@ label {
     width: auto;
 }
 
+.attachment-indicator {
+    display: inline-block !important;
+    color: #555 !important;
+    font-size: 12px !important;
+    margin-top: 6px !important;
+    font-weight: 500;
+}
+
 .empty {
     text-align: center;
     padding: 25px 10px;
@@ -1524,7 +1532,7 @@ label {
 <script>
 
 /* =========================================================
-   COISABLE 0.6
+   COISABLE 0.7
    Attachments via IndexedDB
 ========================================================= */
 
@@ -1601,9 +1609,7 @@ function initAttachmentDB() {
 
             }
 
-            if (
-                !window.indexedDB
-            ) {
+            if (!window.indexedDB) {
 
                 reject(
                     new Error(
@@ -1878,7 +1884,7 @@ async function deleteAttachmentsForThing(
 }
 
 /* =========================================================
-   ATTACHMENT UI HELPERS
+   ATTACHMENT HELPERS
 ========================================================= */
 
 function formatFileSize(
@@ -1996,25 +2002,12 @@ async function openAttachment(
                 "_blank"
             );
 
-        /*
-           On some iPhone/browser
-           configurations, popups may be
-           blocked. The current page can
-           still navigate to the file.
-        */
-
         if (!newWindow) {
 
             window.location.href =
                 url;
 
         }
-
-        /*
-           Give the browser enough time
-           to load the object URL before
-           revoking it.
-        */
 
         setTimeout(
             function() {
@@ -2036,6 +2029,31 @@ async function openAttachment(
         alert(
             "Could not open the attachment."
         );
+
+    }
+
+}
+
+async function hasAttachment(
+    documentId
+) {
+
+    try {
+
+        const attachment =
+            await getAttachment(
+                documentId
+            );
+
+        return !!attachment;
+
+    } catch(error) {
+
+        console.error(
+            error
+        );
+
+        return false;
 
     }
 
@@ -2175,7 +2193,7 @@ async function removeExistingAttachment(
             documentId
         );
 
-        renderExistingAttachment(
+        await renderExistingAttachment(
             documentId
         );
 
@@ -2190,6 +2208,8 @@ async function removeExistingAttachment(
                 "Attachment removed.";
 
         }
+
+        renderDocumentsForCurrentThing();
 
     } catch(error) {
 
@@ -3261,6 +3281,22 @@ function showThing(
 
 }
 
+function renderDocumentsForCurrentThing() {
+
+    const thing =
+        things.find(
+            item =>
+                item.id === currentThingId
+        );
+
+    if (!thing) return;
+
+    renderDocuments(
+        thing
+    );
+
+}
+
 /* =========================================================
    EDIT THING
 ========================================================= */
@@ -3381,11 +3417,6 @@ async function deleteThing() {
         );
 
     if (!confirmed) return;
-
-    /*
-       Remove all physical attachments
-       before removing the Thing.
-    */
 
     await deleteAttachmentsForThing(
         thing
@@ -3699,16 +3730,7 @@ async function addDocument() {
         documentItem
     );
 
-    /*
-       Save the normal document data first.
-    */
-
     saveThings();
-
-    /*
-       Then save the physical file,
-       if one was selected.
-    */
 
     const attachmentInput =
         document.getElementById(
@@ -3792,6 +3814,12 @@ function renderDocuments(
 
             }
         );
+
+    /*
+       Render immediately.
+       Attachment indicators are added
+       asynchronously afterwards.
+    */
 
     container.innerHTML =
         sortedDocuments.map(
@@ -3921,6 +3949,12 @@ function renderDocuments(
                                 : ""
                             }
 
+                            <span
+                                id="attachment-indicator-${documentItem.id}"
+                                class="attachment-indicator"
+                                style="display:none;">
+                            </span>
+
                         </div>
 
                         <div class="document-actions">
@@ -3942,6 +3976,36 @@ function renderDocuments(
             }
 
         ).join("");
+
+    /*
+       Check which documents have files.
+    */
+
+    sortedDocuments.forEach(
+        async documentItem => {
+
+            const exists =
+                await hasAttachment(
+                    documentItem.id
+                );
+
+            if (!exists) return;
+
+            const indicator =
+                document.getElementById(
+                    `attachment-indicator-${documentItem.id}`
+                );
+
+            if (!indicator) return;
+
+            indicator.textContent =
+                "📎 Attachment";
+
+            indicator.style.display =
+                "block";
+
+        }
+    );
 
 }
 
@@ -4232,11 +4296,6 @@ async function saveDocumentEdit() {
 
     }
 
-    /*
-       Check whether a new attachment
-       was selected.
-    */
-
     const attachmentInput =
         document.getElementById(
             "editDocumentAttachment"
@@ -4249,16 +4308,7 @@ async function saveDocumentEdit() {
             ? attachmentInput.files[0]
             : null;
 
-    /*
-       Save normal data.
-    */
-
     saveThings();
-
-    /*
-       If a new file was selected,
-       replace the existing attachment.
-    */
 
     if (newFile) {
 
@@ -4326,10 +4376,6 @@ async function deleteDocument() {
             );
 
     }
-
-    /*
-       Delete the physical attachment.
-    */
 
     try {
 
@@ -5933,12 +5979,6 @@ saveThings();
 renderCategoryCounts();
 
 renderComingUp();
-
-/*
-   Initialise IndexedDB quietly.
-   This does not affect the existing
-   localStorage data.
-*/
 
 initAttachmentDB()
     .catch(
