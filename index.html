@@ -283,21 +283,32 @@ label {
     color: #777;
 }
 
-.expiring {
+/* -----------------------------
+   COMING UP
+----------------------------- */
+
+.coming-up {
     border-left: 4px solid #f59e0b;
 }
 
-.expired {
+.coming-up-overdue {
     border-left: 4px solid #d92d20;
 }
 
-.expiring-title {
+.coming-up-title {
     font-weight: 600;
 }
 
-.expiring-status {
+.coming-up-meta {
     font-size: 13px;
-    margin-top: 4px;
+    color: #777;
+    margin-top: 3px;
+}
+
+.coming-up-status {
+    font-size: 13px;
+    margin-top: 5px;
+    font-weight: 500;
 }
 
 /* -----------------------------
@@ -572,11 +583,11 @@ label {
 
             <div class="section-header">
 
-                <h2>Expiring Soon</h2>
+                <h2>Coming Up</h2>
 
             </div>
 
-            <div id="expiringSoon"></div>
+            <div id="comingUp"></div>
 
         </div>
 
@@ -872,7 +883,7 @@ label {
         <input id="documentDate"
                type="date">
 
-        <label>Date type</label>
+        <label>Date Type</label>
 
         <select id="documentDateType"
                 onchange="updateImportantDateField('')">
@@ -895,7 +906,7 @@ label {
              style="display:none;">
 
             <label id="documentImportantDateLabel">
-                Expiry Date
+                Important Date
             </label>
 
             <input id="documentImportantDate"
@@ -925,7 +936,7 @@ label {
         <div class="info-box">
 
             Date = when the document happened or was issued.
-            An optional Due Date or Expiry Date can be added separately.
+            You can optionally add a Due Date or Expiry Date separately.
 
         </div>
 
@@ -976,7 +987,7 @@ label {
         <input id="editDocumentDate"
                type="date">
 
-        <label>Date type</label>
+        <label>Date Type</label>
 
         <select id="editDocumentDateType"
                 onchange="updateImportantDateField('edit')">
@@ -999,7 +1010,7 @@ label {
              style="display:none;">
 
             <label id="editDocumentImportantDateLabel">
-                Expiry Date
+                Important Date
             </label>
 
             <input id="editDocumentImportantDate"
@@ -1226,7 +1237,7 @@ function showView(id) {
 function showHome() {
 
     renderCategoryCounts();
-    renderExpiringSoon();
+    renderComingUp();
 
     showView("homeView");
 
@@ -1794,7 +1805,7 @@ function deleteThing() {
 }
 
 /* -----------------------------
-   DOCUMENT DATE SEMANTICS
+   IMPORTANT DATE
 ----------------------------- */
 
 function updateImportantDateField(prefix) {
@@ -1814,7 +1825,12 @@ function updateImportantDateField(prefix) {
             ? "editDocumentImportantDateLabel"
             : "documentImportantDateLabel";
 
-    const dateType =
+    const dateId =
+        prefix
+            ? "editDocumentImportantDate"
+            : "documentImportantDate";
+
+    const type =
         document.getElementById(
             typeId
         ).value;
@@ -1829,22 +1845,27 @@ function updateImportantDateField(prefix) {
             labelId
         );
 
-    if (!group || !label) return;
+    const date =
+        document.getElementById(
+            dateId
+        );
 
-    if (dateType === "None") {
+    if (type === "None") {
 
         group.style.display =
             "none";
 
-    } else {
+        date.value = "";
 
-        group.style.display =
-            "block";
-
-        label.textContent =
-            dateType;
+        return;
 
     }
+
+    group.style.display =
+        "block";
+
+    label.textContent =
+        type;
 
 }
 
@@ -1957,9 +1978,7 @@ function addDocument() {
         importantDate:
             importantDate,
 
-        /* Legacy field kept for compatibility
-           with previous Coisable versions. */
-
+        /* Legacy compatibility */
         expiryDate:
             dateType === "Expiry Date"
                 ? importantDate
@@ -2075,18 +2094,37 @@ function renderDocuments(thing) {
                         documentItem.type
                     ] || "📄";
 
-                const dateType =
-                    documentItem.dateType ||
-                    (
-                        documentItem.expiryDate
-                            ? "Expiry Date"
-                            : "None"
-                    );
+                let dateType =
+                    documentItem.dateType;
 
-                const importantDate =
-                    documentItem.importantDate ||
-                    documentItem.expiryDate ||
-                    "";
+                let importantDate =
+                    documentItem.importantDate;
+
+                /*
+                   Compatibility with documents
+                   created before 0.5.
+                */
+
+                if (!dateType) {
+
+                    if (
+                        documentItem.expiryDate
+                    ) {
+
+                        dateType =
+                            "Expiry Date";
+
+                        importantDate =
+                            documentItem.expiryDate;
+
+                    } else {
+
+                        dateType =
+                            "None";
+
+                    }
+
+                }
 
                 return `
 
@@ -2115,14 +2153,15 @@ function renderDocuments(thing) {
                             </span>
 
                             ${
-                                dateType !== "None" &&
-                                importantDate
+                                importantDate &&
+                                dateType !== "None"
                                 ? `
 
                                     <span>
                                         ${escapeHtml(
                                             dateType
-                                        )}:
+                                        )}
+                                       :
                                         ${formatDate(
                                             importantDate
                                         )}
@@ -2190,6 +2229,40 @@ function editDocument(id) {
 
     if (!documentItem) return;
 
+    let dateType =
+        documentItem.dateType;
+
+    let importantDate =
+        documentItem.importantDate;
+
+    /*
+       Migration support for older documents.
+    */
+
+    if (!dateType) {
+
+        if (
+            documentItem.expiryDate
+        ) {
+
+            dateType =
+                "Expiry Date";
+
+            importantDate =
+                documentItem.expiryDate;
+
+        } else {
+
+            dateType =
+                "None";
+
+            importantDate =
+                "";
+
+        }
+
+    }
+
     document.getElementById(
         "editDocumentName"
     ).value =
@@ -2205,19 +2278,6 @@ function editDocument(id) {
     ).value =
         documentItem.date || "";
 
-    const dateType =
-        documentItem.dateType ||
-        (
-            documentItem.expiryDate
-                ? "Expiry Date"
-                : "None"
-        );
-
-    const importantDate =
-        documentItem.importantDate ||
-        documentItem.expiryDate ||
-        "";
-
     document.getElementById(
         "editDocumentDateType"
     ).value =
@@ -2226,14 +2286,14 @@ function editDocument(id) {
     document.getElementById(
         "editDocumentImportantDate"
     ).value =
-        importantDate;
-
-    updateImportantDateField("edit");
+        importantDate || "";
 
     document.getElementById(
         "editDocumentAmount"
     ).value =
         documentItem.amount || "";
+
+    updateImportantDateField("edit");
 
     const timelineInfo =
         document.getElementById(
@@ -2288,18 +2348,6 @@ function saveDocumentEdit() {
 
     }
 
-    documentItem.name = name;
-
-    documentItem.type =
-        document.getElementById(
-            "editDocumentType"
-        ).value;
-
-    documentItem.date =
-        document.getElementById(
-            "editDocumentDate"
-        ).value;
-
     const dateType =
         document.getElementById(
             "editDocumentDateType"
@@ -2312,13 +2360,26 @@ function saveDocumentEdit() {
                 "editDocumentImportantDate"
               ).value;
 
+    documentItem.name =
+        name;
+
+    documentItem.type =
+        document.getElementById(
+            "editDocumentType"
+        ).value;
+
+    documentItem.date =
+        document.getElementById(
+            "editDocumentDate"
+        ).value;
+
     documentItem.dateType =
         dateType;
 
     documentItem.importantDate =
         importantDate;
 
-    /* Keep legacy field synchronized. */
+    /* Legacy compatibility */
 
     documentItem.expiryDate =
         dateType === "Expiry Date"
@@ -2602,11 +2663,9 @@ function renderTimeline(thing) {
                                                 <div class="timeline-event-info">
 
                                                     <strong>
-
                                                         ${escapeHtml(
                                                             event.description
                                                         )}
-
                                                     </strong>
 
                                                 </div>
@@ -2738,17 +2797,6 @@ function openTimelineEvent(id) {
     editEvent(event.id);
 
 }
-
-/* -----------------------------
-   TIMELINE → DOCUMENT
------------------------------ */
-
-/*
-
-   Kept for compatibility with
-   previous Coisable versions.
-
-*/
 
 function openTimelineDocument(
     documentId
@@ -3035,14 +3083,14 @@ function deleteEvent() {
 }
 
 /* -----------------------------
-   EXPIRING SOON
+   COMING UP
 ----------------------------- */
 
-function renderExpiringSoon() {
+function renderComingUp() {
 
     const container =
         document.getElementById(
-            "expiringSoon"
+            "comingUp"
         );
 
     const todayDate =
@@ -3062,7 +3110,7 @@ function renderExpiringSoon() {
         limitDate.getDate() + 30
     );
 
-    const expiring = [];
+    const upcoming = [];
 
     things.forEach(thing => {
 
@@ -3079,21 +3127,40 @@ function renderExpiringSoon() {
         thing.documents.forEach(
             documentItem => {
 
-                const dateType =
-                    documentItem.dateType ||
-                    (
-                        documentItem.expiryDate
-                            ? "Expiry Date"
-                            : "None"
-                    );
+                let dateType =
+                    documentItem.dateType;
 
-                const importantDate =
-                    documentItem.importantDate ||
-                    documentItem.expiryDate ||
-                    "";
+                let importantDate =
+                    documentItem.importantDate;
+
+                /*
+                   Support documents created
+                   before the date-type update.
+                */
+
+                if (!dateType) {
+
+                    if (
+                        documentItem.expiryDate
+                    ) {
+
+                        dateType =
+                            "Expiry Date";
+
+                        importantDate =
+                            documentItem.expiryDate;
+
+                    } else {
+
+                        dateType =
+                            "None";
+
+                    }
+
+                }
 
                 if (
-                    dateType !== "Expiry Date" ||
+                    dateType === "None" ||
                     !importantDate
                 ) {
 
@@ -3101,24 +3168,28 @@ function renderExpiringSoon() {
 
                 }
 
-                const expiry =
+                const important =
                     new Date(
                         importantDate +
                         "T00:00:00"
                     );
 
                 if (
-                    expiry <= limitDate
+                    important <= limitDate
                 ) {
 
-                    expiring.push({
+                    upcoming.push({
 
                         thing,
 
                         document:
                             documentItem,
 
-                        expiry
+                        dateType,
+
+                        importantDate,
+
+                        important
 
                     });
 
@@ -3129,20 +3200,20 @@ function renderExpiringSoon() {
 
     });
 
-    expiring.sort(
+    upcoming.sort(
         (a, b) =>
-            a.expiry - b.expiry
+            a.important - b.important
     );
 
     if (
-        expiring.length === 0
+        upcoming.length === 0
     ) {
 
         container.innerHTML = `
 
             <div class="card empty">
 
-                Nothing expiring soon.
+                Nothing coming up.
 
             </div>
 
@@ -3153,18 +3224,13 @@ function renderExpiringSoon() {
     }
 
     container.innerHTML =
-        expiring.map(
+        upcoming.map(
             item => {
-
-                const expiry =
-                    new Date(
-                        item.expiry
-                    );
 
                 const diff =
                     Math.ceil(
                         (
-                            expiry -
+                            item.important -
                             todayDate
                         ) /
                         (
@@ -3175,45 +3241,72 @@ function renderExpiringSoon() {
                         )
                     );
 
+                const isDue =
+                    item.dateType ===
+                    "Due Date";
+
                 let status;
                 let className;
 
-                if (diff < 0) {
+                if (
+                    diff < 0
+                ) {
 
                     const days =
                         Math.abs(diff);
 
-                    status =
-                        `Expired ${days} ${
-                            days === 1
-                            ? "day"
-                            : "days"
-                        } ago`;
+                    if (isDue) {
+
+                        status =
+                            `Overdue ${days} ${
+                                days === 1
+                                ? "day"
+                                : "days"
+                            }`;
+
+                    } else {
+
+                        status =
+                            `Expired ${days} ${
+                                days === 1
+                                ? "day"
+                                : "days"
+                            } ago`;
+
+                    }
 
                     className =
-                        "expired";
+                        "coming-up-overdue";
 
                 } else if (
                     diff === 0
                 ) {
 
                     status =
-                        "Expires today";
+                        isDue
+                            ? "Due today"
+                            : "Expires today";
 
                     className =
-                        "expired";
+                        "coming-up-overdue";
 
                 } else {
 
                     status =
-                        `Expires in ${diff} ${
-                            diff === 1
-                            ? "day"
-                            : "days"
-                        }`;
+                        isDue
+                            ? `Due in ${diff} ${
+                                diff === 1
+                                ? "day"
+                                : "days"
+                              }`
+                            : `Expires in ${diff} ${
+                                diff === 1
+                                ? "day"
+                                : "days"
+                              }`;
 
                     className =
-                        "expiring";
+                        "coming-up";
 
                 }
 
@@ -3241,7 +3334,7 @@ function renderExpiringSoon() {
 
                             <div>
 
-                                <div class="expiring-title">
+                                <div class="coming-up-title">
 
                                     ${escapeHtml(
                                         item.document.name
@@ -3249,11 +3342,7 @@ function renderExpiringSoon() {
 
                                 </div>
 
-                                <div style="
-                                    font-size:13px;
-                                    color:#777;
-                                    margin-top:3px;
-                                ">
+                                <div class="coming-up-meta">
 
                                     ${escapeHtml(
                                         item.thing.name
@@ -3261,7 +3350,19 @@ function renderExpiringSoon() {
 
                                 </div>
 
-                                <div class="expiring-status">
+                                <div class="coming-up-meta">
+
+                                    ${escapeHtml(
+                                        item.dateType
+                                    )}
+                                    ·
+                                    ${formatDate(
+                                        item.importantDate
+                                    )}
+
+                                </div>
+
+                                <div class="coming-up-status">
 
                                     ${status}
 
@@ -3458,16 +3559,6 @@ function escapeHtml(value) {
    DATA MIGRATION
 ----------------------------- */
 
-/*
-
-   Convert old category names from
-   previous Coisable versions.
-
-   Also migrate the old Expiry Date
-   field into the new Date Semantics model.
-
-*/
-
 things.forEach(thing => {
 
     if (
@@ -3531,10 +3622,9 @@ things.forEach(thing => {
             }
 
             /*
-               New Date Semantics migration.
-
-               Old documents with expiryDate
-               become Expiry Date documents.
+               0.5 date migration:
+               old expiryDate becomes
+               Expiry Date + importantDate.
             */
 
             if (
@@ -3572,27 +3662,6 @@ things.forEach(thing => {
 
             }
 
-            /*
-               Keep the legacy field synchronized
-               for compatibility.
-            */
-
-            if (
-                documentItem.dateType ===
-                "Expiry Date"
-            ) {
-
-                documentItem.expiryDate =
-                    documentItem.importantDate ||
-                    "";
-
-            } else {
-
-                documentItem.expiryDate =
-                    "";
-
-            }
-
         }
     );
 
@@ -3605,7 +3674,7 @@ saveThings();
 ----------------------------- */
 
 renderCategoryCounts();
-renderExpiringSoon();
+renderComingUp();
 
 </script>
 
