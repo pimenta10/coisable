@@ -526,14 +526,8 @@ label {
 .attachment-toolbar button {
     width: auto;
     min-width: 42px;
-    height: 40px;
     padding: 9px 12px;
     font-size: 14px;
-    touch-action: manipulation;
-}
-
-.attachment-toolbar button:active {
-    transform: scale(0.96);
 }
 
 .attachment-zoom-label {
@@ -551,9 +545,15 @@ label {
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     width: 100%;
-    height: calc(100dvh - 190px);
-    min-height: 400px;
+    height: calc(100vh - 180px);
+    min-height: 450px;
     max-height: 800px;
+}
+
+@supports (height: 100dvh) {
+    .attachment-viewer {
+        height: calc(100dvh - 180px);
+    }
 }
 
 .attachment-viewer-inner {
@@ -565,41 +565,39 @@ label {
     justify-content: center;
     -webkit-overflow-scrolling: touch;
     padding: 12px;
-    overscroll-behavior: contain;
 }
 
-.attachment-pdf-wrapper {
+/* PDF.js */
+
+.attachment-pdf-stage {
     width: 100%;
-    height: 100%;
-    overflow: auto;
+    min-height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    gap: 18px;
     padding: 12px;
-    overscroll-behavior: contain;
 }
 
-.attachment-pdf-surface {
-    width: 100%;
-    height: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform-origin: center center;
-    transition: transform 0.15s ease;
-}
-
-.attachment-viewer iframe {
+.attachment-pdf-page {
     display: block;
-    width: 100%;
-    height: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    border: none;
-    background: #f5f5f5;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+    flex-shrink: 0;
+}
+
+.attachment-pdf-loading {
+    color: #777;
+    font-size: 14px;
+    text-align: center;
+    padding: 30px;
+}
+
+.attachment-pdf-error {
+    padding: 30px 20px;
+    text-align: center;
+    color: #777;
 }
 
 .attachment-image-wrapper {
@@ -611,25 +609,22 @@ label {
     justify-content: center;
     -webkit-overflow-scrolling: touch;
     padding: 12px;
-    overscroll-behavior: contain;
 }
 
-.attachment-image-surface {
+.attachment-image-stage {
+    min-width: 100%;
+    min-height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transform-origin: center center;
-    transition: transform 0.15s ease;
-    flex-shrink: 0;
 }
 
 .attachment-viewer img {
     display: block;
     width: auto;
     height: auto;
-    max-width: 100%;
-    max-height: 100%;
     object-fit: contain;
+    transform-origin: center center;
     user-select: none;
     -webkit-user-drag: none;
 }
@@ -1568,6 +1563,35 @@ let attachmentZoom = 1;
 let attachmentIsFit = true;
 let attachmentIsPdf = false;
 
+let attachmentFitScale = 1;
+let attachmentPdfDocument = null;
+let attachmentPdfRenderToken = 0;
+let attachmentImageFitScale = 1;
+
+/* =========================================================
+   PDF.JS
+========================================================= */
+
+let pdfjsLib = null;
+
+async function loadPdfJs() {
+
+    if (pdfjsLib) {
+        return pdfjsLib;
+    }
+
+    pdfjsLib =
+        await import(
+            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/6.3.289/pdf.min.mjs"
+        );
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/6.3.289/pdf.worker.min.mjs";
+
+    return pdfjsLib;
+
+}
+
 /* =========================================================
    INDEXEDDB — ATTACHMENTS
 ========================================================= */
@@ -1933,60 +1957,351 @@ function updateAttachmentZoomLabel() {
 
 }
 
-function applyImageZoom() {
+function getAttachmentViewerElement() {
 
-    const surface =
+    return document.querySelector(
+        "#attachmentViewer .attachment-viewer"
+    );
+
+}
+
+/* =========================================================
+   IMAGE FIT / ZOOM
+========================================================= */
+
+function calculateImageFitScale() {
+
+    const image =
         document.getElementById(
-            "attachmentImageSurface"
+            "attachmentImage"
         );
 
-    if (!surface) return;
+    const viewer =
+        getAttachmentViewerElement();
+
+    if (
+        !image ||
+        !viewer ||
+        !image.naturalWidth ||
+        !image.naturalHeight
+    ) {
+        return 1;
+    }
+
+    const availableWidth =
+        Math.max(
+            1,
+            viewer.clientWidth - 24
+        );
+
+    const availableHeight =
+        Math.max(
+            1,
+            viewer.clientHeight - 24
+        );
+
+    const widthScale =
+        availableWidth /
+        image.naturalWidth;
+
+    const heightScale =
+        availableHeight /
+        image.naturalHeight;
+
+    return Math.min(
+        widthScale,
+        heightScale,
+        1
+    );
+
+}
+
+function applyImageZoom() {
+
+    const image =
+        document.getElementById(
+            "attachmentImage"
+        );
+
+    if (!image) return;
+
+    if (
+        !attachmentImageFitScale ||
+        attachmentImageFitScale <= 0
+    ) {
+
+        attachmentImageFitScale =
+            calculateImageFitScale();
+
+    }
+
+    let scale;
 
     if (attachmentIsFit) {
 
-        surface.style.transform =
-            "scale(1)";
+        scale =
+            attachmentImageFitScale;
 
     } else {
 
-        surface.style.transform =
-            `scale(${attachmentZoom})`;
+        scale =
+            attachmentImageFitScale *
+            attachmentZoom;
+
+    }
+
+    const width =
+        image.naturalWidth *
+        scale;
+
+    const height =
+        image.naturalHeight *
+        scale;
+
+    image.style.width =
+        `${width}px`;
+
+    image.style.height =
+        `${height}px`;
+
+    image.style.maxWidth =
+        "none";
+
+    image.style.maxHeight =
+        "none";
+
+}
+
+/* =========================================================
+   PDF FIT / ZOOM
+========================================================= */
+
+async function calculatePdfFitScale() {
+
+    const stage =
+        document.getElementById(
+            "attachmentPdfStage"
+        );
+
+    if (
+        !stage ||
+        !attachmentPdfDocument
+    ) {
+        return 1;
+    }
+
+    try {
+
+        const page =
+            await attachmentPdfDocument.getPage(
+                1
+            );
+
+        const viewport =
+            page.getViewport({
+                scale: 1
+            });
+
+        const viewer =
+            getAttachmentViewerElement();
+
+        if (!viewer) {
+            return 1;
+        }
+
+        const availableWidth =
+            Math.max(
+                1,
+                viewer.clientWidth - 48
+            );
+
+        const availableHeight =
+            Math.max(
+                1,
+                viewer.clientHeight - 48
+            );
+
+        const widthScale =
+            availableWidth /
+            viewport.width;
+
+        const heightScale =
+            availableHeight /
+            viewport.height;
+
+        return Math.min(
+            widthScale,
+            heightScale,
+            1
+        );
+
+    } catch(error) {
+
+        console.error(
+            "Could not calculate PDF fit:",
+            error
+        );
+
+        return 1;
 
     }
 
 }
 
-function applyPdfZoom() {
+async function renderPdf() {
 
-    const surface =
-        document.getElementById(
-            "attachmentPdfSurface"
-        );
-
-    const iframe =
-        document.getElementById(
-            "attachmentPdfFrame"
-        );
-
-    if (!surface || !iframe) return;
-
-    /*
-       The PDF itself remains handled by Safari,
-       but Coisable controls the visual scale of
-       the complete PDF viewer.
-    */
-
-    if (attachmentIsFit) {
-
-        surface.style.transform =
-            "scale(1)";
-
+    if (
+        !attachmentPdfDocument
+    ) {
         return;
-
     }
 
-    surface.style.transform =
-        `scale(${attachmentZoom})`;
+    const stage =
+        document.getElementById(
+            "attachmentPdfStage"
+        );
+
+    if (!stage) return;
+
+    const renderToken =
+        ++attachmentPdfRenderToken;
+
+    try {
+
+        attachmentFitScale =
+            await calculatePdfFitScale();
+
+        if (
+            renderToken !==
+            attachmentPdfRenderToken
+        ) {
+            return;
+        }
+
+        const scale =
+            attachmentIsFit
+                ? attachmentFitScale
+                : attachmentFitScale *
+                  attachmentZoom;
+
+        stage.innerHTML =
+            "";
+
+        for (
+            let pageNumber = 1;
+            pageNumber <=
+            attachmentPdfDocument.numPages;
+            pageNumber++
+        ) {
+
+            if (
+                renderToken !==
+                attachmentPdfRenderToken
+            ) {
+                return;
+            }
+
+            const page =
+                await attachmentPdfDocument.getPage(
+                    pageNumber
+                );
+
+            if (
+                renderToken !==
+                attachmentPdfRenderToken
+            ) {
+                return;
+            }
+
+            const viewport =
+                page.getViewport({
+                    scale:
+                        scale
+                });
+
+            const canvas =
+                document.createElement(
+                    "canvas"
+                );
+
+            canvas.className =
+                "attachment-pdf-page";
+
+            canvas.width =
+                Math.ceil(
+                    viewport.width
+                );
+
+            canvas.height =
+                Math.ceil(
+                    viewport.height
+                );
+
+            canvas.style.width =
+                `${viewport.width}px`;
+
+            canvas.style.height =
+                `${viewport.height}px`;
+
+            stage.appendChild(
+                canvas
+            );
+
+            const context =
+                canvas.getContext(
+                    "2d"
+                );
+
+            await page.render({
+
+                canvasContext:
+                    context,
+
+                viewport:
+                    viewport
+
+            }).promise;
+
+        }
+
+    } catch(error) {
+
+        if (
+            renderToken !==
+            attachmentPdfRenderToken
+        ) {
+            return;
+        }
+
+        console.error(
+            "Could not render PDF:",
+            error
+        );
+
+        stage.innerHTML = `
+
+            <div class="attachment-pdf-error">
+
+                Could not display this PDF.
+
+                <br><br>
+
+                <button
+                    class="secondary small"
+                    onclick="window.open(
+                        currentAttachmentUrl,
+                        '_blank'
+                    )">
+
+                    Open PDF
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
 
 }
 
@@ -2002,9 +2317,12 @@ function attachmentFit() {
 
     if (attachmentIsPdf) {
 
-        applyPdfZoom();
+        renderPdf();
 
     } else {
+
+        attachmentImageFitScale =
+            calculateImageFitScale();
 
         applyImageZoom();
 
@@ -2024,7 +2342,7 @@ function attachmentResetZoom() {
 
     if (attachmentIsPdf) {
 
-        applyPdfZoom();
+        renderPdf();
 
     } else {
 
@@ -2051,7 +2369,7 @@ function attachmentZoomIn() {
 
     if (attachmentIsPdf) {
 
-        applyPdfZoom();
+        renderPdf();
 
     } else {
 
@@ -2078,7 +2396,7 @@ function attachmentZoomOut() {
 
     if (attachmentIsPdf) {
 
-        applyPdfZoom();
+        renderPdf();
 
     } else {
 
@@ -2101,6 +2419,34 @@ function cleanupAttachmentUrl() {
         );
 
         currentAttachmentUrl =
+            null;
+
+    }
+
+}
+
+function destroyPdfDocument() {
+
+    attachmentPdfRenderToken++;
+
+    if (
+        attachmentPdfDocument
+    ) {
+
+        try {
+
+            attachmentPdfDocument.destroy();
+
+        } catch(error) {
+
+            console.error(
+                "Could not destroy PDF document:",
+                error
+            );
+
+        }
+
+        attachmentPdfDocument =
             null;
 
     }
@@ -2160,6 +2506,8 @@ async function openAttachment(
                     }
                 );
 
+        destroyPdfDocument();
+
         cleanupAttachmentUrl();
 
         currentAttachmentUrl =
@@ -2181,6 +2529,12 @@ async function openAttachment(
 
         attachmentIsFit =
             true;
+
+        attachmentFitScale =
+            1;
+
+        attachmentImageFitScale =
+            1;
 
         const viewer =
             document.getElementById(
@@ -2218,19 +2572,15 @@ async function openAttachment(
 
                 <div class="attachment-viewer">
 
-                    <div class="attachment-pdf-wrapper">
+                    <div class="attachment-viewer-inner">
 
                         <div
-                            id="attachmentPdfSurface"
-                            class="attachment-pdf-surface">
+                            id="attachmentPdfStage"
+                            class="attachment-pdf-stage">
 
-                            <iframe
-                                id="attachmentPdfFrame"
-                                title="${escapeHtml(
-                                    attachment.name
-                                )}"
-                                src="${currentAttachmentUrl}#zoom=page-fit">
-                            </iframe>
+                            <div class="attachment-pdf-loading">
+                                Loading PDF…
+                            </div>
 
                         </div>
 
@@ -2256,21 +2606,108 @@ async function openAttachment(
 
             `;
 
-            /*
-               Give Safari a moment to load the native
-               PDF viewer before applying Fit.
-            */
+            if (!attachmentHistoryActive) {
 
-            setTimeout(
-                function() {
+                history.pushState(
+                    {
+                        coisableAttachment:
+                            true,
 
-                    attachmentFit();
+                        documentId:
+                            documentId
+                    },
+                    "",
+                    location.href
+                );
 
-                },
-                150
+                attachmentHistoryActive =
+                    true;
+
+            }
+
+            showView(
+                "attachmentView"
             );
 
-        } else if (isImage) {
+            try {
+
+                const pdfjs =
+                    await loadPdfJs();
+
+                if (
+                    !currentAttachmentUrl
+                ) {
+                    return;
+                }
+
+                const loadingTask =
+                    pdfjs.getDocument({
+                        url:
+                            currentAttachmentUrl
+                    });
+
+                const pdf =
+                    await loadingTask.promise;
+
+                attachmentPdfDocument =
+                    pdf;
+
+                if (
+                    !document.getElementById(
+                        "attachmentPdfStage"
+                    )
+                ) {
+                    return;
+                }
+
+                await renderPdf();
+
+            } catch(error) {
+
+                console.error(
+                    "Could not load PDF:",
+                    error
+                );
+
+                const stage =
+                    document.getElementById(
+                        "attachmentPdfStage"
+                    );
+
+                if (stage) {
+
+                    stage.innerHTML = `
+
+                        <div class="attachment-pdf-error">
+
+                            Could not display this PDF.
+
+                            <br><br>
+
+                            <button
+                                class="secondary small"
+                                onclick="window.open(
+                                    currentAttachmentUrl,
+                                    '_blank'
+                                )">
+
+                                Open PDF
+
+                            </button>
+
+                        </div>
+
+                    `;
+
+                }
+
+            }
+
+            return;
+
+        }
+
+        if (isImage) {
 
             viewer.innerHTML = `
 
@@ -2278,9 +2715,7 @@ async function openAttachment(
 
                     <div class="attachment-image-wrapper">
 
-                        <div
-                            id="attachmentImageSurface"
-                            class="attachment-image-surface">
+                        <div class="attachment-image-stage">
 
                             <img
                                 id="attachmentImage"
@@ -2313,6 +2748,29 @@ async function openAttachment(
 
             `;
 
+            if (!attachmentHistoryActive) {
+
+                history.pushState(
+                    {
+                        coisableAttachment:
+                            true,
+
+                        documentId:
+                            documentId
+                    },
+                    "",
+                    location.href
+                );
+
+                attachmentHistoryActive =
+                    true;
+
+            }
+
+            showView(
+                "attachmentView"
+            );
+
             const image =
                 document.getElementById(
                     "attachmentImage"
@@ -2327,69 +2785,71 @@ async function openAttachment(
 
                     };
 
+                if (
+                    image.complete
+                ) {
+
+                    attachmentFit();
+
+                }
+
             }
 
-        } else {
-
-            attachmentIsPdf =
-                false;
-
-            attachmentIsFit =
-                false;
-
-            viewer.innerHTML = `
-
-                <div class="card">
-
-                    <div class="attachment-file-info">
-
-                        <div style="font-size:42px;">
-                            ${getAttachmentIcon(
-                                attachment.type,
-                                attachment.name
-                            )}
-                        </div>
-
-                        <strong>
-                            ${escapeHtml(
-                                attachment.name
-                            )}
-                        </strong>
-
-                        <span>
-                            ${formatFileSize(
-                                attachment.size
-                            )}
-                        </span>
-
-                        <br>
-
-                        <button
-                            class="secondary"
-                            onclick="window.open(
-                                currentAttachmentUrl,
-                                '_blank'
-                            )">
-
-                            Open File
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-            updateAttachmentZoomLabel();
+            return;
 
         }
 
-        /*
-           Add a browser history entry.
+        attachmentIsPdf =
+            false;
 
-           Attachment → browser Back / iPhone swipe → Document
-        */
+        attachmentIsFit =
+            false;
+
+        viewer.innerHTML = `
+
+            <div class="card">
+
+                <div class="attachment-file-info">
+
+                    <div style="font-size:42px;">
+                        ${getAttachmentIcon(
+                            attachment.type,
+                            attachment.name
+                        )}
+                    </div>
+
+                    <strong>
+                        ${escapeHtml(
+                            attachment.name
+                        )}
+                    </strong>
+
+                    <span>
+                        ${formatFileSize(
+                            attachment.size
+                        )}
+                    </span>
+
+                    <br>
+
+                    <button
+                        class="secondary"
+                        onclick="window.open(
+                            currentAttachmentUrl,
+                            '_blank'
+                        )">
+
+                        Open File
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+        updateAttachmentZoomLabel();
 
         if (!attachmentHistoryActive) {
 
@@ -2456,6 +2916,8 @@ function backToDocument() {
 
 function leaveAttachmentView() {
 
+    destroyPdfDocument();
+
     cleanupAttachmentUrl();
 
     const viewer =
@@ -2479,6 +2941,12 @@ function leaveAttachmentView() {
     attachmentIsPdf =
         false;
 
+    attachmentFitScale =
+        1;
+
+    attachmentImageFitScale =
+        1;
+
     attachmentHistoryActive =
         false;
 
@@ -2492,14 +2960,13 @@ window.addEventListener(
     "popstate",
     function() {
 
-        const attachmentView =
+        if (
             document.getElementById(
                 "attachmentView"
-            );
-
-        if (
-            attachmentView &&
-            attachmentView.classList.contains("active")
+            ) &&
+            document.getElementById(
+                "attachmentView"
+            ).classList.contains("active")
         ) {
 
             const documentId =
@@ -6224,6 +6691,61 @@ function escapeHtml(
         );
 
 }
+
+/* =========================================================
+   VIEWER RESIZE
+========================================================= */
+
+let attachmentResizeTimer = null;
+
+window.addEventListener(
+    "resize",
+    function() {
+
+        if (
+            !document.getElementById(
+                "attachmentView"
+            ) ||
+            !document.getElementById(
+                "attachmentView"
+            ).classList.contains("active")
+        ) {
+            return;
+        }
+
+        clearTimeout(
+            attachmentResizeTimer
+        );
+
+        attachmentResizeTimer =
+            setTimeout(
+                function() {
+
+                    if (
+                        attachmentIsFit
+                    ) {
+
+                        if (attachmentIsPdf) {
+
+                            renderPdf();
+
+                        } else {
+
+                            attachmentImageFitScale =
+                                calculateImageFitScale();
+
+                            applyImageZoom();
+
+                        }
+
+                    }
+
+                },
+                120
+            );
+
+    }
+);
 
 /* =========================================================
    DATA MIGRATION
