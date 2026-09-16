@@ -526,8 +526,14 @@ label {
 .attachment-toolbar button {
     width: auto;
     min-width: 42px;
+    height: 40px;
     padding: 9px 12px;
     font-size: 14px;
+    touch-action: manipulation;
+}
+
+.attachment-toolbar button:active {
+    transform: scale(0.96);
 }
 
 .attachment-zoom-label {
@@ -545,8 +551,8 @@ label {
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     width: 100%;
-    height: calc(100vh - 180px);
-    min-height: 450px;
+    height: calc(100dvh - 190px);
+    min-height: 400px;
     max-height: 800px;
 }
 
@@ -559,15 +565,41 @@ label {
     justify-content: center;
     -webkit-overflow-scrolling: touch;
     padding: 12px;
+    overscroll-behavior: contain;
+}
+
+.attachment-pdf-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-overflow-scrolling: touch;
+    padding: 12px;
+    overscroll-behavior: contain;
+}
+
+.attachment-pdf-surface {
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center center;
+    transition: transform 0.15s ease;
 }
 
 .attachment-viewer iframe {
     display: block;
     width: 100%;
     height: 100%;
+    min-width: 100%;
+    min-height: 100%;
     border: none;
     background: #f5f5f5;
-    transform-origin: center center;
 }
 
 .attachment-image-wrapper {
@@ -579,6 +611,16 @@ label {
     justify-content: center;
     -webkit-overflow-scrolling: touch;
     padding: 12px;
+    overscroll-behavior: contain;
+}
+
+.attachment-image-surface {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center center;
+    transition: transform 0.15s ease;
+    flex-shrink: 0;
 }
 
 .attachment-viewer img {
@@ -588,10 +630,8 @@ label {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    transform-origin: center center;
     user-select: none;
     -webkit-user-drag: none;
-    transition: transform 0.15s ease;
 }
 
 .attachment-file-info {
@@ -1895,39 +1935,21 @@ function updateAttachmentZoomLabel() {
 
 function applyImageZoom() {
 
-    const image =
+    const surface =
         document.getElementById(
-            "attachmentImage"
+            "attachmentImageSurface"
         );
 
-    if (!image) return;
+    if (!surface) return;
 
     if (attachmentIsFit) {
 
-        image.style.width =
-            "auto";
-
-        image.style.height =
-            "auto";
-
-        image.style.maxWidth =
-            "100%";
-
-        image.style.maxHeight =
-            "100%";
-
-        image.style.transform =
+        surface.style.transform =
             "scale(1)";
 
     } else {
 
-        image.style.maxWidth =
-            "none";
-
-        image.style.maxHeight =
-            "none";
-
-        image.style.transform =
+        surface.style.transform =
             `scale(${attachmentZoom})`;
 
     }
@@ -1936,36 +1958,35 @@ function applyImageZoom() {
 
 function applyPdfZoom() {
 
+    const surface =
+        document.getElementById(
+            "attachmentPdfSurface"
+        );
+
     const iframe =
         document.getElementById(
             "attachmentPdfFrame"
         );
 
-    if (!iframe) return;
+    if (!surface || !iframe) return;
 
-    const baseUrl =
-        iframe.dataset.baseUrl;
-
-    if (!baseUrl) return;
-
-    let fragment = "";
+    /*
+       The PDF itself remains handled by Safari,
+       but Coisable controls the visual scale of
+       the complete PDF viewer.
+    */
 
     if (attachmentIsFit) {
 
-        fragment =
-            "#zoom=page-fit";
+        surface.style.transform =
+            "scale(1)";
 
-    } else {
-
-        fragment =
-            `#zoom=${Math.round(
-                attachmentZoom * 100
-            )}`;
+        return;
 
     }
 
-    iframe.src =
-        baseUrl + fragment;
+    surface.style.transform =
+        `scale(${attachmentZoom})`;
 
 }
 
@@ -2197,16 +2218,21 @@ async function openAttachment(
 
                 <div class="attachment-viewer">
 
-                    <div class="attachment-viewer-inner">
+                    <div class="attachment-pdf-wrapper">
 
-                        <iframe
-                            id="attachmentPdfFrame"
-                            title="${escapeHtml(
-                                attachment.name
-                            )}"
-                            data-base-url="${currentAttachmentUrl}"
-                            src="${currentAttachmentUrl}#zoom=page-fit">
-                        </iframe>
+                        <div
+                            id="attachmentPdfSurface"
+                            class="attachment-pdf-surface">
+
+                            <iframe
+                                id="attachmentPdfFrame"
+                                title="${escapeHtml(
+                                    attachment.name
+                                )}"
+                                src="${currentAttachmentUrl}#zoom=page-fit">
+                            </iframe>
+
+                        </div>
 
                     </div>
 
@@ -2230,6 +2256,20 @@ async function openAttachment(
 
             `;
 
+            /*
+               Give Safari a moment to load the native
+               PDF viewer before applying Fit.
+            */
+
+            setTimeout(
+                function() {
+
+                    attachmentFit();
+
+                },
+                150
+            );
+
         } else if (isImage) {
 
             viewer.innerHTML = `
@@ -2238,12 +2278,18 @@ async function openAttachment(
 
                     <div class="attachment-image-wrapper">
 
-                        <img
-                            id="attachmentImage"
-                            src="${currentAttachmentUrl}"
-                            alt="${escapeHtml(
-                                attachment.name
-                            )}">
+                        <div
+                            id="attachmentImageSurface"
+                            class="attachment-image-surface">
+
+                            <img
+                                id="attachmentImage"
+                                src="${currentAttachmentUrl}"
+                                alt="${escapeHtml(
+                                    attachment.name
+                                )}">
+
+                        </div>
 
                     </div>
 
@@ -2446,13 +2492,14 @@ window.addEventListener(
     "popstate",
     function() {
 
+        const attachmentView =
+            document.getElementById(
+                "attachmentView"
+            );
+
         if (
-            document.getElementById(
-                "attachmentView"
-            ) &&
-            document.getElementById(
-                "attachmentView"
-            ).classList.contains("active")
+            attachmentView &&
+            attachmentView.classList.contains("active")
         ) {
 
             const documentId =
