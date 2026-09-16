@@ -26,81 +26,221 @@ body {
         sans-serif;
 }
 
-.container {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-h1 {
-    font-size: 28px;
-    margin: 0;
-}
-
-h2 {
-    font-size: 22px;
-    margin: 0 0 18px 0;
-}
-
-h3 {
-    margin: 0;
-    font-size: 18px;
-}
-
-p {
-    color: #666;
+button,
+input,
+select {
+    font: inherit;
 }
 
 button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 12px;
-    background: #111;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
     cursor: pointer;
 }
 
-button.secondary {
-    background: #e5e5e5;
+.container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding:
+        env(safe-area-inset-top)
+        16px
+        calc(30px + env(safe-area-inset-bottom));
+}
+
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.topbar h2 {
+    font-size: 22px;
+    flex: 1;
+}
+
+.back {
+    border: 0;
+    background: none;
+    padding: 8px 0;
     color: #111;
-}
-
-button.danger {
-    background: #d92d20;
-}
-
-button.small {
-    width: auto;
-    padding: 9px 13px;
-    font-size: 14px;
-}
-
-input,
-select {
-    width: 100%;
-    padding: 13px;
-    margin-top: 7px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background: white;
-    font-size: 16px;
-}
-
-label {
-    font-size: 14px;
     font-weight: 600;
 }
 
+.back.small {
+    font-size: 14px;
+}
+
+.hero {
+    padding: 30px 4px 22px;
+}
+
+.hero h1 {
+    font-size: 34px;
+    letter-spacing: -1px;
+}
+
+.hero p {
+    margin: 8px 0 0;
+    color: #777;
+    font-size: 16px;
+}
+
 .card {
-    background: white;
+    background: #fff;
     border-radius: 16px;
     padding: 16px;
     margin-bottom: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow:
+        0 1px 3px rgba(0,0,0,.05);
+}
+
+.empty {
+    color: #777;
+    text-align: center;
+    padding: 28px 16px;
+}
+
+.section {
+    margin-top: 18px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 24px 0 10px;
+}
+
+.section-title h3 {
+    font-size: 18px;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.category-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 20px 16px;
+    min-height: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow:
+        0 1px 3px rgba(0,0,0,.05);
+    cursor: pointer;
+}
+
+.category-icon {
+    font-size: 30px;
+}
+
+.category-name {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.category-count {
+    color: #777;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.primary {
+    border: 0;
+    border-radius: 12px;
+    background: #111;
+    color: #fff;
+    padding: 12px 16px;
+    font-weight: 600;
+}
+
+.secondary {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+    color: #111;
+    padding: 10px 14px;
+    font-weight: 600;
+}
+
+.secondary.small,
+.primary.small {
+    padding: 8px 11px;
+    font-size: 13px;
+}
+
+.danger {
+    border: 1px solid #e0b8b8;
+    border-radius: 10px;
+    background: #fff;
+    color: #b00020;
+    padding: 10px 14px;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 11px;
+    background: #fff;
+    padding: 12px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #999;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.form-actions button {
+    flex: 1;
+}
+
+.detail-value {
+    padding: 12px 0;
+    border-top: 1px solid #eee;
+}
+
+.detail-label {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 4px;
 }
 
 .thing-card {
@@ -114,10 +254,10 @@ label {
     width: 48px;
     height: 48px;
     border-radius: 14px;
-    background: #f1f1f1;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #f1f1f1;
     font-size: 25px;
     flex-shrink: 0;
 }
@@ -128,120 +268,25 @@ label {
 
 .thing-info strong {
     display: block;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .thing-info span {
     display: block;
+    color: #777;
+    font-size: 13px;
     margin-top: 3px;
-    color: #777;
-    font-size: 14px;
 }
 
-.view {
-    display: none;
-}
-
-.view.active {
-    display: block;
-}
-
-.topbar {
+.document-card {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 22px;
 }
 
-.back {
-    width: auto;
-    padding: 9px 12px;
-    background: #e5e5e5;
-    color: #111;
-    font-size: 14px;
-}
-
-.section {
-    margin-top: 28px;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* SEARCH */
-
-.search-box {
-    position: relative;
-    margin-bottom: 22px;
-}
-
-.search-box input {
-    margin: 0;
-    padding: 14px 44px 14px 44px;
-    border-radius: 14px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    -webkit-appearance: none;
-    appearance: none;
-}
-
-.search-icon {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 18px;
-    color: #777;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.search-clear {
-    position: absolute;
-    right: 9px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    border-radius: 50%;
-    background: #e5e5e5;
-    color: #555;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 32px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-}
-
-.search-clear:active {
-    transform: translateY(-50%) scale(0.95);
-}
-
-.search-results {
-    margin-top: 8px;
-}
-
-.search-result {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    transition: transform 0.08s ease;
-}
-
-.search-result:active {
-    transform: scale(0.99);
-}
-
-.search-result-icon {
-    width: 44px;
-    height: 44px;
+.document-icon {
+    width: 42px;
+    height: 42px;
     border-radius: 12px;
     background: #f1f1f1;
     display: flex;
@@ -249,6 +294,112 @@ label {
     justify-content: center;
     font-size: 21px;
     flex-shrink: 0;
+}
+
+.document-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.document-info strong {
+    display: block;
+    font-size: 15px;
+}
+
+.document-info span {
+    display: block;
+    color: #777;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.document-actions {
+    flex-shrink: 0;
+}
+
+.attachment-indicator {
+    color: #555 !important;
+}
+
+.coming-up {
+    border-left: 4px solid #ddd;
+}
+
+.coming-up-overdue {
+    border-left: 4px solid #999;
+}
+
+.coming-up-title {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.coming-up-meta {
+    color: #777;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.coming-up-status {
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 7px;
+}
+
+.coming-up-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.search-wrap {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.search-input {
+    width: 100%;
+    border: 0;
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px 42px 14px 16px;
+    box-shadow:
+        0 1px 3px rgba(0,0,0,.05);
+    outline: none;
+}
+
+.search-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border: 0;
+    border-radius: 50%;
+    background: #eee;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-result {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.search-result-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 21px;
 }
 
 .search-result-info {
@@ -258,434 +409,34 @@ label {
 
 .search-result-info strong {
     display: block;
-    font-size: 16px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .search-result-info span {
     display: block;
     color: #777;
-    font-size: 13px;
+    font-size: 12px;
     margin-top: 3px;
 }
 
 .search-result-type {
-    display: inline-block !important;
-    margin-top: 6px;
-    padding: 3px 7px;
-    border-radius: 7px;
-    background: #f1f1f1;
-    color: #666 !important;
     font-size: 11px !important;
     font-weight: 600;
 }
 
 .search-result-chevron {
-    font-size: 22px;
-    color: #888;
-    flex-shrink: 0;
+    color: #aaa;
+    font-size: 24px;
 }
 
 .search-empty {
     text-align: center;
-    padding: 30px 16px;
+    padding: 30px;
 }
 
 .search-empty-icon {
     font-size: 30px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
-
-.search-empty strong {
-    display: block;
-    font-size: 16px;
-}
-
-.search-empty span {
-    display: block;
-    color: #777;
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-/* HOME */
-
-.category-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-.category-card {
-    background: white;
-    border-radius: 16px;
-    padding: 18px;
-    min-height: 145px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.category-card:active {
-    transform: scale(0.98);
-}
-
-.category-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 14px;
-    background: #f1f1f1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-}
-
-.category-name {
-    font-size: 17px;
-    font-weight: 600;
-    margin-top: 14px;
-}
-
-.category-count {
-    color: #777;
-    font-size: 13px;
-    margin-top: 4px;
-}
-
-/* DOCUMENTS / EVENTS */
-
-.document-card,
-.event-card {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-}
-
-.document-icon,
-.event-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    background: #f1f1f1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 21px;
-    flex-shrink: 0;
-}
-
-.document-info,
-.event-info {
-    flex: 1;
-}
-
-.document-info strong,
-.event-info strong {
-    display: block;
-    font-size: 16px;
-}
-
-.document-info span,
-.event-info span {
-    display: block;
-    color: #777;
-    font-size: 13px;
-    margin-top: 4px;
-}
-
-.document-actions,
-.event-actions {
-    display: flex;
-    gap: 6px;
-}
-
-.document-actions button,
-.event-actions button {
-    width: auto;
-}
-
-.attachment-indicator {
-    display: inline-block !important;
-    color: #555 !important;
-    font-size: 12px !important;
-    margin-top: 6px !important;
-    font-weight: 500;
-}
-
-.empty {
-    text-align: center;
-    padding: 25px 10px;
-    color: #777;
-}
-
-/* ATTACHMENTS */
-
-.attachment-section {
-    margin-top: 4px;
-    margin-bottom: 18px;
-}
-
-.attachment-label {
-    display: block;
-    margin-bottom: 7px;
-}
-
-.attachment-picker {
-    width: 100%;
-    padding: 13px;
-    border: 1px dashed #ccc;
-    border-radius: 10px;
-    background: white;
-    font-size: 15px;
-}
-
-.attachment-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 12px;
-    background: #f7f7f7;
-    margin-top: 8px;
-}
-
-.attachment-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 11px;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 21px;
-    flex-shrink: 0;
-}
-
-.attachment-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.attachment-info strong {
-    display: block;
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.attachment-info span {
-    display: block;
-    color: #777;
-    font-size: 12px;
-    margin-top: 3px;
-}
-
-.attachment-actions {
-    display: flex;
-    gap: 6px;
-    flex-shrink: 0;
-}
-
-.attachment-actions button {
-    width: auto;
-}
-
-.attachment-existing {
-    margin-top: 8px;
-}
-
-.attachment-remove-row {
-    margin-top: 8px;
-}
-
-.attachment-status {
-    font-size: 13px;
-    color: #777;
-    margin-top: 7px;
-}
-
-/* =========================================================
-   ATTACHMENT VIEWER
-========================================================= */
-
-.attachment-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-}
-
-.attachment-toolbar button {
-    width: auto;
-    min-width: 42px;
-    padding: 9px 12px;
-    font-size: 14px;
-}
-
-.attachment-zoom-label {
-    min-width: 58px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: #555;
-}
-
-.attachment-viewer {
-    position: relative;
-    background: #e9e9e9;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    width: 100%;
-    height: calc(100vh - 180px);
-    min-height: 450px;
-    max-height: 800px;
-}
-
-@supports (height: 100dvh) {
-    .attachment-viewer {
-        height: calc(100dvh - 180px);
-    }
-}
-
-.attachment-viewer-inner {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    -webkit-overflow-scrolling: touch;
-    padding: 12px;
-}
-
-/* PDF.js */
-
-.attachment-pdf-stage {
-    width: 100%;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 18px;
-    padding: 12px;
-}
-
-.attachment-pdf-page {
-    display: block;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.18);
-    flex-shrink: 0;
-}
-
-.attachment-pdf-loading {
-    color: #777;
-    font-size: 14px;
-    text-align: center;
-    padding: 30px;
-}
-
-.attachment-pdf-error {
-    padding: 30px 20px;
-    text-align: center;
-    color: #777;
-}
-
-.attachment-image-wrapper {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    -webkit-overflow-scrolling: touch;
-    padding: 12px;
-}
-
-.attachment-image-stage {
-    min-width: 100%;
-    min-height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.attachment-viewer img {
-    display: block;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    transform-origin: center center;
-    user-select: none;
-    -webkit-user-drag: none;
-}
-
-.attachment-file-info {
-    padding: 14px 4px 0 4px;
-    text-align: center;
-}
-
-.attachment-file-info strong {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 4px;
-    word-break: break-word;
-}
-
-.attachment-file-info span {
-    display: block;
-    color: #777;
-    font-size: 12px;
-}
-
-/* COMING UP */
-
-.coming-up {
-    border-left: 4px solid #f59e0b;
-}
-
-.coming-up-overdue {
-    border-left: 4px solid #d92d20;
-}
-
-.coming-up-title {
-    font-weight: 600;
-}
-
-.coming-up-meta {
-    font-size: 13px;
-    color: #777;
-    margin-top: 3px;
-}
-
-.coming-up-status {
-    font-size: 13px;
-    margin-top: 5px;
-    font-weight: 500;
-}
-
-.coming-up-actions {
-    margin-top: 10px;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.coming-up-acknowledge {
-    width: auto;
-    padding: 8px 12px;
-    font-size: 13px;
-}
-
-/* TIMELINE */
 
 .timeline-month {
     display: flex;
@@ -701,52 +452,50 @@ label {
 }
 
 .month-icon {
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
     border-radius: 12px;
     background: #f1f1f1;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 21px;
 }
 
 .chevron {
-    font-size: 22px;
-    color: #888;
+    color: #aaa;
+    font-size: 25px;
 }
 
 .timeline-events {
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 .timeline-event {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
+    gap: 9px;
+    min-height: 48px;
+    border-top: 1px solid #eee;
     cursor: pointer;
 }
 
-.timeline-event:last-child {
-    border-bottom: none;
-}
-
 .timeline-event-date {
-    width: 24px;
-    flex-shrink: 0;
-    text-align: right;
-    font-size: 13px;
-    font-weight: 600;
+    width: 26px;
+    font-size: 12px;
     color: #777;
+    text-align: center;
+    flex-shrink: 0;
 }
 
-.timeline-event .event-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    font-size: 19px;
+.event-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .timeline-event-info {
@@ -755,168 +504,387 @@ label {
 }
 
 .timeline-event-info strong {
-    display: block;
-    font-size: 15px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .timeline-event-amount {
-    font-size: 14px;
-    color: #555;
+    font-size: 13px;
+    font-weight: 600;
     white-space: nowrap;
-    flex-shrink: 0;
 }
 
 .timeline-event-chevron {
-    font-size: 22px;
-    color: #888;
-    flex-shrink: 0;
+    color: #aaa;
+    font-size: 21px;
 }
 
-.checkbox-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 4px 0 18px 0;
-}
-
-.checkbox-row input {
-    width: 20px;
-    height: 20px;
-    margin: 0;
-}
-
-.checkbox-row label {
-    font-weight: 500;
-    font-size: 15px;
-}
-
-.info-box {
-    background: #f1f1f1;
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 18px;
-    font-size: 14px;
-    color: #555;
-}
-
-.detail-value {
+.timeline-info {
+    background: #f7f7f7;
+    border-radius: 10px;
+    padding: 11px;
+    color: #666;
+    font-size: 12px;
     margin-bottom: 15px;
 }
 
-.detail-label {
-    font-size: 13px;
-    color: #777;
+.attachment-section {
+    margin-top: 18px;
 }
 
-.detail-value strong {
+.attachment-label {
     display: block;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+.attachment-picker {
+    width: 100%;
+    border: 1px dashed #ccc;
+    border-radius: 12px;
+    padding: 14px;
+    background: #fafafa;
+}
+
+.attachment-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.attachment-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.attachment-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.attachment-info strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.attachment-info span {
+    display: block;
+    color: #777;
+    font-size: 12px;
     margin-top: 3px;
-    font-size: 16px;
+}
+
+.attachment-actions {
+    flex-shrink: 0;
+}
+
+.attachment-remove-row {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.attachment-status {
+    color: #777;
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+.attachment-viewer {
+    height: calc(100vh - 180px);
+    height: calc(100dvh - 180px);
+    min-height: 450px;
+    max-height: 800px;
+    background: #222;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.attachment-viewer-toolbar {
+    height: 54px;
+    min-height: 54px;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 8px;
+    z-index: 2;
+}
+
+.attachment-viewer-toolbar button {
+    color: #111;
+    background: #fff;
+    border-color: #ddd;
+}
+
+.attachment-zoom-label {
+    min-width: 54px;
+    text-align: center;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.attachment-viewer-inner {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.attachment-pdf-stage {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+}
+
+.attachment-pdf-page {
+    flex-shrink: 0;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,.18);
+}
+
+.attachment-pdf-page canvas {
+    display: block;
+}
+
+.attachment-pdf-loading {
+    width: 100%;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ddd;
+    font-size: 14px;
+    text-align: center;
+}
+
+.attachment-pdf-error {
+    width: 100%;
+    padding: 40px 20px;
+    text-align: center;
+    color: #ddd;
+}
+
+.attachment-image-stage {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+}
+
+.attachment-image-stage img {
+    display: block;
+    flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .attachment-viewer {
+        min-height: 400px;
+    }
+
+    .attachment-viewer-toolbar {
+        gap: 4px;
+    }
+
+    .attachment-viewer-toolbar button {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<!-- HOME -->
+<!-- =====================================================
+     HOME
+====================================================== -->
 
 <div id="homeView" class="view active">
 
-    <div style="margin-bottom:25px;">
+    <div class="hero">
+
         <h1>Coisable</h1>
-        <p style="margin-top:5px;">Your things. One place.</p>
+
+        <p>
+            Your things. One place.
+        </p>
+
     </div>
 
-    <div class="search-box">
-
-        <div class="search-icon">🔎</div>
+    <div class="search-wrap">
 
         <input
             id="searchInput"
+            class="search-input"
             type="search"
-            placeholder="Search your things"
-            oninput="handleSearch()"
-            autocomplete="off">
+            placeholder="🔎 Search your things"
+            oninput="handleSearch()">
 
         <button
             id="searchClear"
             class="search-clear"
-            type="button"
-            onclick="clearSearch()"
-            aria-label="Clear search">×</button>
+            onclick="clearSearch()">
+            ×
+        </button>
 
     </div>
-
-    <div id="searchResults"
-         class="search-results"
-         style="display:none;"></div>
 
     <div id="normalHomeContent">
 
         <div class="category-grid">
 
-            <div class="category-card"
-                 onclick="showCategory('Real Estate')">
+            <div
+                class="category-card"
+                onclick="showCategory('Real Estate')">
 
-                <div class="category-icon">🏠</div>
+                <div class="category-icon">
+                    🏠
+                </div>
 
                 <div>
-                    <div class="category-name">Real Estate</div>
-                    <div class="category-count">
-                        <span id="realEstateCount">0</span>
-                        <span id="realEstateLabel">things</span>
+
+                    <div class="category-name">
+                        Real Estate
                     </div>
+
+                    <div class="category-count">
+
+                        <span id="realEstateCount">
+                            0
+                        </span>
+
+                        <span id="realEstateLabel">
+                            things
+                        </span>
+
+                    </div>
+
                 </div>
 
             </div>
 
-            <div class="category-card"
-                 onclick="showCategory('Vehicles')">
+            <div
+                class="category-card"
+                onclick="showCategory('Vehicles')">
 
-                <div class="category-icon">🚗</div>
+                <div class="category-icon">
+                    🚗
+                </div>
 
                 <div>
-                    <div class="category-name">Vehicles</div>
-                    <div class="category-count">
-                        <span id="vehiclesCount">0</span>
-                        <span id="vehiclesLabel">things</span>
+
+                    <div class="category-name">
+                        Vehicles
                     </div>
+
+                    <div class="category-count">
+
+                        <span id="vehiclesCount">
+                            0
+                        </span>
+
+                        <span id="vehiclesLabel">
+                            things
+                        </span>
+
+                    </div>
+
                 </div>
 
             </div>
 
-            <div class="category-card"
-                 onclick="showCategory('Electronics')">
+            <div
+                class="category-card"
+                onclick="showCategory('Electronics')">
 
-                <div class="category-icon">📱</div>
+                <div class="category-icon">
+                    💻
+                </div>
 
                 <div>
-                    <div class="category-name">Electronics</div>
-                    <div class="category-count">
-                        <span id="electronicsCount">0</span>
-                        <span id="electronicsLabel">things</span>
+
+                    <div class="category-name">
+                        Electronics
                     </div>
+
+                    <div class="category-count">
+
+                        <span id="electronicsCount">
+                            0
+                        </span>
+
+                        <span id="electronicsLabel">
+                            things
+                        </span>
+
+                    </div>
+
                 </div>
 
             </div>
 
-            <div class="category-card"
-                 onclick="showCategory('Other')">
+            <div
+                class="category-card"
+                onclick="showCategory('Other')">
 
-                <div class="category-icon">📦</div>
+                <div class="category-icon">
+                    📦
+                </div>
 
                 <div>
-                    <div class="category-name">Other</div>
-                    <div class="category-count">
-                        <span id="otherCount">0</span>
-                        <span id="otherLabel">things</span>
+
+                    <div class="category-name">
+                        Other
                     </div>
+
+                    <div class="category-count">
+
+                        <span id="otherCount">
+                            0
+                        </span>
+
+                        <span id="otherLabel">
+                            things
+                        </span>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -925,8 +893,12 @@ label {
 
         <div class="section">
 
-            <div class="section-header">
-                <h2>Coming Up</h2>
+            <div class="section-title">
+
+                <h3>
+                    Coming Up
+                </h3>
+
             </div>
 
             <div id="comingUp"></div>
@@ -935,25 +907,41 @@ label {
 
     </div>
 
+    <div id="searchResults"></div>
+
 </div>
 
-<!-- CATEGORY -->
+
+<!-- =====================================================
+     CATEGORY
+====================================================== -->
 
 <div id="categoryView" class="view">
 
     <div class="topbar">
 
-        <button class="back small"
-                onclick="showHome()">← Back</button>
+        <button
+            class="back"
+            onclick="showHome()">
+            ← Back
+        </button>
 
-        <h2 id="categoryTitle"></h2>
+        <h2 id="categoryTitle">
+            Category
+        </h2>
 
     </div>
 
-    <div style="margin-bottom:18px;">
+    <div class="section-title">
 
-        <button id="categoryAddButton"
-                onclick="showAddForm()">+ Add</button>
+        <div></div>
+
+        <button
+            id="categoryAddButton"
+            class="primary"
+            onclick="showAddForm()">
+            + Add
+        </button>
 
     </div>
 
@@ -961,117 +949,197 @@ label {
 
 </div>
 
-<!-- ADD THING -->
+
+<!-- =====================================================
+     ADD THING
+====================================================== -->
 
 <div id="addView" class="view">
 
     <div class="topbar">
 
-        <button class="back small"
-                onclick="showCategory(currentCategory)">
+        <button
+            class="back"
+            onclick="showCategory(currentCategory)">
             ← Back
         </button>
 
-        <h2 id="addThingTitle">Add Thing</h2>
+        <h2 id="addThingTitle">
+            Add
+        </h2>
 
     </div>
 
-    <label>Name</label>
+    <div class="card">
 
-    <input id="thingName"
-           placeholder="e.g. Mazda MX-5">
+        <div class="form-group">
 
-    <label>Category</label>
+            <label>
+                Name
+            </label>
 
-    <select id="thingCategory">
+            <input
+                id="thingName"
+                type="text"
+                placeholder="e.g. Mazda MX-5">
 
-        <option value="Real Estate">Real Estate</option>
-        <option value="Vehicles">Vehicles</option>
-        <option value="Electronics">Electronics</option>
-        <option value="Other">Other</option>
+        </div>
 
-    </select>
+        <div class="form-group">
 
-    <label>Purchase Date</label>
+            <label>
+                Category
+            </label>
 
-    <input id="thingPurchaseDate" type="date">
+            <select id="thingCategory">
 
-    <label>Purchase Price</label>
+                <option>
+                    Real Estate
+                </option>
 
-    <input id="thingPurchasePrice"
-           type="number"
-           step="0.01"
-           placeholder="€">
+                <option>
+                    Vehicles
+                </option>
 
-    <label>Current Value</label>
+                <option>
+                    Electronics
+                </option>
 
-    <input id="thingCurrentValue"
-           type="number"
-           step="0.01"
-           placeholder="€">
+                <option>
+                    Other
+                </option>
 
-    <button onclick="addThing()">Save Thing</button>
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Purchase Date
+            </label>
+
+            <input
+                id="thingPurchaseDate"
+                type="date">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Purchase Price
+            </label>
+
+            <input
+                id="thingPurchasePrice"
+                type="number"
+                step="0.01"
+                inputmode="decimal">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Current Value
+            </label>
+
+            <input
+                id="thingCurrentValue"
+                type="number"
+                step="0.01"
+                inputmode="decimal">
+
+        </div>
+
+        <div class="form-actions">
+
+            <button
+                class="secondary"
+                onclick="showCategory(currentCategory)">
+                Cancel
+            </button>
+
+            <button
+                class="primary"
+                onclick="addThing()">
+                Save
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-<!-- DETAIL -->
+
+<!-- =====================================================
+     DETAIL
+====================================================== -->
 
 <div id="detailView" class="view">
 
     <div class="topbar">
 
-        <button class="back small"
-                onclick="showCategory(currentThingCategory)">
+        <button
+            class="back"
+            onclick="showCategory(currentThingCategory)">
             ← Back
         </button>
 
-        <h2 id="detailTitle"></h2>
+        <h2 id="detailTitle">
+            Thing
+        </h2>
+
+        <button
+            class="secondary small"
+            onclick="editThing()">
+            Edit
+        </button>
 
     </div>
 
     <div id="thingDetails"></div>
 
-    <div class="section">
+    <div class="section-title">
 
-        <div class="section-header">
+        <h3>
+            Documents
+        </h3>
 
-            <h2>Documents</h2>
-
-            <button class="small"
-                    onclick="showAddDocument()">+ Add</button>
-
-        </div>
-
-        <div id="documentsList"></div>
-
-    </div>
-
-    <div class="section">
-
-        <div class="section-header">
-
-            <h2>Timeline</h2>
-
-            <button class="small"
-                    onclick="showAddEvent()">+ Add</button>
-
-        </div>
-
-        <div id="timelineList"></div>
-
-    </div>
-
-    <div class="section">
-
-        <button class="secondary"
-                onclick="editThing()">
-            Edit Thing
+        <button
+            class="primary small"
+            onclick="showAddDocument()">
+            + Add
         </button>
 
-        <br><br>
+    </div>
 
-        <button class="danger"
-                onclick="deleteThing()">
+    <div id="documentsList"></div>
+
+    <div class="section-title">
+
+        <h3>
+            Timeline
+        </h3>
+
+        <button
+            class="primary small"
+            onclick="showAddEvent()">
+            + Add
+        </button>
+
+    </div>
+
+    <div id="timelineList"></div>
+
+    <div class="section">
+
+        <button
+            class="danger"
+            style="width:100%;"
+            onclick="deleteThing()">
             Delete Thing
         </button>
 
@@ -1079,426 +1147,860 @@ label {
 
 </div>
 
-<!-- EDIT THING -->
+
+<!-- =====================================================
+     EDIT THING
+====================================================== -->
 
 <div id="editView" class="view">
 
     <div class="topbar">
 
-        <button class="back small"
-                onclick="showThing(currentThingId)">
+        <button
+            class="back"
+            onclick="showThing(currentThingId)">
             ← Back
         </button>
 
-        <h2>Edit Thing</h2>
+        <h2>
+            Edit Thing
+        </h2>
 
     </div>
 
-    <label>Name</label>
-    <input id="editThingName">
+    <div class="card">
 
-    <label>Category</label>
+        <div class="form-group">
 
-    <select id="editThingCategory">
-        <option value="Real Estate">Real Estate</option>
-        <option value="Vehicles">Vehicles</option>
-        <option value="Electronics">Electronics</option>
-        <option value="Other">Other</option>
-    </select>
+            <label>
+                Name
+            </label>
 
-    <label>Purchase Date</label>
-    <input id="editThingPurchaseDate" type="date">
+            <input
+                id="editThingName"
+                type="text">
 
-    <label>Purchase Price</label>
-    <input id="editThingPurchasePrice"
-           type="number"
-           step="0.01">
+        </div>
 
-    <label>Current Value</label>
-    <input id="editThingCurrentValue"
-           type="number"
-           step="0.01">
+        <div class="form-group">
 
-    <button onclick="saveEdit()">Save Changes</button>
+            <label>
+                Category
+            </label>
+
+            <select id="editThingCategory">
+
+                <option>
+                    Real Estate
+                </option>
+
+                <option>
+                    Vehicles
+                </option>
+
+                <option>
+                    Electronics
+                </option>
+
+                <option>
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Purchase Date
+            </label>
+
+            <input
+                id="editThingPurchaseDate"
+                type="date">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Purchase Price
+            </label>
+
+            <input
+                id="editThingPurchasePrice"
+                type="number"
+                step="0.01"
+                inputmode="decimal">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Current Value
+            </label>
+
+            <input
+                id="editThingCurrentValue"
+                type="number"
+                step="0.01"
+                inputmode="decimal">
+
+        </div>
+
+        <div class="form-actions">
+
+            <button
+                class="secondary"
+                onclick="showThing(currentThingId)">
+                Cancel
+            </button>
+
+            <button
+                class="primary"
+                onclick="saveEdit()">
+                Save
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-<!-- ADD DOCUMENT -->
+
+<!-- =====================================================
+     ADD DOCUMENT
+====================================================== -->
 
 <div id="addDocumentView" class="view">
 
     <div class="topbar">
 
-        <button class="back small"
-                onclick="showThing(currentThingId)">
+        <button
+            class="back"
+            onclick="showThing(currentThingId)">
             ← Back
         </button>
 
-        <h2>Add Document</h2>
+        <h2>
+            Add Document
+        </h2>
 
     </div>
 
-    <label>Name</label>
+    <div class="card">
 
-    <input id="documentName"
-           placeholder="e.g. Car Insurance 2026">
+        <div class="form-group">
 
-    <label>Type</label>
+            <label>
+                Name
+            </label>
 
-    <select id="documentType">
+            <input
+                id="documentName"
+                type="text"
+                placeholder="e.g. Car Insurance">
 
-        <option value="Invoice">Invoice</option>
-        <option value="Contract">Contract</option>
-        <option value="Insurance">Insurance</option>
-        <option value="Warranty">Warranty</option>
-        <option value="Tax">Tax</option>
-        <option value="Certificate">Certificate</option>
-        <option value="Repair">Repair</option>
-        <option value="Other">Other</option>
+        </div>
 
-    </select>
+        <div class="form-group">
 
-    <label>Date</label>
-    <input id="documentDate" type="date">
+            <label>
+                Type
+            </label>
 
-    <label>Date Type</label>
+            <select id="documentType">
 
-    <select id="documentDateType"
-            onchange="updateImportantDateField('')">
+                <option>
+                    Invoice
+                </option>
 
-        <option value="None">None</option>
-        <option value="Due Date">Due Date</option>
-        <option value="Expiry Date">Expiry Date</option>
+                <option>
+                    Contract
+                </option>
 
-    </select>
+                <option>
+                    Insurance
+                </option>
 
-    <div id="documentImportantDateGroup"
-         style="display:none;">
+                <option>
+                    Warranty
+                </option>
 
-        <label id="documentImportantDateLabel">
-            Important Date
-        </label>
+                <option>
+                    Tax
+                </option>
 
-        <input id="documentImportantDate"
-               type="date">
+                <option>
+                    Certificate
+                </option>
+
+                <option>
+                    Repair
+                </option>
+
+                <option>
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Date
+            </label>
+
+            <input
+                id="documentDate"
+                type="date">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Date Type
+            </label>
+
+            <select
+                id="documentDateType"
+                onchange="updateImportantDateField('')">
+
+                <option>
+                    None
+                </option>
+
+                <option>
+                    Due Date
+                </option>
+
+                <option>
+                    Expiry Date
+                </option>
+
+            </select>
+
+        </div>
+
+        <div
+            id="documentImportantDateGroup"
+            class="form-group"
+            style="display:none;">
+
+            <label id="documentImportantDateLabel">
+                Important Date
+            </label>
+
+            <input
+                id="documentImportantDate"
+                type="date">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Repeat
+            </label>
+
+            <select id="documentRepeat">
+
+                <option>
+                    Never
+                </option>
+
+                <option>
+                    Yearly
+                </option>
+
+                <option>
+                    Monthly
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Amount
+            </label>
+
+            <input
+                id="documentAmount"
+                type="number"
+                step="0.01"
+                inputmode="decimal">
+
+        </div>
+
+        <div class="attachment-section">
+
+            <label class="attachment-label">
+                Attachment
+            </label>
+
+            <input
+                id="documentAttachment"
+                class="attachment-picker"
+                type="file"
+                accept="application/pdf,image/*">
+
+            <div
+                id="documentAttachmentStatus"
+                class="attachment-status">
+            </div>
+
+        </div>
+
+        <div class="form-group"
+             style="margin-top:18px;">
+
+            <label style="
+                display:flex;
+                align-items:center;
+                gap:9px;
+                color:#222;
+            ">
+
+                <input
+                    id="addToTimeline"
+                    type="checkbox"
+                    checked
+                    style="width:auto;">
+
+                Add to Timeline
+
+            </label>
+
+        </div>
+
+        <div class="form-actions">
+
+            <button
+                class="secondary"
+                onclick="showThing(currentThingId)">
+                Cancel
+            </button>
+
+            <button
+                class="primary"
+                onclick="addDocument()">
+                Save
+            </button>
+
+        </div>
 
     </div>
-
-    <label>Repeat</label>
-
-    <select id="documentRepeat">
-
-        <option value="Never">Never</option>
-        <option value="Yearly">Yearly</option>
-        <option value="Monthly">Monthly</option>
-
-    </select>
-
-    <label>Amount</label>
-
-    <input id="documentAmount"
-           type="number"
-           step="0.01"
-           placeholder="€">
-
-    <div class="attachment-section">
-
-        <label class="attachment-label">
-            Attachment
-        </label>
-
-        <input
-            id="documentAttachment"
-            class="attachment-picker"
-            type="file"
-            accept="application/pdf,image/*">
-
-        <div id="documentAttachmentStatus"
-             class="attachment-status"></div>
-
-    </div>
-
-    <div class="checkbox-row">
-
-        <input type="checkbox"
-               id="addToTimeline"
-               checked>
-
-        <label for="addToTimeline">
-            Add to Timeline
-        </label>
-
-    </div>
-
-    <div class="info-box">
-
-        Date = when the document happened or was issued.
-        You can optionally add a Due Date or Expiry Date separately.
-
-    </div>
-
-    <button onclick="addDocument()">
-        Save Document
-    </button>
 
 </div>
 
-<!-- EDIT DOCUMENT -->
+
+<!-- =====================================================
+     EDIT DOCUMENT
+====================================================== -->
 
 <div id="editDocumentView" class="view">
 
     <div class="topbar">
 
-        <button class="back small"
-                onclick="showThing(currentThingId)">
+        <button
+            class="back"
+            onclick="showThing(currentThingId)">
             ← Back
         </button>
 
-        <h2>Edit Document</h2>
+        <h2>
+            Edit Document
+        </h2>
 
     </div>
 
-    <label>Name</label>
-    <input id="editDocumentName">
+    <div class="card">
 
-    <label>Type</label>
+        <div class="form-group">
 
-    <select id="editDocumentType">
+            <label>
+                Name
+            </label>
 
-        <option value="Invoice">Invoice</option>
-        <option value="Contract">Contract</option>
-        <option value="Insurance">Insurance</option>
-        <option value="Warranty">Warranty</option>
-        <option value="Tax">Tax</option>
-        <option value="Certificate">Certificate</option>
-        <option value="Repair">Repair</option>
-        <option value="Other">Other</option>
+            <input
+                id="editDocumentName"
+                type="text">
 
-    </select>
+        </div>
 
-    <label>Date</label>
-    <input id="editDocumentDate" type="date">
+        <div class="form-group">
 
-    <label>Date Type</label>
+            <label>
+                Type
+            </label>
 
-    <select id="editDocumentDateType"
-            onchange="updateImportantDateField('edit')">
+            <select id="editDocumentType">
 
-        <option value="None">None</option>
-        <option value="Due Date">Due Date</option>
-        <option value="Expiry Date">Expiry Date</option>
+                <option>
+                    Invoice
+                </option>
 
-    </select>
+                <option>
+                    Contract
+                </option>
 
-    <div id="editDocumentImportantDateGroup"
-         style="display:none;">
+                <option>
+                    Insurance
+                </option>
 
-        <label id="editDocumentImportantDateLabel">
-            Important Date
-        </label>
+                <option>
+                    Warranty
+                </option>
 
-        <input id="editDocumentImportantDate"
-               type="date">
+                <option>
+                    Tax
+                </option>
+
+                <option>
+                    Certificate
+                </option>
+
+                <option>
+                    Repair
+                </option>
+
+                <option>
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Date
+            </label>
+
+            <input
+                id="editDocumentDate"
+                type="date">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Date Type
+            </label>
+
+            <select
+                id="editDocumentDateType"
+                onchange="updateImportantDateField('edit')">
+
+                <option>
+                    None
+                </option>
+
+                <option>
+                    Due Date
+                </option>
+
+                <option>
+                    Expiry Date
+                </option>
+
+            </select>
+
+        </div>
+
+        <div
+            id="editDocumentImportantDateGroup"
+            class="form-group"
+            style="display:none;">
+
+            <label id="editDocumentImportantDateLabel">
+                Important Date
+            </label>
+
+            <input
+                id="editDocumentImportantDate"
+                type="date">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Repeat
+            </label>
+
+            <select id="editDocumentRepeat">
+
+                <option>
+                    Never
+                </option>
+
+                <option>
+                    Yearly
+                </option>
+
+                <option>
+                    Monthly
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Amount
+            </label>
+
+            <input
+                id="editDocumentAmount"
+                type="number"
+                step="0.01"
+                inputmode="decimal">
+
+        </div>
+
+        <div
+            id="documentTimelineInfo"
+            class="timeline-info">
+        </div>
+
+        <div class="attachment-section">
+
+            <label class="attachment-label">
+                Attachment
+            </label>
+
+            <input
+                id="editDocumentAttachment"
+                class="attachment-picker"
+                type="file"
+                accept="application/pdf,image/*"
+                onchange="previewNewAttachment()">
+
+            <div id="editAttachmentContainer"></div>
+
+            <div
+                id="editAttachmentStatus"
+                class="attachment-status">
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <button
+                class="secondary"
+                onclick="showThing(currentThingId)">
+                Cancel
+            </button>
+
+            <button
+                class="primary"
+                onclick="saveDocumentEdit()">
+                Save
+            </button>
+
+        </div>
+
+        <div class="section">
+
+            <button
+                class="danger"
+                style="width:100%;"
+                onclick="deleteDocument()">
+                Delete Document
+            </button>
+
+        </div>
 
     </div>
-
-    <label>Repeat</label>
-
-    <select id="editDocumentRepeat">
-
-        <option value="Never">Never</option>
-        <option value="Yearly">Yearly</option>
-        <option value="Monthly">Monthly</option>
-
-    </select>
-
-    <label>Amount</label>
-
-    <input id="editDocumentAmount"
-           type="number"
-           step="0.01">
-
-    <div class="attachment-section">
-
-        <label class="attachment-label">
-            Attachment
-        </label>
-
-        <div id="editAttachmentContainer"></div>
-
-        <input
-            id="editDocumentAttachment"
-            class="attachment-picker"
-            type="file"
-            accept="application/pdf,image/*"
-            onchange="previewNewAttachment()">
-
-        <div id="editAttachmentStatus"
-             class="attachment-status"></div>
-
-    </div>
-
-    <div class="info-box"
-         id="documentTimelineInfo"></div>
-
-    <button onclick="saveDocumentEdit()">
-        Save Changes
-    </button>
-
-    <br><br>
-
-    <button class="danger"
-            onclick="deleteDocument()">
-        Delete Document
-    </button>
 
 </div>
 
-<!-- ADD EVENT -->
+
+<!-- =====================================================
+     ADD EVENT
+====================================================== -->
 
 <div id="addEventView" class="view">
 
     <div class="topbar">
 
-        <button class="back small"
-                onclick="showThing(currentThingId)">
+        <button
+            class="back"
+            onclick="showThing(currentThingId)">
             ← Back
         </button>
 
-        <h2>Add Event</h2>
+        <h2>
+            Add Event
+        </h2>
 
     </div>
 
-    <label>Type</label>
+    <div class="card">
 
-    <select id="eventType">
+        <div class="form-group">
 
-        <option value="Purchase">Purchase</option>
-        <option value="Repair">Repair</option>
-        <option value="Maintenance">Maintenance</option>
-        <option value="Expense">Expense</option>
-        <option value="Inspection">Inspection</option>
-        <option value="Insurance">Insurance</option>
-        <option value="Other">Other</option>
+            <label>
+                Type
+            </label>
 
-    </select>
+            <select id="eventType">
 
-    <label>Description</label>
-    <input id="eventDescription"
-           placeholder="e.g. Annual inspection">
+                <option>
+                    Purchase
+                </option>
 
-    <label>Date</label>
-    <input id="eventDate" type="date">
+                <option>
+                    Repair
+                </option>
 
-    <label>Amount</label>
-    <input id="eventAmount"
-           type="number"
-           step="0.01"
-           placeholder="€">
+                <option>
+                    Maintenance
+                </option>
 
-    <button onclick="addEvent()">Save Event</button>
+                <option>
+                    Expense
+                </option>
+
+                <option>
+                    Inspection
+                </option>
+
+                <option>
+                    Insurance
+                </option>
+
+                <option>
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Description
+            </label>
+
+            <input
+                id="eventDescription"
+                type="text">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Date
+            </label>
+
+            <input
+                id="eventDate"
+                type="date">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Amount
+            </label>
+
+            <input
+                id="eventAmount"
+                type="number"
+                step="0.01"
+                inputmode="decimal">
+
+        </div>
+
+        <div class="form-actions">
+
+            <button
+                class="secondary"
+                onclick="showThing(currentThingId)">
+                Cancel
+            </button>
+
+            <button
+                class="primary"
+                onclick="addEvent()">
+                Save
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-<!-- EDIT EVENT -->
+
+<!-- =====================================================
+     EDIT EVENT
+====================================================== -->
 
 <div id="editEventView" class="view">
 
     <div class="topbar">
 
-        <button class="back small"
-                onclick="showThing(currentThingId)">
+        <button
+            class="back"
+            onclick="showThing(currentThingId)">
             ← Back
         </button>
 
-        <h2>Edit Event</h2>
+        <h2>
+            Edit Event
+        </h2>
 
     </div>
 
-    <label>Type</label>
+    <div class="card">
 
-    <select id="editEventType">
+        <div class="form-group">
 
-        <option value="Purchase">Purchase</option>
-        <option value="Repair">Repair</option>
-        <option value="Maintenance">Maintenance</option>
-        <option value="Expense">Expense</option>
-        <option value="Inspection">Inspection</option>
-        <option value="Insurance">Insurance</option>
-        <option value="Other">Other</option>
+            <label>
+                Type
+            </label>
 
-    </select>
+            <select id="editEventType">
 
-    <label>Description</label>
-    <input id="editEventDescription">
+                <option>
+                    Purchase
+                </option>
 
-    <label>Date</label>
-    <input id="editEventDate" type="date">
+                <option>
+                    Repair
+                </option>
 
-    <label>Amount</label>
-    <input id="editEventAmount"
-           type="number"
-           step="0.01">
+                <option>
+                    Maintenance
+                </option>
 
-    <button onclick="saveEventEdit()">
-        Save Changes
-    </button>
+                <option>
+                    Expense
+                </option>
 
-    <br><br>
+                <option>
+                    Inspection
+                </option>
 
-    <button class="danger"
-            onclick="deleteEvent()">
-        Delete Event
-    </button>
+                <option>
+                    Insurance
+                </option>
+
+                <option>
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Description
+            </label>
+
+            <input
+                id="editEventDescription"
+                type="text">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Date
+            </label>
+
+            <input
+                id="editEventDate"
+                type="date">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Amount
+            </label>
+
+            <input
+                id="editEventAmount"
+                type="number"
+                step="0.01"
+                inputmode="decimal">
+
+        </div>
+
+        <div class="form-actions">
+
+            <button
+                class="secondary"
+                onclick="showThing(currentThingId)">
+                Cancel
+            </button>
+
+            <button
+                class="primary"
+                onclick="saveEventEdit()">
+                Save
+            </button>
+
+        </div>
+
+        <div class="section">
+
+            <button
+                class="danger"
+                style="width:100%;"
+                onclick="deleteEvent()">
+                Delete Event
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
-<!-- ATTACHMENT VIEW -->
+
+<!-- =====================================================
+     ATTACHMENT VIEW
+====================================================== -->
 
 <div id="attachmentView" class="view">
 
     <div class="topbar">
 
-        <button class="back small"
-                onclick="backToDocument()">
+        <button
+            class="back small"
+            onclick="backToDocument()">
             ← Back to document
         </button>
 
-        <h2>Attachment</h2>
-
-    </div>
-
-    <div class="attachment-toolbar">
-
-        <button
-            class="secondary"
-            onclick="attachmentFit()">
-            Fit
-        </button>
-
-        <button
-            class="secondary"
-            onclick="attachmentZoomOut()">
-            −
-        </button>
-
-        <div
-            id="attachmentZoomLabel"
-            class="attachment-zoom-label">
-            Fit
-        </div>
-
-        <button
-            class="secondary"
-            onclick="attachmentZoomIn()">
-            +
-        </button>
-
-        <button
-            class="secondary"
-            onclick="attachmentResetZoom()">
-            100%
-        </button>
+        <h2>
+            Attachment
+        </h2>
 
     </div>
 
@@ -1508,92 +2010,112 @@ label {
 
 </div>
 
+
 <script>
 
 /* =========================================================
-   COISABLE 0.7
-   Attachments via IndexedDB
+   GLOBAL STATE
+========================================================= */
+
+let things =
+    JSON.parse(
+        localStorage.getItem(
+            "coisableThings"
+        )
+    ) || [];
+
+let currentThingId =
+    null;
+
+let currentThingCategory =
+    null;
+
+let currentCategory =
+    null;
+
+let currentDocumentId =
+    null;
+
+let currentEventId =
+    null;
+
+
+/* =========================================================
+   ICONS
 ========================================================= */
 
 const categoryIcons = {
-    "Real Estate": "🏠",
-    "Vehicles": "🚗",
-    "Electronics": "📱",
-    "Other": "📦"
+
+    "Real Estate":
+        "🏠",
+
+    "Vehicles":
+        "🚗",
+
+    "Electronics":
+        "💻",
+
+    "Other":
+        "📦"
+
 };
 
 const documentIcons = {
-    Invoice: "🧾",
-    Contract: "📜",
-    Insurance: "🛡️",
-    Warranty: "🔒",
-    Tax: "💶",
-    Certificate: "📜",
-    Repair: "🔧",
-    Other: "📄"
+
+    Invoice:
+        "🧾",
+
+    Contract:
+        "📑",
+
+    Insurance:
+        "🛡️",
+
+    Warranty:
+        "🔧",
+
+    Tax:
+        "💶",
+
+    Certificate:
+        "📜",
+
+    Repair:
+        "🔨",
+
+    Other:
+        "📄"
+
 };
 
 const eventIcons = {
-    Purchase: "🛒",
-    Repair: "🔧",
-    Maintenance: "🛠️",
-    Expense: "💶",
-    Inspection: "🔍",
-    Insurance: "🛡️",
-    Other: "📌"
+
+    Purchase:
+        "🛒",
+
+    Repair:
+        "🔨",
+
+    Maintenance:
+        "🔧",
+
+    Expense:
+        "💶",
+
+    Inspection:
+        "🔍",
+
+    Insurance:
+        "🛡️",
+
+    Other:
+        "📌"
+
 };
 
-let things =
-    JSON.parse(localStorage.getItem("coisableThings")) || [];
-
-let currentThingId = null;
-let currentThingCategory = null;
-let currentCategory = null;
-let currentDocumentId = null;
-let currentEventId = null;
 
 /* =========================================================
-   ATTACHMENT VIEW STATE
-========================================================= */
-
-let currentAttachmentUrl = null;
-let attachmentHistoryActive = false;
-
-let attachmentZoom = 1;
-let attachmentIsFit = true;
-let attachmentIsPdf = false;
-
-let attachmentFitScale = 1;
-let attachmentPdfDocument = null;
-let attachmentPdfRenderToken = 0;
-let attachmentImageFitScale = 1;
-
-/* =========================================================
-   PDF.JS
-========================================================= */
-
-let pdfjsLib = null;
-
-async function loadPdfJs() {
-
-    if (pdfjsLib) {
-        return pdfjsLib;
-    }
-
-    pdfjsLib =
-        await import(
-            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/6.3.289/pdf.min.mjs"
-        );
-
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/6.3.289/pdf.worker.min.mjs";
-
-    return pdfjsLib;
-
-}
-
-/* =========================================================
-   INDEXEDDB — ATTACHMENTS
+   INDEXED DB ATTACHMENTS
 ========================================================= */
 
 const ATTACHMENT_DB_NAME =
@@ -1605,80 +2127,70 @@ const ATTACHMENT_DB_VERSION =
 const ATTACHMENT_STORE =
     "attachments";
 
-let attachmentDB = null;
+let attachmentDB =
+    null;
 
 function initAttachmentDB() {
 
-    return new Promise((resolve, reject) => {
+    return new Promise(
+        (
+            resolve,
+            reject
+        ) => {
 
-        if (attachmentDB) {
-            resolve(attachmentDB);
-            return;
-        }
+            const request =
+                indexedDB.open(
+                    ATTACHMENT_DB_NAME,
+                    ATTACHMENT_DB_VERSION
+                );
 
-        if (!window.indexedDB) {
+            request.onupgradeneeded =
+                function(event) {
 
-            reject(
-                new Error(
-                    "IndexedDB is not supported."
-                )
-            );
+                    const db =
+                        event.target.result;
 
-            return;
-        }
+                    if (
+                        !db.objectStoreNames.contains(
+                            ATTACHMENT_STORE
+                        )
+                    ) {
 
-        const request =
-            indexedDB.open(
-                ATTACHMENT_DB_NAME,
-                ATTACHMENT_DB_VERSION
-            );
+                        db.createObjectStore(
+                            ATTACHMENT_STORE,
+                            {
+                                keyPath:
+                                    "documentId"
+                            }
+                        );
 
-        request.onupgradeneeded =
-            function(event) {
+                    }
 
-                const db =
-                    event.target.result;
+                };
 
-                if (
-                    !db.objectStoreNames.contains(
-                        ATTACHMENT_STORE
-                    )
-                ) {
+            request.onsuccess =
+                function(event) {
 
-                    db.createObjectStore(
-                        ATTACHMENT_STORE,
-                        {
-                            keyPath:
-                                "documentId"
-                        }
+                    attachmentDB =
+                        event.target.result;
+
+                    resolve(
+                        attachmentDB
                     );
 
-                }
+                };
 
-            };
+            request.onerror =
+                function(event) {
 
-        request.onsuccess =
-            function(event) {
+                    reject(
+                        event.target.error
+                    );
 
-                attachmentDB =
-                    event.target.result;
+                };
 
-                resolve(
-                    attachmentDB
-                );
-
-            };
-
-        request.onerror =
-            function() {
-
-                reject(
-                    request.error
-                );
-
-            };
-
-    });
+        }
+    );
 
 }
 
@@ -1687,59 +2199,66 @@ async function saveAttachment(
     file
 ) {
 
-    if (!file) return;
+    if (!attachmentDB) {
 
-    const db =
         await initAttachmentDB();
 
-    return new Promise((resolve, reject) => {
+    }
 
-        const transaction =
-            db.transaction(
-                ATTACHMENT_STORE,
-                "readwrite"
-            );
+    return new Promise(
+        (
+            resolve,
+            reject
+        ) => {
 
-        const store =
-            transaction.objectStore(
-                ATTACHMENT_STORE
-            );
+            const transaction =
+                attachmentDB.transaction(
+                    [
+                        ATTACHMENT_STORE
+                    ],
+                    "readwrite"
+                );
 
-        const request =
-            store.put({
+            const store =
+                transaction.objectStore(
+                    ATTACHMENT_STORE
+                );
 
-                documentId:
-                    documentId,
+            const request =
+                store.put(
+                    {
+                        documentId:
+                            documentId,
 
-                name:
-                    file.name,
+                        name:
+                            file.name,
 
-                type:
-                    file.type ||
-                    "application/octet-stream",
+                        type:
+                            file.type,
 
-                size:
-                    file.size,
+                        size:
+                            file.size,
 
-                file:
-                    file,
+                        blob:
+                            file,
 
-                updatedAt:
-                    Date.now()
+                        createdAt:
+                            Date.now()
+                    }
+                );
 
-            });
+            request.onsuccess =
+                () =>
+                    resolve();
 
-        request.onsuccess =
-            function() {
-                resolve();
-            };
+            request.onerror =
+                event =>
+                    reject(
+                        event.target.error
+                    );
 
-        request.onerror =
-            function() {
-                reject(request.error);
-            };
-
-    });
+        }
+    );
 
 }
 
@@ -1747,46 +2266,51 @@ async function getAttachment(
     documentId
 ) {
 
-    const db =
+    if (!attachmentDB) {
+
         await initAttachmentDB();
 
-    return new Promise((resolve, reject) => {
+    }
 
-        const transaction =
-            db.transaction(
-                ATTACHMENT_STORE,
-                "readonly"
-            );
+    return new Promise(
+        (
+            resolve,
+            reject
+        ) => {
 
-        const store =
-            transaction.objectStore(
-                ATTACHMENT_STORE
-            );
-
-        const request =
-            store.get(
-                documentId
-            );
-
-        request.onsuccess =
-            function() {
-
-                resolve(
-                    request.result || null
+            const transaction =
+                attachmentDB.transaction(
+                    [
+                        ATTACHMENT_STORE
+                    ],
+                    "readonly"
                 );
 
-            };
-
-        request.onerror =
-            function() {
-
-                reject(
-                    request.error
+            const store =
+                transaction.objectStore(
+                    ATTACHMENT_STORE
                 );
 
-            };
+            const request =
+                store.get(
+                    documentId
+                );
 
-    });
+            request.onsuccess =
+                event =>
+                    resolve(
+                        event.target.result ||
+                        null
+                    );
+
+            request.onerror =
+                event =>
+                    reject(
+                        event.target.error
+                    );
+
+        }
+    );
 
 }
 
@@ -1794,40 +2318,48 @@ async function deleteAttachment(
     documentId
 ) {
 
-    if (!window.indexedDB) return;
+    if (!attachmentDB) {
 
-    const db =
         await initAttachmentDB();
 
-    return new Promise((resolve, reject) => {
+    }
 
-        const transaction =
-            db.transaction(
-                ATTACHMENT_STORE,
-                "readwrite"
-            );
+    return new Promise(
+        (
+            resolve,
+            reject
+        ) => {
 
-        const store =
-            transaction.objectStore(
-                ATTACHMENT_STORE
-            );
+            const transaction =
+                attachmentDB.transaction(
+                    [
+                        ATTACHMENT_STORE
+                    ],
+                    "readwrite"
+                );
 
-        const request =
-            store.delete(
-                documentId
-            );
+            const store =
+                transaction.objectStore(
+                    ATTACHMENT_STORE
+                );
 
-        request.onsuccess =
-            function() {
-                resolve();
-            };
+            const request =
+                store.delete(
+                    documentId
+                );
 
-        request.onerror =
-            function() {
-                reject(request.error);
-            };
+            request.onsuccess =
+                () =>
+                    resolve();
 
-    });
+            request.onerror =
+                event =>
+                    reject(
+                        event.target.error
+                    );
+
+        }
+    );
 
 }
 
@@ -1837,7 +2369,9 @@ async function deleteAttachmentsForThing(
 
     if (
         !thing ||
-        !Array.isArray(thing.documents)
+        !Array.isArray(
+            thing.documents
+        )
     ) {
         return;
     }
@@ -1856,7 +2390,6 @@ async function deleteAttachmentsForThing(
         } catch(error) {
 
             console.error(
-                "Could not delete attachment:",
                 error
             );
 
@@ -1866,26 +2399,30 @@ async function deleteAttachmentsForThing(
 
 }
 
-/* =========================================================
-   ATTACHMENT HELPERS
-========================================================= */
-
 function formatFileSize(
     bytes
 ) {
 
     if (
-        bytes === undefined ||
-        bytes === null
+        !bytes ||
+        bytes <= 0
     ) {
-        return "";
+
+        return "0 KB";
+
     }
 
-    if (bytes < 1024) {
+    if (
+        bytes < 1024
+    ) {
+
         return `${bytes} B`;
+
     }
 
-    if (bytes < 1024 * 1024) {
+    if (
+        bytes < 1024 * 1024
+    ) {
 
         return `${(
             bytes / 1024
@@ -1895,7 +2432,9 @@ function formatFileSize(
 
     return `${(
         bytes /
-        (1024 * 1024)
+        (
+            1024 * 1024
+        )
     ).toFixed(1)} MB`;
 
 }
@@ -1905,1096 +2444,101 @@ function getAttachmentIcon(
     name
 ) {
 
-    const lower =
+    const lowerName =
         String(
             name || ""
         ).toLowerCase();
 
     if (
-        type === "application/pdf" ||
-        lower.endsWith(".pdf")
+        type ===
+        "application/pdf" ||
+        lowerName.endsWith(
+            ".pdf"
+        )
     ) {
+
         return "📄";
+
     }
 
     if (
-        type &&
-        type.startsWith("image/")
+        String(type || "")
+            .startsWith(
+                "image/"
+            )
     ) {
+
         return "🖼️";
+
     }
 
     return "📎";
 
 }
 
+
 /* =========================================================
-   ATTACHMENT ZOOM
+   PDF.JS
 ========================================================= */
 
-function updateAttachmentZoomLabel() {
+let pdfjsLib =
+    null;
 
-    const label =
-        document.getElementById(
-            "attachmentZoomLabel"
-        );
+async function loadPdfJs() {
 
-    if (!label) return;
+    if (pdfjsLib) {
 
-    if (attachmentIsFit) {
-
-        label.textContent =
-            "Fit";
-
-        return;
+        return pdfjsLib;
 
     }
 
-    label.textContent =
-        `${Math.round(
-            attachmentZoom * 100
-        )}%`;
+    pdfjsLib =
+        await import(
+            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/6.3.289/pdf.min.mjs"
+        );
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/6.3.289/pdf.worker.min.mjs";
+
+    return pdfjsLib;
 
 }
 
-function getAttachmentViewerElement() {
-
-    return document.querySelector(
-        "#attachmentViewer .attachment-viewer"
-    );
-
-}
 
 /* =========================================================
-   IMAGE FIT / ZOOM
+   ATTACHMENT VIEWER STATE
 ========================================================= */
 
-function calculateImageFitScale() {
+let currentAttachmentUrl =
+    null;
 
-    const image =
-        document.getElementById(
-            "attachmentImage"
-        );
+let attachmentHistoryActive =
+    false;
 
-    const viewer =
-        getAttachmentViewerElement();
+let attachmentZoom =
+    1;
 
-    if (
-        !image ||
-        !viewer ||
-        !image.naturalWidth ||
-        !image.naturalHeight
-    ) {
-        return 1;
-    }
+let attachmentIsFit =
+    true;
 
-    const availableWidth =
-        Math.max(
-            1,
-            viewer.clientWidth - 24
-        );
+let attachmentIsPdf =
+    false;
 
-    const availableHeight =
-        Math.max(
-            1,
-            viewer.clientHeight - 24
-        );
+let attachmentPdfDocument =
+    null;
 
-    const widthScale =
-        availableWidth /
-        image.naturalWidth;
+let attachmentPdfFitScale =
+    1;
 
-    const heightScale =
-        availableHeight /
-        image.naturalHeight;
+let attachmentImageFitScale =
+    1;
 
-    return Math.min(
-        widthScale,
-        heightScale,
-        1
-    );
+let attachmentRenderToken =
+    0;
 
-}
-
-function applyImageZoom() {
-
-    const image =
-        document.getElementById(
-            "attachmentImage"
-        );
-
-    if (!image) return;
-
-    if (
-        !attachmentImageFitScale ||
-        attachmentImageFitScale <= 0
-    ) {
-
-        attachmentImageFitScale =
-            calculateImageFitScale();
-
-    }
-
-    let scale;
-
-    if (attachmentIsFit) {
-
-        scale =
-            attachmentImageFitScale;
-
-    } else {
-
-        scale =
-            attachmentImageFitScale *
-            attachmentZoom;
-
-    }
-
-    const width =
-        image.naturalWidth *
-        scale;
-
-    const height =
-        image.naturalHeight *
-        scale;
-
-    image.style.width =
-        `${width}px`;
-
-    image.style.height =
-        `${height}px`;
-
-    image.style.maxWidth =
-        "none";
-
-    image.style.maxHeight =
-        "none";
-
-}
 
 /* =========================================================
-   PDF FIT / ZOOM
-========================================================= */
-
-async function calculatePdfFitScale() {
-
-    const stage =
-        document.getElementById(
-            "attachmentPdfStage"
-        );
-
-    if (
-        !stage ||
-        !attachmentPdfDocument
-    ) {
-        return 1;
-    }
-
-    try {
-
-        const page =
-            await attachmentPdfDocument.getPage(
-                1
-            );
-
-        const viewport =
-            page.getViewport({
-                scale: 1
-            });
-
-        const viewer =
-            getAttachmentViewerElement();
-
-        if (!viewer) {
-            return 1;
-        }
-
-        const availableWidth =
-            Math.max(
-                1,
-                viewer.clientWidth - 48
-            );
-
-        const availableHeight =
-            Math.max(
-                1,
-                viewer.clientHeight - 48
-            );
-
-        const widthScale =
-            availableWidth /
-            viewport.width;
-
-        const heightScale =
-            availableHeight /
-            viewport.height;
-
-        return Math.min(
-            widthScale,
-            heightScale,
-            1
-        );
-
-    } catch(error) {
-
-        console.error(
-            "Could not calculate PDF fit:",
-            error
-        );
-
-        return 1;
-
-    }
-
-}
-
-async function renderPdf() {
-
-    if (
-        !attachmentPdfDocument
-    ) {
-        return;
-    }
-
-    const stage =
-        document.getElementById(
-            "attachmentPdfStage"
-        );
-
-    if (!stage) return;
-
-    const renderToken =
-        ++attachmentPdfRenderToken;
-
-    try {
-
-        attachmentFitScale =
-            await calculatePdfFitScale();
-
-        if (
-            renderToken !==
-            attachmentPdfRenderToken
-        ) {
-            return;
-        }
-
-        const scale =
-            attachmentIsFit
-                ? attachmentFitScale
-                : attachmentFitScale *
-                  attachmentZoom;
-
-        stage.innerHTML =
-            "";
-
-        for (
-            let pageNumber = 1;
-            pageNumber <=
-            attachmentPdfDocument.numPages;
-            pageNumber++
-        ) {
-
-            if (
-                renderToken !==
-                attachmentPdfRenderToken
-            ) {
-                return;
-            }
-
-            const page =
-                await attachmentPdfDocument.getPage(
-                    pageNumber
-                );
-
-            if (
-                renderToken !==
-                attachmentPdfRenderToken
-            ) {
-                return;
-            }
-
-            const viewport =
-                page.getViewport({
-                    scale:
-                        scale
-                });
-
-            const canvas =
-                document.createElement(
-                    "canvas"
-                );
-
-            canvas.className =
-                "attachment-pdf-page";
-
-            canvas.width =
-                Math.ceil(
-                    viewport.width
-                );
-
-            canvas.height =
-                Math.ceil(
-                    viewport.height
-                );
-
-            canvas.style.width =
-                `${viewport.width}px`;
-
-            canvas.style.height =
-                `${viewport.height}px`;
-
-            stage.appendChild(
-                canvas
-            );
-
-            const context =
-                canvas.getContext(
-                    "2d"
-                );
-
-            await page.render({
-
-                canvasContext:
-                    context,
-
-                viewport:
-                    viewport
-
-            }).promise;
-
-        }
-
-    } catch(error) {
-
-        if (
-            renderToken !==
-            attachmentPdfRenderToken
-        ) {
-            return;
-        }
-
-        console.error(
-            "Could not render PDF:",
-            error
-        );
-
-        stage.innerHTML = `
-
-            <div class="attachment-pdf-error">
-
-                Could not display this PDF.
-
-                <br><br>
-
-                <button
-                    class="secondary small"
-                    onclick="window.open(
-                        currentAttachmentUrl,
-                        '_blank'
-                    )">
-
-                    Open PDF
-
-                </button>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-function attachmentFit() {
-
-    attachmentIsFit =
-        true;
-
-    attachmentZoom =
-        1;
-
-    updateAttachmentZoomLabel();
-
-    if (attachmentIsPdf) {
-
-        renderPdf();
-
-    } else {
-
-        attachmentImageFitScale =
-            calculateImageFitScale();
-
-        applyImageZoom();
-
-    }
-
-}
-
-function attachmentResetZoom() {
-
-    attachmentIsFit =
-        false;
-
-    attachmentZoom =
-        1;
-
-    updateAttachmentZoomLabel();
-
-    if (attachmentIsPdf) {
-
-        renderPdf();
-
-    } else {
-
-        applyImageZoom();
-
-    }
-
-}
-
-function attachmentZoomIn() {
-
-    attachmentIsFit =
-        false;
-
-    attachmentZoom =
-        Math.min(
-            3,
-            Math.round(
-                (attachmentZoom + 0.25) * 100
-            ) / 100
-        );
-
-    updateAttachmentZoomLabel();
-
-    if (attachmentIsPdf) {
-
-        renderPdf();
-
-    } else {
-
-        applyImageZoom();
-
-    }
-
-}
-
-function attachmentZoomOut() {
-
-    attachmentIsFit =
-        false;
-
-    attachmentZoom =
-        Math.max(
-            0.5,
-            Math.round(
-                (attachmentZoom - 0.25) * 100
-            ) / 100
-        );
-
-    updateAttachmentZoomLabel();
-
-    if (attachmentIsPdf) {
-
-        renderPdf();
-
-    } else {
-
-        applyImageZoom();
-
-    }
-
-}
-
-/* =========================================================
-   ATTACHMENT NAVIGATION
-========================================================= */
-
-function cleanupAttachmentUrl() {
-
-    if (currentAttachmentUrl) {
-
-        URL.revokeObjectURL(
-            currentAttachmentUrl
-        );
-
-        currentAttachmentUrl =
-            null;
-
-    }
-
-}
-
-function destroyPdfDocument() {
-
-    attachmentPdfRenderToken++;
-
-    if (
-        attachmentPdfDocument
-    ) {
-
-        try {
-
-            attachmentPdfDocument.destroy();
-
-        } catch(error) {
-
-            console.error(
-                "Could not destroy PDF document:",
-                error
-            );
-
-        }
-
-        attachmentPdfDocument =
-            null;
-
-    }
-
-}
-
-async function openAttachment(
-    documentId
-) {
-
-    try {
-
-        const attachment =
-            await getAttachment(
-                documentId
-            );
-
-        if (!attachment) {
-
-            alert(
-                "Attachment not found."
-            );
-
-            return;
-
-        }
-
-        const thing =
-            things.find(
-                item =>
-                    Array.isArray(item.documents) &&
-                    item.documents.some(
-                        item =>
-                            item.id === documentId
-                    )
-            );
-
-        if (!thing) {
-
-            alert(
-                "The document could not be found."
-            );
-
-            return;
-
-        }
-
-        const blob =
-            attachment.file instanceof Blob
-                ? attachment.file
-                : new Blob(
-                    [attachment.file],
-                    {
-                        type:
-                            attachment.type ||
-                            "application/octet-stream"
-                    }
-                );
-
-        destroyPdfDocument();
-
-        cleanupAttachmentUrl();
-
-        currentAttachmentUrl =
-            URL.createObjectURL(
-                blob
-            );
-
-        currentThingId =
-            thing.id;
-
-        currentThingCategory =
-            thing.category;
-
-        currentDocumentId =
-            documentId;
-
-        attachmentZoom =
-            1;
-
-        attachmentIsFit =
-            true;
-
-        attachmentFitScale =
-            1;
-
-        attachmentImageFitScale =
-            1;
-
-        const viewer =
-            document.getElementById(
-                "attachmentViewer"
-            );
-
-        if (!viewer) return;
-
-        const type =
-            attachment.type || "";
-
-        const lowerName =
-            String(
-                attachment.name || ""
-            ).toLowerCase();
-
-        const isPdf =
-            type === "application/pdf" ||
-            lowerName.endsWith(".pdf");
-
-        const isImage =
-            type.startsWith("image/") ||
-            /\.(jpg|jpeg|png|gif|webp|heic)$/i.test(
-                lowerName
-            );
-
-        attachmentIsPdf =
-            isPdf;
-
-        updateAttachmentZoomLabel();
-
-        if (isPdf) {
-
-            viewer.innerHTML = `
-
-                <div class="attachment-viewer">
-
-                    <div class="attachment-viewer-inner">
-
-                        <div
-                            id="attachmentPdfStage"
-                            class="attachment-pdf-stage">
-
-                            <div class="attachment-pdf-loading">
-                                Loading PDF…
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="attachment-file-info">
-
-                    <strong>
-                        ${escapeHtml(
-                            attachment.name
-                        )}
-                    </strong>
-
-                    <span>
-                        ${formatFileSize(
-                            attachment.size
-                        )}
-                    </span>
-
-                </div>
-
-            `;
-
-            if (!attachmentHistoryActive) {
-
-                history.pushState(
-                    {
-                        coisableAttachment:
-                            true,
-
-                        documentId:
-                            documentId
-                    },
-                    "",
-                    location.href
-                );
-
-                attachmentHistoryActive =
-                    true;
-
-            }
-
-            showView(
-                "attachmentView"
-            );
-
-            try {
-
-                const pdfjs =
-                    await loadPdfJs();
-
-                if (
-                    !currentAttachmentUrl
-                ) {
-                    return;
-                }
-
-                const loadingTask =
-                    pdfjs.getDocument({
-                        url:
-                            currentAttachmentUrl
-                    });
-
-                const pdf =
-                    await loadingTask.promise;
-
-                attachmentPdfDocument =
-                    pdf;
-
-                if (
-                    !document.getElementById(
-                        "attachmentPdfStage"
-                    )
-                ) {
-                    return;
-                }
-
-                await renderPdf();
-
-            } catch(error) {
-
-                console.error(
-                    "Could not load PDF:",
-                    error
-                );
-
-                const stage =
-                    document.getElementById(
-                        "attachmentPdfStage"
-                    );
-
-                if (stage) {
-
-                    stage.innerHTML = `
-
-                        <div class="attachment-pdf-error">
-
-                            Could not display this PDF.
-
-                            <br><br>
-
-                            <button
-                                class="secondary small"
-                                onclick="window.open(
-                                    currentAttachmentUrl,
-                                    '_blank'
-                                )">
-
-                                Open PDF
-
-                            </button>
-
-                        </div>
-
-                    `;
-
-                }
-
-            }
-
-            return;
-
-        }
-
-        if (isImage) {
-
-            viewer.innerHTML = `
-
-                <div class="attachment-viewer">
-
-                    <div class="attachment-image-wrapper">
-
-                        <div class="attachment-image-stage">
-
-                            <img
-                                id="attachmentImage"
-                                src="${currentAttachmentUrl}"
-                                alt="${escapeHtml(
-                                    attachment.name
-                                )}">
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="attachment-file-info">
-
-                    <strong>
-                        ${escapeHtml(
-                            attachment.name
-                        )}
-                    </strong>
-
-                    <span>
-                        ${formatFileSize(
-                            attachment.size
-                        )}
-                    </span>
-
-                </div>
-
-            `;
-
-            if (!attachmentHistoryActive) {
-
-                history.pushState(
-                    {
-                        coisableAttachment:
-                            true,
-
-                        documentId:
-                            documentId
-                    },
-                    "",
-                    location.href
-                );
-
-                attachmentHistoryActive =
-                    true;
-
-            }
-
-            showView(
-                "attachmentView"
-            );
-
-            const image =
-                document.getElementById(
-                    "attachmentImage"
-                );
-
-            if (image) {
-
-                image.onload =
-                    function() {
-
-                        attachmentFit();
-
-                    };
-
-                if (
-                    image.complete
-                ) {
-
-                    attachmentFit();
-
-                }
-
-            }
-
-            return;
-
-        }
-
-        attachmentIsPdf =
-            false;
-
-        attachmentIsFit =
-            false;
-
-        viewer.innerHTML = `
-
-            <div class="card">
-
-                <div class="attachment-file-info">
-
-                    <div style="font-size:42px;">
-                        ${getAttachmentIcon(
-                            attachment.type,
-                            attachment.name
-                        )}
-                    </div>
-
-                    <strong>
-                        ${escapeHtml(
-                            attachment.name
-                        )}
-                    </strong>
-
-                    <span>
-                        ${formatFileSize(
-                            attachment.size
-                        )}
-                    </span>
-
-                    <br>
-
-                    <button
-                        class="secondary"
-                        onclick="window.open(
-                            currentAttachmentUrl,
-                            '_blank'
-                        )">
-
-                        Open File
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        `;
-
-        updateAttachmentZoomLabel();
-
-        if (!attachmentHistoryActive) {
-
-            history.pushState(
-                {
-                    coisableAttachment:
-                        true,
-
-                    documentId:
-                        documentId
-                },
-                "",
-                location.href
-            );
-
-            attachmentHistoryActive =
-                true;
-
-        }
-
-        showView(
-            "attachmentView"
-        );
-
-    } catch(error) {
-
-        console.error(
-            error
-        );
-
-        alert(
-            "Could not open the attachment."
-        );
-
-    }
-
-}
-
-function backToDocument() {
-
-    if (attachmentHistoryActive) {
-
-        history.back();
-
-        return;
-
-    }
-
-    leaveAttachmentView();
-
-    if (currentDocumentId !== null) {
-
-        editDocument(
-            currentDocumentId
-        );
-
-    } else {
-
-        showHome();
-
-    }
-
-}
-
-function leaveAttachmentView() {
-
-    destroyPdfDocument();
-
-    cleanupAttachmentUrl();
-
-    const viewer =
-        document.getElementById(
-            "attachmentViewer"
-        );
-
-    if (viewer) {
-
-        viewer.innerHTML =
-            "";
-
-    }
-
-    attachmentZoom =
-        1;
-
-    attachmentIsFit =
-        true;
-
-    attachmentIsPdf =
-        false;
-
-    attachmentFitScale =
-        1;
-
-    attachmentImageFitScale =
-        1;
-
-    attachmentHistoryActive =
-        false;
-
-}
-
-/* =========================================================
-   BROWSER BACK / IPHONE SWIPE
-========================================================= */
-
-window.addEventListener(
-    "popstate",
-    function() {
-
-        if (
-            document.getElementById(
-                "attachmentView"
-            ) &&
-            document.getElementById(
-                "attachmentView"
-            ).classList.contains("active")
-        ) {
-
-            const documentId =
-                currentDocumentId;
-
-            leaveAttachmentView();
-
-            if (
-                documentId !== null
-            ) {
-
-                editDocument(
-                    documentId
-                );
-
-            } else {
-
-                showHome();
-
-            }
-
-        }
-
-    }
-);
-
-/* =========================================================
-   ATTACHMENT DISPLAY
+   ATTACHMENT CHECK
 ========================================================= */
 
 async function hasAttachment(
@@ -3021,6 +2565,826 @@ async function hasAttachment(
     }
 
 }
+
+
+/* =========================================================
+   OPEN ATTACHMENT
+========================================================= */
+
+async function openAttachment(
+    documentId
+) {
+
+    try {
+
+        const attachment =
+            await getAttachment(
+                documentId
+            );
+
+        if (!attachment) {
+
+            alert(
+                "Attachment not found."
+            );
+
+            return;
+
+        }
+
+        const thing =
+            things.find(
+                item =>
+                    Array.isArray(
+                        item.documents
+                    ) &&
+                    item.documents.some(
+                        documentItem =>
+                            documentItem.id ===
+                            documentId
+                    )
+            );
+
+        if (!thing) {
+
+            alert(
+                "The related thing could not be found."
+            );
+
+            return;
+
+        }
+
+        currentThingId =
+            thing.id;
+
+        currentThingCategory =
+            thing.category;
+
+        currentDocumentId =
+            documentId;
+
+        attachmentZoom =
+            1;
+
+        attachmentIsFit =
+            true;
+
+        attachmentIsPdf =
+            String(
+                attachment.type ||
+                ""
+            ).toLowerCase() ===
+            "application/pdf" ||
+            String(
+                attachment.name ||
+                ""
+            ).toLowerCase().endsWith(
+                ".pdf"
+            );
+
+        attachmentRenderToken++;
+
+        if (
+            currentAttachmentUrl
+        ) {
+
+            URL.revokeObjectURL(
+                currentAttachmentUrl
+            );
+
+            currentAttachmentUrl =
+                null;
+
+        }
+
+        currentAttachmentUrl =
+            URL.createObjectURL(
+                attachment.blob
+            );
+
+        const viewer =
+            document.getElementById(
+                "attachmentViewer"
+            );
+
+        if (!viewer) return;
+
+        viewer.innerHTML = `
+
+            <div class="attachment-viewer">
+
+                <div class="attachment-viewer-toolbar">
+
+                    <button
+                        class="secondary small"
+                        onclick="attachmentFit()">
+                        Fit
+                    </button>
+
+                    <button
+                        class="secondary small"
+                        onclick="attachmentZoomOut()">
+                        −
+                    </button>
+
+                    <span
+                        id="attachmentZoomLabel"
+                        class="attachment-zoom-label">
+                        Fit
+                    </span>
+
+                    <button
+                        class="secondary small"
+                        onclick="attachmentZoomIn()">
+                        +
+                    </button>
+
+                    <button
+                        class="secondary small"
+                        onclick="attachmentResetZoom()">
+                        100%
+                    </button>
+
+                </div>
+
+                <div
+                    id="attachmentViewerInner"
+                    class="attachment-viewer-inner">
+
+                    ${
+                        attachmentIsPdf
+                        ? `
+
+                            <div
+                                id="attachmentPdfStage"
+                                class="attachment-pdf-stage">
+
+                                <div class="attachment-pdf-loading">
+                                    Loading PDF…
+                                </div>
+
+                            </div>
+
+                        `
+                        : `
+
+                            <div
+                                id="attachmentImageStage"
+                                class="attachment-image-stage">
+
+                                <img
+                                    id="attachmentImage"
+                                    alt="${escapeHtml(
+                                        attachment.name
+                                    )}">
+
+                            </div>
+
+                        `
+                    }
+
+                </div>
+
+            </div>
+
+        `;
+
+        showView(
+            "attachmentView"
+        );
+
+        if (
+            !attachmentHistoryActive
+        ) {
+
+            history.pushState(
+                {
+                    coisableAttachment:
+                        true,
+
+                    documentId:
+                        documentId
+
+                },
+                "",
+                window.location.href
+            );
+
+            attachmentHistoryActive =
+                true;
+
+        }
+
+        if (
+            attachmentIsPdf
+        ) {
+
+            await loadAndRenderPdf();
+
+        } else {
+
+            const image =
+                document.getElementById(
+                    "attachmentImage"
+                );
+
+            if (!image) return;
+
+            image.onload =
+                function() {
+
+                    attachmentImageFitScale =
+                        calculateImageFitScale();
+
+                    attachmentIsFit =
+                        true;
+
+                    attachmentZoom =
+                        1;
+
+                    applyImageZoom();
+
+                };
+
+            image.src =
+                currentAttachmentUrl;
+
+        }
+
+    } catch(error) {
+
+        console.error(
+            error
+        );
+
+        alert(
+            "Could not open this attachment."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD PDF
+========================================================= */
+
+async function loadAndRenderPdf() {
+
+    const stage =
+        document.getElementById(
+            "attachmentPdfStage"
+        );
+
+    if (!stage) return;
+
+    const token =
+        ++attachmentRenderToken;
+
+    try {
+
+        const pdfjs =
+            await loadPdfJs();
+
+        if (
+            token !==
+            attachmentRenderToken
+        ) {
+            return;
+        }
+
+        const loadingTask =
+            pdfjs.getDocument(
+                {
+                    url:
+                        currentAttachmentUrl
+                }
+            );
+
+        const pdf =
+            await loadingTask.promise;
+
+        if (
+            token !==
+            attachmentRenderToken
+        ) {
+
+            try {
+                await pdf.destroy();
+            } catch(error) {}
+
+            return;
+
+        }
+
+        attachmentPdfDocument =
+            pdf;
+
+        await renderPdf();
+
+    } catch(error) {
+
+        console.error(
+            "PDF.js error:",
+            error
+        );
+
+        if (
+            token !==
+            attachmentRenderToken
+        ) {
+            return;
+        }
+
+        stage.innerHTML = `
+
+            <div class="attachment-pdf-error">
+
+                <strong>
+                    Could not display this PDF.
+                </strong>
+
+                <div style="
+                    margin-top:8px;
+                    font-size:13px;
+                ">
+
+                    There was a problem rendering
+                    this PDF inside Coisable.
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   PDF FIT
+========================================================= */
+
+async function calculatePdfFitScale() {
+
+    if (
+        !attachmentPdfDocument
+    ) {
+
+        return 1;
+
+    }
+
+    const inner =
+        document.getElementById(
+            "attachmentViewerInner"
+        );
+
+    if (!inner) {
+
+        return 1;
+
+    }
+
+    const page =
+        await attachmentPdfDocument.getPage(
+            1
+        );
+
+    const viewport =
+        page.getViewport(
+            {
+                scale: 1
+            }
+        );
+
+    const availableWidth =
+        Math.max(
+            inner.clientWidth - 24,
+            100
+        );
+
+    const availableHeight =
+        Math.max(
+            inner.clientHeight - 24,
+            100
+        );
+
+    const widthScale =
+        availableWidth /
+        viewport.width;
+
+    const heightScale =
+        availableHeight /
+        viewport.height;
+
+    return Math.min(
+        widthScale,
+        heightScale,
+        1
+    );
+
+}
+
+
+/* =========================================================
+   RENDER PDF
+========================================================= */
+
+async function renderPdf() {
+
+    if (
+        !attachmentPdfDocument
+    ) {
+        return;
+    }
+
+    const stage =
+        document.getElementById(
+            "attachmentPdfStage"
+        );
+
+    if (!stage) return;
+
+    const token =
+        ++attachmentRenderToken;
+
+    if (
+        attachmentIsFit
+    ) {
+
+        attachmentPdfFitScale =
+            await calculatePdfFitScale();
+
+    }
+
+    const scale =
+        attachmentIsFit
+            ? attachmentPdfFitScale
+            : attachmentZoom;
+
+    stage.innerHTML =
+        "";
+
+    const dpr =
+        Math.min(
+            window.devicePixelRatio ||
+            1,
+            2
+        );
+
+    for (
+        let pageNumber = 1;
+        pageNumber <=
+            attachmentPdfDocument.numPages;
+        pageNumber++
+    ) {
+
+        if (
+            token !==
+            attachmentRenderToken
+        ) {
+
+            return;
+
+        }
+
+        const page =
+            await attachmentPdfDocument.getPage(
+                pageNumber
+            );
+
+        if (
+            token !==
+            attachmentRenderToken
+        ) {
+
+            return;
+
+        }
+
+        const viewport =
+            page.getViewport(
+                {
+                    scale:
+                        scale
+                }
+            );
+
+        const wrapper =
+            document.createElement(
+                "div"
+            );
+
+        wrapper.className =
+            "attachment-pdf-page";
+
+        const canvas =
+            document.createElement(
+                "canvas"
+            );
+
+        const context =
+            canvas.getContext(
+                "2d"
+            );
+
+        canvas.width =
+            Math.floor(
+                viewport.width *
+                dpr
+            );
+
+        canvas.height =
+            Math.floor(
+                viewport.height *
+                dpr
+            );
+
+        canvas.style.width =
+            `${viewport.width}px`;
+
+        canvas.style.height =
+            `${viewport.height}px`;
+
+        context.setTransform(
+            dpr,
+            0,
+            0,
+            dpr,
+            0,
+            0
+        );
+
+        wrapper.appendChild(
+            canvas
+        );
+
+        stage.appendChild(
+            wrapper
+        );
+
+        await page.render(
+            {
+                canvasContext:
+                    context,
+
+                viewport:
+                    viewport
+            }
+        ).promise;
+
+    }
+
+    updateAttachmentZoomLabel();
+
+}
+
+
+/* =========================================================
+   IMAGE FIT
+========================================================= */
+
+function calculateImageFitScale() {
+
+    const image =
+        document.getElementById(
+            "attachmentImage"
+        );
+
+    const inner =
+        document.getElementById(
+            "attachmentViewerInner"
+        );
+
+    if (
+        !image ||
+        !inner ||
+        !image.naturalWidth ||
+        !image.naturalHeight
+    ) {
+
+        return 1;
+
+    }
+
+    const availableWidth =
+        Math.max(
+            inner.clientWidth - 24,
+            100
+        );
+
+    const availableHeight =
+        Math.max(
+            inner.clientHeight - 24,
+            100
+        );
+
+    const widthScale =
+        availableWidth /
+        image.naturalWidth;
+
+    const heightScale =
+        availableHeight /
+        image.naturalHeight;
+
+    return Math.min(
+        widthScale,
+        heightScale,
+        1
+    );
+
+}
+
+
+/* =========================================================
+   ATTACHMENT CONTROLS
+========================================================= */
+
+async function attachmentFit() {
+
+    attachmentIsFit =
+        true;
+
+    attachmentZoom =
+        1;
+
+    if (
+        attachmentIsPdf
+    ) {
+
+        await renderPdf();
+
+    } else {
+
+        attachmentImageFitScale =
+            calculateImageFitScale();
+
+        applyImageZoom();
+
+    }
+
+}
+
+async function attachmentResetZoom() {
+
+    attachmentIsFit =
+        false;
+
+    attachmentZoom =
+        1;
+
+    if (
+        attachmentIsPdf
+    ) {
+
+        await renderPdf();
+
+    } else {
+
+        applyImageZoom();
+
+    }
+
+}
+
+async function attachmentZoomIn() {
+
+    if (
+        attachmentIsFit
+    ) {
+
+        attachmentIsFit =
+            false;
+
+        attachmentZoom =
+            1.25;
+
+    } else {
+
+        attachmentZoom =
+            Math.min(
+                attachmentZoom +
+                0.25,
+                3
+            );
+
+    }
+
+    if (
+        attachmentIsPdf
+    ) {
+
+        await renderPdf();
+
+    } else {
+
+        applyImageZoom();
+
+    }
+
+}
+
+async function attachmentZoomOut() {
+
+    if (
+        attachmentIsFit
+    ) {
+
+        attachmentIsFit =
+            false;
+
+        attachmentZoom =
+            0.75;
+
+    } else {
+
+        attachmentZoom =
+            Math.max(
+                attachmentZoom -
+                0.25,
+                0.5
+            );
+
+    }
+
+    if (
+        attachmentIsPdf
+    ) {
+
+        await renderPdf();
+
+    } else {
+
+        applyImageZoom();
+
+    }
+
+}
+
+function updateAttachmentZoomLabel() {
+
+    const label =
+        document.getElementById(
+            "attachmentZoomLabel"
+        );
+
+    if (!label) return;
+
+    label.textContent =
+        attachmentIsFit
+            ? "Fit"
+            : `${Math.round(
+                attachmentZoom *
+                100
+              )}%`;
+
+}
+
+function applyImageZoom() {
+
+    const image =
+        document.getElementById(
+            "attachmentImage"
+        );
+
+    if (!image) return;
+
+    const scale =
+        attachmentIsFit
+            ? attachmentImageFitScale
+            : attachmentZoom;
+
+    image.style.maxWidth =
+        "none";
+
+    image.style.maxHeight =
+        "none";
+
+    image.style.width =
+        `${image.naturalWidth * scale}px`;
+
+    image.style.height =
+        `${image.naturalHeight * scale}px`;
+
+    image.style.transform =
+        "none";
+
+    image.style.objectFit =
+        "contain";
+
+    updateAttachmentZoomLabel();
+
+}
+
+
+/* =========================================================
+   EXISTING ATTACHMENT
+========================================================= */
 
 async function renderExistingAttachment(
     documentId
@@ -3212,6 +3576,159 @@ function previewNewAttachment() {
 
 }
 
+
+/* =========================================================
+   LEAVE ATTACHMENT
+========================================================= */
+
+function leaveAttachmentView() {
+
+    attachmentRenderToken++;
+
+    if (
+        attachmentPdfDocument
+    ) {
+
+        try {
+
+            attachmentPdfDocument.destroy();
+
+        } catch(error) {
+
+            console.error(
+                error
+            );
+
+        }
+
+    }
+
+    attachmentPdfDocument =
+        null;
+
+    if (
+        currentAttachmentUrl
+    ) {
+
+        URL.revokeObjectURL(
+            currentAttachmentUrl
+        );
+
+        currentAttachmentUrl =
+            null;
+
+    }
+
+    const viewer =
+        document.getElementById(
+            "attachmentViewer"
+        );
+
+    if (viewer) {
+
+        viewer.innerHTML =
+            "";
+
+    }
+
+    attachmentZoom =
+        1;
+
+    attachmentIsFit =
+        true;
+
+    attachmentIsPdf =
+        false;
+
+    attachmentPdfFitScale =
+        1;
+
+    attachmentImageFitScale =
+        1;
+
+}
+
+function backToDocument() {
+
+    if (
+        attachmentHistoryActive
+    ) {
+
+        history.back();
+
+        return;
+
+    }
+
+    const documentId =
+        currentDocumentId;
+
+    leaveAttachmentView();
+
+    if (
+        documentId !== null &&
+        documentId !== undefined
+    ) {
+
+        editDocument(
+            documentId
+        );
+
+    } else {
+
+        showHome();
+
+    }
+
+}
+
+window.addEventListener(
+    "popstate",
+    function() {
+
+        const attachmentView =
+            document.getElementById(
+                "attachmentView"
+            );
+
+        if (
+            !attachmentView ||
+            !attachmentView.classList.contains(
+                "active"
+            )
+        ) {
+
+            return;
+
+        }
+
+        const documentId =
+            currentDocumentId;
+
+        attachmentHistoryActive =
+            false;
+
+        leaveAttachmentView();
+
+        if (
+            documentId !== null &&
+            documentId !== undefined
+        ) {
+
+            editDocument(
+                documentId
+            );
+
+        } else {
+
+            showHome();
+
+        }
+
+    }
+);
+
+
 /* =========================================================
    STORAGE
 ========================================================= */
@@ -3224,6 +3741,7 @@ function saveThings() {
     );
 
 }
+
 
 /* =========================================================
    VIEW MANAGEMENT
@@ -3238,53 +3756,79 @@ function showView(id) {
 
     if (
         currentAttachmentView &&
-        currentAttachmentView.classList.contains("active") &&
-        id !== "attachmentView"
+        currentAttachmentView.classList.contains(
+            "active"
+        ) &&
+        id !==
+            "attachmentView"
     ) {
 
         leaveAttachmentView();
 
     }
 
-    document.querySelectorAll(".view").forEach(
+    document.querySelectorAll(
+        ".view"
+    ).forEach(
         view => {
-            view.classList.remove("active");
+
+            view.classList.remove(
+                "active"
+            );
+
         }
     );
 
     const target =
-        document.getElementById(id);
+        document.getElementById(
+            id
+        );
 
     if (!target) {
 
-        showView("homeView");
+        showView(
+            "homeView"
+        );
 
         return;
 
     }
 
-    target.classList.add("active");
+    target.classList.add(
+        "active"
+    );
 
 }
 
 function showHome() {
 
     renderCategoryCounts();
+
     renderComingUp();
 
-    showView("homeView");
+    showView(
+        "homeView"
+    );
 
 }
+
 
 /* =========================================================
    SEARCH
 ========================================================= */
 
-function normalizeSearch(value) {
+function normalizeSearch(
+    value
+) {
 
-    return String(value || "")
+    return String(
+        value || ""
+    )
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        )
         .toLowerCase()
         .trim();
 
@@ -3293,11 +3837,14 @@ function normalizeSearch(value) {
 function clearSearch() {
 
     const input =
-        document.getElementById("searchInput");
+        document.getElementById(
+            "searchInput"
+        );
 
     if (!input) return;
 
-    input.value = "";
+    input.value =
+        "";
 
     handleSearch();
 
@@ -3317,7 +3864,9 @@ function updateSearchClearButton(
     if (!button) return;
 
     button.style.display =
-        hasText ? "flex" : "none";
+        hasText
+            ? "flex"
+            : "none";
 
 }
 
@@ -3369,158 +3918,185 @@ function handleSearch() {
 
     const results = [];
 
-    things.forEach(thing => {
+    things.forEach(
+        thing => {
 
-        const thingName =
-            normalizeSearch(
-                thing.name
-            );
+            const thingName =
+                normalizeSearch(
+                    thing.name
+                );
 
-        const thingCategory =
-            normalizeSearch(
-                thing.category
-            );
+            const thingCategory =
+                normalizeSearch(
+                    thing.category
+                );
 
-        const thingMatch =
-            thingName.includes(query) ||
-            thingCategory.includes(query);
+            const thingMatch =
+                thingName.includes(
+                    query
+                ) ||
+                thingCategory.includes(
+                    query
+                );
 
-        if (thingMatch) {
+            if (thingMatch) {
 
-            results.push({
+                results.push({
 
-                kind: "thing",
+                    kind:
+                        "thing",
 
-                thingId:
-                    thing.id,
+                    thingId:
+                        thing.id,
 
-                title:
-                    thing.name,
+                    title:
+                        thing.name,
 
-                subtitle:
-                    thing.category,
+                    subtitle:
+                        thing.category,
 
-                resultType:
-                    "Thing",
+                    resultType:
+                        "Thing",
 
-                icon:
-                    categoryIcons[
-                        thing.category
-                    ] || "📦"
+                    icon:
+                        categoryIcons[
+                            thing.category
+                        ] || "📦"
 
-            });
+                });
 
-        }
+            }
 
-        if (
-            Array.isArray(
-                thing.documents
-            )
-        ) {
+            if (
+                Array.isArray(
+                    thing.documents
+                )
+            ) {
 
-            thing.documents.forEach(
-                documentItem => {
+                thing.documents.forEach(
+                    documentItem => {
 
-                    const documentMatch =
-                        normalizeSearch(
-                            documentItem.name
-                        ).includes(query) ||
-                        normalizeSearch(
-                            documentItem.type
-                        ).includes(query) ||
-                        thingName.includes(query);
+                        const documentMatch =
+                            normalizeSearch(
+                                documentItem.name
+                            ).includes(
+                                query
+                            ) ||
+                            normalizeSearch(
+                                documentItem.type
+                            ).includes(
+                                query
+                            ) ||
+                            thingName.includes(
+                                query
+                            );
 
-                    if (documentMatch) {
+                        if (
+                            documentMatch
+                        ) {
 
-                        results.push({
+                            results.push({
 
-                            kind: "document",
+                                kind:
+                                    "document",
 
-                            thingId:
-                                thing.id,
+                                thingId:
+                                    thing.id,
 
-                            documentId:
-                                documentItem.id,
+                                documentId:
+                                    documentItem.id,
 
-                            title:
-                                documentItem.name,
+                                title:
+                                    documentItem.name,
 
-                            subtitle:
-                                `${documentItem.type} · ${thing.name}`,
+                                subtitle:
+                                    `${documentItem.type} · ${thing.name}`,
 
-                            resultType:
-                                "Document",
+                                resultType:
+                                    "Document",
 
-                            icon:
-                                documentIcons[
-                                    documentItem.type
-                                ] || "📄"
+                                icon:
+                                    documentIcons[
+                                        documentItem.type
+                                    ] || "📄"
 
-                        });
+                            });
 
-                    }
-
-                }
-            );
-
-        }
-
-        if (
-            Array.isArray(
-                thing.events
-            )
-        ) {
-
-            thing.events.forEach(
-                event => {
-
-                    const eventMatch =
-                        normalizeSearch(
-                            event.description
-                        ).includes(query) ||
-                        normalizeSearch(
-                            event.type
-                        ).includes(query) ||
-                        thingName.includes(query);
-
-                    if (eventMatch) {
-
-                        results.push({
-
-                            kind: "event",
-
-                            thingId:
-                                thing.id,
-
-                            eventId:
-                                event.id,
-
-                            title:
-                                event.description,
-
-                            subtitle:
-                                `Timeline · ${thing.name}`,
-
-                            resultType:
-                                "Timeline",
-
-                            icon:
-                                eventIcons[
-                                    event.type
-                                ] || "📌"
-
-                        });
+                        }
 
                     }
+                );
 
-                }
-            );
+            }
+
+            if (
+                Array.isArray(
+                    thing.events
+                )
+            ) {
+
+                thing.events.forEach(
+                    event => {
+
+                        const eventMatch =
+                            normalizeSearch(
+                                event.description
+                            ).includes(
+                                query
+                            ) ||
+                            normalizeSearch(
+                                event.type
+                            ).includes(
+                                query
+                            ) ||
+                            thingName.includes(
+                                query
+                            );
+
+                        if (
+                            eventMatch
+                        ) {
+
+                            results.push({
+
+                                kind:
+                                    "event",
+
+                                thingId:
+                                    thing.id,
+
+                                eventId:
+                                    event.id,
+
+                                title:
+                                    event.description,
+
+                                subtitle:
+                                    `Timeline · ${thing.name}`,
+
+                                resultType:
+                                    "Timeline",
+
+                                icon:
+                                    eventIcons[
+                                        event.type
+                                    ] || "📌"
+
+                            });
+
+                        }
+
+                    }
+                );
+
+            }
 
         }
+    );
 
-    });
-
-    if (results.length === 0) {
+    if (
+        results.length === 0
+    ) {
 
         resultsContainer.style.display =
             "block";
@@ -3553,65 +4129,77 @@ function handleSearch() {
         "block";
 
     resultsContainer.innerHTML =
-        results.map(result => {
+        results.map(
+            result => {
 
-            let action = "";
+                let action =
+                    "";
 
-            if (
-                result.kind === "thing"
-            ) {
+                if (
+                    result.kind ===
+                    "thing"
+                ) {
 
-                action =
-                    `openThingFromSearch(${result.thingId})`;
+                    action =
+                        `openThingFromSearch(${result.thingId})`;
 
-            } else if (
-                result.kind === "document"
-            ) {
+                } else if (
+                    result.kind ===
+                    "document"
+                ) {
 
-                action =
-                    `openDocumentFromSearch(${result.thingId}, ${result.documentId})`;
+                    action =
+                        `openDocumentFromSearch(${result.thingId}, ${result.documentId})`;
 
-            } else {
+                } else {
 
-                action =
-                    `openEventFromSearch(${result.thingId}, ${result.eventId})`;
+                    action =
+                        `openEventFromSearch(${result.thingId}, ${result.eventId})`;
+
+                }
+
+                return `
+
+                    <div
+                        class="card search-result"
+                        onclick="${action}">
+
+                        <div class="search-result-icon">
+                            ${result.icon}
+                        </div>
+
+                        <div class="search-result-info">
+
+                            <strong>
+                                ${escapeHtml(
+                                    result.title
+                                )}
+                            </strong>
+
+                            <span>
+                                ${escapeHtml(
+                                    result.subtitle
+                                )}
+                            </span>
+
+                            <span class="search-result-type">
+                                ${escapeHtml(
+                                    result.resultType
+                                )}
+                            </span>
+
+                        </div>
+
+                        <div class="search-result-chevron">
+                            ›
+                        </div>
+
+                    </div>
+
+                `;
 
             }
-
-            return `
-
-                <div class="card search-result"
-                     onclick="${action}">
-
-                    <div class="search-result-icon">
-                        ${result.icon}
-                    </div>
-
-                    <div class="search-result-info">
-
-                        <strong>
-                            ${escapeHtml(result.title)}
-                        </strong>
-
-                        <span>
-                            ${escapeHtml(result.subtitle)}
-                        </span>
-
-                        <span class="search-result-type">
-                            ${escapeHtml(result.resultType)}
-                        </span>
-
-                    </div>
-
-                    <div class="search-result-chevron">
-                        ›
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
+        ).join("");
 
 }
 
@@ -3622,7 +4210,8 @@ function openThingFromSearch(
     const thing =
         things.find(
             item =>
-                item.id === thingId
+                item.id ===
+                thingId
         );
 
     if (!thing) return;
@@ -3647,7 +4236,8 @@ function openDocumentFromSearch(
     const thing =
         things.find(
             item =>
-                item.id === thingId
+                item.id ===
+                thingId
         );
 
     if (!thing) return;
@@ -3662,7 +4252,8 @@ function openDocumentFromSearch(
         thing.documents &&
         thing.documents.find(
             item =>
-                item.id === documentId
+                item.id ===
+                documentId
         );
 
     if (!documentItem) {
@@ -3696,7 +4287,8 @@ function openEventFromSearch(
     const thing =
         things.find(
             item =>
-                item.id === thingId
+                item.id ===
+                thingId
         );
 
     if (!thing) return;
@@ -3711,7 +4303,8 @@ function openEventFromSearch(
         thing.events &&
         thing.events.find(
             item =>
-                item.id === eventId
+                item.id ===
+                eventId
         );
 
     if (!event) {
@@ -3737,6 +4330,7 @@ function openEventFromSearch(
 
 }
 
+
 /* =========================================================
    HOME / CATEGORIES
 ========================================================= */
@@ -3745,51 +4339,71 @@ function renderCategoryCounts() {
 
     const categories = {
 
-        "Real Estate": "realEstate",
-        "Vehicles": "vehicles",
-        "Electronics": "electronics",
-        "Other": "other"
+        "Real Estate":
+            "realEstate",
+
+        "Vehicles":
+            "vehicles",
+
+        "Electronics":
+            "electronics",
+
+        "Other":
+            "other"
 
     };
 
-    Object.keys(categories).forEach(category => {
+    Object.keys(
+        categories
+    ).forEach(
+        category => {
 
-        const prefix =
-            categories[category];
+            const prefix =
+                categories[
+                    category
+                ];
 
-        const count =
-            things.filter(
-                thing =>
-                    thing.category === category
-            ).length;
+            const count =
+                things.filter(
+                    thing =>
+                        thing.category ===
+                        category
+                ).length;
 
-        const countElement =
-            document.getElementById(
-                prefix + "Count"
-            );
+            const countElement =
+                document.getElementById(
+                    prefix +
+                    "Count"
+                );
 
-        const labelElement =
-            document.getElementById(
-                prefix + "Label"
-            );
+            const labelElement =
+                document.getElementById(
+                    prefix +
+                    "Label"
+                );
 
-        if (countElement) {
+            if (
+                countElement
+            ) {
 
-            countElement.textContent =
-                count;
+                countElement.textContent =
+                    count;
+
+            }
+
+            if (
+                labelElement
+            ) {
+
+                labelElement.textContent =
+                    count === 1
+                        ? "thing"
+                        : "things";
+
+            }
 
         }
-
-        if (labelElement) {
-
-            labelElement.textContent =
-                count === 1
-                    ? "thing"
-                    : "things";
-
-        }
-
-    });
+    );
 
 }
 
@@ -3814,14 +4428,16 @@ function showCategory(
         category;
 
     if (
-        category === "Real Estate"
+        category ===
+        "Real Estate"
     ) {
 
         addButton.textContent =
             "+ Add Property";
 
     } else if (
-        category === "Vehicles"
+        category ===
+        "Vehicles"
     ) {
 
         addButton.textContent =
@@ -3856,11 +4472,13 @@ function renderCategoryThings(
     const categoryThings =
         things.filter(
             thing =>
-                thing.category === category
+                thing.category ===
+                category
         );
 
     if (
-        categoryThings.length === 0
+        categoryThings.length ===
+        0
     ) {
 
         container.innerHTML = `
@@ -3886,8 +4504,9 @@ function renderCategoryThings(
 
                 return `
 
-                    <div class="card thing-card"
-                         onclick="openThing(${thing.id})">
+                    <div
+                        class="card thing-card"
+                        onclick="openThing(${thing.id})">
 
                         <div class="icon">
                             ${icon}
@@ -3918,20 +4537,24 @@ function renderCategoryThings(
 
 }
 
+
 /* =========================================================
    ADD THING
 ========================================================= */
 
 function showAddForm(
-    category = currentCategory
+    category =
+        currentCategory
 ) {
 
     currentCategory =
-        category || "Other";
+        category ||
+        "Other";
 
     document.getElementById(
         "thingName"
-    ).value = "";
+    ).value =
+        "";
 
     document.getElementById(
         "thingCategory"
@@ -3940,15 +4563,18 @@ function showAddForm(
 
     document.getElementById(
         "thingPurchaseDate"
-    ).value = "";
+    ).value =
+        "";
 
     document.getElementById(
         "thingPurchasePrice"
-    ).value = "";
+    ).value =
+        "";
 
     document.getElementById(
         "thingCurrentValue"
-    ).value = "";
+    ).value =
+        "";
 
     const title =
         document.getElementById(
@@ -3982,7 +4608,8 @@ function getAddTitle(
 ) {
 
     if (
-        category === "Real Estate"
+        category ===
+        "Real Estate"
     ) {
 
         return "Add Property";
@@ -3990,7 +4617,8 @@ function getAddTitle(
     }
 
     if (
-        category === "Vehicles"
+        category ===
+        "Vehicles"
     ) {
 
         return "Add Vehicle";
@@ -4045,9 +4673,11 @@ function addThing() {
                 "thingCurrentValue"
             ).value,
 
-        documents: [],
+        documents:
+            [],
 
-        events: []
+        events:
+            []
 
     };
 
@@ -4062,6 +4692,7 @@ function addThing() {
     );
 
 }
+
 
 /* =========================================================
    THINGS
@@ -4090,7 +4721,8 @@ function showThing(
     const thing =
         things.find(
             item =>
-                item.id === id
+                item.id ===
+                id
         );
 
     if (!thing) {
@@ -4110,7 +4742,8 @@ function showThing(
         )
     ) {
 
-        thing.documents = [];
+        thing.documents =
+            [];
 
     }
 
@@ -4120,7 +4753,8 @@ function showThing(
         )
     ) {
 
-        thing.events = [];
+        thing.events =
+            [];
 
     }
 
@@ -4242,7 +4876,8 @@ function renderDocumentsForCurrentThing() {
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -4253,6 +4888,7 @@ function renderDocumentsForCurrentThing() {
 
 }
 
+
 /* =========================================================
    EDIT THING
 ========================================================= */
@@ -4262,7 +4898,8 @@ function editThing() {
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -4270,27 +4907,32 @@ function editThing() {
     document.getElementById(
         "editThingName"
     ).value =
-        thing.name || "";
+        thing.name ||
+        "";
 
     document.getElementById(
         "editThingCategory"
     ).value =
-        thing.category || "Other";
+        thing.category ||
+        "Other";
 
     document.getElementById(
         "editThingPurchaseDate"
     ).value =
-        thing.purchaseDate || "";
+        thing.purchaseDate ||
+        "";
 
     document.getElementById(
         "editThingPurchasePrice"
     ).value =
-        thing.purchasePrice || "";
+        thing.purchasePrice ||
+        "";
 
     document.getElementById(
         "editThingCurrentValue"
     ).value =
-        thing.currentValue || "";
+        thing.currentValue ||
+        "";
 
     showView(
         "editView"
@@ -4303,7 +4945,8 @@ function saveEdit() {
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -4362,7 +5005,8 @@ async function deleteThing() {
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -4381,7 +5025,8 @@ async function deleteThing() {
     things =
         things.filter(
             item =>
-                item.id !== currentThingId
+                item.id !==
+                currentThingId
         );
 
     saveThings();
@@ -4395,6 +5040,7 @@ async function deleteThing() {
     showHome();
 
 }
+
 
 /* =========================================================
    IMPORTANT DATE
@@ -4445,7 +5091,8 @@ function updateImportantDateField(
         );
 
     if (
-        type === "None"
+        type ===
+        "None"
     ) {
 
         group.style.display =
@@ -4466,6 +5113,7 @@ function updateImportantDateField(
 
 }
 
+
 /* =========================================================
    DOCUMENTS
 ========================================================= */
@@ -4474,7 +5122,8 @@ function showAddDocument() {
 
     document.getElementById(
         "documentName"
-    ).value = "";
+    ).value =
+        "";
 
     document.getElementById(
         "documentType"
@@ -4536,7 +5185,8 @@ async function addDocument() {
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -4547,7 +5197,8 @@ async function addDocument() {
         )
     ) {
 
-        thing.documents = [];
+        thing.documents =
+            [];
 
     }
 
@@ -4557,7 +5208,8 @@ async function addDocument() {
         )
     ) {
 
-        thing.events = [];
+        thing.events =
+            [];
 
     }
 
@@ -4582,7 +5234,8 @@ async function addDocument() {
         ).value;
 
     const importantDate =
-        dateType === "None"
+        dateType ===
+        "None"
             ? ""
             : document.getElementById(
                 "documentImportantDate"
@@ -4616,12 +5269,14 @@ async function addDocument() {
             importantDate,
 
         expiryDate:
-            dateType === "Expiry Date"
+            dateType ===
+            "Expiry Date"
                 ? importantDate
                 : "",
 
         repeat:
-            dateType === "None"
+            dateType ===
+            "None"
                 ? "Never"
                 : document.getElementById(
                     "documentRepeat"
@@ -4645,12 +5300,15 @@ async function addDocument() {
             "addToTimeline"
         ).checked;
 
-    if (addToTimeline) {
+    if (
+        addToTimeline
+    ) {
 
         const event = {
 
             id:
-                documentId + 1,
+                documentId +
+                1,
 
             type:
                 mapDocumentToEvent(
@@ -4737,7 +5395,8 @@ function renderDocuments(
 
     if (
         !thing.documents ||
-        thing.documents.length === 0
+        thing.documents.length ===
+        0
     ) {
 
         container.innerHTML = `
@@ -4754,13 +5413,18 @@ function renderDocuments(
 
     const sortedDocuments =
         [...thing.documents].sort(
-            (a, b) => {
+            (
+                a,
+                b
+            ) => {
 
                 const dateA =
-                    a.date || "";
+                    a.date ||
+                    "";
 
                 const dateB =
-                    b.date || "";
+                    b.date ||
+                    "";
 
                 return dateB.localeCompare(
                     dateA
@@ -4837,7 +5501,8 @@ function renderDocuments(
 
                             ${
                                 importantDate &&
-                                dateType !== "None"
+                                dateType !==
+                                "None"
                                 ? `
 
                                     <span>
@@ -4855,9 +5520,11 @@ function renderDocuments(
                             }
 
                             ${
-                                repeat !== "Never" &&
+                                repeat !==
+                                    "Never" &&
                                 importantDate &&
-                                dateType !== "None"
+                                dateType !==
+                                    "None"
                                 ? `
 
                                     <span>
@@ -4948,7 +5615,8 @@ async function editDocument(
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -4956,7 +5624,8 @@ async function editDocument(
     const documentItem =
         thing.documents.find(
             item =>
-                item.id === id
+                item.id ===
+                id
         );
 
     if (!documentItem) return;
@@ -4994,17 +5663,20 @@ async function editDocument(
     document.getElementById(
         "editDocumentName"
     ).value =
-        documentItem.name || "";
+        documentItem.name ||
+        "";
 
     document.getElementById(
         "editDocumentType"
     ).value =
-        documentItem.type || "Other";
+        documentItem.type ||
+        "Other";
 
     document.getElementById(
         "editDocumentDate"
     ).value =
-        documentItem.date || "";
+        documentItem.date ||
+        "";
 
     document.getElementById(
         "editDocumentDateType"
@@ -5014,7 +5686,8 @@ async function editDocument(
     document.getElementById(
         "editDocumentImportantDate"
     ).value =
-        importantDate || "";
+        importantDate ||
+        "";
 
     document.getElementById(
         "editDocumentRepeat"
@@ -5025,7 +5698,8 @@ async function editDocument(
     document.getElementById(
         "editDocumentAmount"
     ).value =
-        documentItem.amount || "";
+        documentItem.amount ||
+        "";
 
     document.getElementById(
         "editDocumentAttachment"
@@ -5076,7 +5750,8 @@ async function saveDocumentEdit() {
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -5084,7 +5759,8 @@ async function saveDocumentEdit() {
     const documentItem =
         thing.documents.find(
             item =>
-                item.id === currentDocumentId
+                item.id ===
+                currentDocumentId
         );
 
     if (!documentItem) return;
@@ -5140,7 +5816,8 @@ async function saveDocumentEdit() {
         ).value;
 
     const importantDate =
-        dateType === "None"
+        dateType ===
+        "None"
             ? ""
             : document.getElementById(
                 "editDocumentImportantDate"
@@ -5166,12 +5843,14 @@ async function saveDocumentEdit() {
         importantDate;
 
     documentItem.expiryDate =
-        dateType === "Expiry Date"
+        dateType ===
+        "Expiry Date"
             ? importantDate
             : "";
 
     documentItem.repeat =
-        dateType === "None"
+        dateType ===
+        "None"
             ? "Never"
             : document.getElementById(
                 "editDocumentRepeat"
@@ -5183,8 +5862,10 @@ async function saveDocumentEdit() {
         ).value;
 
     if (
-        previousDateType !== dateType ||
-        previousImportantDate !== importantDate
+        previousDateType !==
+            dateType ||
+        previousImportantDate !==
+            importantDate
     ) {
 
         documentItem.notificationAcknowledged =
@@ -5273,7 +5954,8 @@ async function deleteDocument() {
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -5281,7 +5963,8 @@ async function deleteDocument() {
     const documentItem =
         thing.documents.find(
             item =>
-                item.id === currentDocumentId
+                item.id ===
+                currentDocumentId
         );
 
     if (!documentItem) return;
@@ -5338,6 +6021,7 @@ async function deleteDocument() {
 
 }
 
+
 /* =========================================================
    TIMELINE
 ========================================================= */
@@ -5353,7 +6037,8 @@ function renderTimeline(
 
     if (
         !thing.events ||
-        thing.events.length === 0
+        thing.events.length ===
+        0
     ) {
 
         container.innerHTML = `
@@ -5368,7 +6053,8 @@ function renderTimeline(
 
     }
 
-    const grouped = {};
+    const grouped =
+        {};
 
     thing.events.forEach(
         event => {
@@ -5383,9 +6069,12 @@ function renderTimeline(
                     7
                 );
 
-            if (!grouped[key]) {
+            if (
+                !grouped[key]
+            ) {
 
-                grouped[key] = [];
+                grouped[key] =
+                    [];
 
             }
 
@@ -5400,7 +6089,10 @@ function renderTimeline(
         Object.keys(
             grouped
         ).sort(
-            (a, b) =>
+            (
+                a,
+                b
+            ) =>
                 b.localeCompare(a)
         );
 
@@ -5412,10 +6104,16 @@ function renderTimeline(
                     grouped[
                         monthKey
                     ].sort(
-                        (a, b) =>
-                            (b.date || "")
-                            .localeCompare(
-                                a.date || ""
+                        (
+                            a,
+                            b
+                        ) =>
+                            (
+                                b.date ||
+                                ""
+                            ).localeCompare(
+                                a.date ||
+                                ""
                             )
                     );
 
@@ -5440,6 +6138,7 @@ function renderTimeline(
                         {
                             month:
                                 "long",
+
                             year:
                                 "numeric"
                         }
@@ -5455,8 +6154,9 @@ function renderTimeline(
 
                     <div class="card">
 
-                        <div class="timeline-month"
-                             onclick="toggleTimelineMonth('${sectionId}')">
+                        <div
+                            class="timeline-month"
+                            onclick="toggleTimelineMonth('${sectionId}')">
 
                             <div class="timeline-month-left">
 
@@ -5478,7 +6178,8 @@ function renderTimeline(
 
                                         ${events.length}
                                         ${
-                                            events.length === 1
+                                            events.length ===
+                                            1
                                             ? "event"
                                             : "events"
                                         }
@@ -5489,16 +6190,18 @@ function renderTimeline(
 
                             </div>
 
-                            <div class="chevron"
-                                 id="${sectionId}-arrow">
+                            <div
+                                class="chevron"
+                                id="${sectionId}-arrow">
                                 ›
                             </div>
 
                         </div>
 
-                        <div class="timeline-events"
-                             id="${sectionId}"
-                             style="display:none;">
+                        <div
+                            class="timeline-events"
+                            id="${sectionId}"
+                            style="display:none;">
 
                             ${
                                 events.map(
@@ -5507,7 +6210,8 @@ function renderTimeline(
                                         const icon =
                                             eventIcons[
                                                 event.type
-                                            ] || "📌";
+                                            ] ||
+                                            "📌";
 
                                         const amount =
                                             event.amount
@@ -5518,8 +6222,9 @@ function renderTimeline(
 
                                         return `
 
-                                            <div class="timeline-event"
-                                                 onclick="openTimelineEvent(${event.id})">
+                                            <div
+                                                class="timeline-event"
+                                                onclick="openTimelineEvent(${event.id})">
 
                                                 <div class="timeline-event-date">
                                                     ${formatDay(
@@ -5587,7 +6292,8 @@ function toggleTimelineMonth(
 
     const arrow =
         document.getElementById(
-            id + "-arrow"
+            id +
+            "-arrow"
         );
 
     if (!section) return;
@@ -5601,8 +6307,10 @@ function toggleTimelineMonth(
             "block";
 
         if (arrow) {
+
             arrow.textContent =
                 "⌄";
+
         }
 
     } else {
@@ -5611,13 +6319,16 @@ function toggleTimelineMonth(
             "none";
 
         if (arrow) {
+
             arrow.textContent =
                 "›";
+
         }
 
     }
 
 }
+
 
 /* =========================================================
    TIMELINE NAVIGATION
@@ -5630,7 +6341,8 @@ function openTimelineEvent(
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -5638,7 +6350,8 @@ function openTimelineEvent(
     const event =
         thing.events.find(
             item =>
-                item.id === id
+                item.id ===
+                id
         );
 
     if (!event) return;
@@ -5679,7 +6392,8 @@ function openTimelineDocument(
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -5687,7 +6401,8 @@ function openTimelineDocument(
     const documentItem =
         thing.documents.find(
             item =>
-                item.id === documentId
+                item.id ===
+                documentId
         );
 
     if (!documentItem) {
@@ -5705,6 +6420,7 @@ function openTimelineDocument(
     );
 
 }
+
 
 /* =========================================================
    ADD EVENT
@@ -5743,7 +6459,8 @@ function addEvent() {
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -5754,7 +6471,8 @@ function addEvent() {
         )
     ) {
 
-        thing.events = [];
+        thing.events =
+            [];
 
     }
 
@@ -5814,6 +6532,7 @@ function addEvent() {
 
 }
 
+
 /* =========================================================
    EDIT EVENT
 ========================================================= */
@@ -5828,7 +6547,8 @@ function editEvent(
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -5836,7 +6556,8 @@ function editEvent(
     const event =
         thing.events.find(
             item =>
-                item.id === id
+                item.id ===
+                id
         );
 
     if (!event) return;
@@ -5876,7 +6597,8 @@ function saveEventEdit() {
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -5884,7 +6606,8 @@ function saveEventEdit() {
     const event =
         thing.events.find(
             item =>
-                item.id === currentEventId
+                item.id ===
+                currentEventId
         );
 
     if (!event) return;
@@ -5936,7 +6659,8 @@ function deleteEvent() {
     const thing =
         things.find(
             item =>
-                item.id === currentThingId
+                item.id ===
+                currentThingId
         );
 
     if (!thing) return;
@@ -5944,7 +6668,8 @@ function deleteEvent() {
     const event =
         thing.events.find(
             item =>
-                item.id === currentEventId
+                item.id ===
+                currentEventId
         );
 
     if (!event) return;
@@ -5979,7 +6704,8 @@ function deleteEvent() {
     thing.events =
         thing.events.filter(
             item =>
-                item.id !== currentEventId
+                item.id !==
+                currentEventId
         );
 
     saveThings();
@@ -5992,6 +6718,7 @@ function deleteEvent() {
     );
 
 }
+
 
 /* =========================================================
    COMING UP
@@ -6020,10 +6747,12 @@ function renderComingUp() {
         );
 
     limitDate.setDate(
-        limitDate.getDate() + 30
+        limitDate.getDate() +
+        30
     );
 
-    const upcoming = [];
+    const upcoming =
+        [];
 
     things.forEach(
         thing => {
@@ -6033,7 +6762,9 @@ function renderComingUp() {
                     thing.documents
                 )
             ) {
+
                 return;
+
             }
 
             thing.documents.forEach(
@@ -6067,10 +6798,13 @@ function renderComingUp() {
                     }
 
                     if (
-                        dateType === "None" ||
+                        dateType ===
+                            "None" ||
                         !importantDate
                     ) {
+
                         return;
+
                     }
 
                     const important =
@@ -6090,7 +6824,8 @@ function renderComingUp() {
 
                     if (
                         documentItem.notificationAcknowledged &&
-                        repeat !== "Never"
+                        repeat !==
+                            "Never"
                     ) {
 
                         while (
@@ -6111,16 +6846,21 @@ function renderComingUp() {
                     if (
                         documentItem.notificationAcknowledged &&
                         notificationDate >
-                        limitDate
+                            limitDate
                     ) {
+
                         return;
+
                     }
 
                     if (
                         documentItem.notificationAcknowledged &&
-                        repeat === "Never"
+                        repeat ===
+                            "Never"
                     ) {
+
                         return;
+
                     }
 
                     if (
@@ -6130,19 +6870,26 @@ function renderComingUp() {
 
                         upcoming.push({
 
-                            thing,
+                            thing:
+
+                                thing,
 
                             document:
+
                                 documentItem,
 
-                            dateType,
+                            dateType:
+
+                                dateType,
 
                             importantDate:
+
                                 formatDateForStorage(
                                     notificationDate
                                 ),
 
                             important:
+
                                 notificationDate
 
                         });
@@ -6156,13 +6903,17 @@ function renderComingUp() {
     );
 
     upcoming.sort(
-        (a, b) =>
+        (
+            a,
+            b
+        ) =>
             a.important -
             b.important
     );
 
     if (
-        upcoming.length === 0
+        upcoming.length ===
+        0
     ) {
 
         container.innerHTML = `
@@ -6269,13 +7020,15 @@ function renderComingUp() {
                 const icon =
                     documentIcons[
                         item.document.type
-                    ] || "📄";
+                    ] ||
+                    "📄";
 
                 return `
 
-                    <div class="card ${className}"
-                         onclick="openThing(${item.thing.id})"
-                         style="cursor:pointer;">
+                    <div
+                        class="card ${className}"
+                        onclick="openThing(${item.thing.id})"
+                        style="cursor:pointer;">
 
                         <div style="
                             display:flex;
@@ -6316,7 +7069,8 @@ function renderComingUp() {
 
                                     ${
                                         item.document.repeat &&
-                                        item.document.repeat !== "Never"
+                                        item.document.repeat !==
+                                            "Never"
                                         ? ` · ${escapeHtml(
                                             item.document.repeat
                                           )}`
@@ -6352,6 +7106,7 @@ function renderComingUp() {
 
 }
 
+
 /* =========================================================
    NOTIFICATIONS
 ========================================================= */
@@ -6361,11 +7116,16 @@ function acknowledgeNotification(
     clickEvent
 ) {
 
-    if (clickEvent) {
+    if (
+        clickEvent
+    ) {
+
         clickEvent.stopPropagation();
+
     }
 
-    let found = false;
+    let found =
+        false;
 
     things.forEach(
         thing => {
@@ -6375,7 +7135,9 @@ function acknowledgeNotification(
                     thing.documents
                 )
             ) {
+
                 return;
+
             }
 
             const documentItem =
@@ -6386,7 +7148,9 @@ function acknowledgeNotification(
                 );
 
             if (!documentItem) {
+
                 return;
+
             }
 
             documentItem.notificationAcknowledged =
@@ -6397,7 +7161,8 @@ function acknowledgeNotification(
                 "Never";
 
             if (
-                repeat !== "Never" &&
+                repeat !==
+                    "Never" &&
                 documentItem.importantDate
             ) {
 
@@ -6430,7 +7195,8 @@ function acknowledgeNotification(
 
             }
 
-            found = true;
+            found =
+                true;
 
         }
     );
@@ -6443,8 +7209,9 @@ function acknowledgeNotification(
 
 }
 
+
 /* =========================================================
-   REPEAT HELPERS
+   REPEAT
 ========================================================= */
 
 function addRepeat(
@@ -6458,19 +7225,23 @@ function addRepeat(
         );
 
     if (
-        repeat === "Yearly"
+        repeat ===
+        "Yearly"
     ) {
 
         result.setFullYear(
-            result.getFullYear() + 1
+            result.getFullYear() +
+            1
         );
 
     } else if (
-        repeat === "Monthly"
+        repeat ===
+        "Monthly"
     ) {
 
         result.setMonth(
-            result.getMonth() + 1
+            result.getMonth() +
+            1
         );
 
     }
@@ -6488,7 +7259,8 @@ function formatDateForStorage(
 
     const month =
         String(
-            date.getMonth() + 1
+            date.getMonth() +
+            1
         ).padStart(
             2,
             "0"
@@ -6505,6 +7277,7 @@ function formatDateForStorage(
     return `${year}-${month}-${day}`;
 
 }
+
 
 /* =========================================================
    HELPERS
@@ -6557,7 +7330,8 @@ function today() {
 
     const month =
         String(
-            date.getMonth() + 1
+            date.getMonth() +
+            1
         ).padStart(
             2,
             "0"
@@ -6580,16 +7354,23 @@ function formatDate(
 ) {
 
     if (!dateString) {
+
         return "—";
+
     }
 
     const parts =
-        dateString.split("-");
+        dateString.split(
+            "-"
+        );
 
     if (
-        parts.length !== 3
+        parts.length !==
+        3
     ) {
+
         return dateString;
+
     }
 
     return `${parts[2]}/${parts[1]}/${parts[0]}`;
@@ -6601,20 +7382,29 @@ function formatDay(
 ) {
 
     if (!dateString) {
+
         return "—";
+
     }
 
     const parts =
-        dateString.split("-");
+        dateString.split(
+            "-"
+        );
 
     if (
-        parts.length !== 3
+        parts.length !==
+        3
     ) {
+
         return dateString;
+
     }
 
     return String(
-        Number(parts[2])
+        Number(
+            parts[2]
+        )
     );
 
 }
@@ -6628,16 +7418,24 @@ function formatMoney(
         value === null ||
         value === undefined
     ) {
+
         return "—";
+
     }
 
     const number =
-        Number(value);
+        Number(
+            value
+        );
 
     if (
-        Number.isNaN(number)
+        Number.isNaN(
+            number
+        )
     ) {
+
         return "—";
+
     }
 
     return new Intl.NumberFormat(
@@ -6645,10 +7443,13 @@ function formatMoney(
         {
             style:
                 "currency",
+
             currency:
                 "EUR"
         }
-    ).format(number);
+    ).format(
+        number
+    );
 
 }
 
@@ -6660,10 +7461,14 @@ function escapeHtml(
         value === null ||
         value === undefined
     ) {
+
         return "";
+
     }
 
-    return String(value)
+    return String(
+        value
+    )
 
         .replace(
             /&/g,
@@ -6692,25 +7497,32 @@ function escapeHtml(
 
 }
 
+
 /* =========================================================
-   VIEWER RESIZE
+   RESIZE
 ========================================================= */
 
-let attachmentResizeTimer = null;
+let attachmentResizeTimer =
+    null;
 
 window.addEventListener(
     "resize",
     function() {
 
+        const attachmentView =
+            document.getElementById(
+                "attachmentView"
+            );
+
         if (
-            !document.getElementById(
-                "attachmentView"
-            ) ||
-            !document.getElementById(
-                "attachmentView"
-            ).classList.contains("active")
+            !attachmentView ||
+            !attachmentView.classList.contains(
+                "active"
+            )
         ) {
+
             return;
+
         }
 
         clearTimeout(
@@ -6719,33 +7531,38 @@ window.addEventListener(
 
         attachmentResizeTimer =
             setTimeout(
-                function() {
+                async function() {
 
                     if (
-                        attachmentIsFit
+                        !attachmentIsFit
                     ) {
 
-                        if (attachmentIsPdf) {
+                        return;
 
-                            renderPdf();
+                    }
 
-                        } else {
+                    if (
+                        attachmentIsPdf
+                    ) {
 
-                            attachmentImageFitScale =
-                                calculateImageFitScale();
+                        await renderPdf();
 
-                            applyImageZoom();
+                    } else {
 
-                        }
+                        attachmentImageFitScale =
+                            calculateImageFitScale();
+
+                        applyImageZoom();
 
                     }
 
                 },
-                120
+                150
             );
 
     }
 );
+
 
 /* =========================================================
    DATA MIGRATION
@@ -6881,6 +7698,7 @@ things.forEach(
 );
 
 saveThings();
+
 
 /* =========================================================
    INITIAL LOAD
