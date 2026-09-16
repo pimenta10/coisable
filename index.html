@@ -510,48 +510,106 @@ label {
     margin-top: 7px;
 }
 
-/* ATTACHMENT VIEW */
+/* =========================================================
+   ATTACHMENT VIEWER
+========================================================= */
+
+.attachment-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.attachment-toolbar button {
+    width: auto;
+    min-width: 42px;
+    padding: 9px 12px;
+    font-size: 14px;
+}
+
+.attachment-zoom-label {
+    min-width: 58px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
 
 .attachment-viewer {
-    background: white;
+    position: relative;
+    background: #e9e9e9;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    width: 100%;
+    height: calc(100vh - 180px);
+    min-height: 450px;
+    max-height: 800px;
+}
+
+.attachment-viewer-inner {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-overflow-scrolling: touch;
+    padding: 12px;
 }
 
 .attachment-viewer iframe {
     display: block;
     width: 100%;
-    height: 70vh;
-    min-height: 500px;
+    height: 100%;
     border: none;
     background: #f5f5f5;
+    transform-origin: center center;
+}
+
+.attachment-image-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-overflow-scrolling: touch;
+    padding: 12px;
 }
 
 .attachment-viewer img {
     display: block;
-    width: 100%;
-    max-height: 75vh;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
-    background: #f5f5f5;
+    transform-origin: center center;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: transform 0.15s ease;
 }
 
 .attachment-file-info {
-    padding: 18px;
+    padding: 14px 4px 0 4px;
     text-align: center;
 }
 
 .attachment-file-info strong {
     display: block;
-    font-size: 16px;
-    margin-bottom: 5px;
+    font-size: 14px;
+    margin-bottom: 4px;
     word-break: break-word;
 }
 
 .attachment-file-info span {
     display: block;
     color: #777;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 /* COMING UP */
@@ -1375,6 +1433,40 @@ label {
 
     </div>
 
+    <div class="attachment-toolbar">
+
+        <button
+            class="secondary"
+            onclick="attachmentFit()">
+            Fit
+        </button>
+
+        <button
+            class="secondary"
+            onclick="attachmentZoomOut()">
+            −
+        </button>
+
+        <div
+            id="attachmentZoomLabel"
+            class="attachment-zoom-label">
+            Fit
+        </div>
+
+        <button
+            class="secondary"
+            onclick="attachmentZoomIn()">
+            +
+        </button>
+
+        <button
+            class="secondary"
+            onclick="attachmentResetZoom()">
+            100%
+        </button>
+
+    </div>
+
     <div id="attachmentViewer"></div>
 
 </div>
@@ -1431,6 +1523,10 @@ let currentEventId = null;
 
 let currentAttachmentUrl = null;
 let attachmentHistoryActive = false;
+
+let attachmentZoom = 1;
+let attachmentIsFit = true;
+let attachmentIsPdf = false;
 
 /* =========================================================
    INDEXEDDB — ATTACHMENTS
@@ -1769,6 +1865,209 @@ function getAttachmentIcon(
 }
 
 /* =========================================================
+   ATTACHMENT ZOOM
+========================================================= */
+
+function updateAttachmentZoomLabel() {
+
+    const label =
+        document.getElementById(
+            "attachmentZoomLabel"
+        );
+
+    if (!label) return;
+
+    if (attachmentIsFit) {
+
+        label.textContent =
+            "Fit";
+
+        return;
+
+    }
+
+    label.textContent =
+        `${Math.round(
+            attachmentZoom * 100
+        )}%`;
+
+}
+
+function applyImageZoom() {
+
+    const image =
+        document.getElementById(
+            "attachmentImage"
+        );
+
+    if (!image) return;
+
+    if (attachmentIsFit) {
+
+        image.style.width =
+            "auto";
+
+        image.style.height =
+            "auto";
+
+        image.style.maxWidth =
+            "100%";
+
+        image.style.maxHeight =
+            "100%";
+
+        image.style.transform =
+            "scale(1)";
+
+    } else {
+
+        image.style.maxWidth =
+            "none";
+
+        image.style.maxHeight =
+            "none";
+
+        image.style.transform =
+            `scale(${attachmentZoom})`;
+
+    }
+
+}
+
+function applyPdfZoom() {
+
+    const iframe =
+        document.getElementById(
+            "attachmentPdfFrame"
+        );
+
+    if (!iframe) return;
+
+    const baseUrl =
+        iframe.dataset.baseUrl;
+
+    if (!baseUrl) return;
+
+    let fragment = "";
+
+    if (attachmentIsFit) {
+
+        fragment =
+            "#zoom=page-fit";
+
+    } else {
+
+        fragment =
+            `#zoom=${Math.round(
+                attachmentZoom * 100
+            )}`;
+
+    }
+
+    iframe.src =
+        baseUrl + fragment;
+
+}
+
+function attachmentFit() {
+
+    attachmentIsFit =
+        true;
+
+    attachmentZoom =
+        1;
+
+    updateAttachmentZoomLabel();
+
+    if (attachmentIsPdf) {
+
+        applyPdfZoom();
+
+    } else {
+
+        applyImageZoom();
+
+    }
+
+}
+
+function attachmentResetZoom() {
+
+    attachmentIsFit =
+        false;
+
+    attachmentZoom =
+        1;
+
+    updateAttachmentZoomLabel();
+
+    if (attachmentIsPdf) {
+
+        applyPdfZoom();
+
+    } else {
+
+        applyImageZoom();
+
+    }
+
+}
+
+function attachmentZoomIn() {
+
+    attachmentIsFit =
+        false;
+
+    attachmentZoom =
+        Math.min(
+            3,
+            Math.round(
+                (attachmentZoom + 0.25) * 100
+            ) / 100
+        );
+
+    updateAttachmentZoomLabel();
+
+    if (attachmentIsPdf) {
+
+        applyPdfZoom();
+
+    } else {
+
+        applyImageZoom();
+
+    }
+
+}
+
+function attachmentZoomOut() {
+
+    attachmentIsFit =
+        false;
+
+    attachmentZoom =
+        Math.max(
+            0.5,
+            Math.round(
+                (attachmentZoom - 0.25) * 100
+            ) / 100
+        );
+
+    updateAttachmentZoomLabel();
+
+    if (attachmentIsPdf) {
+
+        applyPdfZoom();
+
+    } else {
+
+        applyImageZoom();
+
+    }
+
+}
+
+/* =========================================================
    ATTACHMENT NAVIGATION
 ========================================================= */
 
@@ -1856,6 +2155,12 @@ async function openAttachment(
         currentDocumentId =
             documentId;
 
+        attachmentZoom =
+            1;
+
+        attachmentIsFit =
+            true;
+
         const viewer =
             document.getElementById(
                 "attachmentViewer"
@@ -1881,18 +2186,29 @@ async function openAttachment(
                 lowerName
             );
 
+        attachmentIsPdf =
+            isPdf;
+
+        updateAttachmentZoomLabel();
+
         if (isPdf) {
 
             viewer.innerHTML = `
 
                 <div class="attachment-viewer">
 
-                    <iframe
-                        src="${currentAttachmentUrl}"
-                        title="${escapeHtml(
-                            attachment.name
-                        )}">
-                    </iframe>
+                    <div class="attachment-viewer-inner">
+
+                        <iframe
+                            id="attachmentPdfFrame"
+                            title="${escapeHtml(
+                                attachment.name
+                            )}"
+                            data-base-url="${currentAttachmentUrl}"
+                            src="${currentAttachmentUrl}#zoom=page-fit">
+                        </iframe>
+
+                    </div>
 
                 </div>
 
@@ -1920,11 +2236,16 @@ async function openAttachment(
 
                 <div class="attachment-viewer">
 
-                    <img
-                        src="${currentAttachmentUrl}"
-                        alt="${escapeHtml(
-                            attachment.name
-                        )}">
+                    <div class="attachment-image-wrapper">
+
+                        <img
+                            id="attachmentImage"
+                            src="${currentAttachmentUrl}"
+                            alt="${escapeHtml(
+                                attachment.name
+                            )}">
+
+                    </div>
 
                 </div>
 
@@ -1946,7 +2267,29 @@ async function openAttachment(
 
             `;
 
+            const image =
+                document.getElementById(
+                    "attachmentImage"
+                );
+
+            if (image) {
+
+                image.onload =
+                    function() {
+
+                        attachmentFit();
+
+                    };
+
+            }
+
         } else {
+
+            attachmentIsPdf =
+                false;
+
+            attachmentIsFit =
+                false;
 
             viewer.innerHTML = `
 
@@ -1992,16 +2335,14 @@ async function openAttachment(
 
             `;
 
+            updateAttachmentZoomLabel();
+
         }
 
         /*
            Add a browser history entry.
 
-           This means:
-           Attachment → browser Back → Document
-
-           instead of:
-           Attachment → browser Back → Homepage
+           Attachment → browser Back / iPhone swipe → Document
         */
 
         if (!attachmentHistoryActive) {
@@ -2082,6 +2423,15 @@ function leaveAttachmentView() {
             "";
 
     }
+
+    attachmentZoom =
+        1;
+
+    attachmentIsFit =
+        true;
+
+    attachmentIsPdf =
+        false;
 
     attachmentHistoryActive =
         false;
