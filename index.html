@@ -284,7 +284,7 @@ label {
 }
 
 /* -----------------------------
-   COMING UP
+   COMING UP / NOTIFICATIONS
 ----------------------------- */
 
 .coming-up {
@@ -309,6 +309,35 @@ label {
     font-size: 13px;
     margin-top: 5px;
     font-weight: 500;
+}
+
+.coming-up-content {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.coming-up-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.coming-up-action {
+    margin-top: 12px;
+}
+
+.acknowledge-button {
+    background: #e5e5e5;
+    color: #111;
+    width: auto;
+    padding: 9px 13px;
+    font-size: 14px;
+}
+
+.acknowledged-info {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
 }
 
 /* -----------------------------
@@ -1989,7 +2018,18 @@ function addDocument() {
                 "documentAmount"
             ).value,
 
-        timelineEventId: null
+        timelineEventId: null,
+
+        /*
+           Notification state.
+           A new document always starts
+           as an active notification.
+        */
+        notificationStatus:
+            "Active",
+
+        acknowledgedDate:
+            null
 
     };
 
@@ -2161,7 +2201,7 @@ function renderDocuments(thing) {
                                         ${escapeHtml(
                                             dateType
                                         )}
-                                       :
+                                        :
                                         ${formatDate(
                                             importantDate
                                         )}
@@ -2360,6 +2400,29 @@ function saveDocumentEdit() {
                 "editDocumentImportantDate"
               ).value;
 
+    /*
+       Check whether the important date
+       changed. If it did, the notification
+       becomes active again.
+    */
+
+    const oldDateType =
+        documentItem.dateType ||
+        (
+            documentItem.expiryDate
+                ? "Expiry Date"
+                : "None"
+        );
+
+    const oldImportantDate =
+        documentItem.importantDate ||
+        documentItem.expiryDate ||
+        "";
+
+    const importantDateChanged =
+        oldDateType !== dateType ||
+        oldImportantDate !== importantDate;
+
     documentItem.name =
         name;
 
@@ -2390,6 +2453,45 @@ function saveDocumentEdit() {
         document.getElementById(
             "editDocumentAmount"
         ).value;
+
+    /*
+       Ensure notification fields exist
+       for older documents.
+    */
+
+    if (
+        !documentItem.notificationStatus
+    ) {
+
+        documentItem.notificationStatus =
+            "Active";
+
+    }
+
+    if (
+        documentItem.acknowledgedDate ===
+        undefined
+    ) {
+
+        documentItem.acknowledgedDate =
+            null;
+
+    }
+
+    /*
+       Changing the important date resets
+       the notification.
+    */
+
+    if (importantDateChanged) {
+
+        documentItem.notificationStatus =
+            "Active";
+
+        documentItem.acknowledgedDate =
+            null;
+
+    }
 
     if (documentItem.timelineEventId) {
 
@@ -3083,6 +3185,43 @@ function deleteEvent() {
 }
 
 /* -----------------------------
+   NOTIFICATIONS
+----------------------------- */
+
+function acknowledgeNotification(
+    thingId,
+    documentId
+) {
+
+    const thing =
+        things.find(
+            item =>
+                item.id === thingId
+        );
+
+    if (!thing) return;
+
+    const documentItem =
+        thing.documents.find(
+            item =>
+                item.id === documentId
+        );
+
+    if (!documentItem) return;
+
+    documentItem.notificationStatus =
+        "Acknowledged";
+
+    documentItem.acknowledgedDate =
+        today();
+
+    saveThings();
+
+    renderComingUp();
+
+}
+
+/* -----------------------------
    COMING UP
 ----------------------------- */
 
@@ -3162,6 +3301,34 @@ function renderComingUp() {
                 if (
                     dateType === "None" ||
                     !importantDate
+                ) {
+
+                    return;
+
+                }
+
+                /*
+                   Older documents did not have
+                   notificationStatus.
+                */
+
+                if (
+                    !documentItem.notificationStatus
+                ) {
+
+                    documentItem.notificationStatus =
+                        "Active";
+
+                }
+
+                /*
+                   Acknowledged notifications are
+                   deliberately excluded.
+                */
+
+                if (
+                    documentItem.notificationStatus ===
+                    "Acknowledged"
                 ) {
 
                     return;
@@ -3317,14 +3484,9 @@ function renderComingUp() {
 
                 return `
 
-                    <div class="card ${className}"
-                         onclick="openThing(${item.thing.id})"
-                         style="cursor:pointer;">
+                    <div class="card ${className}">
 
-                        <div style="
-                            display:flex;
-                            gap:12px;
-                        ">
+                        <div class="coming-up-content">
 
                             <div class="document-icon">
 
@@ -3332,7 +3494,7 @@ function renderComingUp() {
 
                             </div>
 
-                            <div>
+                            <div class="coming-up-info">
 
                                 <div class="coming-up-title">
 
@@ -3365,6 +3527,18 @@ function renderComingUp() {
                                 <div class="coming-up-status">
 
                                     ${status}
+
+                                </div>
+
+                                <div class="coming-up-action">
+
+                                    <button
+                                        class="acknowledge-button"
+                                        onclick="acknowledgeNotification(${item.thing.id}, ${item.document.id})">
+
+                                        ✓ Acknowledge
+
+                                    </button>
 
                                 </div>
 
@@ -3659,6 +3833,29 @@ things.forEach(thing => {
                 documentItem.importantDate =
                     documentItem.expiryDate ||
                     "";
+
+            }
+
+            /*
+               0.5.1 notification migration.
+            */
+
+            if (
+                !documentItem.notificationStatus
+            ) {
+
+                documentItem.notificationStatus =
+                    "Active";
+
+            }
+
+            if (
+                documentItem.acknowledgedDate ===
+                undefined
+            ) {
+
+                documentItem.acknowledgedDate =
+                    null;
 
             }
 
