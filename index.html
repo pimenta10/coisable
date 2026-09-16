@@ -22,173 +22,241 @@ body {
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
         sans-serif;
 }
 
-button,
-input,
-select {
-    font: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-.app {
-    max-width: 700px;
+.container {
+    max-width: 600px;
     margin: 0 auto;
-    padding: 24px 16px 50px;
+    padding: 24px 18px 40px;
 }
 
-/* ---------- HEADER ---------- */
-
-.header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.logo {
-    font-size: 34px;
-    font-weight: 800;
+h1 {
+    font-size: 32px;
+    margin: 10px 0 4px;
     letter-spacing: -1px;
 }
 
-.tagline {
-    margin-top: 4px;
-    color: #777;
+h2 {
+    margin-top: 0;
+}
+
+.subtitle {
+    color: #666;
+    margin: 0 0 28px;
     font-size: 15px;
 }
 
-/* ---------- VIEWS ---------- */
-
-.view {
-    display: none;
-}
-
-.view.active {
-    display: block;
-}
-
-/* ---------- BUTTONS ---------- */
-
-.primary-btn {
-    width: 100%;
-    border: none;
-    background: #111;
-    color: white;
-    padding: 15px;
-    border-radius: 12px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-.secondary-btn {
-    width: 100%;
-    border: 1px solid #ddd;
-    background: white;
-    color: #111;
-    padding: 13px;
-    border-radius: 12px;
-    font-weight: 600;
-    margin-top: 10px;
-}
-
-.danger-btn {
-    width: 100%;
-    border: none;
-    background: #fff0f0;
-    color: #c62828;
-    padding: 13px;
-    border-radius: 12px;
-    font-weight: 600;
-    margin-top: 10px;
-}
-
-/* ---------- SECTIONS ---------- */
-
 .section-title {
     font-size: 20px;
-    font-weight: 750;
-    margin: 28px 0 12px;
+    margin: 28px 0 14px;
 }
 
-.empty {
+.card {
     background: white;
-    border-radius: 14px;
-    padding: 22px;
-    color: #777;
-    text-align: center;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-
-/* ---------- THINGS ---------- */
 
 .thing-card {
-    background: white;
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 12px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    gap: 14px;
+    cursor: pointer;
 }
 
-.thing-main {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    min-width: 0;
-}
-
-.thing-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-    background: #f0f0f0;
+.icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: #f1f1f1;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 23px;
+    font-size: 25px;
     flex-shrink: 0;
 }
 
+.thing-info {
+    flex: 1;
+}
+
 .thing-name {
-    font-weight: 700;
-    font-size: 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 4px;
 }
 
 .thing-category {
-    font-size: 13px;
+    font-size: 14px;
     color: #777;
-    margin-top: 3px;
 }
 
-.chevron {
+.arrow {
     color: #aaa;
-    font-size: 22px;
+    font-size: 20px;
 }
 
-/* ---------- EXPIRING ---------- */
-
-.expiring-card {
-    background: white;
+button {
+    width: 100%;
+    border: none;
     border-radius: 14px;
     padding: 14px;
-    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.primary-button {
+    background: #111;
+    color: white;
+}
+
+.secondary-button {
+    background: #eee;
+    color: #111;
+    margin-top: 10px;
+}
+
+.delete-button {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    padding: 14px;
+    background: white;
+    color: #b00020;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 18px;
+}
+
+.document-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.edit-document-button,
+.delete-document-button {
+    width: auto;
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+.edit-document-button {
+    background: #eee;
+    color: #111;
+}
+
+.delete-document-button {
+    background: #f5f5f5;
+    color: #b00020;
+    border: 1px solid #ddd;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 16px;
+    background: white;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 16px 0 7px;
+}
+
+.empty {
+    text-align: center;
+    color: #777;
+    padding: 30px 10px;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    padding: 0;
+    width: auto;
+    font-size: 15px;
+    color: #666;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.detail-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.detail-header .icon {
+    margin: 0 auto 12px;
+}
+
+.detail-header h2 {
+    margin: 0 0 5px;
+    font-size: 25px;
+}
+
+.detail-category {
+    color: #777;
+    font-size: 14px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 13px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    color: #777;
+    font-size: 14px;
+}
+
+.detail-value {
+    font-weight: 600;
+    text-align: right;
+}
+
+.placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+.document-card {
+    padding: 16px;
+}
+
+.document-header {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.expiring-icon {
+.document-icon {
     width: 42px;
     height: 42px;
-    border-radius: 11px;
-    background: #fff4e5;
+    border-radius: 12px;
+    background: #f1f1f1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -196,158 +264,13 @@ button {
     flex-shrink: 0;
 }
 
-.expiring-name {
-    font-weight: 700;
-}
-
-.expiring-meta {
-    font-size: 13px;
-    color: #777;
-    margin-top: 3px;
-}
-
-.expired {
-    color: #c62828;
-    font-weight: 700;
-}
-
-.expiring-soon {
-    color: #e65100;
-    font-weight: 700;
-}
-
-/* ---------- FORMS ---------- */
-
-.form-group {
-    margin-bottom: 17px;
-}
-
-.form-label {
-    display: block;
-    font-weight: 650;
-    font-size: 14px;
-    margin-bottom: 7px;
-}
-
-input,
-select {
-    width: 100%;
-    border: 1px solid #ddd;
-    background: white;
-    border-radius: 11px;
-    padding: 13px;
-    outline: none;
-}
-
-input:focus,
-select:focus {
-    border-color: #999;
-}
-
-.back-btn {
-    border: none;
-    background: none;
-    padding: 0;
-    margin-bottom: 20px;
-    color: #555;
-    font-weight: 600;
-}
-
-/* ---------- DETAIL ---------- */
-
-.detail-header {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 16px;
-}
-
-.detail-title-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.detail-icon {
-    width: 54px;
-    height: 54px;
-    border-radius: 14px;
-    background: #f0f0f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 27px;
-}
-
-.detail-name {
-    font-size: 23px;
-    font-weight: 800;
-}
-
-.detail-category {
-    color: #777;
-    margin-top: 3px;
-}
-
-.info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 18px;
-}
-
-.info-box {
-    background: #f7f7f7;
-    border-radius: 11px;
-    padding: 12px;
-}
-
-.info-label {
-    font-size: 12px;
-    color: #777;
-    margin-bottom: 4px;
-}
-
-.info-value {
-    font-weight: 700;
-}
-
-/* ---------- DOCUMENTS ---------- */
-
-.document-card {
-    background: white;
-    border-radius: 14px;
-    padding: 14px;
-    margin-bottom: 10px;
-}
-
-.document-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.document-main {
-    display: flex;
-    gap: 11px;
-    min-width: 0;
-}
-
-.document-icon {
-    width: 42px;
-    height: 42px;
-    background: #f1f1f1;
-    border-radius: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
+.document-info {
+    flex: 1;
 }
 
 .document-name {
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .document-type {
@@ -356,157 +279,187 @@ select:focus {
     margin-top: 3px;
 }
 
-.document-actions {
-    display: flex;
-    gap: 7px;
-}
-
-.small-btn {
-    border: none;
-    background: #f3f3f3;
-    border-radius: 8px;
-    padding: 7px 9px;
-    font-size: 13px;
-}
-
-.small-danger {
-    color: #c62828;
-}
-
-.document-meta {
-    margin-top: 11px;
-    font-size: 13px;
-    color: #666;
-}
-
-.timeline-link {
-    margin-top: 9px;
-    font-size: 13px;
+.document-details {
+    margin-top: 12px;
+    font-size: 14px;
     color: #555;
 }
 
-/* ---------- TIMELINE ---------- */
-
-.timeline {
-    position: relative;
-    margin-top: 8px;
+.document-details div {
+    padding: 4px 0;
 }
 
-.timeline::before {
+/* EXPIRING SOON */
+
+.expiring-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    cursor: pointer;
+}
+
+.expiring-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.expiring-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.expiring-document {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.expiring-thing {
+    font-size: 13px;
+    color: #777;
+    margin-top: 3px;
+}
+
+.expiring-status {
+    font-size: 13px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+.expiring-date {
+    font-size: 12px;
+    color: #777;
+    white-space: nowrap;
+}
+
+.expired .expiring-status {
+    color: #b00020;
+}
+
+.expires-today .expiring-status {
+    color: #b00020;
+}
+
+.expiring-soon .expiring-status {
+    color: #8a6500;
+}
+
+/* TIMELINE */
+
+.timeline-item {
+    display: flex;
+    gap: 12px;
+    position: relative;
+}
+
+.timeline-item:not(:last-child)::before {
     content: "";
     position: absolute;
     left: 20px;
-    top: 8px;
-    bottom: 8px;
-    width: 2px;
-    background: #e4e4e4;
-}
-
-.timeline-card {
-    position: relative;
-    display: flex;
-    gap: 12px;
-    margin-bottom: 13px;
+    top: 44px;
+    bottom: -12px;
+    width: 1px;
+    background: #ddd;
 }
 
 .timeline-icon {
     width: 42px;
     height: 42px;
-    border-radius: 50%;
-    background: white;
-    border: 2px solid #eee;
+    border-radius: 12px;
+    background: #f1f1f1;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 19px;
+    font-size: 20px;
     flex-shrink: 0;
+    position: relative;
     z-index: 1;
 }
 
 .timeline-content {
-    background: white;
-    border-radius: 14px;
-    padding: 13px;
     flex: 1;
     min-width: 0;
-}
-
-.timeline-top {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+    padding-bottom: 18px;
 }
 
 .timeline-title {
-    font-weight: 750;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .timeline-type {
+    font-size: 13px;
     color: #777;
-    font-size: 12px;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 .timeline-date {
-    color: #777;
     font-size: 13px;
-    margin-top: 7px;
+    color: #777;
+    margin-top: 6px;
 }
 
 .timeline-amount {
-    font-weight: 700;
-    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 5px;
 }
 
 .timeline-document {
-    margin-top: 9px;
-    padding-top: 9px;
-    border-top: 1px solid #eee;
-    font-size: 13px;
-    color: #555;
+    font-size: 12px;
+    color: #777;
+    margin-top: 6px;
 }
 
-.timeline-actions {
-    margin-top: 9px;
-    display: flex;
-    gap: 7px;
+.timeline-delete {
+    width: auto;
+    padding: 6px 9px;
+    border-radius: 8px;
+    background: #f5f5f5;
+    color: #b00020;
+    font-size: 12px;
+    font-weight: 500;
+    align-self: flex-start;
 }
 
-/* ---------- CHECKBOX ---------- */
+/* CHECKBOX */
 
 .checkbox-row {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 13px;
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 18px;
+    margin-top: 18px;
+    padding: 12px;
+    background: #f7f7f7;
+    border-radius: 12px;
 }
 
 .checkbox-row input {
-    width: auto;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    flex-shrink: 0;
 }
 
-/* ---------- MOBILE ---------- */
+.checkbox-row label {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+}
 
-@media (max-width: 480px) {
-
-    .app {
-        padding-left: 14px;
-        padding-right: 14px;
-    }
-
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .timeline-top {
-        flex-direction: column;
-        gap: 3px;
-    }
-
+.hidden {
+    display: none;
 }
 
 </style>
@@ -515,31 +468,35 @@ select:focus {
 
 <body>
 
-<div class="app">
-
-    <div class="header">
-        <div class="logo">Coisable</div>
-        <div class="tagline">Your things. One place.</div>
-    </div>
-
+<div class="container">
 
     <!-- HOME -->
+    <div id="homeView">
 
-    <div id="homeView" class="view active">
+        <h1>Coisable</h1>
 
-        <button class="primary-btn" onclick="showAddForm()">
+        <p class="subtitle">
+            Your things. One place.
+        </p>
+
+        <button
+            class="primary-button"
+            onclick="showAddForm()"
+        >
             + Add Thing
         </button>
 
-        <div class="section-title">
+
+        <h2 class="section-title">
             Your Things
-        </div>
+        </h2>
 
         <div id="thingsList"></div>
 
-        <div class="section-title">
+
+        <h2 class="section-title">
             Expiring Soon
-        </div>
+        </h2>
 
         <div id="expiringSoon"></div>
 
@@ -547,75 +504,113 @@ select:focus {
 
 
     <!-- ADD THING -->
+    <div id="addView" class="hidden">
 
-    <div id="addView" class="view">
-
-        <button class="back-btn" onclick="showHome()">
+        <button
+            class="back-button"
+            onclick="showHome()"
+        >
             ← Back
         </button>
 
-        <div class="section-title">
-            Add Thing
-        </div>
+        <h2>Add Thing</h2>
 
-        <div class="form-group">
-            <label class="form-label">Name</label>
-            <input id="thingName"
-                   type="text"
-                   placeholder="e.g. Mazda MX-5">
-        </div>
+        <div class="card">
 
-        <div class="form-group">
-            <label class="form-label">Category</label>
+            <label for="thingName">
+                Name
+            </label>
+
+            <input
+                id="thingName"
+                type="text"
+                placeholder="e.g. Audi A1"
+            >
+
+
+            <label for="thingCategory">
+                Category
+            </label>
 
             <select id="thingCategory">
-                <option value="Car">🚗 Car</option>
-                <option value="Home">🏠 Home</option>
-                <option value="Electronics">📱 Electronics</option>
-                <option value="Appliance">🔌 Appliance</option>
-                <option value="Personal">🎒 Personal</option>
-                <option value="Other">📦 Other</option>
+
+                <option value="Home">
+                    Home
+                </option>
+
+                <option value="Vehicle">
+                    Vehicle
+                </option>
+
+                <option value="Electronics">
+                    Electronics
+                </option>
+
+                <option value="Appliance">
+                    Appliance
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
             </select>
 
+
+            <label for="purchaseDate">
+                Purchase date
+            </label>
+
+            <input
+                id="purchaseDate"
+                type="date"
+            >
+
+
+            <label for="purchasePrice">
+                Purchase price (€)
+            </label>
+
+            <input
+                id="purchasePrice"
+                type="number"
+                step="0.01"
+                placeholder="0.00"
+            >
+
+
+            <label for="currentValue">
+                Current value (€)
+            </label>
+
+            <input
+                id="currentValue"
+                type="number"
+                step="0.01"
+                placeholder="0.00"
+            >
+
+
+            <button
+                class="primary-button"
+                onclick="addThing()"
+                style="margin-top:20px;"
+            >
+                Save Thing
+            </button>
+
         </div>
-
-        <div class="form-group">
-            <label class="form-label">Purchase Date</label>
-            <input id="purchaseDate" type="date">
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Purchase Price</label>
-            <input id="purchasePrice"
-                   type="number"
-                   step="0.01"
-                   placeholder="0.00">
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Current Value</label>
-            <input id="currentValue"
-                   type="number"
-                   step="0.01"
-                   placeholder="0.00">
-        </div>
-
-        <button class="primary-btn" onclick="addThing()">
-            Save Thing
-        </button>
-
-        <button class="secondary-btn" onclick="showHome()">
-            Cancel
-        </button>
 
     </div>
 
 
     <!-- DETAIL -->
+    <div id="detailView" class="hidden">
 
-    <div id="detailView" class="view">
-
-        <button class="back-btn" onclick="showHome()">
+        <button
+            class="back-button"
+            onclick="showHome()"
+        >
             ← Back
         </button>
 
@@ -625,342 +620,431 @@ select:focus {
 
 
     <!-- EDIT THING -->
+    <div id="editView" class="hidden">
 
-    <div id="editThingView" class="view">
-
-        <button class="back-btn" onclick="backToThing()">
+        <button
+            class="back-button"
+            onclick="showThing(currentThingId)"
+        >
             ← Back
         </button>
 
-        <div class="section-title">
-            Edit Thing
-        </div>
+        <h2>Edit Thing</h2>
 
-        <div class="form-group">
-            <label class="form-label">Name</label>
-            <input id="editThingName" type="text">
-        </div>
+        <div class="card">
 
-        <div class="form-group">
-            <label class="form-label">Category</label>
+            <label for="editThingName">
+                Name
+            </label>
+
+            <input
+                id="editThingName"
+                type="text"
+            >
+
+
+            <label for="editThingCategory">
+                Category
+            </label>
 
             <select id="editThingCategory">
-                <option value="Car">🚗 Car</option>
-                <option value="Home">🏠 Home</option>
-                <option value="Electronics">📱 Electronics</option>
-                <option value="Appliance">🔌 Appliance</option>
-                <option value="Personal">🎒 Personal</option>
-                <option value="Other">📦 Other</option>
+
+                <option value="Home">
+                    Home
+                </option>
+
+                <option value="Vehicle">
+                    Vehicle
+                </option>
+
+                <option value="Electronics">
+                    Electronics
+                </option>
+
+                <option value="Appliance">
+                    Appliance
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
             </select>
 
+
+            <label for="editPurchaseDate">
+                Purchase date
+            </label>
+
+            <input
+                id="editPurchaseDate"
+                type="date"
+            >
+
+
+            <label for="editPurchasePrice">
+                Purchase price (€)
+            </label>
+
+            <input
+                id="editPurchasePrice"
+                type="number"
+                step="0.01"
+            >
+
+
+            <label for="editCurrentValue">
+                Current value (€)
+            </label>
+
+            <input
+                id="editCurrentValue"
+                type="number"
+                step="0.01"
+            >
+
+
+            <button
+                class="primary-button"
+                onclick="saveEdit()"
+                style="margin-top:20px;"
+            >
+                Save Changes
+            </button>
+
         </div>
-
-        <div class="form-group">
-            <label class="form-label">Purchase Date</label>
-            <input id="editPurchaseDate" type="date">
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Purchase Price</label>
-            <input id="editPurchasePrice"
-                   type="number"
-                   step="0.01">
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Current Value</label>
-            <input id="editCurrentValue"
-                   type="number"
-                   step="0.01">
-        </div>
-
-        <button class="primary-btn" onclick="saveEdit()">
-            Save Changes
-        </button>
-
-        <button class="danger-btn" onclick="deleteThing()">
-            Delete Thing
-        </button>
 
     </div>
 
 
     <!-- ADD DOCUMENT -->
+    <div id="addDocumentView" class="hidden">
 
-    <div id="addDocumentView" class="view">
-
-        <button class="back-btn" onclick="backToThing()">
+        <button
+            class="back-button"
+            onclick="showThing(currentThingId)"
+        >
             ← Back
         </button>
 
-        <div class="section-title">
-            Add Document
-        </div>
+        <h2>Add Document</h2>
 
-        <div class="form-group">
-            <label class="form-label">Document Name</label>
+        <div class="card">
 
-            <input id="documentName"
-                   type="text"
-                   placeholder="e.g. Insurance policy">
-        </div>
+            <label for="documentName">
+                Name
+            </label>
 
-        <div class="form-group">
-            <label class="form-label">Type</label>
+            <input
+                id="documentName"
+                type="text"
+                placeholder="e.g. Car insurance"
+            >
+
+
+            <label for="documentType">
+                Type
+            </label>
 
             <select id="documentType">
-                <option value="Invoice">🧾 Invoice</option>
-                <option value="Contract">📑 Contract</option>
-                <option value="Insurance">🛡️ Insurance</option>
-                <option value="Warranty">🔒 Warranty</option>
-                <option value="Tax">💶 Tax</option>
-                <option value="Certificate">📜 Certificate</option>
-                <option value="Repair">🔧 Repair</option>
-                <option value="Other">📄 Other</option>
+
+                <option value="Invoice">
+                    Invoice
+                </option>
+
+                <option value="Contract">
+                    Contract
+                </option>
+
+                <option value="Insurance">
+                    Insurance
+                </option>
+
+                <option value="Warranty">
+                    Warranty
+                </option>
+
+                <option value="Tax">
+                    Tax
+                </option>
+
+                <option value="Certificate">
+                    Certificate
+                </option>
+
+                <option value="Repair">
+                    Repair
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
             </select>
 
+
+            <label for="documentDate">
+                Date
+            </label>
+
+            <input
+                id="documentDate"
+                type="date"
+            >
+
+
+            <label for="documentExpiryDate">
+                Expiry date
+            </label>
+
+            <input
+                id="documentExpiryDate"
+                type="date"
+            >
+
+
+            <label for="documentAmount">
+                Amount (€)
+            </label>
+
+            <input
+                id="documentAmount"
+                type="number"
+                step="0.01"
+                placeholder="Optional"
+            >
+
+
+            <div class="checkbox-row">
+
+                <input
+                    id="addToTimeline"
+                    type="checkbox"
+                    checked
+                >
+
+                <label for="addToTimeline">
+                    Add to timeline
+                </label>
+
+            </div>
+
+
+            <button
+                class="primary-button"
+                onclick="addDocument()"
+                style="margin-top:20px;"
+            >
+                Save Document
+            </button>
+
         </div>
-
-        <div class="form-group">
-            <label class="form-label">Date</label>
-            <input id="documentDate" type="date">
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Expiry Date</label>
-            <input id="documentExpiry" type="date">
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Amount</label>
-
-            <input id="documentAmount"
-                   type="number"
-                   step="0.01"
-                   placeholder="0.00">
-        </div>
-
-        <label class="checkbox-row">
-
-            <input id="addToTimeline"
-                   type="checkbox"
-                   checked>
-
-            <span>
-                Add to timeline
-            </span>
-
-        </label>
-
-        <button class="primary-btn"
-                onclick="addDocument()">
-
-            Save Document
-
-        </button>
-
-        <button class="secondary-btn"
-                onclick="backToThing()">
-
-            Cancel
-
-        </button>
 
     </div>
 
 
     <!-- EDIT DOCUMENT -->
+    <div id="editDocumentView" class="hidden">
 
-    <div id="editDocumentView" class="view">
-
-        <button class="back-btn" onclick="backToThing()">
+        <button
+            class="back-button"
+            onclick="showThing(currentThingId)"
+        >
             ← Back
         </button>
 
-        <div class="section-title">
-            Edit Document
-        </div>
+        <h2>Edit Document</h2>
 
-        <div class="form-group">
-            <label class="form-label">Document Name</label>
-            <input id="editDocumentName" type="text">
-        </div>
+        <div class="card">
 
-        <div class="form-group">
-            <label class="form-label">Type</label>
+            <label for="editDocumentName">
+                Name
+            </label>
+
+            <input
+                id="editDocumentName"
+                type="text"
+            >
+
+
+            <label for="editDocumentType">
+                Type
+            </label>
 
             <select id="editDocumentType">
-                <option value="Invoice">🧾 Invoice</option>
-                <option value="Contract">📑 Contract</option>
-                <option value="Insurance">🛡️ Insurance</option>
-                <option value="Warranty">🔒 Warranty</option>
-                <option value="Tax">💶 Tax</option>
-                <option value="Certificate">📜 Certificate</option>
-                <option value="Repair">🔧 Repair</option>
-                <option value="Other">📄 Other</option>
+
+                <option value="Invoice">
+                    Invoice
+                </option>
+
+                <option value="Contract">
+                    Contract
+                </option>
+
+                <option value="Insurance">
+                    Insurance
+                </option>
+
+                <option value="Warranty">
+                    Warranty
+                </option>
+
+                <option value="Tax">
+                    Tax
+                </option>
+
+                <option value="Certificate">
+                    Certificate
+                </option>
+
+                <option value="Repair">
+                    Repair
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
             </select>
 
+
+            <label for="editDocumentDate">
+                Date
+            </label>
+
+            <input
+                id="editDocumentDate"
+                type="date"
+            >
+
+
+            <label for="editDocumentExpiryDate">
+                Expiry date
+            </label>
+
+            <input
+                id="editDocumentExpiryDate"
+                type="date"
+            >
+
+
+            <label for="editDocumentAmount">
+                Amount (€)
+            </label>
+
+            <input
+                id="editDocumentAmount"
+                type="number"
+                step="0.01"
+            >
+
+
+            <button
+                class="primary-button"
+                onclick="saveDocumentEdit()"
+                style="margin-top:20px;"
+            >
+                Save Changes
+            </button>
+
         </div>
-
-        <div class="form-group">
-            <label class="form-label">Date</label>
-            <input id="editDocumentDate" type="date">
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Expiry Date</label>
-            <input id="editDocumentExpiry" type="date">
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Amount</label>
-
-            <input id="editDocumentAmount"
-                   type="number"
-                   step="0.01">
-        </div>
-
-        <button class="primary-btn"
-                onclick="saveDocumentEdit()">
-
-            Save Changes
-
-        </button>
-
-        <button class="danger-btn"
-                onclick="deleteDocument()">
-
-            Delete Document
-
-        </button>
 
     </div>
 
 
     <!-- ADD EVENT -->
+    <div id="addEventView" class="hidden">
 
-    <div id="addEventView" class="view">
-
-        <button class="back-btn" onclick="backToThing()">
+        <button
+            class="back-button"
+            onclick="showThing(currentThingId)"
+        >
             ← Back
         </button>
 
-        <div class="section-title">
-            Add Event
-        </div>
+        <h2>Add Event</h2>
 
-        <div class="form-group">
-            <label class="form-label">Description</label>
+        <div class="card">
 
-            <input id="eventName"
-                   type="text"
-                   placeholder="e.g. Changed tyres">
-        </div>
+            <label for="eventTitle">
+                Description
+            </label>
 
-        <div class="form-group">
-            <label class="form-label">Type</label>
+            <input
+                id="eventTitle"
+                type="text"
+                placeholder="e.g. Changed tyres"
+            >
+
+
+            <label for="eventType">
+                Type
+            </label>
 
             <select id="eventType">
-                <option value="Purchase">🛒 Purchase</option>
-                <option value="Repair">🔧 Repair</option>
-                <option value="Maintenance">🛠️ Maintenance</option>
-                <option value="Expense">💶 Expense</option>
-                <option value="Inspection">🔍 Inspection</option>
-                <option value="Insurance">🛡️ Insurance</option>
-                <option value="Other">📌 Other</option>
+
+                <option value="Purchase">
+                    Purchase
+                </option>
+
+                <option value="Repair">
+                    Repair
+                </option>
+
+                <option value="Maintenance">
+                    Maintenance
+                </option>
+
+                <option value="Expense">
+                    Expense
+                </option>
+
+                <option value="Inspection">
+                    Inspection
+                </option>
+
+                <option value="Insurance">
+                    Insurance
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
             </select>
 
-        </div>
 
-        <div class="form-group">
-            <label class="form-label">Date</label>
-            <input id="eventDate" type="date">
-        </div>
+            <label for="eventDate">
+                Date
+            </label>
 
-        <div class="form-group">
-            <label class="form-label">Amount</label>
-
-            <input id="eventAmount"
-                   type="number"
-                   step="0.01"
-                   placeholder="Optional">
-        </div>
-
-        <button class="primary-btn"
-                onclick="addEvent()">
-
-            Save Event
-
-        </button>
-
-        <button class="secondary-btn"
-                onclick="backToThing()">
-
-            Cancel
-
-        </button>
-
-    </div>
+            <input
+                id="eventDate"
+                type="date"
+            >
 
 
-    <!-- EDIT EVENT -->
+            <label for="eventAmount">
+                Amount (€)
+            </label>
 
-    <div id="editEventView" class="view">
+            <input
+                id="eventAmount"
+                type="number"
+                step="0.01"
+                placeholder="Optional"
+            >
 
-        <button class="back-btn" onclick="backToThing()">
-            ← Back
-        </button>
 
-        <div class="section-title">
-            Edit Event
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Description</label>
-            <input id="editEventName" type="text">
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Type</label>
-
-            <select id="editEventType">
-                <option value="Purchase">🛒 Purchase</option>
-                <option value="Repair">🔧 Repair</option>
-                <option value="Maintenance">🛠️ Maintenance</option>
-                <option value="Expense">💶 Expense</option>
-                <option value="Inspection">🔍 Inspection</option>
-                <option value="Insurance">🛡️ Insurance</option>
-                <option value="Other">📌 Other</option>
-            </select>
+            <button
+                class="primary-button"
+                onclick="addEvent()"
+                style="margin-top:20px;"
+            >
+                Save Event
+            </button>
 
         </div>
-
-        <div class="form-group">
-            <label class="form-label">Date</label>
-            <input id="editEventDate" type="date">
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Amount</label>
-
-            <input id="editEventAmount"
-                   type="number"
-                   step="0.01">
-        </div>
-
-        <button class="primary-btn"
-                onclick="saveEventEdit()">
-
-            Save Changes
-
-        </button>
-
-        <button class="danger-btn"
-                onclick="deleteEvent()">
-
-            Delete Event
-
-        </button>
 
     </div>
 
@@ -969,44 +1053,33 @@ select:focus {
 
 <script>
 
-/* =========================================================
-   DATA
-========================================================= */
-
-let things = JSON.parse(
-    localStorage.getItem("coisableThings")
-) || [];
-
-let currentThingId = null;
-let currentDocumentId = null;
-let currentEventId = null;
-
-
-/* =========================================================
-   ICONS
-========================================================= */
-
 const categoryIcons = {
-    Car: "🚗",
+
     Home: "🏠",
+    Vehicle: "🚗",
     Electronics: "📱",
     Appliance: "🔌",
-    Personal: "🎒",
     Other: "📦"
+
 };
 
+
 const documentIcons = {
+
     Invoice: "🧾",
-    Contract: "📑",
+    Contract: "📜",
     Insurance: "🛡️",
     Warranty: "🔒",
     Tax: "💶",
     Certificate: "📜",
     Repair: "🔧",
     Other: "📄"
+
 };
 
+
 const eventIcons = {
+
     Purchase: "🛒",
     Repair: "🔧",
     Maintenance: "🛠️",
@@ -1014,54 +1087,57 @@ const eventIcons = {
     Inspection: "🔍",
     Insurance: "🛡️",
     Other: "📌"
+
 };
 
 
-/* =========================================================
-   MIGRATION
-========================================================= */
+let things = JSON.parse(
+    localStorage.getItem("coisableThings") || "[]"
+);
+
+
+/*
+    Migration:
+    Existing Things are preserved.
+    We only add an events array if it doesn't exist yet.
+*/
 
 things = things.map(thing => {
 
-    if (!Array.isArray(thing.documents)) {
-        thing.documents = [];
-    }
+    return {
 
-    if (!Array.isArray(thing.events)) {
-        thing.events = [];
-    }
+        id: thing.id || Date.now() + Math.random(),
 
-    thing.documents = thing.documents.map(doc => {
+        name: thing.name || "",
 
-        if (!doc.id) {
-            doc.id =
-                Date.now().toString() +
-                Math.random().toString(36).slice(2);
-        }
+        category: thing.category || "Other",
 
-        return doc;
-    });
+        purchaseDate: thing.purchaseDate || "",
 
-    thing.events = thing.events.map(event => {
+        purchasePrice: thing.purchasePrice || "",
 
-        if (!event.id) {
-            event.id =
-                Date.now().toString() +
-                Math.random().toString(36).slice(2);
-        }
+        currentValue: thing.currentValue || "",
 
-        return event;
-    });
+        documents: Array.isArray(thing.documents)
+            ? thing.documents
+            : [],
 
-    return thing;
+        events: Array.isArray(thing.events)
+            ? thing.events
+            : []
+
+    };
+
 });
+
 
 saveThings();
 
 
-/* =========================================================
-   STORAGE
-========================================================= */
+let currentThingId = null;
+
+let currentDocumentId = null;
+
 
 function saveThings() {
 
@@ -1069,95 +1145,117 @@ function saveThings() {
         "coisableThings",
         JSON.stringify(things)
     );
+
 }
 
 
-/* =========================================================
-   VIEW MANAGEMENT
-========================================================= */
+function showView(viewId) {
 
-function showView(id) {
+    const views = [
 
-    document.querySelectorAll(".view")
-        .forEach(view =>
-            view.classList.remove("active")
-        );
+        "homeView",
+        "addView",
+        "detailView",
+        "editView",
+        "addDocumentView",
+        "editDocumentView",
+        "addEventView"
 
-    document.getElementById(id)
-        .classList.add("active");
+    ];
 
-    window.scrollTo(0, 0);
+
+    views.forEach(id => {
+
+        document
+            .getElementById(id)
+            .classList.add("hidden");
+
+    });
+
+
+    document
+        .getElementById(viewId)
+        .classList.remove("hidden");
+
 }
 
-
-/* =========================================================
-   HOME
-========================================================= */
 
 function showHome() {
 
     currentThingId = null;
+
     currentDocumentId = null;
-    currentEventId = null;
 
     renderThings();
+
     renderExpiringSoon();
 
     showView("homeView");
+
 }
 
-
-/* =========================================================
-   ADD THING
-========================================================= */
 
 function showAddForm() {
 
     document.getElementById("thingName").value = "";
-    document.getElementById("thingCategory").value = "Car";
+
+    document.getElementById("thingCategory").value =
+        "Other";
+
     document.getElementById("purchaseDate").value = "";
+
     document.getElementById("purchasePrice").value = "";
+
     document.getElementById("currentValue").value = "";
 
     showView("addView");
+
 }
 
 
 function addThing() {
 
     const name =
-        document.getElementById("thingName")
+        document
+            .getElementById("thingName")
             .value
             .trim();
 
+
     if (!name) {
+
         alert("Please enter a name.");
+
         return;
+
     }
+
 
     const thing = {
 
-        id:
-            Date.now().toString() +
-            Math.random().toString(36).slice(2),
+        id: Date.now() + Math.random(),
 
         name: name,
 
         category:
-            document.getElementById("thingCategory").value,
+            document
+                .getElementById("thingCategory")
+                .value,
 
         purchaseDate:
-            document.getElementById("purchaseDate").value,
+            document
+                .getElementById("purchaseDate")
+                .value,
 
         purchasePrice:
-            parseFloat(
-                document.getElementById("purchasePrice").value
-            ) || 0,
+            document
+                .getElementById("purchasePrice")
+                .value,
 
         currentValue:
-            parseFloat(
-                document.getElementById("currentValue").value
-            ) || 0,
+            document
+                .getElementById("currentValue")
+                .value,
 
         documents: [],
 
@@ -1165,467 +1263,461 @@ function addThing() {
 
     };
 
+
     things.push(thing);
 
     saveThings();
 
-    openThing(thing.id);
+    showHome();
+
 }
 
-
-/* =========================================================
-   THINGS LIST
-========================================================= */
 
 function renderThings() {
 
-    const container =
+    const list =
         document.getElementById("thingsList");
 
-    if (!things.length) {
 
-        container.innerHTML = `
-            <div class="empty">
+    if (things.length === 0) {
+
+        list.innerHTML = `
+
+            <div class="card empty">
+
                 No things yet.<br>
                 Add your first thing above.
+
             </div>
+
         `;
 
         return;
-    }
 
-    container.innerHTML =
-        things.map(thing => {
-
-            const icon =
-                categoryIcons[thing.category] || "📦";
-
-            return `
-                <div class="thing-card"
-                     onclick="openThing('${thing.id}')">
-
-                    <div class="thing-main">
-
-                        <div class="thing-icon">
-                            ${icon}
-                        </div>
-
-                        <div>
-
-                            <div class="thing-name">
-                                ${escapeHtml(thing.name)}
-                            </div>
-
-                            <div class="thing-category">
-                                ${escapeHtml(thing.category)}
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="chevron">
-                        ›
-                    </div>
-
-                </div>
-            `;
-
-        }).join("");
-}
-
-
-/* =========================================================
-   OPEN THING
-========================================================= */
-
-function openThing(id) {
-
-    currentThingId = id;
-
-    showThing();
-
-    showView("detailView");
-}
-
-
-/* =========================================================
-   DETAIL
-========================================================= */
-
-function showThing() {
-
-    const thing =
-        things.find(
-            t => t.id === currentThingId
-        );
-
-    if (!thing) {
-        showHome();
-        return;
-    }
-
-    const icon =
-        categoryIcons[thing.category] || "📦";
-
-    const documents =
-        thing.documents || [];
-
-    const events =
-        thing.events || [];
-
-
-    /* ---------- DOCUMENTS ---------- */
-
-    let documentsHtml = "";
-
-    if (!documents.length) {
-
-        documentsHtml = `
-            <div class="empty">
-                No documents yet.
-            </div>
-        `;
-
-    } else {
-
-        documentsHtml =
-            documents
-                .slice()
-                .sort(
-                    (a, b) =>
-                        (b.date || "")
-                        .localeCompare(
-                            a.date || ""
-                        )
-                )
-                .map(doc => {
-
-                    const docIcon =
-                        documentIcons[doc.type] || "📄";
-
-                    const linkedEvent =
-                        events.some(
-                            event =>
-                                event.documentId === doc.id
-                        );
-
-                    return `
-                        <div class="document-card">
-
-                            <div class="document-top">
-
-                                <div class="document-main">
-
-                                    <div class="document-icon">
-                                        ${docIcon}
-                                    </div>
-
-                                    <div>
-
-                                        <div class="document-name">
-                                            ${escapeHtml(doc.name)}
-                                        </div>
-
-                                        <div class="document-type">
-                                            ${escapeHtml(doc.type)}
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="document-actions">
-
-                                    <button
-                                        class="small-btn"
-                                        onclick="
-                                            event.stopPropagation();
-                                            editDocument('${doc.id}')
-                                        ">
-                                        Edit
-                                    </button>
-
-                                    <button
-                                        class="small-btn small-danger"
-                                        onclick="
-                                            event.stopPropagation();
-                                            deleteDocumentDirect('${doc.id}')
-                                        ">
-                                        Delete
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                            <div class="document-meta">
-
-                                ${doc.date
-                                    ? "Date: " +
-                                      formatDate(doc.date)
-                                    : ""
-                                }
-
-                                ${doc.expiryDate
-                                    ? " · Expires: " +
-                                      formatDate(doc.expiryDate)
-                                    : ""
-                                }
-
-                                ${doc.amount
-                                    ? " · " +
-                                      formatMoney(doc.amount)
-                                    : ""
-                                }
-
-                            </div>
-
-                            ${linkedEvent
-                                ? `
-                                    <div class="timeline-link">
-                                        🔗 Added to timeline
-                                    </div>
-                                  `
-                                : ""
-                            }
-
-                        </div>
-                    `;
-
-                })
-                .join("");
     }
 
 
-    /* ---------- TIMELINE ---------- */
+    list.innerHTML = things.map(thing => {
 
-    let timelineHtml = "";
-
-    const sortedEvents =
-        events
-            .slice()
-            .sort(
-                (a, b) =>
-                    (b.date || "")
-                    .localeCompare(
-                        a.date || ""
-                    )
-            );
-
-    if (!sortedEvents.length) {
-
-        timelineHtml = `
-            <div class="empty">
-                No events yet.
-            </div>
-        `;
-
-    } else {
-
-        timelineHtml = `
-            <div class="timeline">
-
-                ${
-                    sortedEvents
-                        .map(event => {
-
-                            const eventIcon =
-                                eventIcons[event.type] ||
-                                "📌";
-
-                            const linkedDocument =
-                                documents.find(
-                                    doc =>
-                                        doc.id ===
-                                        event.documentId
-                                );
-
-                            return `
-                                <div class="timeline-card">
-
-                                    <div class="timeline-icon">
-                                        ${eventIcon}
-                                    </div>
-
-                                    <div class="timeline-content">
-
-                                        <div class="timeline-top">
-
-                                            <div>
-
-                                                <div class="timeline-title">
-                                                    ${escapeHtml(event.name)}
-                                                </div>
-
-                                                <div class="timeline-type">
-                                                    ${escapeHtml(event.type)}
-                                                </div>
-
-                                            </div>
-
-                                            ${
-                                                event.amount
-                                                    ? `
-                                                        <div class="timeline-amount">
-                                                            ${formatMoney(event.amount)}
-                                                        </div>
-                                                      `
-                                                    : ""
-                                            }
-
-                                        </div>
-
-                                        ${
-                                            event.date
-                                                ? `
-                                                    <div class="timeline-date">
-                                                        ${formatDate(event.date)}
-                                                    </div>
-                                                  `
-                                                : ""
-                                        }
-
-                                        ${
-                                            linkedDocument
-                                                ? `
-                                                    <div class="timeline-document">
-                                                        📄
-                                                        ${escapeHtml(linkedDocument.name)}
-                                                    </div>
-                                                  `
-                                                : ""
-                                        }
-
-                                        <div class="timeline-actions">
-
-                                            <button
-                                                class="small-btn"
-                                                onclick="
-                                                    editEvent('${event.id}')
-                                                ">
-                                                Edit
-                                            </button>
-
-                                            <button
-                                                class="small-btn small-danger"
-                                                onclick="
-                                                    deleteEventDirect('${event.id}')
-                                                ">
-                                                Delete
-                                            </button>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            `;
-
-                        })
-                        .join("")
-                }
-
-            </div>
-        `;
-    }
+        const icon =
+            categoryIcons[thing.category] || "📦";
 
 
-    /* ---------- PAGE ---------- */
+        return `
 
-    document.getElementById("thingDetail").innerHTML = `
+            <div
+                class="card thing-card"
+                onclick="openThing('${thing.id}')"
+            >
 
-        <div class="detail-header">
-
-            <div class="detail-title-row">
-
-                <div class="detail-icon">
+                <div class="icon">
                     ${icon}
                 </div>
 
-                <div>
 
-                    <div class="detail-name">
+                <div class="thing-info">
+
+                    <div class="thing-name">
                         ${escapeHtml(thing.name)}
                     </div>
 
-                    <div class="detail-category">
+                    <div class="thing-category">
                         ${escapeHtml(thing.category)}
                     </div>
 
                 </div>
 
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+        `;
+
+    }).join("");
+
+}
+
+
+function openThing(id) {
+
+    currentThingId = id;
+
+
+    const thing =
+        things.find(item =>
+            String(item.id) === String(id)
+        );
+
+
+    if (!thing) return;
+
+
+    const icon =
+        categoryIcons[thing.category] || "📦";
+
+
+    let documentsHtml = "";
+
+
+    if (!thing.documents.length) {
+
+        documentsHtml = `
+
+            <div class="card">
+
+                <div class="placeholder">
+                    No documents yet.
+                </div>
+
+            </div>
+
+        `;
+
+    } else {
+
+        documentsHtml =
+            thing.documents.map(documentItem => {
+
+                const documentIcon =
+                    documentIcons[documentItem.type] || "📄";
+
+
+                let details = "";
+
+
+                if (documentItem.date) {
+
+                    details += `
+                        <div>
+                            📅 ${formatDate(documentItem.date)}
+                        </div>
+                    `;
+
+                }
+
+
+                if (documentItem.expiryDate) {
+
+                    details += `
+                        <div>
+                            ⏳ Expires:
+                            ${formatDate(documentItem.expiryDate)}
+                        </div>
+                    `;
+
+                }
+
+
+                if (documentItem.amount) {
+
+                    details += `
+                        <div>
+                            💶 ${formatMoney(documentItem.amount)}
+                        </div>
+                    `;
+
+                }
+
+
+                return `
+
+                    <div class="card document-card">
+
+                        <div class="document-header">
+
+                            <div class="document-icon">
+                                ${documentIcon}
+                            </div>
+
+
+                            <div class="document-info">
+
+                                <div class="document-name">
+                                    ${escapeHtml(documentItem.name)}
+                                </div>
+
+                                <div class="document-type">
+                                    ${escapeHtml(documentItem.type)}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        ${
+                            details
+                                ? `
+                                    <div class="document-details">
+                                        ${details}
+                                    </div>
+                                  `
+                                : ""
+                        }
+
+
+                        <div class="document-actions">
+
+                            <button
+                                class="edit-document-button"
+                                onclick="editDocument(
+                                    '${thing.id}',
+                                    '${documentItem.id}'
+                                )"
+                            >
+                                ✏️ Edit
+                            </button>
+
+
+                            <button
+                                class="delete-document-button"
+                                onclick="deleteDocument(
+                                    '${thing.id}',
+                                    '${documentItem.id}'
+                                )"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }).join("");
+
+    }
+
+
+    /*
+        TIMELINE
+    */
+
+    let timelineHtml = "";
+
+
+    const events =
+        Array.isArray(thing.events)
+            ? [...thing.events]
+            : [];
+
+
+    events.sort((a, b) => {
+
+        return String(b.date || "").localeCompare(
+            String(a.date || "")
+        );
+
+    });
+
+
+    if (events.length === 0) {
+
+        timelineHtml = `
+
+            <div class="card">
+
+                <div class="placeholder">
+                    No history yet.
+                </div>
+
+            </div>
+
+        `;
+
+    } else {
+
+        timelineHtml = `
+
+            <div class="card">
+
+                ${events.map(event => {
+
+                    const eventIcon =
+                        eventIcons[event.type] || "📌";
+
+
+                    let amountHtml = "";
+
+                    if (event.amount) {
+
+                        amountHtml = `
+
+                            <div class="timeline-amount">
+                                ${formatMoney(event.amount)}
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    let documentHtml = "";
+
+                    if (event.documentId) {
+
+                        documentHtml = `
+
+                            <div class="timeline-document">
+                                📎 Linked document
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    return `
+
+                        <div class="timeline-item">
+
+                            <div class="timeline-icon">
+                                ${eventIcon}
+                            </div>
+
+
+                            <div class="timeline-content">
+
+                                <div class="timeline-title">
+                                    ${escapeHtml(event.title)}
+                                </div>
+
+
+                                <div class="timeline-type">
+                                    ${escapeHtml(event.type)}
+                                </div>
+
+
+                                <div class="timeline-date">
+                                    📅 ${formatDate(event.date)}
+                                </div>
+
+
+                                ${amountHtml}
+
+                                ${documentHtml}
+
+                            </div>
+
+
+                            <button
+                                class="timeline-delete"
+                                onclick="deleteEvent(
+                                    '${thing.id}',
+                                    '${event.id}'
+                                )"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
+
+                    `;
+
+                }).join("")}
+
+            </div>
+
+        `;
+
+    }
+
+
+    document.getElementById("thingDetail").innerHTML = `
+
+        <div class="detail-header">
+
+            <div class="icon">
+                ${icon}
             </div>
 
 
-            <div class="info-grid">
+            <h2>
+                ${escapeHtml(thing.name)}
+            </h2>
 
-                <div class="info-box">
 
-                    <div class="info-label">
-                        Purchase Date
-                    </div>
+            <div class="detail-category">
+                ${escapeHtml(thing.category)}
+            </div>
 
-                    <div class="info-value">
-                        ${
-                            thing.purchaseDate
-                                ? formatDate(
-                                    thing.purchaseDate
-                                  )
-                                : "—"
-                        }
-                    </div>
+        </div>
+
+
+        <div class="card">
+
+            <button
+                class="secondary-button"
+                onclick="editThing('${thing.id}')"
+            >
+                Edit Thing
+            </button>
+
+        </div>
+
+
+        <h2 class="section-title">
+            Details
+        </h2>
+
+
+        <div class="card">
+
+            <div class="detail-row">
+
+                <div class="detail-label">
+                    Purchase date
+                </div>
+
+                <div class="detail-value">
+
+                    ${
+                        thing.purchaseDate
+                            ? formatDate(thing.purchaseDate)
+                            : "—"
+                    }
 
                 </div>
 
+            </div>
 
-                <div class="info-box">
 
-                    <div class="info-label">
-                        Purchase Price
-                    </div>
+            <div class="detail-row">
 
-                    <div class="info-value">
-                        ${
-                            thing.purchasePrice
-                                ? formatMoney(
-                                    thing.purchasePrice
-                                  )
-                                : "—"
-                        }
-                    </div>
+                <div class="detail-label">
+                    Purchase price
+                </div>
+
+                <div class="detail-value">
+
+                    ${
+                        thing.purchasePrice
+                            ? formatMoney(thing.purchasePrice)
+                            : "—"
+                    }
 
                 </div>
 
+            </div>
 
-                <div class="info-box">
 
-                    <div class="info-label">
-                        Current Value
-                    </div>
+            <div class="detail-row">
 
-                    <div class="info-value">
-                        ${
-                            thing.currentValue
-                                ? formatMoney(
-                                    thing.currentValue
-                                  )
-                                : "—"
-                        }
-                    </div>
-
+                <div class="detail-label">
+                    Current value
                 </div>
 
+                <div class="detail-value">
 
-                <div class="info-box">
-
-                    <div class="info-label">
-                        Documents
-                    </div>
-
-                    <div class="info-value">
-                        ${documents.length}
-                    </div>
+                    ${
+                        thing.currentValue
+                            ? formatMoney(thing.currentValue)
+                            : "—"
+                    }
 
                 </div>
 
@@ -1634,384 +1726,355 @@ function showThing() {
         </div>
 
 
-        <button
-            class="secondary-btn"
-            onclick="editThing()">
-
-            Edit Thing
-
-        </button>
-
-
-        <div class="section-title">
+        <h2 class="section-title">
             Documents
-        </div>
-
-
-        <button
-            class="primary-btn"
-            onclick="showAddDocument()">
-
-            + Add Document
-
-        </button>
+        </h2>
 
 
         ${documentsHtml}
 
 
-        <div class="section-title">
-            Timeline
-        </div>
-
-
         <button
-            class="primary-btn"
-            onclick="showAddEvent()">
-
-            + Add Event
-
+            class="primary-button"
+            onclick="showAddDocument('${thing.id}')"
+        >
+            + Add Document
         </button>
+
+
+        <h2 class="section-title">
+            History
+        </h2>
 
 
         ${timelineHtml}
 
+
+        <button
+            class="secondary-button"
+            onclick="showAddEvent('${thing.id}')"
+        >
+            + Add Event
+        </button>
+
+
+        <button
+            class="delete-button"
+            onclick="deleteThing('${thing.id}')"
+        >
+            Delete Thing
+        </button>
+
     `;
+
+
+    showView("detailView");
+
 }
 
 
-/* =========================================================
-   ADD DOCUMENT
-========================================================= */
+function showAddDocument(id) {
 
-function showAddDocument() {
+    currentThingId = id;
+
+    currentDocumentId = null;
+
 
     document.getElementById("documentName").value = "";
-    document.getElementById("documentType").value = "Invoice";
+
+    document.getElementById("documentType").value =
+        "Invoice";
+
     document.getElementById("documentDate").value = "";
-    document.getElementById("documentExpiry").value = "";
+
+    document.getElementById("documentExpiryDate").value = "";
+
     document.getElementById("documentAmount").value = "";
 
-    document.getElementById(
-        "addToTimeline"
-    ).checked = true;
+    document.getElementById("addToTimeline").checked = true;
+
 
     showView("addDocumentView");
+
 }
 
 
 function addDocument() {
 
     const thing =
-        things.find(
-            t => t.id === currentThingId
+        things.find(item =>
+            String(item.id) === String(currentThingId)
         );
+
 
     if (!thing) return;
 
 
     const name =
-        document.getElementById("documentName")
+        document
+            .getElementById("documentName")
             .value
             .trim();
 
 
     if (!name) {
 
-        alert(
-            "Please enter a document name."
-        );
+        alert("Please enter a document name.");
 
         return;
+
     }
 
 
-    const documentId =
-        Date.now().toString() +
-        Math.random().toString(36).slice(2);
+    const documentItem = {
 
-
-    const doc = {
-
-        id: documentId,
+        id: Date.now() + Math.random(),
 
         name: name,
 
         type:
-            document.getElementById(
-                "documentType"
-            ).value,
+            document
+                .getElementById("documentType")
+                .value,
 
         date:
-            document.getElementById(
-                "documentDate"
-            ).value,
+            document
+                .getElementById("documentDate")
+                .value,
 
         expiryDate:
-            document.getElementById(
-                "documentExpiry"
-            ).value,
+            document
+                .getElementById("documentExpiryDate")
+                .value,
 
         amount:
-            parseFloat(
-                document.getElementById(
-                    "documentAmount"
-                ).value
-            ) || 0
+            document
+                .getElementById("documentAmount")
+                .value
 
     };
 
 
-    thing.documents.push(doc);
+    if (!Array.isArray(thing.documents)) {
+
+        thing.documents = [];
+
+    }
 
 
-    /* ---------- TIMELINE ---------- */
+    if (!Array.isArray(thing.events)) {
 
-    const addTimeline =
-        document.getElementById(
-            "addToTimeline"
-        ).checked;
+        thing.events = [];
 
-
-    if (addTimeline) {
-
-        let eventType = "Other";
+    }
 
 
-        if (doc.type === "Repair") {
-            eventType = "Repair";
-        }
-
-        else if (doc.type === "Insurance") {
-            eventType = "Insurance";
-        }
-
-        else if (doc.type === "Invoice") {
-            eventType = "Expense";
-        }
-
-        else if (doc.type === "Certificate") {
-            eventType = "Inspection";
-        }
-
-        else if (doc.type === "Tax") {
-            eventType = "Expense";
-        }
+    thing.documents.push(documentItem);
 
 
-        const timelineEvent = {
+    /*
+        If "Add to timeline" is selected,
+        automatically create a linked event.
+    */
 
-            id:
-                Date.now().toString() +
-                Math.random().toString(36).slice(2),
-
-            name: doc.name,
-
-            type: eventType,
-
-            date: doc.date,
-
-            amount: doc.amount,
-
-            documentId: doc.id
-
-        };
+    const addToTimeline =
+        document
+            .getElementById("addToTimeline")
+            .checked;
 
 
-        thing.events.push(
-            timelineEvent
-        );
+    if (addToTimeline) {
+
+        const eventDate =
+            documentItem.date ||
+            new Date().toISOString().split("T")[0];
+
+
+        thing.events.push({
+
+            id: Date.now() + Math.random(),
+
+            title: documentItem.name,
+
+            type: documentTypeToEventType(
+                documentItem.type
+            ),
+
+            date: eventDate,
+
+            amount: documentItem.amount,
+
+            documentId: documentItem.id
+
+        });
 
     }
 
 
     saveThings();
 
-    showThing();
+    openThing(currentThingId);
 
-    showView("detailView");
 }
 
 
-/* =========================================================
-   EDIT DOCUMENT
-========================================================= */
+function documentTypeToEventType(type) {
 
-function editDocument(id) {
+    const mapping = {
 
-    currentDocumentId = id;
+        Invoice: "Expense",
+        Contract: "Other",
+        Insurance: "Insurance",
+        Warranty: "Other",
+        Tax: "Expense",
+        Certificate: "Inspection",
+        Repair: "Repair",
+        Other: "Other"
+
+    };
+
+
+    return mapping[type] || "Other";
+
+}
+
+
+function editDocument(thingId, documentId) {
+
+    currentThingId = thingId;
+
+    currentDocumentId = documentId;
 
 
     const thing =
-        things.find(
-            t => t.id === currentThingId
+        things.find(item =>
+            String(item.id) === String(thingId)
         );
+
 
     if (!thing) return;
 
 
     const documentItem =
-        thing.documents.find(
-            d => d.id === id
+        thing.documents.find(item =>
+            String(item.id) === String(documentId)
         );
+
 
     if (!documentItem) return;
 
 
-    document.getElementById(
-        "editDocumentName"
-    ).value =
-        documentItem.name || "";
+    document.getElementById("editDocumentName").value =
+        documentItem.name;
+
+    document.getElementById("editDocumentType").value =
+        documentItem.type;
+
+    document.getElementById("editDocumentDate").value =
+        documentItem.date;
+
+    document.getElementById("editDocumentExpiryDate").value =
+        documentItem.expiryDate;
+
+    document.getElementById("editDocumentAmount").value =
+        documentItem.amount;
 
 
-    document.getElementById(
-        "editDocumentType"
-    ).value =
-        documentItem.type || "Other";
+    showView("editDocumentView");
 
-
-    document.getElementById(
-        "editDocumentDate"
-    ).value =
-        documentItem.date || "";
-
-
-    document.getElementById(
-        "editDocumentExpiry"
-    ).value =
-        documentItem.expiryDate || "";
-
-
-    document.getElementById(
-        "editDocumentAmount"
-    ).value =
-        documentItem.amount || "";
-
-
-    showView(
-        "editDocumentView"
-    );
 }
 
 
 function saveDocumentEdit() {
 
     const thing =
-        things.find(
-            t => t.id === currentThingId
+        things.find(item =>
+            String(item.id) === String(currentThingId)
         );
+
 
     if (!thing) return;
 
 
     const documentItem =
-        thing.documents.find(
-            d => d.id === currentDocumentId
+        thing.documents.find(item =>
+            String(item.id) === String(currentDocumentId)
         );
+
 
     if (!documentItem) return;
 
 
-    documentItem.name =
-        document.getElementById(
-            "editDocumentName"
-        ).value.trim();
+    const name =
+        document
+            .getElementById("editDocumentName")
+            .value
+            .trim();
 
+
+    if (!name) {
+
+        alert("Please enter a document name.");
+
+        return;
+
+    }
+
+
+    documentItem.name = name;
 
     documentItem.type =
-        document.getElementById(
-            "editDocumentType"
-        ).value;
-
+        document
+            .getElementById("editDocumentType")
+            .value;
 
     documentItem.date =
-        document.getElementById(
-            "editDocumentDate"
-        ).value;
-
+        document
+            .getElementById("editDocumentDate")
+            .value;
 
     documentItem.expiryDate =
-        document.getElementById(
-            "editDocumentExpiry"
-        ).value;
-
+        document
+            .getElementById("editDocumentExpiryDate")
+            .value;
 
     documentItem.amount =
-        parseFloat(
-            document.getElementById(
-                "editDocumentAmount"
-            ).value
-        ) || 0;
+        document
+            .getElementById("editDocumentAmount")
+            .value;
 
 
     /*
-     * Keep linked timeline event
-     * synchronized with document.
-     */
+        If this document already has a linked timeline event,
+        keep the event synchronized with the edited document.
+    */
 
-    const linkedEvent =
-        thing.events.find(
-            event =>
-                event.documentId ===
-                documentItem.id
-        );
+    if (Array.isArray(thing.events)) {
 
-
-    if (linkedEvent) {
-
-        linkedEvent.name =
-            documentItem.name;
-
-        linkedEvent.date =
-            documentItem.date;
-
-        linkedEvent.amount =
-            documentItem.amount;
+        const linkedEvent =
+            thing.events.find(event =>
+                String(event.documentId) ===
+                String(documentItem.id)
+            );
 
 
-        if (
-            documentItem.type ===
-            "Repair"
-        ) {
+        if (linkedEvent) {
+
+            linkedEvent.title =
+                documentItem.name;
+
             linkedEvent.type =
-                "Repair";
-        }
+                documentTypeToEventType(
+                    documentItem.type
+                );
 
-        else if (
-            documentItem.type ===
-            "Insurance"
-        ) {
-            linkedEvent.type =
-                "Insurance";
-        }
+            linkedEvent.date =
+                documentItem.date ||
+                linkedEvent.date;
 
-        else if (
-            documentItem.type ===
-            "Invoice"
-        ) {
-            linkedEvent.type =
-                "Expense";
-        }
+            linkedEvent.amount =
+                documentItem.amount;
 
-        else if (
-            documentItem.type ===
-            "Certificate"
-        ) {
-            linkedEvent.type =
-                "Inspection";
-        }
-
-        else if (
-            documentItem.type ===
-            "Tax"
-        ) {
-            linkedEvent.type =
-                "Expense";
-        }
-
-        else {
-            linkedEvent.type =
-                "Other";
         }
 
     }
@@ -2019,777 +2082,601 @@ function saveDocumentEdit() {
 
     saveThings();
 
-    showThing();
+    openThing(currentThingId);
 
-    showView(
-        "detailView"
-    );
 }
 
 
-/* =========================================================
-   DELETE DOCUMENT
-========================================================= */
-
-function deleteDocument() {
-
-    deleteDocumentDirect(
-        currentDocumentId
-    );
-}
-
-
-function deleteDocumentDirect(id) {
+function deleteDocument(thingId, documentId) {
 
     const thing =
-        things.find(
-            t => t.id === currentThingId
+        things.find(item =>
+            String(item.id) === String(thingId)
         );
+
 
     if (!thing) return;
 
 
     const documentItem =
-        thing.documents.find(
-            d => d.id === id
+        thing.documents.find(item =>
+            String(item.id) === String(documentId)
         );
+
 
     if (!documentItem) return;
 
 
-    const confirmed =
-        confirm(
-            "Delete this document?"
-        );
+    const confirmed = confirm(
+        `Delete "${documentItem.name}"?\n\nThis cannot be undone.`
+    );
 
 
     if (!confirmed) return;
 
 
-    /*
-     * The timeline event remains.
-     * Only the document is removed.
-     */
-
     thing.documents =
-        thing.documents.filter(
-            d => d.id !== id
+        thing.documents.filter(item =>
+            String(item.id) !== String(documentId)
         );
+
+
+    /*
+        Also remove any timeline event linked
+        specifically to this document.
+    */
+
+    if (Array.isArray(thing.events)) {
+
+        thing.events =
+            thing.events.filter(event =>
+                String(event.documentId) !==
+                String(documentId)
+            );
+
+    }
 
 
     saveThings();
 
-    showThing();
+    openThing(thingId);
 
-    showView(
-        "detailView"
-    );
 }
 
 
-/* =========================================================
-   ADD EVENT
-========================================================= */
+function showAddEvent(id) {
 
-function showAddEvent() {
+    currentThingId = id;
 
-    document.getElementById(
-        "eventName"
-    ).value = "";
+    document.getElementById("eventTitle").value = "";
 
-    document.getElementById(
-        "eventType"
-    ).value = "Purchase";
+    document.getElementById("eventType").value =
+        "Repair";
 
-    document.getElementById(
-        "eventDate"
-    ).value = "";
+    document.getElementById("eventDate").value =
+        new Date().toISOString().split("T")[0];
 
-    document.getElementById(
-        "eventAmount"
-    ).value = "";
+    document.getElementById("eventAmount").value = "";
 
 
-    showView(
-        "addEventView"
-    );
+    showView("addEventView");
+
 }
 
 
 function addEvent() {
 
     const thing =
-        things.find(
-            t => t.id === currentThingId
+        things.find(item =>
+            String(item.id) === String(currentThingId)
         );
+
 
     if (!thing) return;
 
 
-    const name =
-        document.getElementById(
-            "eventName"
-        ).value.trim();
+    const title =
+        document
+            .getElementById("eventTitle")
+            .value
+            .trim();
 
 
-    if (!name) {
+    if (!title) {
 
-        alert(
-            "Please enter a description."
+        alert("Please enter a description.");
+
+        return;
+
+    }
+
+
+    const date =
+        document
+            .getElementById("eventDate")
+            .value;
+
+
+    if (!date) {
+
+        alert("Please enter a date.");
+
+        return;
+
+    }
+
+
+    if (!Array.isArray(thing.events)) {
+
+        thing.events = [];
+
+    }
+
+
+    thing.events.push({
+
+        id: Date.now() + Math.random(),
+
+        title: title,
+
+        type:
+            document
+                .getElementById("eventType")
+                .value,
+
+        date: date,
+
+        amount:
+            document
+                .getElementById("eventAmount")
+                .value,
+
+        documentId: null
+
+    });
+
+
+    saveThings();
+
+    openThing(currentThingId);
+
+}
+
+
+function deleteEvent(thingId, eventId) {
+
+    const thing =
+        things.find(item =>
+            String(item.id) === String(thingId)
         );
 
+
+    if (!thing || !Array.isArray(thing.events)) {
         return;
     }
 
 
-    const timelineEvent = {
-
-        id:
-            Date.now().toString() +
-            Math.random().toString(36).slice(2),
-
-        name: name,
-
-        type:
-            document.getElementById(
-                "eventType"
-            ).value,
-
-        date:
-            document.getElementById(
-                "eventDate"
-            ).value,
-
-        amount:
-            parseFloat(
-                document.getElementById(
-                    "eventAmount"
-                ).value
-            ) || 0,
-
-        documentId: null
-
-    };
+    const event =
+        thing.events.find(item =>
+            String(item.id) === String(eventId)
+        );
 
 
-    thing.events.push(
-        timelineEvent
+    if (!event) return;
+
+
+    const confirmed = confirm(
+        `Delete "${event.title}" from the timeline?\n\nThis will not delete the document.`
     );
-
-
-    saveThings();
-
-    showThing();
-
-    showView(
-        "detailView"
-    );
-}
-
-
-/* =========================================================
-   EDIT EVENT
-========================================================= */
-
-function editEvent(id) {
-
-    currentEventId = id;
-
-
-    const thing =
-        things.find(
-            t => t.id === currentThingId
-        );
-
-    if (!thing) return;
-
-
-    const timelineEvent =
-        thing.events.find(
-            e => e.id === id
-        );
-
-    if (!timelineEvent) return;
-
-
-    document.getElementById(
-        "editEventName"
-    ).value =
-        timelineEvent.name || "";
-
-
-    document.getElementById(
-        "editEventType"
-    ).value =
-        timelineEvent.type || "Other";
-
-
-    document.getElementById(
-        "editEventDate"
-    ).value =
-        timelineEvent.date || "";
-
-
-    document.getElementById(
-        "editEventAmount"
-    ).value =
-        timelineEvent.amount || "";
-
-
-    showView(
-        "editEventView"
-    );
-}
-
-
-function saveEventEdit() {
-
-    const thing =
-        things.find(
-            t => t.id === currentThingId
-        );
-
-    if (!thing) return;
-
-
-    const timelineEvent =
-        thing.events.find(
-            e => e.id === currentEventId
-        );
-
-    if (!timelineEvent) return;
-
-
-    timelineEvent.name =
-        document.getElementById(
-            "editEventName"
-        ).value.trim();
-
-
-    timelineEvent.type =
-        document.getElementById(
-            "editEventType"
-        ).value;
-
-
-    timelineEvent.date =
-        document.getElementById(
-            "editEventDate"
-        ).value;
-
-
-    timelineEvent.amount =
-        parseFloat(
-            document.getElementById(
-                "editEventAmount"
-            ).value
-        ) || 0;
-
-
-    saveThings();
-
-    showThing();
-
-    showView(
-        "detailView"
-    );
-}
-
-
-/* =========================================================
-   DELETE EVENT
-========================================================= */
-
-function deleteEvent() {
-
-    deleteEventDirect(
-        currentEventId
-    );
-}
-
-
-function deleteEventDirect(id) {
-
-    const thing =
-        things.find(
-            t => t.id === currentThingId
-        );
-
-    if (!thing) return;
-
-
-    const timelineEvent =
-        thing.events.find(
-            e => e.id === id
-        );
-
-    if (!timelineEvent) return;
-
-
-    const confirmed =
-        confirm(
-            "Delete this event?"
-        );
 
 
     if (!confirmed) return;
 
 
     thing.events =
-        thing.events.filter(
-            e => e.id !== id
+        thing.events.filter(item =>
+            String(item.id) !== String(eventId)
         );
 
 
     saveThings();
 
-    showThing();
+    openThing(thingId);
 
-    showView(
-        "detailView"
-    );
 }
 
 
-/* =========================================================
-   EDIT THING
-========================================================= */
+function editThing(id) {
 
-function editThing() {
+    currentThingId = id;
+
 
     const thing =
-        things.find(
-            t => t.id === currentThingId
+        things.find(item =>
+            String(item.id) === String(id)
         );
+
 
     if (!thing) return;
 
 
-    document.getElementById(
-        "editThingName"
-    ).value =
-        thing.name || "";
+    document.getElementById("editThingName").value =
+        thing.name;
+
+    document.getElementById("editThingCategory").value =
+        thing.category;
+
+    document.getElementById("editPurchaseDate").value =
+        thing.purchaseDate;
+
+    document.getElementById("editPurchasePrice").value =
+        thing.purchasePrice;
+
+    document.getElementById("editCurrentValue").value =
+        thing.currentValue;
 
 
-    document.getElementById(
-        "editThingCategory"
-    ).value =
-        thing.category || "Other";
+    showView("editView");
 
-
-    document.getElementById(
-        "editPurchaseDate"
-    ).value =
-        thing.purchaseDate || "";
-
-
-    document.getElementById(
-        "editPurchasePrice"
-    ).value =
-        thing.purchasePrice || "";
-
-
-    document.getElementById(
-        "editCurrentValue"
-    ).value =
-        thing.currentValue || "";
-
-
-    showView(
-        "editThingView"
-    );
 }
 
 
 function saveEdit() {
 
     const thing =
-        things.find(
-            t => t.id === currentThingId
+        things.find(item =>
+            String(item.id) === String(currentThingId)
         );
+
 
     if (!thing) return;
 
 
     const name =
-        document.getElementById(
-            "editThingName"
-        ).value.trim();
+        document
+            .getElementById("editThingName")
+            .value
+            .trim();
 
 
     if (!name) {
 
-        alert(
-            "Please enter a name."
-        );
+        alert("Please enter a name.");
 
         return;
+
     }
 
 
     thing.name = name;
 
-
     thing.category =
-        document.getElementById(
-            "editThingCategory"
-        ).value;
-
+        document
+            .getElementById("editThingCategory")
+            .value;
 
     thing.purchaseDate =
-        document.getElementById(
-            "editPurchaseDate"
-        ).value;
-
+        document
+            .getElementById("editPurchaseDate")
+            .value;
 
     thing.purchasePrice =
-        parseFloat(
-            document.getElementById(
-                "editPurchasePrice"
-            ).value
-        ) || 0;
-
+        document
+            .getElementById("editPurchasePrice")
+            .value;
 
     thing.currentValue =
-        parseFloat(
-            document.getElementById(
-                "editCurrentValue"
-            ).value
-        ) || 0;
+        document
+            .getElementById("editCurrentValue")
+            .value;
 
 
     saveThings();
 
-    showThing();
+    openThing(currentThingId);
 
-    showView(
-        "detailView"
-    );
 }
 
 
-function backToThing() {
-
-    showThing();
-
-    showView(
-        "detailView"
-    );
-}
-
-
-/* =========================================================
-   DELETE THING
-========================================================= */
-
-function deleteThing() {
+function deleteThing(id) {
 
     const thing =
-        things.find(
-            t => t.id === currentThingId
+        things.find(item =>
+            String(item.id) === String(id)
         );
+
 
     if (!thing) return;
 
 
-    const confirmed =
-        confirm(
-            "Delete " +
-            thing.name +
-            " and all its data?"
-        );
+    const confirmed = confirm(
+        `Delete "${thing.name}"?\n\nThis cannot be undone.`
+    );
 
 
     if (!confirmed) return;
 
 
     things =
-        things.filter(
-            t => t.id !== currentThingId
+        things.filter(item =>
+            String(item.id) !== String(id)
         );
 
 
     saveThings();
 
     showHome();
+
 }
 
 
-/* =========================================================
-   EXPIRING SOON
-========================================================= */
+function showThing(id) {
+
+    openThing(id);
+
+}
+
 
 function renderExpiringSoon() {
 
     const container =
-        document.getElementById(
-            "expiringSoon"
-        );
+        document.getElementById("expiringSoon");
 
 
-    const today =
-        new Date();
-
-    today.setHours(
-        0,
-        0,
-        0,
-        0
-    );
+    if (!container) return;
 
 
-    const limit =
-        new Date(today);
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+
+    const limit = new Date(today);
 
     limit.setDate(
         limit.getDate() + 30
     );
 
 
-    const items = [];
+    const expiringDocuments = [];
 
 
     things.forEach(thing => {
 
-        (thing.documents || [])
-            .forEach(doc => {
-
-                if (!doc.expiryDate) {
-                    return;
-                }
+        if (!Array.isArray(thing.documents)) {
+            return;
+        }
 
 
-                const expiry =
-                    new Date(
-                        doc.expiryDate +
-                        "T00:00:00"
-                    );
+        thing.documents.forEach(documentItem => {
+
+            if (!documentItem.expiryDate) {
+                return;
+            }
 
 
-                if (
-                    expiry <= limit
-                ) {
+            const expiry =
+                new Date(
+                    documentItem.expiryDate + "T00:00:00"
+                );
 
-                    items.push({
-                        thing,
-                        doc,
-                        expiry
-                    });
 
-                }
+            if (expiry <= limit) {
 
-            });
+                expiringDocuments.push({
+
+                    thingId: thing.id,
+
+                    thingName: thing.name,
+
+                    documentId: documentItem.id,
+
+                    documentName: documentItem.name,
+
+                    expiryDate: expiry,
+
+                    type: documentItem.type
+
+                });
+
+            }
+
+        });
 
     });
 
 
-    items.sort(
+    expiringDocuments.sort(
         (a, b) =>
-            a.expiry - b.expiry
+            a.expiryDate - b.expiryDate
     );
 
 
-    if (!items.length) {
+    if (expiringDocuments.length === 0) {
 
         container.innerHTML = `
-            <div class="empty">
-                Nothing expiring in the next 30 days.
+
+            <div class="card empty">
+
+                Nothing expiring soon 🎉
+
             </div>
+
         `;
 
         return;
+
     }
 
 
     container.innerHTML =
-        items
-            .map(item => {
+        expiringDocuments.map(item => {
+
+            const diff =
+                Math.ceil(
+                    (
+                        item.expiryDate - today
+                    ) /
+                    (
+                        1000 *
+                        60 *
+                        60 *
+                        24
+                    )
+                );
+
+
+            let statusText;
+
+            let statusClass;
+
+
+            if (diff < 0) {
 
                 const days =
-                    Math.round(
-                        (
-                            item.expiry -
-                            today
-                        ) /
-                        (
-                            1000 *
-                            60 *
-                            60 *
-                            24
-                        )
-                    );
+                    Math.abs(diff);
+
+                statusText =
+                    `Expired ${days} day${days === 1 ? "" : "s"} ago`;
+
+                statusClass =
+                    "expired";
+
+            } else if (diff === 0) {
+
+                statusText =
+                    "Expires today";
+
+                statusClass =
+                    "expires-today";
+
+            } else {
+
+                statusText =
+                    `Expires in ${diff} day${diff === 1 ? "" : "s"}`;
+
+                statusClass =
+                    "expiring-soon";
+
+            }
 
 
-                let status = "";
-                let statusClass = "";
+            return `
+
+                <div
+                    class="expiring-card ${statusClass}"
+                    onclick="openThing('${item.thingId}')"
+                >
+
+                    <div class="expiring-icon">
+
+                        ${
+                            documentIcons[item.type]
+                            || "📄"
+                        }
+
+                    </div>
 
 
-                if (days < 0) {
+                    <div class="expiring-info">
 
-                    const absoluteDays =
-                        Math.abs(days);
+                        <div class="expiring-document">
 
+                            ${
+                                escapeHtml(
+                                    item.documentName
+                                )
+                            }
 
-                    status =
-                        "Expired " +
-                        absoluteDays +
-                        (
-                            absoluteDays === 1
-                                ? " day ago"
-                                : " days ago"
-                        );
-
-
-                    statusClass =
-                        "expired";
-
-                }
-
-                else if (days === 0) {
-
-                    status =
-                        "Expires today";
-
-                    statusClass =
-                        "expired";
-
-                }
-
-                else {
-
-                    status =
-                        "Expires in " +
-                        days +
-                        (
-                            days === 1
-                                ? " day"
-                                : " days"
-                        );
-
-                    statusClass =
-                        "expiring-soon";
-
-                }
-
-
-                const icon =
-                    documentIcons[
-                        item.doc.type
-                    ] || "📄";
-
-
-                return `
-                    <div
-                        class="expiring-card"
-                        onclick="
-                            openThing('${item.thing.id}')
-                        ">
-
-                        <div class="expiring-icon">
-                            ${icon}
                         </div>
 
-                        <div>
 
-                            <div class="expiring-name">
-                                ${escapeHtml(
-                                    item.doc.name
-                                )}
-                            </div>
+                        <div class="expiring-thing">
 
-                            <div class="expiring-meta">
-                                ${escapeHtml(
-                                    item.thing.name
-                                )}
-                                ·
-                                ${formatDate(
-                                    item.doc.expiryDate
-                                )}
-                            </div>
+                            ${
+                                escapeHtml(
+                                    item.thingName
+                                )
+                            }
 
-                            <div class="${statusClass}">
-                                ${status}
-                            </div>
+                        </div>
+
+
+                        <div class="expiring-status">
+
+                            ${statusText}
 
                         </div>
 
                     </div>
-                `;
 
-            })
-            .join("");
+
+                    <div class="expiring-date">
+
+                        ${
+                            formatDate(
+                                item.expiryDate
+                                    .toISOString()
+                                    .split("T")[0]
+                            )
+                        }
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
 }
 
 
-/* =========================================================
-   FORMATTING
-========================================================= */
-
 function formatDate(dateString) {
 
-    if (!dateString) {
-        return "";
+    const parts =
+        dateString.split("-");
+
+
+    if (parts.length !== 3) {
+        return dateString;
     }
 
 
-    const date =
-        new Date(
-            dateString +
-            "T00:00:00"
-        );
+    return `
+        ${parts[2]}/${parts[1]}/${parts[0]}
+    `;
 
-
-    return date.toLocaleDateString(
-        "en-GB"
-    );
 }
 
 
 function formatMoney(value) {
 
     return new Intl.NumberFormat(
-        "en-IE",
+        "pt-PT",
         {
             style: "currency",
             currency: "EUR"
         }
-    ).format(value);
+    ).format(Number(value));
+
 }
 
 
 function escapeHtml(value) {
 
-    return String(
-        value || ""
-    )
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
 }
 
 
-/* =========================================================
-   INITIAL RENDER
-========================================================= */
-
 renderThings();
+
 renderExpiringSoon();
 
 </script>
