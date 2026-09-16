@@ -136,13 +136,30 @@ button {
     margin-top: 18px;
 }
 
+.document-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.edit-document-button,
 .delete-document-button {
     width: auto;
-    padding: 8px 12px;
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+.edit-document-button {
+    background: #eee;
+    color: #111;
+}
+
+.delete-document-button {
     background: #f5f5f5;
     color: #b00020;
-    font-size: 13px;
-    margin-top: 10px;
+    border: 1px solid #ddd;
 }
 
 input,
@@ -320,19 +337,15 @@ label {
                 placeholder="e.g. Audi A1"
             >
 
-
             <label for="thingCategory">Category</label>
 
             <select id="thingCategory">
-
                 <option value="Home">Home</option>
                 <option value="Vehicle">Vehicle</option>
                 <option value="Electronics">Electronics</option>
                 <option value="Appliance">Appliance</option>
                 <option value="Other">Other</option>
-
             </select>
-
 
             <label for="purchaseDate">Purchase date</label>
 
@@ -340,7 +353,6 @@ label {
                 id="purchaseDate"
                 type="date"
             >
-
 
             <label for="purchasePrice">Purchase price (€)</label>
 
@@ -351,7 +363,6 @@ label {
                 placeholder="0.00"
             >
 
-
             <label for="currentValue">Current value (€)</label>
 
             <input
@@ -360,7 +371,6 @@ label {
                 step="0.01"
                 placeholder="0.00"
             >
-
 
             <button
                 class="primary-button"
@@ -402,24 +412,19 @@ label {
 
             <input id="editThingName" type="text">
 
-
             <label for="editThingCategory">Category</label>
 
             <select id="editThingCategory">
-
                 <option value="Home">Home</option>
                 <option value="Vehicle">Vehicle</option>
                 <option value="Electronics">Electronics</option>
                 <option value="Appliance">Appliance</option>
                 <option value="Other">Other</option>
-
             </select>
-
 
             <label for="editPurchaseDate">Purchase date</label>
 
             <input id="editPurchaseDate" type="date">
-
 
             <label for="editPurchasePrice">Purchase price (€)</label>
 
@@ -429,7 +434,6 @@ label {
                 step="0.01"
             >
 
-
             <label for="editCurrentValue">Current value (€)</label>
 
             <input
@@ -437,7 +441,6 @@ label {
                 type="number"
                 step="0.01"
             >
-
 
             <button
                 class="primary-button"
@@ -476,13 +479,11 @@ label {
                 placeholder="e.g. Car insurance"
             >
 
-
             <label for="documentType">
                 Type
             </label>
 
             <select id="documentType">
-
                 <option value="Invoice">Invoice</option>
                 <option value="Contract">Contract</option>
                 <option value="Insurance">Insurance</option>
@@ -491,9 +492,7 @@ label {
                 <option value="Certificate">Certificate</option>
                 <option value="Repair">Repair</option>
                 <option value="Other">Other</option>
-
             </select>
-
 
             <label for="documentDate">
                 Date
@@ -504,7 +503,6 @@ label {
                 type="date"
             >
 
-
             <label for="documentExpiryDate">
                 Expiry date
             </label>
@@ -513,7 +511,6 @@ label {
                 id="documentExpiryDate"
                 type="date"
             >
-
 
             <label for="documentAmount">
                 Amount (€)
@@ -526,13 +523,91 @@ label {
                 placeholder="Optional"
             >
 
-
             <button
                 class="primary-button"
                 onclick="addDocument()"
                 style="margin-top:20px;"
             >
                 Save Document
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- EDIT DOCUMENT -->
+    <div id="editDocumentView" class="hidden">
+
+        <button
+            class="back-button"
+            onclick="showThing(currentThingId)"
+        >
+            ← Back
+        </button>
+
+        <h2>Edit Document</h2>
+
+        <div class="card">
+
+            <label for="editDocumentName">
+                Name
+            </label>
+
+            <input
+                id="editDocumentName"
+                type="text"
+            >
+
+            <label for="editDocumentType">
+                Type
+            </label>
+
+            <select id="editDocumentType">
+                <option value="Invoice">Invoice</option>
+                <option value="Contract">Contract</option>
+                <option value="Insurance">Insurance</option>
+                <option value="Warranty">Warranty</option>
+                <option value="Tax">Tax</option>
+                <option value="Certificate">Certificate</option>
+                <option value="Repair">Repair</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="editDocumentDate">
+                Date
+            </label>
+
+            <input
+                id="editDocumentDate"
+                type="date"
+            >
+
+            <label for="editDocumentExpiryDate">
+                Expiry date
+            </label>
+
+            <input
+                id="editDocumentExpiryDate"
+                type="date"
+            >
+
+            <label for="editDocumentAmount">
+                Amount (€)
+            </label>
+
+            <input
+                id="editDocumentAmount"
+                type="number"
+                step="0.01"
+            >
+
+            <button
+                class="primary-button"
+                onclick="saveDocumentEdit()"
+                style="margin-top:20px;"
+            >
+                Save Changes
             </button>
 
         </div>
@@ -574,11 +649,6 @@ let things = JSON.parse(
 );
 
 
-/*
-    Migration:
-    Make sure every Thing has a documents array.
-*/
-
 things = things.map(thing => {
 
     return {
@@ -609,6 +679,8 @@ saveThings();
 
 let currentThingId = null;
 
+let currentDocumentId = null;
+
 
 function saveThings() {
 
@@ -628,7 +700,8 @@ function showView(viewId) {
         "addView",
         "detailView",
         "editView",
-        "addDocumentView"
+        "addDocumentView",
+        "editDocumentView"
 
     ];
 
@@ -652,6 +725,8 @@ function showView(viewId) {
 function showHome() {
 
     currentThingId = null;
+
+    currentDocumentId = null;
 
     renderThings();
 
@@ -829,9 +904,11 @@ function openThing(id) {
 
         documentsHtml = `
 
-            <div class="placeholder">
+            <div class="card">
 
-                No documents yet.
+                <div class="placeholder">
+                    No documents yet.
+                </div>
 
             </div>
 
@@ -920,15 +997,30 @@ function openThing(id) {
                         }
 
 
-                        <button
-                            class="delete-document-button"
-                            onclick="deleteDocument(
-                                '${thing.id}',
-                                '${document.id}'
-                            )"
-                        >
-                            Delete
-                        </button>
+                        <div class="document-actions">
+
+                            <button
+                                class="edit-document-button"
+                                onclick="editDocument(
+                                    '${thing.id}',
+                                    '${document.id}'
+                                )"
+                            >
+                                ✏️ Edit
+                            </button>
+
+
+                            <button
+                                class="delete-document-button"
+                                onclick="deleteDocument(
+                                    '${thing.id}',
+                                    '${document.id}'
+                                )"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
 
                     </div>
 
@@ -1087,6 +1179,8 @@ function showAddDocument(id) {
 
     currentThingId = id;
 
+    currentDocumentId = null;
+
 
     document.getElementById("documentName").value = "";
 
@@ -1170,16 +1264,19 @@ function addDocument() {
 
     thing.documents.push(documentItem);
 
-
     saveThings();
-
 
     openThing(currentThingId);
 
 }
 
 
-function deleteDocument(thingId, documentId) {
+function editDocument(thingId, documentId) {
+
+    currentThingId = thingId;
+
+    currentDocumentId = documentId;
+
 
     const thing =
         things.find(item =>
@@ -1199,8 +1296,115 @@ function deleteDocument(thingId, documentId) {
     if (!document) return;
 
 
+    document.getElementById("editDocumentName").value =
+        document.name;
+
+    document.getElementById("editDocumentType").value =
+        document.type;
+
+    document.getElementById("editDocumentDate").value =
+        document.date;
+
+    document.getElementById("editDocumentExpiryDate").value =
+        document.expiryDate;
+
+    document.getElementById("editDocumentAmount").value =
+        document.amount;
+
+
+    showView("editDocumentView");
+
+}
+
+
+function saveDocumentEdit() {
+
+    const thing =
+        things.find(item =>
+            String(item.id) === String(currentThingId)
+        );
+
+
+    if (!thing) return;
+
+
+    const documentItem =
+        thing.documents.find(item =>
+            String(item.id) === String(currentDocumentId)
+        );
+
+
+    if (!documentItem) return;
+
+
+    const name =
+        document
+            .getElementById("editDocumentName")
+            .value
+            .trim();
+
+
+    if (!name) {
+
+        alert("Please enter a document name.");
+
+        return;
+
+    }
+
+
+    documentItem.name = name;
+
+    documentItem.type =
+        document
+            .getElementById("editDocumentType")
+            .value;
+
+    documentItem.date =
+        document
+            .getElementById("editDocumentDate")
+            .value;
+
+    documentItem.expiryDate =
+        document
+            .getElementById("editDocumentExpiryDate")
+            .value;
+
+    documentItem.amount =
+        document
+            .getElementById("editDocumentAmount")
+            .value;
+
+
+    saveThings();
+
+    openThing(currentThingId);
+
+}
+
+
+function deleteDocument(thingId, documentId) {
+
+    const thing =
+        things.find(item =>
+            String(item.id) === String(thingId)
+        );
+
+
+    if (!thing) return;
+
+
+    const documentItem =
+        thing.documents.find(item =>
+            String(item.id) === String(documentId)
+        );
+
+
+    if (!documentItem) return;
+
+
     const confirmed = confirm(
-        `Delete "${document.name}"?\n\nThis cannot be undone.`
+        `Delete "${documentItem.name}"?\n\nThis cannot be undone.`
     );
 
 
@@ -1214,7 +1418,6 @@ function deleteDocument(thingId, documentId) {
 
 
     saveThings();
-
 
     openThing(thingId);
 
