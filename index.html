@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -38,6 +39,8 @@
             padding: 28px 20px 40px;
         }
 
+        /* BRAND */
+
         .brand {
             margin-bottom: 32px;
         }
@@ -53,6 +56,8 @@
             font-size: 15px;
             color: #777;
         }
+
+        /* BUTTONS */
 
         .add-button {
             width: 100%;
@@ -71,6 +76,18 @@
             transform: scale(0.98);
         }
 
+        .back-button {
+            border: 0;
+            background: transparent;
+            padding: 0;
+            margin-bottom: 24px;
+            color: #555;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        /* SECTIONS */
+
         .section-title {
             font-size: 13px;
             font-weight: 600;
@@ -79,6 +96,8 @@
             letter-spacing: 0.8px;
             margin-bottom: 12px;
         }
+
+        /* THINGS */
 
         .things {
             display: flex;
@@ -97,6 +116,12 @@
 
             box-shadow:
                 0 1px 3px rgba(0,0,0,0.04);
+
+            cursor: pointer;
+        }
+
+        .thing:active {
+            transform: scale(0.99);
         }
 
         .thing-icon {
@@ -129,18 +154,12 @@
             color: #888;
         }
 
-        .delete-button {
-            border: 0;
-            background: transparent;
+        .arrow {
             color: #aaa;
-            font-size: 18px;
-            padding: 8px;
-            cursor: pointer;
+            font-size: 22px;
         }
 
-        .delete-button:active {
-            color: #111;
-        }
+        /* EMPTY */
 
         .empty {
             background: white;
@@ -246,126 +265,222 @@
             color: white;
         }
 
+        /* DETAIL */
+
+        .detail-header {
+            background: white;
+            border-radius: 20px;
+            padding: 24px 20px;
+            margin-bottom: 24px;
+            text-align: center;
+
+            box-shadow:
+                0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .detail-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            background: #f0f0f0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 34px;
+
+            margin: 0 auto 14px;
+        }
+
+        .detail-name {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .detail-category {
+            margin-top: 5px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .detail-card {
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+
+        .detail-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .coming-soon {
+            color: #999;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* VIEWS */
+
+        #homeView {
+            display: block;
+        }
+
+        #detailView {
+            display: none;
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
 <div class="app">
 
-    <header class="brand">
 
-        <div class="brand-name">
-            Coisable
-        </div>
+    <!-- HOME VIEW -->
 
-        <div class="tagline">
-            Your things. One place.
-        </div>
+    <div id="homeView">
 
-    </header>
+        <header class="brand">
 
+            <div class="brand-name">
+                Coisable
+            </div>
 
-    <!-- ADD BUTTON -->
+            <div class="tagline">
+                Your things. One place.
+            </div>
 
-    <button
-        class="add-button"
-        onclick="showForm()">
-
-        + Add Thing
-
-    </button>
+        </header>
 
 
-    <!-- FORM -->
+        <button
+            class="add-button"
+            onclick="showForm()">
 
-    <div
-        id="form"
-        class="form">
+            + Add Thing
 
-        <div class="form-title">
-            Add Thing
-        </div>
+        </button>
 
 
-        <div class="field">
+        <!-- ADD FORM -->
 
-            <label for="thingName">
-                Name
-            </label>
+        <div
+            id="form"
+            class="form">
 
-            <input
-                id="thingName"
-                type="text"
-                placeholder="e.g. Mazda MX-5">
-
-        </div>
-
-
-        <div class="field">
-
-            <label for="thingCategory">
-                Category
-            </label>
-
-            <select id="thingCategory">
-
-                <option value="Home">
-                    🏠 Home
-                </option>
-
-                <option value="Vehicle">
-                    🚗 Vehicle
-                </option>
-
-                <option value="Electronics">
-                    📱 Electronics
-                </option>
-
-                <option value="Appliance">
-                    🔌 Appliance
-                </option>
-
-                <option value="Other">
-                    📦 Other
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div class="form-buttons">
-
-            <button
-                class="cancel-button"
-                onclick="hideForm()">
-
-                Cancel
-
-            </button>
-
-            <button
-                class="save-button"
-                onclick="addThing()">
-
+            <div class="form-title">
                 Add Thing
+            </div>
 
-            </button>
 
+            <div class="field">
+
+                <label for="thingName">
+                    Name
+                </label>
+
+                <input
+                    id="thingName"
+                    type="text"
+                    placeholder="e.g. Mazda MX-5">
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="thingCategory">
+                    Category
+                </label>
+
+                <select id="thingCategory">
+
+                    <option value="Home">
+                        🏠 Home
+                    </option>
+
+                    <option value="Vehicle">
+                        🚗 Vehicle
+                    </option>
+
+                    <option value="Electronics">
+                        📱 Electronics
+                    </option>
+
+                    <option value="Appliance">
+                        🔌 Appliance
+                    </option>
+
+                    <option value="Other">
+                        📦 Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-buttons">
+
+                <button
+                    class="cancel-button"
+                    onclick="hideForm()">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    class="save-button"
+                    onclick="addThing()">
+
+                    Add Thing
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="section-title">
+            My Things
+        </div>
+
+
+        <div
+            id="things"
+            class="things">
         </div>
 
     </div>
 
 
-    <div class="section-title">
-        My Things
-    </div>
+    <!-- DETAIL VIEW -->
+
+    <div id="detailView">
+
+        <button
+            class="back-button"
+            onclick="showHome()">
+
+            ← Back
+
+        </button>
 
 
-    <div
-        id="things"
-        class="things">
+        <div
+            id="detailContent">
+        </div>
+
     </div>
 
 
@@ -375,11 +490,17 @@
 <script>
 
     const categoryIcons = {
+
         Home: "🏠",
+
         Vehicle: "🚗",
+
         Electronics: "📱",
+
         Appliance: "🔌",
+
         Other: "📦"
+
     };
 
 
@@ -432,33 +553,41 @@
 
 
         container.innerHTML =
+
             things.map((thing, index) => `
 
-                <div class="thing">
+                <div
+                    class="thing"
+                    onclick="openThing(${index})">
 
                     <div class="thing-icon">
-                        ${categoryIcons[thing.category] || "📦"}
+
+                        ${
+                            categoryIcons[thing.category]
+                            || "📦"
+                        }
+
                     </div>
 
                     <div class="thing-info">
 
                         <div class="thing-name">
+
                             ${escapeHtml(thing.name)}
+
                         </div>
 
                         <div class="thing-category">
+
                             ${thing.category}
+
                         </div>
 
                     </div>
 
-                    <button
-                        class="delete-button"
-                        onclick="deleteThing(${index})">
-
-                        ×
-
-                    </button>
+                    <div class="arrow">
+                        ›
+                    </div>
 
                 </div>
 
@@ -496,6 +625,7 @@
     function addThing() {
 
         const name =
+
             document
                 .getElementById("thingName")
                 .value
@@ -503,6 +633,7 @@
 
 
         const category =
+
             document
                 .getElementById("thingCategory")
                 .value;
@@ -510,7 +641,9 @@
 
         if (!name) {
 
-            alert("Please enter a name.");
+            alert(
+                "Please enter a name."
+            );
 
             return;
         }
@@ -534,22 +667,117 @@
     }
 
 
-    function deleteThing(index) {
+    function openThing(index) {
 
-        const confirmed =
-            confirm(
-                "Delete this thing?"
-            );
+        const thing = things[index];
 
-
-        if (!confirmed) {
+        if (!thing) {
             return;
         }
 
 
-        things.splice(index, 1);
+        document
+            .getElementById("homeView")
+            .style.display = "none";
 
-        saveThings();
+
+        document
+            .getElementById("detailView")
+            .style.display = "block";
+
+
+        document
+            .getElementById("detailContent")
+            .innerHTML = `
+
+                <div class="detail-header">
+
+                    <div class="detail-icon">
+
+                        ${
+                            categoryIcons[thing.category]
+                            || "📦"
+                        }
+
+                    </div>
+
+                    <div class="detail-name">
+
+                        ${escapeHtml(thing.name)}
+
+                    </div>
+
+                    <div class="detail-category">
+
+                        ${thing.category}
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <div class="detail-card-title">
+                        Details
+                    </div>
+
+                    <div class="coming-soon">
+
+                        More information about this
+                        thing will appear here.
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <div class="detail-card-title">
+                        Documents
+                    </div>
+
+                    <div class="coming-soon">
+
+                        Documents will live here.
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <div class="detail-card-title">
+                        History
+                    </div>
+
+                    <div class="coming-soon">
+
+                        Repairs, maintenance and
+                        other events will appear here.
+
+                    </div>
+
+                </div>
+
+            `;
+
+    }
+
+
+    function showHome() {
+
+        document
+            .getElementById("detailView")
+            .style.display = "none";
+
+
+        document
+            .getElementById("homeView")
+            .style.display = "block";
+
 
         renderThings();
 
