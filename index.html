@@ -289,6 +289,72 @@ label {
     padding: 4px 0;
 }
 
+/* EXPIRING SOON */
+
+.expiring-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    cursor: pointer;
+}
+
+.expiring-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.expiring-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.expiring-document {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.expiring-thing {
+    font-size: 13px;
+    color: #777;
+    margin-top: 3px;
+}
+
+.expiring-status {
+    font-size: 13px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+.expiring-date {
+    font-size: 12px;
+    color: #777;
+    white-space: nowrap;
+}
+
+.expired .expiring-status {
+    color: #b00020;
+}
+
+.expires-today .expiring-status {
+    color: #b00020;
+}
+
+.expiring-soon .expiring-status {
+    color: #8a6500;
+}
+
 .hidden {
     display: none;
 }
@@ -305,15 +371,31 @@ label {
     <div id="homeView">
 
         <h1>Coisable</h1>
-        <p class="subtitle">Your things. One place.</p>
 
-        <button class="primary-button" onclick="showAddForm()">
+        <p class="subtitle">
+            Your things. One place.
+        </p>
+
+        <button
+            class="primary-button"
+            onclick="showAddForm()"
+        >
             + Add Thing
         </button>
 
-        <h2 class="section-title">Your Things</h2>
+
+        <h2 class="section-title">
+            Your Things
+        </h2>
 
         <div id="thingsList"></div>
+
+
+        <h2 class="section-title">
+            Expiring Soon
+        </h2>
+
+        <div id="expiringSoon"></div>
 
     </div>
 
@@ -321,7 +403,10 @@ label {
     <!-- ADD THING -->
     <div id="addView" class="hidden">
 
-        <button class="back-button" onclick="showHome()">
+        <button
+            class="back-button"
+            onclick="showHome()"
+        >
             ← Back
         </button>
 
@@ -329,7 +414,9 @@ label {
 
         <div class="card">
 
-            <label for="thingName">Name</label>
+            <label for="thingName">
+                Name
+            </label>
 
             <input
                 id="thingName"
@@ -337,24 +424,49 @@ label {
                 placeholder="e.g. Audi A1"
             >
 
-            <label for="thingCategory">Category</label>
+
+            <label for="thingCategory">
+                Category
+            </label>
 
             <select id="thingCategory">
-                <option value="Home">Home</option>
-                <option value="Vehicle">Vehicle</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Appliance">Appliance</option>
-                <option value="Other">Other</option>
+
+                <option value="Home">
+                    Home
+                </option>
+
+                <option value="Vehicle">
+                    Vehicle
+                </option>
+
+                <option value="Electronics">
+                    Electronics
+                </option>
+
+                <option value="Appliance">
+                    Appliance
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
             </select>
 
-            <label for="purchaseDate">Purchase date</label>
+
+            <label for="purchaseDate">
+                Purchase date
+            </label>
 
             <input
                 id="purchaseDate"
                 type="date"
             >
 
-            <label for="purchasePrice">Purchase price (€)</label>
+
+            <label for="purchasePrice">
+                Purchase price (€)
+            </label>
 
             <input
                 id="purchasePrice"
@@ -363,7 +475,10 @@ label {
                 placeholder="0.00"
             >
 
-            <label for="currentValue">Current value (€)</label>
+
+            <label for="currentValue">
+                Current value (€)
+            </label>
 
             <input
                 id="currentValue"
@@ -371,6 +486,7 @@ label {
                 step="0.01"
                 placeholder="0.00"
             >
+
 
             <button
                 class="primary-button"
@@ -388,7 +504,10 @@ label {
     <!-- DETAIL -->
     <div id="detailView" class="hidden">
 
-        <button class="back-button" onclick="showHome()">
+        <button
+            class="back-button"
+            onclick="showHome()"
+        >
             ← Back
         </button>
 
@@ -400,7 +519,10 @@ label {
     <!-- EDIT THING -->
     <div id="editView" class="hidden">
 
-        <button class="back-button" onclick="showThing(currentThingId)">
+        <button
+            class="back-button"
+            onclick="showThing(currentThingId)"
+        >
             ← Back
         </button>
 
@@ -408,25 +530,58 @@ label {
 
         <div class="card">
 
-            <label for="editThingName">Name</label>
+            <label for="editThingName">
+                Name
+            </label>
 
-            <input id="editThingName" type="text">
+            <input
+                id="editThingName"
+                type="text"
+            >
 
-            <label for="editThingCategory">Category</label>
+
+            <label for="editThingCategory">
+                Category
+            </label>
 
             <select id="editThingCategory">
-                <option value="Home">Home</option>
-                <option value="Vehicle">Vehicle</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Appliance">Appliance</option>
-                <option value="Other">Other</option>
+
+                <option value="Home">
+                    Home
+                </option>
+
+                <option value="Vehicle">
+                    Vehicle
+                </option>
+
+                <option value="Electronics">
+                    Electronics
+                </option>
+
+                <option value="Appliance">
+                    Appliance
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
             </select>
 
-            <label for="editPurchaseDate">Purchase date</label>
 
-            <input id="editPurchaseDate" type="date">
+            <label for="editPurchaseDate">
+                Purchase date
+            </label>
 
-            <label for="editPurchasePrice">Purchase price (€)</label>
+            <input
+                id="editPurchaseDate"
+                type="date"
+            >
+
+
+            <label for="editPurchasePrice">
+                Purchase price (€)
+            </label>
 
             <input
                 id="editPurchasePrice"
@@ -434,13 +589,17 @@ label {
                 step="0.01"
             >
 
-            <label for="editCurrentValue">Current value (€)</label>
+
+            <label for="editCurrentValue">
+                Current value (€)
+            </label>
 
             <input
                 id="editCurrentValue"
                 type="number"
                 step="0.01"
             >
+
 
             <button
                 class="primary-button"
@@ -479,20 +638,47 @@ label {
                 placeholder="e.g. Car insurance"
             >
 
+
             <label for="documentType">
                 Type
             </label>
 
             <select id="documentType">
-                <option value="Invoice">Invoice</option>
-                <option value="Contract">Contract</option>
-                <option value="Insurance">Insurance</option>
-                <option value="Warranty">Warranty</option>
-                <option value="Tax">Tax</option>
-                <option value="Certificate">Certificate</option>
-                <option value="Repair">Repair</option>
-                <option value="Other">Other</option>
+
+                <option value="Invoice">
+                    Invoice
+                </option>
+
+                <option value="Contract">
+                    Contract
+                </option>
+
+                <option value="Insurance">
+                    Insurance
+                </option>
+
+                <option value="Warranty">
+                    Warranty
+                </option>
+
+                <option value="Tax">
+                    Tax
+                </option>
+
+                <option value="Certificate">
+                    Certificate
+                </option>
+
+                <option value="Repair">
+                    Repair
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
             </select>
+
 
             <label for="documentDate">
                 Date
@@ -503,6 +689,7 @@ label {
                 type="date"
             >
 
+
             <label for="documentExpiryDate">
                 Expiry date
             </label>
@@ -511,6 +698,7 @@ label {
                 id="documentExpiryDate"
                 type="date"
             >
+
 
             <label for="documentAmount">
                 Amount (€)
@@ -522,6 +710,7 @@ label {
                 step="0.01"
                 placeholder="Optional"
             >
+
 
             <button
                 class="primary-button"
@@ -559,20 +748,47 @@ label {
                 type="text"
             >
 
+
             <label for="editDocumentType">
                 Type
             </label>
 
             <select id="editDocumentType">
-                <option value="Invoice">Invoice</option>
-                <option value="Contract">Contract</option>
-                <option value="Insurance">Insurance</option>
-                <option value="Warranty">Warranty</option>
-                <option value="Tax">Tax</option>
-                <option value="Certificate">Certificate</option>
-                <option value="Repair">Repair</option>
-                <option value="Other">Other</option>
+
+                <option value="Invoice">
+                    Invoice
+                </option>
+
+                <option value="Contract">
+                    Contract
+                </option>
+
+                <option value="Insurance">
+                    Insurance
+                </option>
+
+                <option value="Warranty">
+                    Warranty
+                </option>
+
+                <option value="Tax">
+                    Tax
+                </option>
+
+                <option value="Certificate">
+                    Certificate
+                </option>
+
+                <option value="Repair">
+                    Repair
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
             </select>
+
 
             <label for="editDocumentDate">
                 Date
@@ -583,6 +799,7 @@ label {
                 type="date"
             >
 
+
             <label for="editDocumentExpiryDate">
                 Expiry date
             </label>
@@ -591,6 +808,7 @@ label {
                 id="editDocumentExpiryDate"
                 type="date"
             >
+
 
             <label for="editDocumentAmount">
                 Amount (€)
@@ -601,6 +819,7 @@ label {
                 type="number"
                 step="0.01"
             >
+
 
             <button
                 class="primary-button"
@@ -729,6 +948,8 @@ function showHome() {
     currentDocumentId = null;
 
     renderThings();
+
+    renderExpiringSoon();
 
     showView("homeView");
 
@@ -917,43 +1138,43 @@ function openThing(id) {
     } else {
 
         documentsHtml =
-            thing.documents.map(document => {
+            thing.documents.map(documentItem => {
 
                 const documentIcon =
-                    documentIcons[document.type] || "📄";
+                    documentIcons[documentItem.type] || "📄";
 
 
                 let details = "";
 
 
-                if (document.date) {
+                if (documentItem.date) {
 
                     details += `
                         <div>
-                            📅 ${formatDate(document.date)}
+                            📅 ${formatDate(documentItem.date)}
                         </div>
                     `;
 
                 }
 
 
-                if (document.expiryDate) {
+                if (documentItem.expiryDate) {
 
                     details += `
                         <div>
                             ⏳ Expires:
-                            ${formatDate(document.expiryDate)}
+                            ${formatDate(documentItem.expiryDate)}
                         </div>
                     `;
 
                 }
 
 
-                if (document.amount) {
+                if (documentItem.amount) {
 
                     details += `
                         <div>
-                            💶 ${formatMoney(document.amount)}
+                            💶 ${formatMoney(documentItem.amount)}
                         </div>
                     `;
 
@@ -974,11 +1195,11 @@ function openThing(id) {
                             <div class="document-info">
 
                                 <div class="document-name">
-                                    ${escapeHtml(document.name)}
+                                    ${escapeHtml(documentItem.name)}
                                 </div>
 
                                 <div class="document-type">
-                                    ${escapeHtml(document.type)}
+                                    ${escapeHtml(documentItem.type)}
                                 </div>
 
                             </div>
@@ -1003,7 +1224,7 @@ function openThing(id) {
                                 class="edit-document-button"
                                 onclick="editDocument(
                                     '${thing.id}',
-                                    '${document.id}'
+                                    '${documentItem.id}'
                                 )"
                             >
                                 ✏️ Edit
@@ -1014,7 +1235,7 @@ function openThing(id) {
                                 class="delete-document-button"
                                 onclick="deleteDocument(
                                     '${thing.id}',
-                                    '${document.id}'
+                                    '${documentItem.id}'
                                 )"
                             >
                                 Delete
@@ -1555,16 +1776,235 @@ function showThing(id) {
 }
 
 
+function renderExpiringSoon() {
+
+    const container =
+        document.getElementById("expiringSoon");
+
+
+    if (!container) return;
+
+
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+
+    const limit = new Date(today);
+
+    limit.setDate(
+        limit.getDate() + 30
+    );
+
+
+    const expiringDocuments = [];
+
+
+    things.forEach(thing => {
+
+        if (!Array.isArray(thing.documents)) {
+            return;
+        }
+
+
+        thing.documents.forEach(documentItem => {
+
+            if (!documentItem.expiryDate) {
+                return;
+            }
+
+
+            const expiry =
+                new Date(
+                    documentItem.expiryDate + "T00:00:00"
+                );
+
+
+            if (expiry <= limit) {
+
+                expiringDocuments.push({
+
+                    thingId: thing.id,
+
+                    thingName: thing.name,
+
+                    documentId: documentItem.id,
+
+                    documentName: documentItem.name,
+
+                    expiryDate: expiry,
+
+                    type: documentItem.type
+
+                });
+
+            }
+
+        });
+
+    });
+
+
+    expiringDocuments.sort(
+        (a, b) =>
+            a.expiryDate - b.expiryDate
+    );
+
+
+    if (expiringDocuments.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="card empty">
+
+                Nothing expiring soon 🎉
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        expiringDocuments.map(item => {
+
+            const diff =
+                Math.ceil(
+                    (
+                        item.expiryDate - today
+                    ) /
+                    (
+                        1000 *
+                        60 *
+                        60 *
+                        24
+                    )
+                );
+
+
+            let statusText;
+
+            let statusClass;
+
+
+            if (diff < 0) {
+
+                const days =
+                    Math.abs(diff);
+
+                statusText =
+                    `Expired ${days} day${days === 1 ? "" : "s"} ago`;
+
+                statusClass =
+                    "expired";
+
+            } else if (diff === 0) {
+
+                statusText =
+                    "Expires today";
+
+                statusClass =
+                    "expires-today";
+
+            } else {
+
+                statusText =
+                    `Expires in ${diff} day${diff === 1 ? "" : "s"}`;
+
+                statusClass =
+                    "expiring-soon";
+
+            }
+
+
+            return `
+
+                <div
+                    class="expiring-card ${statusClass}"
+                    onclick="openThing('${item.thingId}')"
+                >
+
+                    <div class="expiring-icon">
+
+                        ${
+                            documentIcons[item.type]
+                            || "📄"
+                        }
+
+                    </div>
+
+
+                    <div class="expiring-info">
+
+                        <div class="expiring-document">
+
+                            ${
+                                escapeHtml(
+                                    item.documentName
+                                )
+                            }
+
+                        </div>
+
+
+                        <div class="expiring-thing">
+
+                            ${
+                                escapeHtml(
+                                    item.thingName
+                                )
+                            }
+
+                        </div>
+
+
+                        <div class="expiring-status">
+
+                            ${statusText}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="expiring-date">
+
+                        ${
+                            formatDate(
+                                item.expiryDate
+                                    .toISOString()
+                                    .split("T")[0]
+                            )
+                        }
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
 function formatDate(dateString) {
 
     const parts =
         dateString.split("-");
 
 
-    if (parts.length !== 3) return dateString;
+    if (parts.length !== 3) {
+        return dateString;
+    }
 
 
-    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    return `
+        ${parts[2]}/${parts[1]}/${parts[0]}
+    `;
 
 }
 
@@ -1595,6 +2035,8 @@ function escapeHtml(value) {
 
 
 renderThings();
+
+renderExpiringSoon();
 
 </script>
 
