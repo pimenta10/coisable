@@ -872,10 +872,36 @@ label {
         <input id="documentDate"
                type="date">
 
-        <label>Expiry Date</label>
+        <label>Date type</label>
 
-        <input id="documentExpiryDate"
-               type="date">
+        <select id="documentDateType"
+                onchange="updateImportantDateField('')">
+
+            <option value="None">
+                None
+            </option>
+
+            <option value="Due Date">
+                Due Date
+            </option>
+
+            <option value="Expiry Date">
+                Expiry Date
+            </option>
+
+        </select>
+
+        <div id="documentImportantDateGroup"
+             style="display:none;">
+
+            <label id="documentImportantDateLabel">
+                Expiry Date
+            </label>
+
+            <input id="documentImportantDate"
+                   type="date">
+
+        </div>
 
         <label>Amount</label>
 
@@ -898,9 +924,8 @@ label {
 
         <div class="info-box">
 
-            If enabled, this document will also create
-            an event in the Thing's Timeline using the
-            document date and amount.
+            Date = when the document happened or was issued.
+            An optional Due Date or Expiry Date can be added separately.
 
         </div>
 
@@ -951,10 +976,36 @@ label {
         <input id="editDocumentDate"
                type="date">
 
-        <label>Expiry Date</label>
+        <label>Date type</label>
 
-        <input id="editDocumentExpiryDate"
-               type="date">
+        <select id="editDocumentDateType"
+                onchange="updateImportantDateField('edit')">
+
+            <option value="None">
+                None
+            </option>
+
+            <option value="Due Date">
+                Due Date
+            </option>
+
+            <option value="Expiry Date">
+                Expiry Date
+            </option>
+
+        </select>
+
+        <div id="editDocumentImportantDateGroup"
+             style="display:none;">
+
+            <label id="editDocumentImportantDateLabel">
+                Expiry Date
+            </label>
+
+            <input id="editDocumentImportantDate"
+                   type="date">
+
+        </div>
 
         <label>Amount</label>
 
@@ -1743,6 +1794,61 @@ function deleteThing() {
 }
 
 /* -----------------------------
+   DOCUMENT DATE SEMANTICS
+----------------------------- */
+
+function updateImportantDateField(prefix) {
+
+    const typeId =
+        prefix
+            ? "editDocumentDateType"
+            : "documentDateType";
+
+    const groupId =
+        prefix
+            ? "editDocumentImportantDateGroup"
+            : "documentImportantDateGroup";
+
+    const labelId =
+        prefix
+            ? "editDocumentImportantDateLabel"
+            : "documentImportantDateLabel";
+
+    const dateType =
+        document.getElementById(
+            typeId
+        ).value;
+
+    const group =
+        document.getElementById(
+            groupId
+        );
+
+    const label =
+        document.getElementById(
+            labelId
+        );
+
+    if (!group || !label) return;
+
+    if (dateType === "None") {
+
+        group.style.display =
+            "none";
+
+    } else {
+
+        group.style.display =
+            "block";
+
+        label.textContent =
+            dateType;
+
+    }
+
+}
+
+/* -----------------------------
    DOCUMENTS
 ----------------------------- */
 
@@ -1761,7 +1867,11 @@ function showAddDocument() {
     ).value = "";
 
     document.getElementById(
-        "documentExpiryDate"
+        "documentDateType"
+    ).value = "None";
+
+    document.getElementById(
+        "documentImportantDate"
     ).value = "";
 
     document.getElementById(
@@ -1771,6 +1881,8 @@ function showAddDocument() {
     document.getElementById(
         "addToTimeline"
     ).checked = true;
+
+    updateImportantDateField("");
 
     showView("addDocumentView");
 
@@ -1811,6 +1923,18 @@ function addDocument() {
 
     }
 
+    const dateType =
+        document.getElementById(
+            "documentDateType"
+        ).value;
+
+    const importantDate =
+        dateType === "None"
+            ? ""
+            : document.getElementById(
+                "documentImportantDate"
+              ).value;
+
     const documentItem = {
 
         id: Date.now(),
@@ -1827,10 +1951,19 @@ function addDocument() {
                 "documentDate"
             ).value,
 
+        dateType:
+            dateType,
+
+        importantDate:
+            importantDate,
+
+        /* Legacy field kept for compatibility
+           with previous Coisable versions. */
+
         expiryDate:
-            document.getElementById(
-                "documentExpiryDate"
-            ).value,
+            dateType === "Expiry Date"
+                ? importantDate
+                : "",
 
         amount:
             document.getElementById(
@@ -1942,6 +2075,19 @@ function renderDocuments(thing) {
                         documentItem.type
                     ] || "📄";
 
+                const dateType =
+                    documentItem.dateType ||
+                    (
+                        documentItem.expiryDate
+                            ? "Expiry Date"
+                            : "None"
+                    );
+
+                const importantDate =
+                    documentItem.importantDate ||
+                    documentItem.expiryDate ||
+                    "";
+
                 return `
 
                     <div class="card document-card">
@@ -1969,13 +2115,16 @@ function renderDocuments(thing) {
                             </span>
 
                             ${
-                                documentItem.expiryDate
+                                dateType !== "None" &&
+                                importantDate
                                 ? `
 
                                     <span>
-                                        Expires:
+                                        ${escapeHtml(
+                                            dateType
+                                        )}:
                                         ${formatDate(
-                                            documentItem.expiryDate
+                                            importantDate
                                         )}
                                     </span>
 
@@ -2056,10 +2205,30 @@ function editDocument(id) {
     ).value =
         documentItem.date || "";
 
+    const dateType =
+        documentItem.dateType ||
+        (
+            documentItem.expiryDate
+                ? "Expiry Date"
+                : "None"
+        );
+
+    const importantDate =
+        documentItem.importantDate ||
+        documentItem.expiryDate ||
+        "";
+
     document.getElementById(
-        "editDocumentExpiryDate"
+        "editDocumentDateType"
     ).value =
-        documentItem.expiryDate || "";
+        dateType;
+
+    document.getElementById(
+        "editDocumentImportantDate"
+    ).value =
+        importantDate;
+
+    updateImportantDateField("edit");
 
     document.getElementById(
         "editDocumentAmount"
@@ -2131,10 +2300,30 @@ function saveDocumentEdit() {
             "editDocumentDate"
         ).value;
 
-    documentItem.expiryDate =
+    const dateType =
         document.getElementById(
-            "editDocumentExpiryDate"
+            "editDocumentDateType"
         ).value;
+
+    const importantDate =
+        dateType === "None"
+            ? ""
+            : document.getElementById(
+                "editDocumentImportantDate"
+              ).value;
+
+    documentItem.dateType =
+        dateType;
+
+    documentItem.importantDate =
+        importantDate;
+
+    /* Keep legacy field synchronized. */
+
+    documentItem.expiryDate =
+        dateType === "Expiry Date"
+            ? importantDate
+            : "";
 
     documentItem.amount =
         document.getElementById(
@@ -2890,8 +3079,22 @@ function renderExpiringSoon() {
         thing.documents.forEach(
             documentItem => {
 
+                const dateType =
+                    documentItem.dateType ||
+                    (
+                        documentItem.expiryDate
+                            ? "Expiry Date"
+                            : "None"
+                    );
+
+                const importantDate =
+                    documentItem.importantDate ||
+                    documentItem.expiryDate ||
+                    "";
+
                 if (
-                    !documentItem.expiryDate
+                    dateType !== "Expiry Date" ||
+                    !importantDate
                 ) {
 
                     return;
@@ -2900,7 +3103,7 @@ function renderExpiringSoon() {
 
                 const expiry =
                     new Date(
-                        documentItem.expiryDate +
+                        importantDate +
                         "T00:00:00"
                     );
 
@@ -3260,6 +3463,9 @@ function escapeHtml(value) {
    Convert old category names from
    previous Coisable versions.
 
+   Also migrate the old Expiry Date
+   field into the new Date Semantics model.
+
 */
 
 things.forEach(thing => {
@@ -3321,6 +3527,69 @@ things.forEach(thing => {
 
                 documentItem.timelineEventId =
                     null;
+
+            }
+
+            /*
+               New Date Semantics migration.
+
+               Old documents with expiryDate
+               become Expiry Date documents.
+            */
+
+            if (
+                !documentItem.dateType
+            ) {
+
+                if (
+                    documentItem.expiryDate
+                ) {
+
+                    documentItem.dateType =
+                        "Expiry Date";
+
+                    documentItem.importantDate =
+                        documentItem.expiryDate;
+
+                } else {
+
+                    documentItem.dateType =
+                        "None";
+
+                    documentItem.importantDate =
+                        "";
+
+                }
+
+            } else if (
+                documentItem.importantDate ===
+                undefined
+            ) {
+
+                documentItem.importantDate =
+                    documentItem.expiryDate ||
+                    "";
+
+            }
+
+            /*
+               Keep the legacy field synchronized
+               for compatibility.
+            */
+
+            if (
+                documentItem.dateType ===
+                "Expiry Date"
+            ) {
+
+                documentItem.expiryDate =
+                    documentItem.importantDate ||
+                    "";
+
+            } else {
+
+                documentItem.expiryDate =
+                    "";
 
             }
 
