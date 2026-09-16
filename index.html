@@ -1287,29 +1287,29 @@ function editDocument(thingId, documentId) {
     if (!thing) return;
 
 
-    const document =
+    const documentItem =
         thing.documents.find(item =>
             String(item.id) === String(documentId)
         );
 
 
-    if (!document) return;
+    if (!documentItem) return;
 
 
     document.getElementById("editDocumentName").value =
-        document.name;
+        documentItem.name;
 
     document.getElementById("editDocumentType").value =
-        document.type;
+        documentItem.type;
 
     document.getElementById("editDocumentDate").value =
-        document.date;
+        documentItem.date;
 
     document.getElementById("editDocumentExpiryDate").value =
-        document.expiryDate;
+        documentItem.expiryDate;
 
     document.getElementById("editDocumentAmount").value =
-        document.amount;
+        documentItem.amount;
 
 
     showView("editDocumentView");
