@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               viewport-fit=cover">
-
-<meta name="theme-color" content="#f5f5f5">
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>Coisable</title>
 
@@ -27,322 +21,180 @@ body {
     font-family:
         -apple-system,
         BlinkMacSystemFont,
-        "SF Pro Display",
         "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
         sans-serif;
 }
 
-.app {
+.container {
     max-width: 600px;
     margin: 0 auto;
-    min-height: 100vh;
-    padding: 28px 20px 40px;
+    padding: 24px 18px 40px;
 }
 
-/* BRAND */
-
-.brand {
-    margin-bottom: 32px;
-}
-
-.brand-name {
-    font-size: 30px;
-    font-weight: 700;
+h1 {
+    font-size: 32px;
+    margin: 10px 0 4px;
     letter-spacing: -1px;
 }
 
-.tagline {
-    margin-top: 4px;
+.subtitle {
+    color: #666;
+    margin: 0 0 28px;
     font-size: 15px;
+}
+
+.section-title {
+    font-size: 20px;
+    margin: 28px 0 14px;
+}
+
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.thing-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+}
+
+.icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    flex-shrink: 0;
+}
+
+.thing-info {
+    flex: 1;
+}
+
+.thing-name {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.thing-category {
+    font-size: 14px;
     color: #777;
 }
 
-/* BUTTONS */
+.arrow {
+    color: #aaa;
+    font-size: 20px;
+}
 
-.add-button {
+button {
     width: 100%;
-    border: 0;
-    border-radius: 16px;
-    padding: 17px 18px;
-    background: #111;
-    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 14px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    margin-bottom: 28px;
 }
 
-.add-button:active,
-.save-button:active,
-.edit-button:active {
-    transform: scale(0.98);
-}
-
-.back-button {
-    border: 0;
-    background: transparent;
-    padding: 0;
-    margin-bottom: 24px;
-    color: #555;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-.edit-button {
-    width: 100%;
-    border: 0;
-    border-radius: 14px;
-    padding: 14px;
+.primary-button {
     background: #111;
     color: white;
+}
+
+.secondary-button {
+    background: #eee;
+    color: #111;
+    margin-top: 10px;
+}
+
+.delete-button {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    padding: 14px;
+    background: white;
+    color: #b00020;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
     margin-top: 18px;
 }
 
-/* SECTIONS */
-
-.section-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 12px;
-}
-
-/* THINGS */
-
-.things {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.thing {
-    background: white;
-    border-radius: 18px;
-    padding: 17px;
-
-    display: flex;
-    align-items: center;
-    gap: 14px;
-
-    box-shadow:
-        0 1px 3px rgba(0,0,0,0.04);
-
-    cursor: pointer;
-}
-
-.thing:active {
-    transform: scale(0.99);
-}
-
-.thing-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 14px;
-    background: #f0f0f0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 22px;
-    flex-shrink: 0;
-}
-
-.thing-info {
-    min-width: 0;
-    flex: 1;
-}
-
-.thing-name {
+input,
+select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
     font-size: 16px;
+    background: white;
+}
+
+label {
+    display: block;
+    font-size: 14px;
     font-weight: 600;
+    margin: 16px 0 7px;
 }
-
-.thing-category {
-    margin-top: 3px;
-    font-size: 13px;
-    color: #888;
-}
-
-.arrow {
-    color: #aaa;
-    font-size: 22px;
-}
-
-/* EMPTY */
 
 .empty {
-    background: white;
-    border-radius: 18px;
-    padding: 32px 20px;
     text-align: center;
-    color: #888;
+    color: #777;
+    padding: 30px 10px;
 }
 
-.empty-icon {
-    font-size: 34px;
-    margin-bottom: 10px;
-}
-
-.empty-title {
-    color: #333;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.empty-text {
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-/* FORMS */
-
-.form {
-    display: none;
-
-    background: white;
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 28px;
-
-    box-shadow:
-        0 2px 8px rgba(0,0,0,0.05);
-}
-
-.form.visible {
-    display: block;
-}
-
-.form-title {
-    font-size: 20px;
-    font-weight: 700;
+.back-button {
+    background: none;
+    border: none;
+    padding: 0;
+    width: auto;
+    font-size: 15px;
+    color: #666;
+    font-weight: 500;
     margin-bottom: 20px;
 }
 
-.field {
-    margin-bottom: 16px;
-}
-
-.field label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: #666;
-    margin-bottom: 7px;
-}
-
-.field input,
-.field select {
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 13px 14px;
-    font-size: 16px;
-    background: #fafafa;
-    color: #111;
-    outline: none;
-}
-
-.field input:focus,
-.field select:focus {
-    border-color: #111;
-    background: white;
-}
-
-.form-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.form-buttons button {
-    flex: 1;
-    border: 0;
-    border-radius: 13px;
-    padding: 14px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.cancel-button {
-    background: #eee;
-    color: #333;
-}
-
-.save-button {
-    background: #111;
-    color: white;
-}
-
-/* DETAIL */
-
 .detail-header {
-    background: white;
-    border-radius: 20px;
-    padding: 24px 20px;
-    margin-bottom: 24px;
     text-align: center;
-
-    box-shadow:
-        0 1px 3px rgba(0,0,0,0.04);
+    margin-bottom: 25px;
 }
 
-.detail-icon {
-    width: 70px;
-    height: 70px;
-    border-radius: 20px;
-    background: #f0f0f0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 34px;
-
-    margin: 0 auto 14px;
+.detail-header .icon {
+    margin: 0 auto 12px;
 }
 
-.detail-name {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+.detail-header h2 {
+    margin: 0 0 5px;
+    font-size: 25px;
 }
 
 .detail-category {
-    margin-top: 5px;
-    color: #888;
+    color: #777;
     font-size: 14px;
-}
-
-.detail-card {
-    background: white;
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 12px;
-}
-
-.detail-card-title {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 16px;
 }
 
 .detail-row {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    padding: 10px 0;
+    padding: 13px 0;
     border-bottom: 1px solid #eee;
 }
 
 .detail-row:last-child {
-    border-bottom: 0;
+    border-bottom: none;
 }
 
 .detail-label {
@@ -351,24 +203,16 @@ body {
 }
 
 .detail-value {
-    font-size: 14px;
     font-weight: 600;
     text-align: right;
 }
 
-.coming-soon {
+.placeholder {
     color: #999;
     font-size: 14px;
-    line-height: 1.5;
 }
 
-/* VIEWS */
-
-#homeView {
-    display: block;
-}
-
-#detailView {
+.hidden {
     display: none;
 }
 
@@ -376,191 +220,152 @@ body {
 
 </head>
 
-
 <body>
 
-<div class="app">
+<div class="container">
 
+    <!-- HOME -->
+    <div id="homeView">
 
-<!-- HOME -->
+        <h1>Coisable</h1>
+        <p class="subtitle">Your things. One place.</p>
 
-<div id="homeView">
+        <button class="primary-button" onclick="showAddForm()">
+            + Add Thing
+        </button>
 
-<header class="brand">
+        <h2 class="section-title">Your Things</h2>
 
-<div class="brand-name">
-Coisable
-</div>
+        <div id="thingsList"></div>
 
-<div class="tagline">
-Your things. One place.
-</div>
+    </div>
 
-</header>
 
+    <!-- ADD VIEW -->
+    <div id="addView" class="hidden">
 
-<button
-class="add-button"
-onclick="showAddForm()">
+        <button class="back-button" onclick="showHome()">
+            ← Back
+        </button>
 
-+ Add Thing
+        <h2>Add Thing</h2>
 
-</button>
+        <div class="card">
 
+            <label for="thingName">Name</label>
+            <input
+                id="thingName"
+                type="text"
+                placeholder="e.g. Audi A1"
+            >
 
-<div
-id="addForm"
-class="form">
+            <label for="thingCategory">Category</label>
+            <select id="thingCategory">
+                <option value="Home">Home</option>
+                <option value="Vehicle">Vehicle</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Appliance">Appliance</option>
+                <option value="Other">Other</option>
+            </select>
 
-<div class="form-title">
-Add Thing
-</div>
+            <label for="purchaseDate">Purchase date</label>
+            <input
+                id="purchaseDate"
+                type="date"
+            >
 
+            <label for="purchasePrice">Purchase price (€)</label>
+            <input
+                id="purchasePrice"
+                type="number"
+                step="0.01"
+                placeholder="0.00"
+            >
 
-<div class="field">
+            <label for="currentValue">Current value (€)</label>
+            <input
+                id="currentValue"
+                type="number"
+                step="0.01"
+                placeholder="0.00"
+            >
 
-<label for="addName">
-Name
-</label>
+            <button
+                class="primary-button"
+                onclick="addThing()"
+                style="margin-top:20px;"
+            >
+                Save Thing
+            </button>
 
-<input
-id="addName"
-type="text"
-placeholder="e.g. Mazda MX-5">
+        </div>
 
-</div>
+    </div>
 
 
-<div class="field">
+    <!-- DETAIL VIEW -->
+    <div id="detailView" class="hidden">
 
-<label for="addCategory">
-Category
-</label>
+        <button class="back-button" onclick="showHome()">
+            ← Back
+        </button>
 
-<select id="addCategory">
+        <div id="thingDetail"></div>
 
-<option value="Home">
-🏠 Home
-</option>
+    </div>
 
-<option value="Vehicle">
-🚗 Vehicle
-</option>
 
-<option value="Electronics">
-📱 Electronics
-</option>
+    <!-- EDIT VIEW -->
+    <div id="editView" class="hidden">
 
-<option value="Appliance">
-🔌 Appliance
-</option>
+        <button class="back-button" onclick="showThing(currentThingId)">
+            ← Back
+        </button>
 
-<option value="Other">
-📦 Other
-</option>
-
-</select>
-
-</div>
-
-
-<div class="field">
-
-<label for="addPurchaseDate">
-Purchase date
-</label>
-
-<input
-id="addPurchaseDate"
-type="date">
-
-</div>
-
-
-<div class="field">
-
-<label for="addPurchasePrice">
-Purchase price (€)
-</label>
-
-<input
-id="addPurchasePrice"
-type="number"
-inputmode="decimal"
-placeholder="0.00">
-
-</div>
-
-
-<div class="field">
-
-<label for="addCurrentValue">
-Current value (€)
-</label>
-
-<input
-id="addCurrentValue"
-type="number"
-inputmode="decimal"
-placeholder="0.00">
-
-</div>
-
-
-<div class="form-buttons">
-
-<button
-class="cancel-button"
-onclick="hideAddForm()">
-
-Cancel
-
-</button>
-
-<button
-class="save-button"
-onclick="addThing()">
-
-Add Thing
-
-</button>
-
-</div>
-
-</div>
-
-
-<div class="section-title">
-My Things
-</div>
-
-
-<div
-id="things"
-class="things">
-</div>
-
-</div>
-
-
-<!-- DETAIL -->
-
-<div id="detailView">
-
-<button
-class="back-button"
-onclick="showHome()">
-
-← Back
-
-</button>
-
-
-<div id="detailContent">
-</div>
-
-</div>
-
+        <h2>Edit Thing</h2>
+
+        <div class="card">
+
+            <label for="editThingName">Name</label>
+            <input id="editThingName" type="text">
+
+            <label for="editThingCategory">Category</label>
+            <select id="editThingCategory">
+                <option value="Home">Home</option>
+                <option value="Vehicle">Vehicle</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Appliance">Appliance</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="editPurchaseDate">Purchase date</label>
+            <input id="editPurchaseDate" type="date">
+
+            <label for="editPurchasePrice">Purchase price (€)</label>
+            <input
+                id="editPurchasePrice"
+                type="number"
+                step="0.01"
+            >
+
+            <label for="editCurrentValue">Current value (€)</label>
+            <input
+                id="editCurrentValue"
+                type="number"
+                step="0.01"
+            >
+
+            <button
+                class="primary-button"
+                onclick="saveEdit()"
+                style="margin-top:20px;"
+            >
+                Save Changes
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
@@ -568,50 +373,38 @@ onclick="showHome()">
 <script>
 
 const categoryIcons = {
-
     Home: "🏠",
-
     Vehicle: "🚗",
-
     Electronics: "📱",
-
     Appliance: "🔌",
-
     Other: "📦"
-
 };
 
 
-let things =
-JSON.parse(
-    localStorage.getItem("coisableThings")
-) || [];
+let things = JSON.parse(
+    localStorage.getItem("coisableThings") || "[]"
+);
 
-
-/* MIGRATE OLD THINGS */
 
 things = things.map(thing => {
 
     return {
-
         id: thing.id || Date.now() + Math.random(),
-
         name: thing.name || "",
-
         category: thing.category || "Other",
-
         purchaseDate: thing.purchaseDate || "",
-
         purchasePrice: thing.purchasePrice || "",
-
-        currentValue: thing.currentValue || ""
-
+        currentValue: thing.currentValue || "",
+        documents: thing.documents || []
     };
 
 });
 
 
 saveThings();
+
+
+let currentThingId = null;
 
 
 function saveThings() {
@@ -624,120 +417,48 @@ function saveThings() {
 }
 
 
-/* HOME */
+function showView(viewId) {
 
-function renderThings() {
+    const views = [
+        "homeView",
+        "addView",
+        "detailView",
+        "editView"
+    ];
 
-    const container =
-        document.getElementById("things");
+    views.forEach(id => {
 
+        document.getElementById(id).classList.add("hidden");
 
-    if (things.length === 0) {
+    });
 
-        container.innerHTML = `
-
-        <div class="empty">
-
-            <div class="empty-icon">
-                📦
-            </div>
-
-            <div class="empty-title">
-                Nothing here yet
-            </div>
-
-            <div class="empty-text">
-                Add your first thing to get started.
-            </div>
-
-        </div>
-
-        `;
-
-        return;
-    }
-
-
-    container.innerHTML =
-
-    things.map(thing => `
-
-        <div
-        class="thing"
-        onclick="openThing('${thing.id}')">
-
-            <div class="thing-icon">
-
-                ${
-                    categoryIcons[thing.category]
-                    || "📦"
-                }
-
-            </div>
-
-            <div class="thing-info">
-
-                <div class="thing-name">
-
-                    ${escapeHtml(thing.name)}
-
-                </div>
-
-                <div class="thing-category">
-
-                    ${thing.category}
-
-                </div>
-
-            </div>
-
-            <div class="arrow">
-                ›
-            </div>
-
-        </div>
-
-    `).join("");
+    document
+        .getElementById(viewId)
+        .classList.remove("hidden");
 
 }
 
 
-/* ADD */
+function showHome() {
+
+    currentThingId = null;
+
+    renderThings();
+
+    showView("homeView");
+
+}
+
 
 function showAddForm() {
 
-    document
-    .getElementById("addForm")
-    .classList.add("visible");
+    document.getElementById("thingName").value = "";
+    document.getElementById("thingCategory").value = "Other";
+    document.getElementById("purchaseDate").value = "";
+    document.getElementById("purchasePrice").value = "";
+    document.getElementById("currentValue").value = "";
 
-    document
-    .getElementById("addName")
-    .focus();
-
-}
-
-
-function hideAddForm() {
-
-    document
-    .getElementById("addForm")
-    .classList.remove("visible");
-
-    document
-    .getElementById("addName")
-    .value = "";
-
-    document
-    .getElementById("addPurchaseDate")
-    .value = "";
-
-    document
-    .getElementById("addPurchasePrice")
-    .value = "";
-
-    document
-    .getElementById("addCurrentValue")
-    .value = "";
+    showView("addView");
 
 }
 
@@ -745,11 +466,7 @@ function hideAddForm() {
 function addThing() {
 
     const name =
-    document
-    .getElementById("addName")
-    .value
-    .trim();
-
+        document.getElementById("thingName").value.trim();
 
     if (!name) {
 
@@ -762,37 +479,23 @@ function addThing() {
 
     const thing = {
 
-        id:
-        Date.now() +
-        Math.random(),
+        id: Date.now() + Math.random(),
 
-        name:
-
-        name,
+        name: name,
 
         category:
-
-        document
-        .getElementById("addCategory")
-        .value,
+            document.getElementById("thingCategory").value,
 
         purchaseDate:
-
-        document
-        .getElementById("addPurchaseDate")
-        .value,
+            document.getElementById("purchaseDate").value,
 
         purchasePrice:
-
-        document
-        .getElementById("addPurchasePrice")
-        .value,
+            document.getElementById("purchasePrice").value,
 
         currentValue:
+            document.getElementById("currentValue").value,
 
-        document
-        .getElementById("addCurrentValue")
-        .value
+        documents: []
 
     };
 
@@ -801,354 +504,268 @@ function addThing() {
 
     saveThings();
 
-    renderThings();
-
-    hideAddForm();
+    showHome();
 
 }
 
 
-/* DETAIL */
+function renderThings() {
+
+    const list =
+        document.getElementById("thingsList");
+
+
+    if (things.length === 0) {
+
+        list.innerHTML = `
+            <div class="card empty">
+                No things yet.<br>
+                Add your first thing above.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML = things.map(thing => {
+
+        const icon =
+            categoryIcons[thing.category] || "📦";
+
+
+        return `
+
+            <div
+                class="card thing-card"
+                onclick="openThing('${thing.id}')"
+            >
+
+                <div class="icon">
+                    ${icon}
+                </div>
+
+                <div class="thing-info">
+
+                    <div class="thing-name">
+                        ${escapeHtml(thing.name)}
+                    </div>
+
+                    <div class="thing-category">
+                        ${escapeHtml(thing.category)}
+                    </div>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+        `;
+
+    }).join("");
+
+}
+
 
 function openThing(id) {
 
+    currentThingId = id;
+
     const thing =
-    things.find(
-        item => String(item.id) === String(id)
-    );
+        things.find(item =>
+            String(item.id) === String(id)
+        );
 
 
-    if (!thing) {
-        return;
-    }
+    if (!thing) return;
 
 
-    document
-    .getElementById("homeView")
-    .style.display = "none";
+    const icon =
+        categoryIcons[thing.category] || "📦";
 
 
-    document
-    .getElementById("detailView")
-    .style.display = "block";
+    document.getElementById("thingDetail").innerHTML = `
 
+        <div class="detail-header">
 
-    renderDetail(thing);
+            <div class="icon">
+                ${icon}
+            </div>
 
-}
+            <h2>
+                ${escapeHtml(thing.name)}
+            </h2>
 
-
-function renderDetail(thing) {
-
-    const purchaseDate =
-    thing.purchaseDate
-    ? formatDate(thing.purchaseDate)
-    : "—";
-
-
-    const purchasePrice =
-    thing.purchasePrice
-    ? formatMoney(thing.purchasePrice)
-    : "—";
-
-
-    const currentValue =
-    thing.currentValue
-    ? formatMoney(thing.currentValue)
-    : "—";
-
-
-    document
-    .getElementById("detailContent")
-    .innerHTML = `
-
-    <div class="detail-header">
-
-        <div class="detail-icon">
-
-            ${
-                categoryIcons[thing.category]
-                || "📦"
-            }
+            <div class="detail-category">
+                ${escapeHtml(thing.category)}
+            </div>
 
         </div>
 
-        <div class="detail-name">
 
-            ${escapeHtml(thing.name)}
+        <div class="card">
+
+            <button
+                class="secondary-button"
+                onclick="editThing('${thing.id}')"
+            >
+                Edit Thing
+            </button>
 
         </div>
 
-        <div class="detail-category">
 
-            ${thing.category}
+        <h2 class="section-title">
+            Details
+        </h2>
+
+        <div class="card">
+
+            <div class="detail-row">
+
+                <div class="detail-label">
+                    Purchase date
+                </div>
+
+                <div class="detail-value">
+                    ${
+                        thing.purchaseDate
+                            ? formatDate(thing.purchaseDate)
+                            : "—"
+                    }
+                </div>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <div class="detail-label">
+                    Purchase price
+                </div>
+
+                <div class="detail-value">
+                    ${
+                        thing.purchasePrice
+                            ? formatMoney(thing.purchasePrice)
+                            : "—"
+                    }
+                </div>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <div class="detail-label">
+                    Current value
+                </div>
+
+                <div class="detail-value">
+                    ${
+                        thing.currentValue
+                            ? formatMoney(thing.currentValue)
+                            : "—"
+                    }
+                </div>
+
+            </div>
 
         </div>
+
+
+        <h2 class="section-title">
+            Documents
+        </h2>
+
+        <div class="card">
+
+            <div class="placeholder">
+                Documents will live here.
+            </div>
+
+        </div>
+
+
+        <h2 class="section-title">
+            History
+        </h2>
+
+        <div class="card">
+
+            <div class="placeholder">
+                History will live here.
+            </div>
+
+        </div>
+
 
         <button
-        class="edit-button"
-        onclick="editThing('${thing.id}')">
-
-            Edit Thing
-
+            class="delete-button"
+            onclick="deleteThing('${thing.id}')"
+        >
+            Delete Thing
         </button>
-
-    </div>
-
-
-    <div class="detail-card">
-
-        <div class="detail-card-title">
-            Details
-        </div>
-
-
-        <div class="detail-row">
-
-            <div class="detail-label">
-                Purchase date
-            </div>
-
-            <div class="detail-value">
-                ${purchaseDate}
-            </div>
-
-        </div>
-
-
-        <div class="detail-row">
-
-            <div class="detail-label">
-                Purchase price
-            </div>
-
-            <div class="detail-value">
-                ${purchasePrice}
-            </div>
-
-        </div>
-
-
-        <div class="detail-row">
-
-            <div class="detail-label">
-                Current value
-            </div>
-
-            <div class="detail-value">
-                ${currentValue}
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="detail-card">
-
-        <div class="detail-card-title">
-            Documents
-        </div>
-
-        <div class="coming-soon">
-
-            Documents will live here.
-
-        </div>
-
-    </div>
-
-
-    <div class="detail-card">
-
-        <div class="detail-card-title">
-            History
-        </div>
-
-        <div class="coming-soon">
-
-            Repairs, maintenance and
-            other events will appear here.
-
-        </div>
-
-    </div>
 
     `;
 
+
+    showView("detailView");
+
 }
 
-
-/* EDIT */
 
 function editThing(id) {
 
+    currentThingId = id;
+
     const thing =
-    things.find(
-        item => String(item.id) === String(id)
-    );
+        things.find(item =>
+            String(item.id) === String(id)
+        );
 
 
-    if (!thing) {
-        return;
-    }
+    if (!thing) return;
 
 
-    document
-    .getElementById("detailContent")
-    .innerHTML = `
+    document.getElementById("editThingName").value =
+        thing.name;
 
-    <div class="form visible">
+    document.getElementById("editThingCategory").value =
+        thing.category;
 
-        <div class="form-title">
-            Edit Thing
-        </div>
+    document.getElementById("editPurchaseDate").value =
+        thing.purchaseDate;
 
+    document.getElementById("editPurchasePrice").value =
+        thing.purchasePrice;
 
-        <div class="field">
-
-            <label for="editName">
-                Name
-            </label>
-
-            <input
-            id="editName"
-            type="text"
-            value="${escapeAttribute(thing.name)}">
-
-        </div>
+    document.getElementById("editCurrentValue").value =
+        thing.currentValue;
 
 
-        <div class="field">
-
-            <label for="editCategory">
-                Category
-            </label>
-
-            <select id="editCategory">
-
-                <option value="Home"
-                ${thing.category === "Home" ? "selected" : ""}>
-                    🏠 Home
-                </option>
-
-                <option value="Vehicle"
-                ${thing.category === "Vehicle" ? "selected" : ""}>
-                    🚗 Vehicle
-                </option>
-
-                <option value="Electronics"
-                ${thing.category === "Electronics" ? "selected" : ""}>
-                    📱 Electronics
-                </option>
-
-                <option value="Appliance"
-                ${thing.category === "Appliance" ? "selected" : ""}>
-                    🔌 Appliance
-                </option>
-
-                <option value="Other"
-                ${thing.category === "Other" ? "selected" : ""}>
-                    📦 Other
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div class="field">
-
-            <label for="editPurchaseDate">
-                Purchase date
-            </label>
-
-            <input
-            id="editPurchaseDate"
-            type="date"
-            value="${thing.purchaseDate}">
-
-        </div>
-
-
-        <div class="field">
-
-            <label for="editPurchasePrice">
-                Purchase price (€)
-            </label>
-
-            <input
-            id="editPurchasePrice"
-            type="number"
-            inputmode="decimal"
-            value="${thing.purchasePrice}">
-
-        </div>
-
-
-        <div class="field">
-
-            <label for="editCurrentValue">
-                Current value (€)
-            </label>
-
-            <input
-            id="editCurrentValue"
-            type="number"
-            inputmode="decimal"
-            value="${thing.currentValue}">
-
-        </div>
-
-
-        <div class="form-buttons">
-
-            <button
-            class="cancel-button"
-            onclick="openThing('${thing.id}')">
-
-                Cancel
-
-            </button>
-
-
-            <button
-            class="save-button"
-            onclick="saveEdit('${thing.id}')">
-
-                Save
-
-            </button>
-
-        </div>
-
-    </div>
-
-    `;
+    showView("editView");
 
 }
 
 
-/* SAVE EDIT */
-
-function saveEdit(id) {
+function saveEdit() {
 
     const thing =
-    things.find(
-        item => String(item.id) === String(id)
-    );
+        things.find(item =>
+            String(item.id) === String(currentThingId)
+        );
 
 
-    if (!thing) {
-        return;
-    }
+    if (!thing) return;
 
 
     const name =
-    document
-    .getElementById("editName")
-    .value
-    .trim();
+        document.getElementById("editThingName").value.trim();
 
 
     if (!name) {
@@ -1162,70 +779,71 @@ function saveEdit(id) {
 
     thing.name = name;
 
-
     thing.category =
-    document
-    .getElementById("editCategory")
-    .value;
-
+        document.getElementById("editThingCategory").value;
 
     thing.purchaseDate =
-    document
-    .getElementById("editPurchaseDate")
-    .value;
-
+        document.getElementById("editPurchaseDate").value;
 
     thing.purchasePrice =
-    document
-    .getElementById("editPurchasePrice")
-    .value;
-
+        document.getElementById("editPurchasePrice").value;
 
     thing.currentValue =
-    document
-    .getElementById("editCurrentValue")
-    .value;
+        document.getElementById("editCurrentValue").value;
 
 
     saveThings();
 
-    renderThings();
-
-    renderDetail(thing);
+    openThing(currentThingId);
 
 }
 
 
-/* NAVIGATION */
+function deleteThing(id) {
 
-function showHome() {
-
-    document
-    .getElementById("detailView")
-    .style.display = "none";
-
-
-    document
-    .getElementById("homeView")
-    .style.display = "block";
+    const thing =
+        things.find(item =>
+            String(item.id) === String(id)
+        );
 
 
-    renderThings();
+    if (!thing) return;
+
+
+    const confirmed = confirm(
+        `Delete "${thing.name}"?\n\nThis cannot be undone.`
+    );
+
+
+    if (!confirmed) return;
+
+
+    things = things.filter(item =>
+        String(item.id) !== String(id)
+    );
+
+
+    saveThings();
+
+    showHome();
 
 }
 
 
-/* HELPERS */
+function showThing(id) {
 
-function formatDate(date) {
+    openThing(id);
+
+}
+
+
+function formatDate(dateString) {
 
     const parts =
-    date.split("-");
+        dateString.split("-");
 
 
-    if (parts.length !== 3) {
-        return date;
-    }
+    if (parts.length !== 3) return dateString;
 
 
     return `${parts[2]}/${parts[1]}/${parts[0]}`;
@@ -1235,55 +853,32 @@ function formatDate(date) {
 
 function formatMoney(value) {
 
-    const number =
-    Number(value);
-
-
-    if (isNaN(number)) {
-        return "—";
-    }
-
-
     return new Intl.NumberFormat(
         "pt-PT",
         {
             style: "currency",
             currency: "EUR"
         }
-    ).format(number);
+    ).format(Number(value));
 
 }
 
 
-function escapeHtml(text) {
+function escapeHtml(value) {
 
-    const div =
-    document.createElement("div");
-
-    div.textContent = text;
-
-    return div.innerHTML;
-
-}
-
-
-function escapeAttribute(text) {
-
-    return String(text)
+    return String(value)
         .replace(/&/g, "&amp;")
-        .replace(/"/g, "&quot;")
         .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
 }
 
-
-/* START */
 
 renderThings();
 
 </script>
 
 </body>
-
 </html>
