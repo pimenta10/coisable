@@ -1,8 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
@@ -21,35 +24,24 @@ body {
     font-family:
         -apple-system,
         BlinkMacSystemFont,
-        "SF Pro Text",
-        "SF Pro Display",
-        Helvetica,
-        Arial,
+        "Segoe UI",
         sans-serif;
 }
 
-.app {
+.container {
     max-width: 700px;
     margin: 0 auto;
-    padding: 28px 18px 50px;
+    padding: 20px;
 }
 
 h1 {
-    font-size: 32px;
+    font-size: 28px;
     margin: 0;
-    letter-spacing: -1px;
-}
-
-.subtitle {
-    color: #777;
-    margin-top: 4px;
-    margin-bottom: 24px;
-    font-size: 15px;
 }
 
 h2 {
     font-size: 22px;
-    margin: 0 0 16px;
+    margin: 0 0 18px 0;
 }
 
 h3 {
@@ -57,484 +49,146 @@ h3 {
     font-size: 18px;
 }
 
+p {
+    color: #666;
+}
+
 button {
-    font: inherit;
+    width: 100%;
+    padding: 14px;
     border: none;
+    border-radius: 12px;
+    background: #111;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
 }
 
-.primary {
-    width: 100%;
-    background: #111;
-    color: white;
-    padding: 14px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 16px;
-}
-
-.secondary {
-    width: 100%;
-    background: #e9e9e9;
+button.secondary {
+    background: #e5e5e5;
     color: #111;
-    padding: 13px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 16px;
 }
 
-.danger {
+button.danger {
+    background: #d92d20;
+}
+
+button.small {
+    width: auto;
+    padding: 9px 13px;
+    font-size: 14px;
+}
+
+input,
+select {
     width: 100%;
-    background: #ffe5e5;
-    color: #c40000;
     padding: 13px;
-    border-radius: 12px;
-    font-weight: 600;
+    margin-top: 7px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: white;
     font-size: 16px;
 }
 
-.back {
-    background: none;
-    padding: 0;
-    margin-bottom: 22px;
-    color: #555;
-    font-size: 15px;
+label {
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .card {
     background: white;
     border-radius: 16px;
-    padding: 17px;
+    padding: 16px;
     margin-bottom: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.card.clickable {
+.thing-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
     cursor: pointer;
 }
 
-.card-row {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-}
-
 .icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 13px;
-    background: #f0f0f0;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: #f1f1f1;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 23px;
+    font-size: 25px;
     flex-shrink: 0;
 }
 
-.info {
+.thing-info {
     flex: 1;
-    min-width: 0;
 }
 
-.info strong {
+.thing-info strong {
     display: block;
-    font-size: 16px;
-    margin-bottom: 3px;
+    font-size: 17px;
 }
 
-.info span {
+.thing-info span {
+    display: block;
+    margin-top: 3px;
     color: #777;
     font-size: 14px;
 }
 
-.chevron {
-    color: #aaa;
-    font-size: 23px;
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.back {
+    width: auto;
+    padding: 9px 12px;
+    background: #e5e5e5;
+    color: #111;
+    font-size: 14px;
 }
 
 .section {
     margin-top: 28px;
 }
 
-.category-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-.category-card {
-    background: white;
-    border-radius: 16px;
-    padding: 20px 16px;
-    min-height: 125px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+.section-header {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    cursor: pointer;
-}
-
-.category-icon {
-    font-size: 30px;
-}
-
-.category-name {
-    font-weight: 600;
-    font-size: 16px;
-}
-
-.category-count {
-    color: #888;
-    font-size: 13px;
-    margin-top: 3px;
-}
-
-.empty {
-    text-align: center;
-    color: #888;
-    padding: 30px 10px;
-}
-
-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 7px;
-}
-
-input,
-select,
-textarea {
-    width: 100%;
-    padding: 13px 14px;
-    border: 1px solid #ddd;
-    border-radius: 11px;
-    background: white;
-    font: inherit;
-    margin-bottom: 17px;
-    color: #111;
-}
-
-input[type="file"] {
-    padding: 11px;
-}
-
-textarea {
-    min-height: 90px;
-    resize: vertical;
-}
-
-.form-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 6px;
-}
-
-.detail-header {
-    display: flex;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 22px;
+    margin-bottom: 12px;
 }
 
-.detail-icon {
-    width: 58px;
-    height: 58px;
-    border-radius: 16px;
-    background: #eaeaea;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 29px;
-}
-
-.detail-title {
-    flex: 1;
-}
-
-.detail-title h2 {
-    margin: 0 0 4px;
-}
-
-.detail-title span {
-    color: #777;
-    font-size: 14px;
-}
-
-.detail-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.detail-item {
-    background: white;
-    border-radius: 13px;
-    padding: 14px;
-}
-
-.detail-item small {
-    display: block;
-    color: #888;
-    margin-bottom: 4px;
-    font-size: 12px;
-}
-
-.detail-item strong {
-    font-size: 15px;
-}
-
-.top-actions {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-}
-
-.small-button {
-    background: #e9e9e9;
-    padding: 9px 13px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.small-button.danger-small {
-    background: #ffe5e5;
-    color: #c40000;
-}
-
-.document-meta {
-    color: #777;
-    font-size: 13px;
-    line-height: 1.45;
-}
-
-.document-amount {
-    font-weight: 600;
-    margin-top: 4px;
-}
-
-.date-badge {
-    display: inline-block;
-    margin-top: 7px;
-    padding: 5px 8px;
-    border-radius: 7px;
-    background: #f0f0f0;
-    font-size: 12px;
-    color: #555;
-}
-
-.attachment-badge {
-    display: inline-block;
-    margin-top: 7px;
-    padding: 5px 8px;
-    border-radius: 7px;
-    background: #f0f0f0;
-    font-size: 12px;
-    color: #555;
-}
-
-.attachment-box {
-    background: #f7f7f7;
-    border-radius: 13px;
-    padding: 14px;
-    margin-bottom: 17px;
-}
-
-.attachment-row {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-}
-
-.attachment-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 11px;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-}
-
-.attachment-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.attachment-info strong {
-    display: block;
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.attachment-info span {
-    display: block;
-    color: #888;
-    font-size: 12px;
-    margin-top: 3px;
-}
-
-.attachment-actions {
-    display: flex;
-    gap: 7px;
-    margin-top: 11px;
-}
-
-.attachment-button {
-    background: white;
-    border-radius: 9px;
-    padding: 8px 11px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.attachment-remove {
-    background: #ffe5e5;
-    color: #c40000;
-}
-
-.coming-card {
-    background: white;
-    border-radius: 15px;
-    padding: 14px;
-    margin-bottom: 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-}
-
-.coming-row {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-}
-
-.coming-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    background: #f0f0f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-}
-
-.coming-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.coming-info strong {
-    display: block;
-    font-size: 15px;
-    margin-bottom: 3px;
-}
-
-.coming-info span {
-    color: #777;
-    font-size: 13px;
-}
-
-.coming-action {
-    margin-top: 10px;
-    margin-left: 53px;
-}
-
-.ack-button {
-    background: #ededed;
-    border-radius: 9px;
-    padding: 8px 11px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.timeline-month {
-    background: white;
-    border-radius: 15px;
-    margin-bottom: 10px;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-
-.timeline-month-header {
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.timeline-month-arrow {
-    color: #888;
-    font-size: 18px;
-}
-
-.timeline-events {
-    padding: 0 14px 10px;
-}
-
-.timeline-event {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    padding: 11px 2px;
-    border-top: 1px solid #f0f0f0;
-    cursor: pointer;
-}
-
-.timeline-day {
-    width: 30px;
-    text-align: center;
-    font-size: 12px;
-    color: #888;
-    flex-shrink: 0;
-}
-
-.timeline-event-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: #f0f0f0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-}
-
-.timeline-event-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.timeline-event-title {
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.3;
-}
-
-.timeline-event-arrow {
-    color: #aaa;
-    font-size: 20px;
-}
+/* -----------------------------
+   SEARCH
+----------------------------- */
 
 .search-box {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .search-box input {
-    margin-bottom: 0;
-    padding-left: 43px;
-    background: white;
-    border-color: #e2e2e2;
+    margin: 0;
+    padding: 14px 16px 14px 44px;
+    border-radius: 14px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .search-icon {
@@ -542,9 +196,13 @@ textarea {
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 17px;
-    color: #888;
+    font-size: 18px;
+    color: #777;
     pointer-events: none;
+}
+
+.search-results {
+    margin-top: 8px;
 }
 
 .search-result {
@@ -554,15 +212,19 @@ textarea {
     cursor: pointer;
 }
 
+.search-result:active {
+    transform: scale(0.99);
+}
+
 .search-result-icon {
-    width: 43px;
-    height: 43px;
+    width: 44px;
+    height: 44px;
     border-radius: 12px;
-    background: #f0f0f0;
+    background: #f1f1f1;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 21px;
     flex-shrink: 0;
 }
 
@@ -573,28 +235,305 @@ textarea {
 
 .search-result-info strong {
     display: block;
-    font-size: 15px;
-    margin-bottom: 3px;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .search-result-info span {
+    display: block;
     color: #777;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.search-result-chevron {
+    font-size: 22px;
+    color: #888;
+}
+
+/* -----------------------------
+   HOME CATEGORY GRID
+----------------------------- */
+
+.category-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.category-card {
+    background: white;
+    border-radius: 16px;
+    padding: 18px;
+    min-height: 145px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.category-card:active {
+    transform: scale(0.98);
+}
+
+.category-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+}
+
+.category-name {
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 14px;
+}
+
+.category-count {
+    color: #777;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+/* -----------------------------
+   DOCUMENTS / EVENTS
+----------------------------- */
+
+.document-card,
+.event-card {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.document-icon,
+.event-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.document-info,
+.event-info {
+    flex: 1;
+}
+
+.document-info strong,
+.event-info strong {
+    display: block;
+    font-size: 16px;
+}
+
+.document-info span,
+.event-info span {
+    display: block;
+    color: #777;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.document-actions,
+.event-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.document-actions button,
+.event-actions button {
+    width: auto;
+}
+
+.empty {
+    text-align: center;
+    padding: 25px 10px;
+    color: #777;
+}
+
+/* -----------------------------
+   COMING UP
+----------------------------- */
+
+.coming-up {
+    border-left: 4px solid #f59e0b;
+}
+
+.coming-up-overdue {
+    border-left: 4px solid #d92d20;
+}
+
+.coming-up-title {
+    font-weight: 600;
+}
+
+.coming-up-meta {
+    font-size: 13px;
+    color: #777;
+    margin-top: 3px;
+}
+
+.coming-up-status {
+    font-size: 13px;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.coming-up-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.coming-up-acknowledge {
+    width: auto;
+    padding: 8px 12px;
     font-size: 13px;
 }
 
-.search-result-arrow {
-    color: #aaa;
+/* -----------------------------
+   TIMELINE
+----------------------------- */
+
+.timeline-month {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.timeline-month-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.month-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 21px;
 }
 
-.search-empty {
-    text-align: center;
+.chevron {
+    font-size: 22px;
     color: #888;
-    padding: 30px 10px;
 }
 
-.hidden {
-    display: none !important;
+.timeline-events {
+    margin-top: 10px;
+}
+
+.timeline-event {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.timeline-event:last-child {
+    border-bottom: none;
+}
+
+.timeline-event-date {
+    width: 24px;
+    flex-shrink: 0;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 600;
+    color: #777;
+}
+
+.timeline-event .event-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-size: 19px;
+}
+
+.timeline-event-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.timeline-event-info strong {
+    display: block;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.timeline-event-amount {
+    font-size: 14px;
+    color: #555;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.timeline-event-chevron {
+    font-size: 22px;
+    color: #888;
+    flex-shrink: 0;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 4px 0 18px 0;
+}
+
+.checkbox-row input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+}
+
+.checkbox-row label {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.info-box {
+    background: #f1f1f1;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 18px;
+    font-size: 14px;
+    color: #555;
+}
+
+.detail-value {
+    margin-bottom: 15px;
+}
+
+.detail-label {
+    font-size: 13px;
+    color: #777;
+}
+
+.detail-value strong {
+    display: block;
+    margin-top: 3px;
+    font-size: 16px;
 }
 
 </style>
@@ -603,290 +542,487 @@ textarea {
 
 <body>
 
-<div class="app">
+<div class="container">
 
     <!-- HOME -->
-    <div id="homeView">
 
-        <h1>Coisable</h1>
-        <div class="subtitle">Your things. One place.</div>
+    <div id="homeView" class="view active">
+
+        <div style="margin-bottom: 25px;">
+
+            <h1>Coisable</h1>
+
+            <p style="margin-top: 5px;">
+                Your things. One place.
+            </p>
+
+        </div>
+
+        <!-- SEARCH -->
 
         <div class="search-box">
-            <span class="search-icon">🔎</span>
+
+            <div class="search-icon">
+                🔎
+            </div>
+
             <input
                 id="searchInput"
                 type="search"
-                placeholder="Search your things..."
+                placeholder="Search your things"
+                oninput="handleSearch()"
                 autocomplete="off"
-                oninput="renderSearchResults()"
             >
+
         </div>
 
-        <div id="homeCategories">
+        <div id="searchResults"
+             class="search-results"
+             style="display:none;">
+        </div>
+
+        <!-- NORMAL HOME CONTENT -->
+
+        <div id="normalHomeContent">
 
             <div class="category-grid">
 
                 <div class="category-card"
                      onclick="showCategory('Real Estate')">
-                    <div class="category-icon">🏠</div>
-                    <div>
-                        <div class="category-name">Real Estate</div>
-                        <div class="category-count"
-                             id="countRealEstate">0 items</div>
+
+                    <div class="category-icon">
+                        🏠
                     </div>
+
+                    <div>
+
+                        <div class="category-name">
+                            Real Estate
+                        </div>
+
+                        <div class="category-count">
+
+                            <span id="realEstateCount">0</span>
+
+                            <span id="realEstateLabel">
+                                things
+                            </span>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <div class="category-card"
                      onclick="showCategory('Vehicles')">
-                    <div class="category-icon">🚗</div>
-                    <div>
-                        <div class="category-name">Vehicles</div>
-                        <div class="category-count"
-                             id="countVehicles">0 items</div>
+
+                    <div class="category-icon">
+                        🚗
                     </div>
+
+                    <div>
+
+                        <div class="category-name">
+                            Vehicles
+                        </div>
+
+                        <div class="category-count">
+
+                            <span id="vehiclesCount">0</span>
+
+                            <span id="vehiclesLabel">
+                                things
+                            </span>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <div class="category-card"
                      onclick="showCategory('Electronics')">
-                    <div class="category-icon">📱</div>
-                    <div>
-                        <div class="category-name">Electronics</div>
-                        <div class="category-count"
-                             id="countElectronics">0 items</div>
+
+                    <div class="category-icon">
+                        📱
                     </div>
+
+                    <div>
+
+                        <div class="category-name">
+                            Electronics
+                        </div>
+
+                        <div class="category-count">
+
+                            <span id="electronicsCount">0</span>
+
+                            <span id="electronicsLabel">
+                                things
+                            </span>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <div class="category-card"
                      onclick="showCategory('Other')">
-                    <div class="category-icon">📦</div>
-                    <div>
-                        <div class="category-name">Other</div>
-                        <div class="category-count"
-                             id="countOther">0 items</div>
+
+                    <div class="category-icon">
+                        📦
                     </div>
+
+                    <div>
+
+                        <div class="category-name">
+                            Other
+                        </div>
+
+                        <div class="category-count">
+
+                            <span id="otherCount">0</span>
+
+                            <span id="otherLabel">
+                                things
+                            </span>
+
+                        </div>
+
+                    </div>
+
                 </div>
+
+            </div>
+
+            <div class="section">
+
+                <div class="section-header">
+
+                    <h2>Coming Up</h2>
+
+                </div>
+
+                <div id="comingUp"></div>
 
             </div>
 
         </div>
 
-        <div id="homeComingUpSection" class="section">
-
-            <h2>Coming Up</h2>
-
-            <div id="comingUpList"></div>
-
-        </div>
-
-        <div id="searchResultsSection"
-             class="section"
-             style="display:none;">
-
-            <h2>Search Results</h2>
-
-            <div id="searchResultsList"></div>
-
-        </div>
-
     </div>
-
 
     <!-- CATEGORY -->
-    <div id="categoryView" style="display:none;">
 
-        <button class="back" onclick="showHome()">‹ Back</button>
+    <div id="categoryView" class="view">
 
-        <h2 id="categoryTitle"></h2>
+        <div class="topbar">
 
-        <button
-            id="categoryAddButton"
-            class="primary"
-            onclick="showAddThing()">
-        </button>
+            <button class="back small"
+                    onclick="showHome()">
 
-        <div class="section">
-            <div id="categoryThings"></div>
+                ← Back
+
+            </button>
+
+            <h2 id="categoryTitle"></h2>
+
         </div>
 
+        <div style="margin-bottom: 18px;">
+
+            <button id="categoryAddButton"
+                    onclick="showAddForm()">
+
+                + Add
+
+            </button>
+
+        </div>
+
+        <div id="categoryThingsList"></div>
+
     </div>
-
-
-    <!-- THING DETAIL -->
-    <div id="thingView" style="display:none;">
-
-        <button class="back" onclick="backToCategory()">‹ Back</button>
-
-        <div id="thingDetail"></div>
-
-    </div>
-
 
     <!-- ADD THING -->
-    <div id="addThingView" style="display:none;">
 
-        <button class="back" onclick="backToCategory()">‹ Back</button>
+    <div id="addView" class="view">
 
-        <h2 id="addThingTitle">Add Thing</h2>
+        <div class="topbar">
+
+            <button class="back small"
+                    onclick="showCategory(currentCategory)">
+
+                ← Back
+
+            </button>
+
+            <h2 id="addThingTitle">
+                Add Thing
+            </h2>
+
+        </div>
 
         <label>Name</label>
-        <input id="thingName" placeholder="e.g. Mazda MX-5">
+
+        <input id="thingName"
+               placeholder="e.g. Mazda MX-5">
 
         <label>Category</label>
-        <select id="thingCategory">
-            <option value="Real Estate">Real Estate</option>
-            <option value="Vehicles">Vehicles</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Other">Other</option>
-        </select>
 
-        <label>Icon</label>
-        <select id="thingIcon">
-            <option value="🏠">🏠 House</option>
-            <option value="🏢">🏢 Apartment</option>
-            <option value="🚗">🚗 Car</option>
-            <option value="🏍️">🏍️ Motorcycle</option>
-            <option value="🚲">🚲 Bicycle</option>
-            <option value="📱">📱 Phone</option>
-            <option value="💻">💻 Computer</option>
-            <option value="📺">📺 TV</option>
-            <option value="🎧">🎧 Headphones</option>
-            <option value="📦">📦 Other</option>
+        <select id="thingCategory">
+
+            <option value="Real Estate">
+                Real Estate
+            </option>
+
+            <option value="Vehicles">
+                Vehicles
+            </option>
+
+            <option value="Electronics">
+                Electronics
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
         </select>
 
         <label>Purchase Date</label>
-        <input id="thingPurchaseDate" type="date">
+
+        <input id="thingPurchaseDate"
+               type="date">
 
         <label>Purchase Price</label>
+
         <input id="thingPurchasePrice"
                type="number"
                step="0.01"
-               placeholder="0.00">
+               placeholder="€">
 
         <label>Current Value</label>
+
         <input id="thingCurrentValue"
                type="number"
                step="0.01"
-               placeholder="0.00">
+               placeholder="€">
 
-        <label>ID / Reference</label>
-        <input id="thingReference"
-               placeholder="Optional">
+        <button onclick="addThing()">
+            Save Thing
+        </button>
 
-        <div class="form-actions">
-            <button class="primary"
-                    onclick="saveThing()">
-                Save Thing
+    </div>
+
+    <!-- DETAIL -->
+
+    <div id="detailView" class="view">
+
+        <div class="topbar">
+
+            <button class="back small"
+                    onclick="showCategory(currentThingCategory)">
+
+                ← Back
+
             </button>
+
+            <h2 id="detailTitle"></h2>
+
+        </div>
+
+        <div id="thingDetails"></div>
+
+        <div class="section">
+
+            <div class="section-header">
+
+                <h2>Documents</h2>
+
+                <button class="small"
+                        onclick="showAddDocument()">
+
+                    + Add
+
+                </button>
+
+            </div>
+
+            <div id="documentsList"></div>
+
+        </div>
+
+        <div class="section">
+
+            <div class="section-header">
+
+                <h2>Timeline</h2>
+
+                <button class="small"
+                        onclick="showAddEvent()">
+
+                    + Add
+
+                </button>
+
+            </div>
+
+            <div id="timelineList"></div>
+
+        </div>
+
+        <div class="section">
 
             <button class="secondary"
-                    onclick="backToCategory()">
-                Cancel
+                    onclick="editThing()">
+
+                Edit Thing
+
             </button>
+
+            <br><br>
+
+            <button class="danger"
+                    onclick="deleteThing()">
+
+                Delete Thing
+
+            </button>
+
         </div>
 
     </div>
 
-
     <!-- EDIT THING -->
-    <div id="editThingView" style="display:none;">
 
-        <button class="back" onclick="backToThing()">‹ Back</button>
+    <div id="editView" class="view">
 
-        <h2>Edit Thing</h2>
+        <div class="topbar">
+
+            <button class="back small"
+                    onclick="showThing(currentThingId)">
+
+                ← Back
+
+            </button>
+
+            <h2>Edit Thing</h2>
+
+        </div>
 
         <label>Name</label>
+
         <input id="editThingName">
 
         <label>Category</label>
-        <select id="editThingCategory">
-            <option value="Real Estate">Real Estate</option>
-            <option value="Vehicles">Vehicles</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Other">Other</option>
-        </select>
 
-        <label>Icon</label>
-        <select id="editThingIcon">
-            <option value="🏠">🏠 House</option>
-            <option value="🏢">🏢 Apartment</option>
-            <option value="🚗">🚗 Car</option>
-            <option value="🏍️">🏍️ Motorcycle</option>
-            <option value="🚲">🚲 Bicycle</option>
-            <option value="📱">📱 Phone</option>
-            <option value="💻">💻 Computer</option>
-            <option value="📺">📺 TV</option>
-            <option value="🎧">🎧 Headphones</option>
-            <option value="📦">📦 Other</option>
+        <select id="editThingCategory">
+
+            <option value="Real Estate">
+                Real Estate
+            </option>
+
+            <option value="Vehicles">
+                Vehicles
+            </option>
+
+            <option value="Electronics">
+                Electronics
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
         </select>
 
         <label>Purchase Date</label>
-        <input id="editThingPurchaseDate" type="date">
+
+        <input id="editThingPurchaseDate"
+               type="date">
 
         <label>Purchase Price</label>
+
         <input id="editThingPurchasePrice"
                type="number"
                step="0.01">
 
         <label>Current Value</label>
+
         <input id="editThingCurrentValue"
                type="number"
                step="0.01">
 
-        <label>ID / Reference</label>
-        <input id="editThingReference">
-
-        <div class="form-actions">
-
-            <button class="primary"
-                    onclick="updateThing()">
-                Save Changes
-            </button>
-
-            <button class="danger"
-                    onclick="deleteThing()">
-                Delete Thing
-            </button>
-
-        </div>
+        <button onclick="saveEdit()">
+            Save Changes
+        </button>
 
     </div>
 
-
     <!-- ADD DOCUMENT -->
-    <div id="addDocumentView" style="display:none;">
 
-        <button class="back" onclick="backToThing()">‹ Back</button>
+    <div id="addDocumentView" class="view">
 
-        <h2>Add Document</h2>
+        <div class="topbar">
+
+            <button class="back small"
+                    onclick="showThing(currentThingId)">
+
+                ← Back
+
+            </button>
+
+            <h2>Add Document</h2>
+
+        </div>
 
         <label>Name</label>
+
         <input id="documentName"
-               placeholder="e.g. Car Insurance">
+               placeholder="e.g. Car Insurance 2026">
 
         <label>Type</label>
+
         <select id="documentType">
-            <option>Invoice</option>
-            <option>Contract</option>
-            <option>Insurance</option>
-            <option>Warranty</option>
-            <option>Tax</option>
-            <option>Certificate</option>
-            <option>Repair</option>
-            <option>Other</option>
+
+            <option value="Invoice">Invoice</option>
+            <option value="Contract">Contract</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Warranty">Warranty</option>
+            <option value="Tax">Tax</option>
+            <option value="Certificate">Certificate</option>
+            <option value="Repair">Repair</option>
+            <option value="Other">Other</option>
+
         </select>
 
         <label>Date</label>
-        <input id="documentDate" type="date">
+
+        <input id="documentDate"
+               type="date">
 
         <label>Date Type</label>
+
         <select id="documentDateType"
-                onchange="updateImportantDateLabel('document')">
-            <option value="None">None</option>
-            <option value="Due Date">Due Date</option>
-            <option value="Expiry Date">Expiry Date</option>
+                onchange="updateImportantDateField('')">
+
+            <option value="None">
+                None
+            </option>
+
+            <option value="Due Date">
+                Due Date
+            </option>
+
+            <option value="Expiry Date">
+                Expiry Date
+            </option>
+
         </select>
 
-        <div id="documentImportantDateWrapper"
+        <div id="documentImportantDateGroup"
              style="display:none;">
 
             <label id="documentImportantDateLabel">
@@ -898,88 +1034,117 @@ textarea {
 
         </div>
 
+        <label>Repeat</label>
+
+        <select id="documentRepeat">
+
+            <option value="Never">
+                Never
+            </option>
+
+            <option value="Yearly">
+                Yearly
+            </option>
+
+            <option value="Monthly">
+                Monthly
+            </option>
+
+        </select>
+
         <label>Amount</label>
+
         <input id="documentAmount"
                type="number"
                step="0.01"
-               placeholder="0.00">
+               placeholder="€">
 
-        <label>Repeat</label>
-        <select id="documentRepeat">
-            <option value="Never">Never</option>
-            <option value="Yearly">Yearly</option>
-            <option value="Monthly">Monthly</option>
-        </select>
+        <div class="checkbox-row">
 
-        <label>
-            <input id="documentAddTimeline"
-                   type="checkbox"
-                   checked
-                   style="width:auto;margin:0 6px 0 0;">
-            Add to Timeline
-        </label>
+            <input type="checkbox"
+                   id="addToTimeline"
+                   checked>
 
-        <div class="section">
-
-            <label>Attachment</label>
-
-            <input id="documentAttachment"
-                   type="file"
-                   accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt">
+            <label for="addToTimeline">
+                Add to Timeline
+            </label>
 
         </div>
 
-        <div class="form-actions">
+        <div class="info-box">
 
-            <button class="primary"
-                    onclick="saveDocument()">
-                Save Document
-            </button>
-
-            <button class="secondary"
-                    onclick="backToThing()">
-                Cancel
-            </button>
+            Date = when the document happened or was issued.
+            You can optionally add a Due Date or Expiry Date separately.
 
         </div>
+
+        <button onclick="addDocument()">
+            Save Document
+        </button>
 
     </div>
 
-
     <!-- EDIT DOCUMENT -->
-    <div id="editDocumentView" style="display:none;">
 
-        <button class="back" onclick="backToThing()">‹ Back</button>
+    <div id="editDocumentView" class="view">
 
-        <h2>Edit Document</h2>
+        <div class="topbar">
+
+            <button class="back small"
+                    onclick="showThing(currentThingId)">
+
+                ← Back
+
+            </button>
+
+            <h2>Edit Document</h2>
+
+        </div>
 
         <label>Name</label>
+
         <input id="editDocumentName">
 
         <label>Type</label>
+
         <select id="editDocumentType">
-            <option>Invoice</option>
-            <option>Contract</option>
-            <option>Insurance</option>
-            <option>Warranty</option>
-            <option>Tax</option>
-            <option>Certificate</option>
-            <option>Repair</option>
-            <option>Other</option>
+
+            <option value="Invoice">Invoice</option>
+            <option value="Contract">Contract</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Warranty">Warranty</option>
+            <option value="Tax">Tax</option>
+            <option value="Certificate">Certificate</option>
+            <option value="Repair">Repair</option>
+            <option value="Other">Other</option>
+
         </select>
 
         <label>Date</label>
-        <input id="editDocumentDate" type="date">
+
+        <input id="editDocumentDate"
+               type="date">
 
         <label>Date Type</label>
+
         <select id="editDocumentDateType"
-                onchange="updateImportantDateLabel('editDocument')">
-            <option value="None">None</option>
-            <option value="Due Date">Due Date</option>
-            <option value="Expiry Date">Expiry Date</option>
+                onchange="updateImportantDateField('edit')">
+
+            <option value="None">
+                None
+            </option>
+
+            <option value="Due Date">
+                Due Date
+            </option>
+
+            <option value="Expiry Date">
+                Expiry Date
+            </option>
+
         </select>
 
-        <div id="editDocumentImportantDateWrapper"
+        <div id="editDocumentImportantDateGroup"
              style="display:none;">
 
             <label id="editDocumentImportantDateLabel">
@@ -991,408 +1156,216 @@ textarea {
 
         </div>
 
+        <label>Repeat</label>
+
+        <select id="editDocumentRepeat">
+
+            <option value="Never">
+                Never
+            </option>
+
+            <option value="Yearly">
+                Yearly
+            </option>
+
+            <option value="Monthly">
+                Monthly
+            </option>
+
+        </select>
+
         <label>Amount</label>
+
         <input id="editDocumentAmount"
                type="number"
                step="0.01">
 
-        <label>Repeat</label>
-        <select id="editDocumentRepeat">
-            <option value="Never">Never</option>
-            <option value="Yearly">Yearly</option>
-            <option value="Monthly">Monthly</option>
-        </select>
-
-        <div class="section">
-
-            <label>Attachment</label>
-
-            <div id="editDocumentAttachment"></div>
-
-            <input id="editDocumentAttachmentInput"
-                   type="file"
-                   accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt">
-
+        <div class="info-box"
+             id="documentTimelineInfo">
         </div>
 
-        <div class="form-actions">
+        <button onclick="saveDocumentEdit()">
+            Save Changes
+        </button>
 
-            <button class="primary"
-                    onclick="updateDocument()">
-                Save Changes
-            </button>
+        <br><br>
 
-            <button class="danger"
-                    onclick="deleteDocument()">
-                Delete Document
-            </button>
+        <button class="danger"
+                onclick="deleteDocument()">
 
-        </div>
+            Delete Document
+
+        </button>
 
     </div>
 
-
     <!-- ADD EVENT -->
-    <div id="addEventView" style="display:none;">
 
-        <button class="back" onclick="backToThing()">‹ Back</button>
+    <div id="addEventView" class="view">
 
-        <h2>Add Event</h2>
+        <div class="topbar">
 
-        <label>Description</label>
-        <input id="eventDescription"
-               placeholder="e.g. 100,000 km service">
+            <button class="back small"
+                    onclick="showThing(currentThingId)">
+
+                ← Back
+
+            </button>
+
+            <h2>Add Event</h2>
+
+        </div>
 
         <label>Type</label>
+
         <select id="eventType">
-            <option>Purchase</option>
-            <option>Repair</option>
-            <option>Maintenance</option>
-            <option>Expense</option>
-            <option>Inspection</option>
-            <option>Insurance Renewal</option>
-            <option>Other</option>
+
+            <option value="Purchase">Purchase</option>
+            <option value="Repair">Repair</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Expense">Expense</option>
+            <option value="Inspection">Inspection</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Other">Other</option>
+
         </select>
 
+        <label>Description</label>
+
+        <input id="eventDescription"
+               placeholder="e.g. Annual inspection">
+
         <label>Date</label>
-        <input id="eventDate" type="date">
+
+        <input id="eventDate"
+               type="date">
 
         <label>Amount</label>
+
         <input id="eventAmount"
                type="number"
                step="0.01"
-               placeholder="0.00">
+               placeholder="€">
 
-        <div class="form-actions">
-
-            <button class="primary"
-                    onclick="saveEvent()">
-                Save Event
-            </button>
-
-            <button class="secondary"
-                    onclick="backToThing()">
-                Cancel
-            </button>
-
-        </div>
+        <button onclick="addEvent()">
+            Save Event
+        </button>
 
     </div>
 
-
     <!-- EDIT EVENT -->
-    <div id="editEventView" style="display:none;">
 
-        <button class="back" onclick="backToThing()">‹ Back</button>
+    <div id="editEventView" class="view">
 
-        <h2>Edit Event</h2>
+        <div class="topbar">
 
-        <label>Description</label>
-        <input id="editEventDescription">
+            <button class="back small"
+                    onclick="showThing(currentThingId)">
+
+                ← Back
+
+            </button>
+
+            <h2>Edit Event</h2>
+
+        </div>
 
         <label>Type</label>
+
         <select id="editEventType">
-            <option>Purchase</option>
-            <option>Repair</option>
-            <option>Maintenance</option>
-            <option>Expense</option>
-            <option>Inspection</option>
-            <option>Insurance Renewal</option>
-            <option>Other</option>
+
+            <option value="Purchase">Purchase</option>
+            <option value="Repair">Repair</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Expense">Expense</option>
+            <option value="Inspection">Inspection</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Other">Other</option>
+
         </select>
 
+        <label>Description</label>
+
+        <input id="editEventDescription">
+
         <label>Date</label>
-        <input id="editEventDate" type="date">
+
+        <input id="editEventDate"
+               type="date">
 
         <label>Amount</label>
+
         <input id="editEventAmount"
                type="number"
                step="0.01">
 
-        <div class="form-actions">
+        <button onclick="saveEventEdit()">
+            Save Changes
+        </button>
 
-            <button class="primary"
-                    onclick="updateEvent()">
-                Save Changes
-            </button>
+        <br><br>
 
-            <button class="danger"
-                    onclick="deleteEvent()">
-                Delete Event
-            </button>
+        <button class="danger"
+                onclick="deleteEvent()">
 
-        </div>
+            Delete Event
+
+        </button>
 
     </div>
 
 </div>
 
-
 <script>
 
-/* =========================================================
-   CONSTANTS
-========================================================= */
-
 const categoryIcons = {
+
     "Real Estate": "🏠",
     "Vehicles": "🚗",
     "Electronics": "📱",
     "Other": "📦"
+
 };
 
 const documentIcons = {
-    "Invoice": "🧾",
-    "Contract": "📄",
-    "Insurance": "🛡️",
-    "Warranty": "🔧",
-    "Tax": "💶",
-    "Certificate": "📜",
-    "Repair": "🔧",
-    "Other": "📄"
+
+    Invoice: "🧾",
+    Contract: "📜",
+    Insurance: "🛡️",
+    Warranty: "🔒",
+    Tax: "💶",
+    Certificate: "📜",
+    Repair: "🔧",
+    Other: "📄"
+
 };
 
 const eventIcons = {
-    "Purchase": "🛒",
-    "Repair": "🔧",
-    "Maintenance": "🛠️",
-    "Expense": "💶",
-    "Inspection": "🔍",
-    "Insurance Renewal": "🛡️",
-    "Other": "📌"
+
+    Purchase: "🛒",
+    Repair: "🔧",
+    Maintenance: "🛠️",
+    Expense: "💶",
+    Inspection: "🔍",
+    Insurance: "🛡️",
+    Other: "📌"
+
 };
 
-
-/* =========================================================
-   DATA
-========================================================= */
-
-let things = JSON.parse(
-    localStorage.getItem("coisableThings") || "[]"
-);
+let things =
+    JSON.parse(localStorage.getItem("coisableThings")) || [];
 
 let currentThingId = null;
 let currentThingCategory = null;
+let currentCategory = null;
 let currentDocumentId = null;
 let currentEventId = null;
 
-let collapsedMonths = {};
-
-
-/* =========================================================
-   INDEXED DB
-========================================================= */
-
-let attachmentDB = null;
-
-function openAttachmentDB() {
-
-    return new Promise((resolve, reject) => {
-
-        const request =
-            indexedDB.open(
-                "CoisableAttachments",
-                1
-            );
-
-        request.onupgradeneeded = function(event) {
-
-            const db =
-                event.target.result;
-
-            if (
-                !db.objectStoreNames.contains(
-                    "attachments"
-                )
-            ) {
-
-                db.createObjectStore(
-                    "attachments",
-                    {
-                        keyPath: "id"
-                    }
-                );
-
-            }
-
-        };
-
-        request.onsuccess = function(event) {
-
-            attachmentDB =
-                event.target.result;
-
-            resolve(attachmentDB);
-
-        };
-
-        request.onerror = function() {
-
-            reject(
-                request.error
-            );
-
-        };
-
-    });
-
-}
-
-
-async function saveAttachment(
-    documentId,
-    file
-) {
-
-    const db =
-        attachmentDB ||
-        await openAttachmentDB();
-
-    return new Promise((resolve, reject) => {
-
-        const transaction =
-            db.transaction(
-                ["attachments"],
-                "readwrite"
-            );
-
-        const store =
-            transaction.objectStore(
-                "attachments"
-            );
-
-        const data = {
-
-            id: documentId,
-
-            name: file.name,
-
-            type: file.type,
-
-            size: file.size,
-
-            blob: file,
-
-            createdAt: Date.now()
-
-        };
-
-        const request =
-            store.put(data);
-
-        request.onsuccess =
-            () => resolve();
-
-        request.onerror =
-            () => reject(request.error);
-
-    });
-
-}
-
-
-async function getAttachment(
-    documentId
-) {
-
-    const db =
-        attachmentDB ||
-        await openAttachmentDB();
-
-    return new Promise((resolve, reject) => {
-
-        const transaction =
-            db.transaction(
-                ["attachments"],
-                "readonly"
-            );
-
-        const store =
-            transaction.objectStore(
-                "attachments"
-            );
-
-        const request =
-            store.get(documentId);
-
-        request.onsuccess =
-            () => resolve(request.result);
-
-        request.onerror =
-            () => reject(request.error);
-
-    });
-
-}
-
-
-async function deleteAttachment(
-    documentId
-) {
-
-    const db =
-        attachmentDB ||
-        await openAttachmentDB();
-
-    return new Promise((resolve, reject) => {
-
-        const transaction =
-            db.transaction(
-                ["attachments"],
-                "readwrite"
-            );
-
-        const store =
-            transaction.objectStore(
-                "attachments"
-            );
-
-        const request =
-            store.delete(documentId);
-
-        request.onsuccess =
-            () => resolve();
-
-        request.onerror =
-            () => reject(request.error);
-
-    });
-
-}
-
-
-function formatFileSize(bytes) {
-
-    if (!bytes) {
-        return "";
-    }
-
-    if (bytes < 1024) {
-        return bytes + " B";
-    }
-
-    if (bytes < 1024 * 1024) {
-
-        return (
-            bytes / 1024
-        ).toFixed(1) + " KB";
-
-    }
-
-    return (
-        bytes /
-        (1024 * 1024)
-    ).toFixed(1) + " MB";
-
-}
-
-
-
-/* =========================================================
+/* -----------------------------
    STORAGE
-========================================================= */
+----------------------------- */
 
-function saveData() {
+function saveThings() {
 
     localStorage.setItem(
         "coisableThings",
@@ -1401,261 +1374,327 @@ function saveData() {
 
 }
 
+/* -----------------------------
+   VIEW MANAGEMENT
+----------------------------- */
 
+function showView(id) {
 
-/* =========================================================
-   VIEWS
-========================================================= */
+    document.querySelectorAll(".view").forEach(view => {
 
-function hideAllViews() {
-
-    const views = [
-        "homeView",
-        "categoryView",
-        "thingView",
-        "addThingView",
-        "editThingView",
-        "addDocumentView",
-        "editDocumentView",
-        "addEventView",
-        "editEventView"
-    ];
-
-    views.forEach(id => {
-
-        document.getElementById(id)
-            .style.display = "none";
+        view.classList.remove("active");
 
     });
 
-}
+    const target =
+        document.getElementById(id);
 
+    if (!target) {
+
+        showView("homeView");
+
+        return;
+
+    }
+
+    target.classList.add("active");
+
+}
 
 function showHome() {
 
-    hideAllViews();
+    renderCategoryCounts();
+    renderComingUp();
 
-    document.getElementById("homeView")
-        .style.display = "block";
+    showView("homeView");
 
-    const searchInput =
+}
+
+/* -----------------------------
+   SEARCH
+----------------------------- */
+
+function normalizeSearch(value) {
+
+    return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+
+}
+
+function handleSearch() {
+
+    const input =
         document.getElementById("searchInput");
 
-    if (searchInput) {
-        searchInput.value = "";
-    }
+    if (!input) return;
 
-    renderHomeCounts();
-    renderComingUp();
-    renderSearchResults();
+    const query =
+        normalizeSearch(input.value);
 
-}
-
-
-function showCategory(category) {
-
-    hideAllViews();
-
-    currentThingCategory =
-        category;
-
-    document.getElementById("categoryView")
-        .style.display = "block";
-
-    document.getElementById("categoryTitle")
-        .textContent = category;
-
-    const button =
+    const resultsContainer =
         document.getElementById(
-            "categoryAddButton"
+            "searchResults"
         );
 
-    if (category === "Real Estate") {
-
-        button.textContent =
-            "+ Add Property";
-
-    }
-    else if (category === "Vehicles") {
-
-        button.textContent =
-            "+ Add Vehicle";
-
-    }
-    else {
-
-        button.textContent =
-            "+ Add";
-
-    }
-
-    renderCategory(category);
-
-}
-
-
-function showThing(id) {
-
-    hideAllViews();
-
-    currentThingId = id;
-
-    document.getElementById("thingView")
-        .style.display = "block";
-
-    renderThingDetail();
-
-}
-
-
-function backToCategory() {
-
-    if (currentThingCategory) {
-
-        showCategory(
-            currentThingCategory
+    const normalHome =
+        document.getElementById(
+            "normalHomeContent"
         );
 
-    }
-    else {
+    if (!query) {
 
-        showHome();
+        resultsContainer.style.display =
+            "none";
 
-    }
+        resultsContainer.innerHTML = "";
 
-}
+        normalHome.style.display =
+            "block";
 
-
-function backToThing() {
-
-    if (currentThingId) {
-
-        showThing(
-            currentThingId
-        );
-
-    }
-    else {
-
-        showHome();
+        return;
 
     }
 
-}
+    normalHome.style.display =
+        "none";
 
+    const results = [];
 
+    /*
+       Search Things
+    */
 
-/* =========================================================
-   HOME
-========================================================= */
+    things.forEach(thing => {
 
-function renderHomeCounts() {
+        const thingMatch =
+            normalizeSearch(
+                thing.name
+            ).includes(query) ||
+            normalizeSearch(
+                thing.category
+            ).includes(query);
 
-    const categories = [
-        "Real Estate",
-        "Vehicles",
-        "Electronics",
-        "Other"
-    ];
+        if (thingMatch) {
 
-    categories.forEach(category => {
+            results.push({
 
-        const count =
-            things.filter(
-                t =>
-                    t.category === category
-            ).length;
+                kind: "thing",
 
-        const el =
-            document.getElementById(
-                "count" +
-                category.replace(" ", "")
+                thingId: thing.id,
+
+                title: thing.name,
+
+                subtitle:
+                    thing.category,
+
+                icon:
+                    categoryIcons[
+                        thing.category
+                    ] || "📦"
+
+            });
+
+        }
+
+        /*
+           Search Documents
+        */
+
+        if (
+            Array.isArray(
+                thing.documents
+            )
+        ) {
+
+            thing.documents.forEach(
+                documentItem => {
+
+                    const documentMatch =
+                        normalizeSearch(
+                            documentItem.name
+                        ).includes(query) ||
+                        normalizeSearch(
+                            documentItem.type
+                        ).includes(query);
+
+                    if (documentMatch) {
+
+                        results.push({
+
+                            kind: "document",
+
+                            thingId:
+                                thing.id,
+
+                            documentId:
+                                documentItem.id,
+
+                            title:
+                                documentItem.name,
+
+                            subtitle:
+                                `${documentItem.type} · ${thing.name}`,
+
+                            icon:
+                                documentIcons[
+                                    documentItem.type
+                                ] || "📄"
+
+                        });
+
+                    }
+
+                }
             );
 
-        if (el) {
+        }
 
-            el.textContent =
-                count === 1
-                    ? "1 item"
-                    : `${count} items`;
+        /*
+           Search Timeline Events
+        */
+
+        if (
+            Array.isArray(
+                thing.events
+            )
+        ) {
+
+            thing.events.forEach(
+                event => {
+
+                    const eventMatch =
+                        normalizeSearch(
+                            event.description
+                        ).includes(query) ||
+                        normalizeSearch(
+                            event.type
+                        ).includes(query);
+
+                    if (eventMatch) {
+
+                        results.push({
+
+                            kind: "event",
+
+                            thingId:
+                                thing.id,
+
+                            eventId:
+                                event.id,
+
+                            title:
+                                event.description,
+
+                            subtitle:
+                                `Timeline · ${thing.name}`,
+
+                            icon:
+                                eventIcons[
+                                    event.type
+                                ] || "📌"
+
+                        });
+
+                    }
+
+                }
+            );
 
         }
 
     });
 
-}
+    if (
+        results.length === 0
+    ) {
 
+        resultsContainer.style.display =
+            "block";
 
+        resultsContainer.innerHTML = `
 
-/* =========================================================
-   CATEGORY
-========================================================= */
+            <div class="card empty">
 
-function renderCategory(category) {
+                No results found.
 
-    const container =
-        document.getElementById(
-            "categoryThings"
-        );
-
-    const filtered =
-        things.filter(
-            thing =>
-                thing.category === category
-        );
-
-    if (!filtered.length) {
-
-        container.innerHTML = `
-            <div class="empty">
-                No things yet.
             </div>
+
         `;
 
         return;
 
     }
 
-    container.innerHTML =
-        filtered.map(thing => {
+    resultsContainer.style.display =
+        "block";
 
-            const icon =
-                thing.icon ||
-                categoryIcons[
-                    thing.category
-                ] ||
-                "📦";
+    resultsContainer.innerHTML =
+        results.map(result => {
+
+            /*
+               IMPORTANT:
+               Search navigation always
+               sets the Thing context first.
+            */
+
+            let action = "";
+
+            if (
+                result.kind === "thing"
+            ) {
+
+                action =
+                    `openThingFromSearch(${result.thingId})`;
+
+            } else if (
+                result.kind === "document"
+            ) {
+
+                action =
+                    `openDocumentFromSearch(${result.thingId}, ${result.documentId})`;
+
+            } else if (
+                result.kind === "event"
+            ) {
+
+                action =
+                    `openEventFromSearch(${result.thingId}, ${result.eventId})`;
+
+            }
 
             return `
 
-                <div class="card clickable"
-                     onclick="showThing('${thing.id}')">
+                <div class="card search-result"
+                     onclick="${action}">
 
-                    <div class="card-row">
+                    <div class="search-result-icon">
 
-                        <div class="icon">
-                            ${icon}
-                        </div>
+                        ${result.icon}
 
-                        <div class="info">
+                    </div>
 
-                            <strong>
-                                ${escapeHtml(
-                                    thing.name
-                                )}
-                            </strong>
+                    <div class="search-result-info">
 
-                            <span>
-                                ${escapeHtml(
-                                    thing.category
-                                )}
-                            </span>
+                        <strong>
+                            ${escapeHtml(
+                                result.title
+                            )}
+                        </strong>
 
-                        </div>
+                        <span>
+                            ${escapeHtml(
+                                result.subtitle
+                            )}
+                        </span>
 
-                        <div class="chevron">
-                            ›
-                        </div>
+                    </div>
+
+                    <div class="search-result-chevron">
+
+                        ›
 
                     </div>
 
@@ -1667,28 +1706,310 @@ function renderCategory(category) {
 
 }
 
+function openThingFromSearch(
+    thingId
+) {
 
+    const thing =
+        things.find(
+            item =>
+                item.id === thingId
+        );
 
-/* =========================================================
+    if (!thing) {
+
+        return;
+
+    }
+
+    currentThingId =
+        thing.id;
+
+    currentThingCategory =
+        thing.category;
+
+    showThing(
+        thing.id
+    );
+
+}
+
+function openDocumentFromSearch(
+    thingId,
+    documentId
+) {
+
+    const thing =
+        things.find(
+            item =>
+                item.id === thingId
+        );
+
+    if (!thing) {
+
+        return;
+
+    }
+
+    currentThingId =
+        thing.id;
+
+    currentThingCategory =
+        thing.category;
+
+    const documentItem =
+        thing.documents &&
+        thing.documents.find(
+            item =>
+                item.id === documentId
+        );
+
+    if (!documentItem) {
+
+        showThing(
+            thing.id
+        );
+
+        return;
+
+    }
+
+    currentDocumentId =
+        documentItem.id;
+
+    showThing(
+        thing.id
+    );
+
+    /*
+       showThing() activates the detail
+       view. We then open the document
+       editor explicitly.
+    */
+
+    editDocument(
+        documentItem.id
+    );
+
+}
+
+function openEventFromSearch(
+    thingId,
+    eventId
+) {
+
+    const thing =
+        things.find(
+            item =>
+                item.id === thingId
+        );
+
+    if (!thing) {
+
+        return;
+
+    }
+
+    currentThingId =
+        thing.id;
+
+    currentThingCategory =
+        thing.category;
+
+    const event =
+        thing.events &&
+        thing.events.find(
+            item =>
+                item.id === eventId
+        );
+
+    if (!event) {
+
+        showThing(
+            thing.id
+        );
+
+        return;
+
+    }
+
+    currentEventId =
+        event.id;
+
+    showThing(
+        thing.id
+    );
+
+    openTimelineEvent(
+        event.id
+    );
+
+}
+
+/* -----------------------------
+   HOME / CATEGORIES
+----------------------------- */
+
+function renderCategoryCounts() {
+
+    const categories = {
+
+        "Real Estate": "realEstate",
+        "Vehicles": "vehicles",
+        "Electronics": "electronics",
+        "Other": "other"
+
+    };
+
+    Object.keys(categories).forEach(category => {
+
+        const prefix =
+            categories[category];
+
+        const count =
+            things.filter(
+                thing =>
+                    thing.category === category
+            ).length;
+
+        const countElement =
+            document.getElementById(
+                prefix + "Count"
+            );
+
+        const labelElement =
+            document.getElementById(
+                prefix + "Label"
+            );
+
+        if (countElement) {
+
+            countElement.textContent = count;
+
+        }
+
+        if (labelElement) {
+
+            labelElement.textContent =
+                count === 1
+                    ? "thing"
+                    : "things";
+
+        }
+
+    });
+
+}
+
+function showCategory(category) {
+
+    currentCategory = category;
+
+    const categoryTitle =
+        document.getElementById("categoryTitle");
+
+    const addButton =
+        document.getElementById("categoryAddButton");
+
+    categoryTitle.textContent =
+        category;
+
+    if (category === "Real Estate") {
+
+        addButton.textContent =
+            "+ Add Property";
+
+    } else if (category === "Vehicles") {
+
+        addButton.textContent =
+            "+ Add Vehicle";
+
+    } else {
+
+        addButton.textContent =
+            "+ Add";
+
+    }
+
+    renderCategoryThings(category);
+
+    showView("categoryView");
+
+}
+
+function renderCategoryThings(category) {
+
+    const container =
+        document.getElementById(
+            "categoryThingsList"
+        );
+
+    const categoryThings =
+        things.filter(
+            thing =>
+                thing.category === category
+        );
+
+    if (categoryThings.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="card empty">
+
+                No things yet.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML =
+        categoryThings.map(thing => {
+
+            const icon =
+                categoryIcons[thing.category] ||
+                "📦";
+
+            return `
+
+                <div class="card thing-card"
+                     onclick="openThing(${thing.id})">
+
+                    <div class="icon">
+                        ${icon}
+                    </div>
+
+                    <div class="thing-info">
+
+                        <strong>
+                            ${escapeHtml(thing.name)}
+                        </strong>
+
+                        <span>
+                            ${escapeHtml(thing.category)}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+/* -----------------------------
    ADD THING
-========================================================= */
+----------------------------- */
 
-function showAddThing() {
+function showAddForm(category = currentCategory) {
 
-    hideAllViews();
-
-    document.getElementById(
-        "addThingView"
-    ).style.display = "block";
-
-    document.getElementById(
-        "addThingTitle"
-    ).textContent =
-        currentThingCategory === "Real Estate"
-            ? "Add Property"
-            : currentThingCategory === "Vehicles"
-                ? "Add Vehicle"
-                : "Add Thing";
+    currentCategory =
+        category || "Other";
 
     document.getElementById(
         "thingName"
@@ -1696,20 +2017,7 @@ function showAddThing() {
 
     document.getElementById(
         "thingCategory"
-    ).value =
-        currentThingCategory ||
-        "Other";
-
-    document.getElementById(
-        "thingIcon"
-    ).value =
-        currentThingCategory === "Real Estate"
-            ? "🏠"
-            : currentThingCategory === "Vehicles"
-                ? "🚗"
-                : currentThingCategory === "Electronics"
-                    ? "📱"
-                    : "📦";
+    ).value = currentCategory;
 
     document.getElementById(
         "thingPurchaseDate"
@@ -1723,14 +2031,48 @@ function showAddThing() {
         "thingCurrentValue"
     ).value = "";
 
-    document.getElementById(
-        "thingReference"
-    ).value = "";
+    const title =
+        document.getElementById(
+            "addThingTitle"
+        );
+
+    const categorySelect =
+        document.getElementById(
+            "thingCategory"
+        );
+
+    title.textContent =
+        getAddTitle(currentCategory);
+
+    categorySelect.style.display =
+        "none";
+
+    categorySelect.previousElementSibling.style.display =
+        "none";
+
+    showView("addView");
 
 }
 
+function getAddTitle(category) {
 
-function saveThing() {
+    if (category === "Real Estate") {
+
+        return "Add Property";
+
+    }
+
+    if (category === "Vehicles") {
+
+        return "Add Vehicle";
+
+    }
+
+    return "Add";
+
+}
+
+function addThing() {
 
     const name =
         document.getElementById(
@@ -1739,9 +2081,7 @@ function saveThing() {
 
     if (!name) {
 
-        alert(
-            "Please enter a name."
-        );
+        alert("Please enter a name.");
 
         return;
 
@@ -1749,20 +2089,12 @@ function saveThing() {
 
     const thing = {
 
-        id:
-            Date.now().toString(),
+        id: Date.now(),
 
-        name,
+        name: name,
 
         category:
-            document.getElementById(
-                "thingCategory"
-            ).value,
-
-        icon:
-            document.getElementById(
-                "thingIcon"
-            ).value,
+            currentCategory || "Other",
 
         purchaseDate:
             document.getElementById(
@@ -1779,11 +2111,6 @@ function saveThing() {
                 "thingCurrentValue"
             ).value,
 
-        reference:
-            document.getElementById(
-                "thingReference"
-            ).value.trim(),
-
         documents: [],
 
         events: []
@@ -1792,32 +2119,32 @@ function saveThing() {
 
     things.push(thing);
 
-    saveData();
+    saveThings();
 
-    currentThingId =
-        thing.id;
-
-    currentThingCategory =
-        thing.category;
-
-    showThing(
-        thing.id
-    );
+    showCategory(currentCategory);
 
 }
 
+/* -----------------------------
+   THINGS
+----------------------------- */
 
+function openThing(id) {
 
-/* =========================================================
-   THING DETAIL
-========================================================= */
+    currentThingId = id;
 
-function renderThingDetail() {
+    showThing(id);
+
+}
+
+function showThing(id) {
+
+    currentThingId = id;
 
     const thing =
         things.find(
-            t =>
-                t.id === currentThingId
+            item =>
+                item.id === id
         );
 
     if (!thing) {
@@ -1828,198 +2155,136 @@ function renderThingDetail() {
 
     }
 
+    currentThingCategory =
+        thing.category;
+
+    if (!Array.isArray(thing.documents)) {
+
+        thing.documents = [];
+
+    }
+
+    if (!Array.isArray(thing.events)) {
+
+        thing.events = [];
+
+    }
+
+    document.getElementById(
+        "detailTitle"
+    ).textContent =
+        thing.name;
+
     const icon =
-        thing.icon ||
         categoryIcons[
             thing.category
-        ] ||
-        "📦";
+        ] || "📦";
 
-    const container =
-        document.getElementById(
-            "thingDetail"
-        );
+    document.getElementById(
+        "thingDetails"
+    ).innerHTML = `
 
-    container.innerHTML = `
-
-        <div class="detail-header">
-
-            <div class="detail-icon">
-                ${icon}
-            </div>
-
-            <div class="detail-title">
-
-                <h2>
-                    ${escapeHtml(
-                        thing.name
-                    )}
-                </h2>
-
-                <span>
-                    ${escapeHtml(
-                        thing.category
-                    )}
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="top-actions">
-
-            <button class="small-button"
-                    onclick="showEditThing()">
-                Edit
-            </button>
-
-        </div>
-
-
-        <div class="detail-grid">
-
-            <div class="detail-item">
-
-                <small>
-                    Purchase Date
-                </small>
-
-                <strong>
-                    ${formatDate(
-                        thing.purchaseDate
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <small>
-                    Purchase Price
-                </small>
-
-                <strong>
-                    ${formatAmount(
-                        thing.purchasePrice
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <small>
-                    Current Value
-                </small>
-
-                <strong>
-                    ${formatAmount(
-                        thing.currentValue
-                    )}
-                </strong>
-
-            </div>
-
-
-            <div class="detail-item">
-
-                <small>
-                    ID / Reference
-                </small>
-
-                <strong>
-                    ${escapeHtml(
-                        thing.reference ||
-                        "—"
-                    )}
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="section">
+        <div class="card">
 
             <div style="
                 display:flex;
+                gap:14px;
                 align-items:center;
-                justify-content:space-between;
-                margin-bottom:14px;
             ">
 
-                <h2 style="margin:0;">
-                    Documents
-                </h2>
+                <div class="icon">
+                    ${icon}
+                </div>
 
-                <button class="small-button"
-                        onclick="showAddDocument()">
-                    + Add
-                </button>
+                <div>
+
+                    <strong style="font-size:18px;">
+                        ${escapeHtml(thing.name)}
+                    </strong>
+
+                    <div style="
+                        color:#777;
+                        margin-top:4px;
+                    ">
+
+                        ${escapeHtml(thing.category)}
+
+                    </div>
+
+                </div>
 
             </div>
 
-            <div id="documentsList"></div>
+            <div class="section">
 
-        </div>
+                <div class="detail-value">
 
+                    <div class="detail-label">
+                        Purchase Date
+                    </div>
 
-        <div class="section">
+                    <strong>
+                        ${formatDate(
+                            thing.purchaseDate
+                        )}
+                    </strong>
 
-            <div style="
-                display:flex;
-                align-items:center;
-                justify-content:space-between;
-                margin-bottom:14px;
-            ">
+                </div>
 
-                <h2 style="margin:0;">
-                    Timeline
-                </h2>
+                <div class="detail-value">
 
-                <button class="small-button"
-                        onclick="showAddEvent()">
-                    + Add
-                </button>
+                    <div class="detail-label">
+                        Purchase Price
+                    </div>
+
+                    <strong>
+                        ${formatMoney(
+                            thing.purchasePrice
+                        )}
+                    </strong>
+
+                </div>
+
+                <div class="detail-value">
+
+                    <div class="detail-label">
+                        Current Value
+                    </div>
+
+                    <strong>
+                        ${formatMoney(
+                            thing.currentValue
+                        )}
+                    </strong>
+
+                </div>
 
             </div>
-
-            <div id="timelineList"></div>
 
         </div>
 
     `;
 
-    renderDocuments();
+    renderDocuments(thing);
+    renderTimeline(thing);
 
-    renderTimeline();
+    showView("detailView");
 
 }
 
-
-
-/* =========================================================
+/* -----------------------------
    EDIT THING
-========================================================= */
+----------------------------- */
 
-function showEditThing() {
+function editThing() {
 
     const thing =
         things.find(
-            t =>
-                t.id === currentThingId
+            item =>
+                item.id === currentThingId
         );
 
     if (!thing) return;
-
-    hideAllViews();
-
-    document.getElementById(
-        "editThingView"
-    ).style.display = "block";
 
     document.getElementById(
         "editThingName"
@@ -2030,11 +2295,6 @@ function showEditThing() {
         "editThingCategory"
     ).value =
         thing.category || "Other";
-
-    document.getElementById(
-        "editThingIcon"
-    ).value =
-        thing.icon || "📦";
 
     document.getElementById(
         "editThingPurchaseDate"
@@ -2051,20 +2311,16 @@ function showEditThing() {
     ).value =
         thing.currentValue || "";
 
-    document.getElementById(
-        "editThingReference"
-    ).value =
-        thing.reference || "";
+    showView("editView");
 
 }
 
-
-function updateThing() {
+function saveEdit() {
 
     const thing =
         things.find(
-            t =>
-                t.id === currentThingId
+            item =>
+                item.id === currentThingId
         );
 
     if (!thing) return;
@@ -2076,9 +2332,7 @@ function updateThing() {
 
     if (!name) {
 
-        alert(
-            "Please enter a name."
-        );
+        alert("Please enter a name.");
 
         return;
 
@@ -2089,11 +2343,6 @@ function updateThing() {
     thing.category =
         document.getElementById(
             "editThingCategory"
-        ).value;
-
-    thing.icon =
-        document.getElementById(
-            "editThingIcon"
         ).value;
 
     thing.purchaseDate =
@@ -2111,84 +2360,117 @@ function updateThing() {
             "editThingCurrentValue"
         ).value;
 
-    thing.reference =
-        document.getElementById(
-            "editThingReference"
-        ).value.trim();
-
     currentThingCategory =
         thing.category;
 
-    saveData();
+    saveThings();
 
-    showThing(
-        currentThingId
-    );
+    showThing(currentThingId);
 
 }
-
 
 function deleteThing() {
 
     const thing =
         things.find(
-            t =>
-                t.id === currentThingId
+            item =>
+                item.id === currentThingId
         );
 
     if (!thing) return;
 
     const confirmed =
         confirm(
-            `Delete "${thing.name}" and all its documents and events?`
+            `Delete "${thing.name}" and all its documents and timeline events?`
         );
 
     if (!confirmed) return;
 
-    /*
-       Remove attachments belonging
-       to this Thing.
-    */
-    (thing.documents || [])
-        .forEach(doc => {
-
-            if (doc.hasAttachment) {
-
-                deleteAttachment(
-                    doc.id
-                ).catch(() => {});
-
-            }
-
-        });
-
     things =
         things.filter(
-            t =>
-                t.id !== currentThingId
+            item =>
+                item.id !== currentThingId
         );
 
-    saveData();
+    saveThings();
 
     currentThingId = null;
+    currentThingCategory = null;
 
     showHome();
 
 }
 
+/* -----------------------------
+   IMPORTANT DATE
+----------------------------- */
 
+function updateImportantDateField(prefix) {
 
-/* =========================================================
-   ADD DOCUMENT
-========================================================= */
+    const typeId =
+        prefix
+            ? "editDocumentDateType"
+            : "documentDateType";
+
+    const groupId =
+        prefix
+            ? "editDocumentImportantDateGroup"
+            : "documentImportantDateGroup";
+
+    const labelId =
+        prefix
+            ? "editDocumentImportantDateLabel"
+            : "documentImportantDateLabel";
+
+    const dateId =
+        prefix
+            ? "editDocumentImportantDate"
+            : "documentImportantDate";
+
+    const type =
+        document.getElementById(
+            typeId
+        ).value;
+
+    const group =
+        document.getElementById(
+            groupId
+        );
+
+    const label =
+        document.getElementById(
+            labelId
+        );
+
+    const date =
+        document.getElementById(
+            dateId
+        );
+
+    if (type === "None") {
+
+        group.style.display =
+            "none";
+
+        date.value = "";
+
+        return;
+
+    }
+
+    group.style.display =
+        "block";
+
+    label.textContent =
+        type;
+
+}
+
+/* -----------------------------
+   DOCUMENTS
+----------------------------- */
 
 function showAddDocument() {
-
-    hideAllViews();
-
-    document.getElementById(
-        "addDocumentView"
-    ).style.display = "block";
 
     document.getElementById(
         "documentName"
@@ -2200,7 +2482,7 @@ function showAddDocument() {
 
     document.getElementById(
         "documentDate"
-    ).value = today();
+    ).value = "";
 
     document.getElementById(
         "documentDateType"
@@ -2211,37 +2493,44 @@ function showAddDocument() {
     ).value = "";
 
     document.getElementById(
-        "documentAmount"
-    ).value = "";
-
-    document.getElementById(
         "documentRepeat"
     ).value = "Never";
 
     document.getElementById(
-        "documentAddTimeline"
-    ).checked = true;
-
-    document.getElementById(
-        "documentAttachment"
+        "documentAmount"
     ).value = "";
 
-    updateImportantDateLabel(
-        "document"
-    );
+    document.getElementById(
+        "addToTimeline"
+    ).checked = true;
+
+    updateImportantDateField("");
+
+    showView("addDocumentView");
 
 }
 
-
-async function saveDocument() {
+function addDocument() {
 
     const thing =
         things.find(
-            t =>
-                t.id === currentThingId
+            item =>
+                item.id === currentThingId
         );
 
     if (!thing) return;
+
+    if (!Array.isArray(thing.documents)) {
+
+        thing.documents = [];
+
+    }
+
+    if (!Array.isArray(thing.events)) {
+
+        thing.events = [];
+
+    }
 
     const name =
         document.getElementById(
@@ -2250,9 +2539,7 @@ async function saveDocument() {
 
     if (!name) {
 
-        alert(
-            "Please enter a document name."
-        );
+        alert("Please enter a document name.");
 
         return;
 
@@ -2264,16 +2551,17 @@ async function saveDocument() {
         ).value;
 
     const importantDate =
-        document.getElementById(
-            "documentImportantDate"
-        ).value;
+        dateType === "None"
+            ? ""
+            : document.getElementById(
+                "documentImportantDate"
+              ).value;
 
     const documentItem = {
 
-        id:
-            Date.now().toString(),
+        id: Date.now(),
 
-        name,
+        name: name,
 
         type:
             document.getElementById(
@@ -2285,205 +2573,255 @@ async function saveDocument() {
                 "documentDate"
             ).value,
 
-        dateType,
+        dateType:
+            dateType,
 
         importantDate:
-            dateType === "None"
-                ? ""
-                : importantDate,
+            importantDate,
 
         expiryDate:
             dateType === "Expiry Date"
                 ? importantDate
                 : "",
 
+        repeat:
+            dateType === "None"
+                ? "Never"
+                : document.getElementById(
+                    "documentRepeat"
+                  ).value,
+
         amount:
             document.getElementById(
                 "documentAmount"
             ).value,
 
-        repeat:
-            document.getElementById(
-                "documentRepeat"
-            ).value,
+        timelineEventId: null,
 
-        notificationAcknowledged:
-            false,
-
-        timelineEventId:
-            null,
-
-        hasAttachment:
-            false
+        notificationAcknowledged: false
 
     };
 
-    thing.documents =
-        thing.documents || [];
-
-    thing.events =
-        thing.events || [];
-
-
-    const fileInput =
+    const addToTimeline =
         document.getElementById(
-            "documentAttachment"
-        );
-
-    const file =
-        fileInput.files &&
-        fileInput.files[0];
-
-
-    if (file) {
-
-        try {
-
-            await saveAttachment(
-                documentItem.id,
-                file
-            );
-
-            documentItem.hasAttachment =
-                true;
-
-        }
-        catch(error) {
-
-            console.error(
-                error
-            );
-
-            alert(
-                "The attachment could not be saved."
-            );
-
-            return;
-
-        }
-
-    }
-
-
-    const addTimeline =
-        document.getElementById(
-            "documentAddTimeline"
+            "addToTimeline"
         ).checked;
 
+    if (addToTimeline) {
 
-    if (addTimeline) {
+        const event = {
 
-        const eventId =
-            Date.now().toString() +
-            "-event";
-
-        const timelineEvent = {
-
-            id: eventId,
-
-            description:
-                name,
+            id: Date.now() + 1,
 
             type:
-                documentItem.type,
+                mapDocumentToEvent(
+                    documentItem.type
+                ),
+
+            description:
+                documentItem.name,
 
             date:
-                documentItem.date,
+                documentItem.date ||
+                today(),
 
             amount:
-                documentItem.amount,
+                documentItem.amount ||
+                "",
 
             documentId:
                 documentItem.id
 
         };
 
-        thing.events.push(
-            timelineEvent
-        );
+        thing.events.push(event);
 
         documentItem.timelineEventId =
-            eventId;
+            event.id;
 
     }
-
 
     thing.documents.push(
         documentItem
     );
 
-    saveData();
+    saveThings();
 
-    showThing(
-        currentThingId
-    );
+    showThing(currentThingId);
 
 }
 
-
-
-/* =========================================================
-   RENDER DOCUMENTS
-========================================================= */
-
-function renderDocuments() {
-
-    const thing =
-        things.find(
-            t =>
-                t.id === currentThingId
-        );
-
-    if (!thing) return;
+function renderDocuments(thing) {
 
     const container =
         document.getElementById(
             "documentsList"
         );
 
-    const docs =
-        thing.documents || [];
-
-    if (!docs.length) {
+    if (
+        !thing.documents ||
+        thing.documents.length === 0
+    ) {
 
         container.innerHTML = `
-            <div class="empty">
+
+            <div class="card empty">
+
                 No documents yet.
+
             </div>
+
         `;
 
         return;
 
     }
 
+    const sortedDocuments =
+        [...thing.documents].sort(
+            (a, b) => {
+
+                const dateA =
+                    a.date || "";
+
+                const dateB =
+                    b.date || "";
+
+                return dateB.localeCompare(
+                    dateA
+                );
+
+            }
+        );
+
     container.innerHTML =
-        docs.map(doc => {
+        sortedDocuments.map(
+            documentItem => {
 
-            const icon =
-                documentIcons[
-                    doc.type
-                ] ||
-                "📄";
+                const icon =
+                    documentIcons[
+                        documentItem.type
+                    ] || "📄";
 
-            let dateInfo = "";
+                let dateType =
+                    documentItem.dateType;
 
-            if (
-                doc.dateType &&
-                doc.dateType !== "None" &&
-                doc.importantDate
-            ) {
+                let importantDate =
+                    documentItem.importantDate;
 
-                dateInfo = `
+                if (!dateType) {
 
-                    <div class="date-badge">
+                    if (
+                        documentItem.expiryDate
+                    ) {
 
-                        ${escapeHtml(
-                            doc.dateType
-                        )}:
+                        dateType =
+                            "Expiry Date";
 
-                        ${formatDate(
-                            doc.importantDate
-                        )}
+                        importantDate =
+                            documentItem.expiryDate;
+
+                    } else {
+
+                        dateType =
+                            "None";
+
+                    }
+
+                }
+
+                const repeat =
+                    documentItem.repeat ||
+                    "Never";
+
+                return `
+
+                    <div class="card document-card">
+
+                        <div class="document-icon">
+                            ${icon}
+                        </div>
+
+                        <div class="document-info">
+
+                            <strong>
+                                ${escapeHtml(
+                                    documentItem.name
+                                )}
+                            </strong>
+
+                            <span>
+                                ${escapeHtml(
+                                    documentItem.type
+                                )}
+                                ·
+                                ${formatDate(
+                                    documentItem.date
+                                )}
+                            </span>
+
+                            ${
+                                importantDate &&
+                                dateType !== "None"
+                                ? `
+
+                                    <span>
+                                        ${escapeHtml(
+                                            dateType
+                                        )}
+                                        :
+                                        ${formatDate(
+                                            importantDate
+                                        )}
+                                    </span>
+
+                                `
+                                : ""
+                            }
+
+                            ${
+                                repeat !== "Never" &&
+                                importantDate &&
+                                dateType !== "None"
+                                ? `
+
+                                    <span>
+                                        Repeat: ${escapeHtml(
+                                            repeat
+                                        )}
+                                    </span>
+
+                                `
+                                : ""
+                            }
+
+                            ${
+                                documentItem.amount
+                                ? `
+
+                                    <span>
+                                        ${formatMoney(
+                                            documentItem.amount
+                                        )}
+                                    </span>
+
+                                `
+                                : ""
+                            }
+
+                        </div>
+
+                        <div class="document-actions">
+
+                            <button
+                                class="secondary small"
+                                onclick="editDocument(${documentItem.id})">
+
+                                Edit
+
+                            </button>
+
+                        </div>
 
                     </div>
 
@@ -2491,118 +2829,59 @@ function renderDocuments() {
 
             }
 
-            const repeatInfo =
-                doc.repeat &&
-                doc.repeat !== "Never"
-                    ? ` · ${escapeHtml(
-                        doc.repeat
-                      )}`
-                    : "";
-
-            const attachmentInfo =
-                doc.hasAttachment
-                    ? `
-                        <div class="attachment-badge">
-                            📎 Attachment
-                        </div>
-                      `
-                    : "";
-
-            return `
-
-                <div class="card clickable"
-                     onclick="editDocument('${doc.id}')">
-
-                    <div class="card-row">
-
-                        <div class="icon">
-                            ${icon}
-                        </div>
-
-                        <div class="info">
-
-                            <strong>
-                                ${escapeHtml(
-                                    doc.name
-                                )}
-                            </strong>
-
-                            <span>
-                                ${escapeHtml(
-                                    doc.type
-                                )}
-                                ·
-                                ${formatDate(
-                                    doc.date
-                                )}
-                                ${repeatInfo}
-                            </span>
-
-                            ${
-                                doc.amount
-                                    ? `
-                                        <div class="document-amount">
-                                            ${formatAmount(
-                                                doc.amount
-                                            )}
-                                        </div>
-                                      `
-                                    : ""
-                            }
-
-                            ${dateInfo}
-
-                            ${attachmentInfo}
-
-                        </div>
-
-                        <div class="chevron">
-                            ›
-                        </div>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
+        ).join("");
 
 }
 
+function editDocument(id) {
 
-
-/* =========================================================
-   EDIT DOCUMENT
-========================================================= */
-
-async function editDocument(id) {
+    currentDocumentId = id;
 
     const thing =
         things.find(
-            t =>
-                t.id === currentThingId
+            item =>
+                item.id === currentThingId
         );
 
     if (!thing) return;
 
     const documentItem =
-        (thing.documents || [])
-            .find(
-                d =>
-                    d.id === id
-            );
+        thing.documents.find(
+            item =>
+                item.id === id
+        );
 
     if (!documentItem) return;
 
-    currentDocumentId =
-        id;
+    let dateType =
+        documentItem.dateType;
 
-    hideAllViews();
+    let importantDate =
+        documentItem.importantDate;
 
-    document.getElementById(
-        "editDocumentView"
-    ).style.display = "block";
+    if (!dateType) {
+
+        if (
+            documentItem.expiryDate
+        ) {
+
+            dateType =
+                "Expiry Date";
+
+            importantDate =
+                documentItem.expiryDate;
+
+        } else {
+
+            dateType =
+                "None";
+
+            importantDate =
+                "";
+
+        }
+
+    }
 
     document.getElementById(
         "editDocumentName"
@@ -2622,17 +2901,12 @@ async function editDocument(id) {
     document.getElementById(
         "editDocumentDateType"
     ).value =
-        documentItem.dateType || "None";
+        dateType;
 
     document.getElementById(
         "editDocumentImportantDate"
     ).value =
-        documentItem.importantDate || "";
-
-    document.getElementById(
-        "editDocumentAmount"
-    ).value =
-        documentItem.amount || "";
+        importantDate || "";
 
     document.getElementById(
         "editDocumentRepeat"
@@ -2640,172 +2914,107 @@ async function editDocument(id) {
         documentItem.repeat || "Never";
 
     document.getElementById(
-        "editDocumentAttachmentInput"
-    ).value = "";
+        "editDocumentAmount"
+    ).value =
+        documentItem.amount || "";
 
-    updateImportantDateLabel(
-        "editDocument"
-    );
+    updateImportantDateField("edit");
 
-    await renderEditAttachment(
-        documentItem
-    );
-
-}
-
-
-async function renderEditAttachment(
-    documentItem
-) {
-
-    const container =
+    const timelineInfo =
         document.getElementById(
-            "editDocumentAttachment"
+            "documentTimelineInfo"
         );
 
-    if (
-        !documentItem.hasAttachment
-    ) {
+    if (documentItem.timelineEventId) {
 
-        container.innerHTML = "";
+        timelineInfo.innerHTML =
+            "🔗 This document is linked to a Timeline event. " +
+            "Changes to the document will update that event automatically.";
 
-        return;
+    } else {
 
-    }
-
-    try {
-
-        const attachment =
-            await getAttachment(
-                documentItem.id
-            );
-
-        if (!attachment) {
-
-            documentItem.hasAttachment =
-                false;
-
-            saveData();
-
-            container.innerHTML = "";
-
-            return;
-
-        }
-
-        container.innerHTML = `
-
-            <div class="attachment-box">
-
-                <div class="attachment-row">
-
-                    <div class="attachment-icon">
-                        📎
-                    </div>
-
-                    <div class="attachment-info">
-
-                        <strong>
-                            ${escapeHtml(
-                                attachment.name
-                            )}
-                        </strong>
-
-                        <span>
-                            ${escapeHtml(
-                                attachment.type ||
-                                "File"
-                            )}
-                            ·
-                            ${formatFileSize(
-                                attachment.size
-                            )}
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="attachment-actions">
-
-                    <button
-                        class="attachment-button"
-                        onclick="openAttachment('${documentItem.id}')">
-                        Open
-                    </button>
-
-                    <button
-                        class="attachment-button attachment-remove"
-                        onclick="removeAttachment('${documentItem.id}')">
-                        Remove
-                    </button>
-
-                </div>
-
-            </div>
-
-        `;
+        timelineInfo.innerHTML =
+            "This document is not currently linked to a Timeline event.";
 
     }
-    catch(error) {
 
-        console.error(
-            error
-        );
-
-        container.innerHTML = "";
-
-    }
+    showView("editDocumentView");
 
 }
 
-
-async function updateDocument() {
+function saveDocumentEdit() {
 
     const thing =
         things.find(
-            t =>
-                t.id === currentThingId
+            item =>
+                item.id === currentThingId
         );
 
     if (!thing) return;
 
     const documentItem =
-        (thing.documents || [])
-            .find(
-                d =>
-                    d.id ===
-                    currentDocumentId
-            );
+        thing.documents.find(
+            item =>
+                item.id === currentDocumentId
+        );
 
     if (!documentItem) return;
 
+    let previousDateType =
+        documentItem.dateType;
 
-    const oldDateType =
-        documentItem.dateType ||
-        "None";
+    let previousImportantDate =
+        documentItem.importantDate;
 
-    const oldImportantDate =
-        documentItem.importantDate ||
-        "";
+    if (!previousDateType) {
 
+        if (documentItem.expiryDate) {
 
-    const newDateType =
+            previousDateType =
+                "Expiry Date";
+
+            previousImportantDate =
+                documentItem.expiryDate;
+
+        } else {
+
+            previousDateType =
+                "None";
+
+            previousImportantDate =
+                "";
+
+        }
+
+    }
+
+    const name =
+        document.getElementById(
+            "editDocumentName"
+        ).value.trim();
+
+    if (!name) {
+
+        alert("Please enter a document name.");
+
+        return;
+
+    }
+
+    const dateType =
         document.getElementById(
             "editDocumentDateType"
         ).value;
 
-    const newImportantDate =
-        document.getElementById(
-            "editDocumentImportantDate"
-        ).value;
-
+    const importantDate =
+        dateType === "None"
+            ? ""
+            : document.getElementById(
+                "editDocumentImportantDate"
+              ).value;
 
     documentItem.name =
-        document.getElementById(
-            "editDocumentName"
-        ).value.trim();
+        name;
 
     documentItem.type =
         document.getElementById(
@@ -2818,34 +3027,31 @@ async function updateDocument() {
         ).value;
 
     documentItem.dateType =
-        newDateType;
+        dateType;
 
     documentItem.importantDate =
-        newDateType === "None"
-            ? ""
-            : newImportantDate;
+        importantDate;
 
     documentItem.expiryDate =
-        newDateType === "Expiry Date"
-            ? newImportantDate
+        dateType === "Expiry Date"
+            ? importantDate
             : "";
+
+    documentItem.repeat =
+        dateType === "None"
+            ? "Never"
+            : document.getElementById(
+                "editDocumentRepeat"
+              ).value;
 
     documentItem.amount =
         document.getElementById(
             "editDocumentAmount"
         ).value;
 
-    documentItem.repeat =
-        document.getElementById(
-            "editDocumentRepeat"
-        ).value;
-
-
     if (
-        oldDateType !==
-            newDateType ||
-        oldImportantDate !==
-            newImportantDate
+        previousDateType !== dateType ||
+        previousImportantDate !== importantDate
     ) {
 
         documentItem.notificationAcknowledged =
@@ -2853,232 +3059,62 @@ async function updateDocument() {
 
     }
 
+    if (
+        documentItem.timelineEventId
+    ) {
 
-    /*
-       Optional new attachment.
-       If selected, replace the old one.
-    */
-
-    const fileInput =
-        document.getElementById(
-            "editDocumentAttachmentInput"
-        );
-
-    const file =
-        fileInput.files &&
-        fileInput.files[0];
-
-
-    if (file) {
-
-        try {
-
-            await saveAttachment(
-                documentItem.id,
-                file
+        const event =
+            thing.events.find(
+                item =>
+                    item.id ===
+                    documentItem.timelineEventId
             );
 
-            documentItem.hasAttachment =
-                true;
+        if (event) {
 
-        }
-        catch(error) {
-
-            console.error(
-                error
-            );
-
-            alert(
-                "The attachment could not be saved."
-            );
-
-            return;
-
-        }
-
-    }
-
-
-    /*
-       Keep linked timeline event
-       synchronized.
-    */
-
-    const linkedEvent =
-        (thing.events || [])
-            .find(
-                e =>
-                    e.documentId ===
-                        documentItem.id ||
-                    e.id ===
-                        documentItem.timelineEventId
-            );
-
-
-    if (linkedEvent) {
-
-        linkedEvent.description =
-            documentItem.name;
-
-        linkedEvent.type =
-            documentItem.type;
-
-        linkedEvent.date =
-            documentItem.date;
-
-        linkedEvent.amount =
-            documentItem.amount;
-
-    }
-
-
-    saveData();
-
-    showThing(
-        currentThingId
-    );
-
-}
-
-
-async function removeAttachment(
-    documentId
-) {
-
-    const confirmed =
-        confirm(
-            "Remove this attachment?"
-        );
-
-    if (!confirmed) return;
-
-    try {
-
-        await deleteAttachment(
-            documentId
-        );
-
-    }
-    catch(error) {
-
-        console.error(
-            error
-        );
-
-    }
-
-
-    const thing =
-        things.find(
-            t =>
-                t.id === currentThingId
-        );
-
-    if (thing) {
-
-        const doc =
-            (thing.documents || [])
-                .find(
-                    d =>
-                        d.id ===
-                        documentId
+            event.type =
+                mapDocumentToEvent(
+                    documentItem.type
                 );
 
-        if (doc) {
+            event.description =
+                documentItem.name;
 
-            doc.hasAttachment =
-                false;
+            event.date =
+                documentItem.date ||
+                today();
 
-        }
-
-    }
-
-    saveData();
-
-    editDocument(
-        documentId
-    );
-
-}
-
-
-async function openAttachment(
-    documentId
-) {
-
-    try {
-
-        const attachment =
-            await getAttachment(
-                documentId
-            );
-
-        if (!attachment) {
-
-            alert(
-                "Attachment not found."
-            );
-
-            return;
+            event.amount =
+                documentItem.amount ||
+                "";
 
         }
 
-        const url =
-            URL.createObjectURL(
-                attachment.blob
-            );
-
-        window.open(
-            url,
-            "_blank"
-        );
-
-        setTimeout(
-            () => URL.revokeObjectURL(url),
-            60000
-        );
-
     }
-    catch(error) {
 
-        console.error(
-            error
-        );
+    saveThings();
 
-        alert(
-            "The attachment could not be opened."
-        );
-
-    }
+    showThing(currentThingId);
 
 }
 
-
-
-/* =========================================================
-   DELETE DOCUMENT
-========================================================= */
-
-async function deleteDocument() {
+function deleteDocument() {
 
     const thing =
         things.find(
-            t =>
-                t.id === currentThingId
+            item =>
+                item.id === currentThingId
         );
 
     if (!thing) return;
 
     const documentItem =
-        (thing.documents || [])
-            .find(
-                d =>
-                    d.id ===
-                    currentDocumentId
-            );
+        thing.documents.find(
+            item =>
+                item.id === currentDocumentId
+        );
 
     if (!documentItem) return;
-
 
     const confirmed =
         confirm(
@@ -3087,172 +3123,71 @@ async function deleteDocument() {
 
     if (!confirmed) return;
 
-
-    if (
-        documentItem.hasAttachment
-    ) {
-
-        try {
-
-            await deleteAttachment(
-                documentItem.id
-            );
-
-        }
-        catch(error) {
-
-            console.error(
-                error
-            );
-
-        }
-
-    }
-
-
-    thing.documents =
-        (thing.documents || [])
-            .filter(
-                d =>
-                    d.id !==
-                    currentDocumentId
-            );
-
-
-    if (
-        documentItem.timelineEventId
-    ) {
+    if (documentItem.timelineEventId) {
 
         thing.events =
-            (thing.events || [])
-                .filter(
-                    e =>
-                        e.id !==
-                        documentItem.timelineEventId
-                );
+            thing.events.filter(
+                event =>
+                    event.id !==
+                    documentItem.timelineEventId
+            );
 
     }
 
+    thing.documents =
+        thing.documents.filter(
+            item =>
+                item.id !== currentDocumentId
+        );
 
-    saveData();
+    saveThings();
 
-    showThing(
-        currentThingId
-    );
+    currentDocumentId = null;
+
+    showThing(currentThingId);
 
 }
 
-
-
-/* =========================================================
-   IMPORTANT DATE
-========================================================= */
-
-function updateImportantDateLabel(
-    prefix
-) {
-
-    const select =
-        document.getElementById(
-            prefix +
-            "DateType"
-        );
-
-    const wrapper =
-        document.getElementById(
-            prefix +
-            "ImportantDateWrapper"
-        );
-
-    const label =
-        document.getElementById(
-            prefix +
-            "ImportantDateLabel"
-        );
-
-    const value =
-        select.value;
-
-
-    if (value === "None") {
-
-        wrapper.style.display =
-            "none";
-
-        return;
-
-    }
-
-
-    wrapper.style.display =
-        "block";
-
-    label.textContent =
-        value;
-
-}
-
-
-
-/* =========================================================
+/* -----------------------------
    TIMELINE
-========================================================= */
+----------------------------- */
 
-function renderTimeline() {
-
-    const thing =
-        things.find(
-            t =>
-                t.id === currentThingId
-        );
-
-    if (!thing) return;
+function renderTimeline(thing) {
 
     const container =
         document.getElementById(
             "timelineList"
         );
 
-    const events =
-        thing.events || [];
-
-    if (!events.length) {
+    if (
+        !thing.events ||
+        thing.events.length === 0
+    ) {
 
         container.innerHTML = `
-            <div class="empty">
-                No events yet.
+
+            <div class="card empty">
+
+                No timeline events yet.
+
             </div>
+
         `;
 
         return;
 
     }
 
-
-    const sorted =
-        [...events].sort(
-            (a, b) =>
-                new Date(b.date) -
-                new Date(a.date)
-        );
-
-
     const grouped = {};
 
-
-    sorted.forEach(event => {
+    thing.events.forEach(event => {
 
         const date =
-            new Date(event.date);
+            event.date ||
+            today();
 
         const key =
-            date.toLocaleDateString(
-                "en-US",
-                {
-                    year: "numeric",
-                    month: "long"
-                }
-            );
+            date.substring(0, 7);
 
         if (!grouped[key]) {
 
@@ -3260,223 +3195,324 @@ function renderTimeline() {
 
         }
 
-        grouped[key].push(
-            event
-        );
+        grouped[key].push(event);
 
     });
 
+    const months =
+        Object.keys(grouped).sort(
+            (a, b) =>
+                b.localeCompare(a)
+        );
 
     container.innerHTML =
-        Object.keys(grouped)
-            .map(month => {
+        months.map(
+            monthKey => {
 
-                const collapsed =
-                    collapsedMonths[
-                        month
-                    ] === true;
+                const events =
+                    grouped[monthKey].sort(
+                        (a, b) =>
+                            (b.date || "")
+                            .localeCompare(
+                                a.date || ""
+                            )
+                    );
 
+                const [year, month] =
+                    monthKey.split("-");
+
+                const monthDate =
+                    new Date(
+                        Number(year),
+                        Number(month) - 1,
+                        1
+                    );
+
+                const monthName =
+                    monthDate.toLocaleDateString(
+                        "en-GB",
+                        {
+                            month: "long",
+                            year: "numeric"
+                        }
+                    );
+
+                const sectionId =
+                    `timeline-${monthKey.replace(
+                        "-",
+                        ""
+                    )}`;
 
                 return `
 
-                    <div class="timeline-month">
+                    <div class="card">
 
-                        <div
-                            class="timeline-month-header"
-                            onclick="toggleTimelineMonth('${month}')">
+                        <div class="timeline-month"
+                             onclick="toggleTimelineMonth('${sectionId}')">
 
-                            <span>
-                                ${month}
-                            </span>
+                            <div class="timeline-month-left">
 
-                            <span
-                                class="timeline-month-arrow">
-                                ${
-                                    collapsed
-                                        ? "›"
-                                        : "⌄"
-                                }
-                            </span>
+                                <div class="month-icon">
+                                    🗓️
+                                </div>
 
-                        </div>
+                                <div>
 
+                                    <strong style="font-size:17px;">
+                                        ${monthName}
+                                    </strong>
 
-                        ${
-                            collapsed
-                                ? ""
-                                : `
+                                    <div style="
+                                        color:#777;
+                                        font-size:13px;
+                                        margin-top:3px;
+                                    ">
 
-                                    <div
-                                        class="timeline-events">
+                                        ${events.length}
 
                                         ${
-                                            grouped[month]
-                                                .map(
-                                                    event =>
-                                                        renderTimelineEvent(
-                                                            event
-                                                        )
-                                                )
-                                                .join("")
+                                            events.length === 1
+                                            ? "event"
+                                            : "events"
                                         }
 
                                     </div>
 
-                                  `
-                        }
+                                </div>
+
+                            </div>
+
+                            <div class="chevron"
+                                 id="${sectionId}-arrow">
+
+                                ›
+
+                            </div>
+
+                        </div>
+
+                        <div class="timeline-events"
+                             id="${sectionId}"
+                             style="display:none;">
+
+                            ${
+                                events.map(
+                                    event => {
+
+                                        const icon =
+                                            eventIcons[
+                                                event.type
+                                            ] || "📌";
+
+                                        const amount =
+                                            event.amount
+                                                ? formatMoney(
+                                                    event.amount
+                                                  )
+                                                : "";
+
+                                        return `
+
+                                            <div class="timeline-event"
+                                                 onclick="openTimelineEvent(${event.id})">
+
+                                                <div class="timeline-event-date">
+
+                                                    ${formatDay(
+                                                        event.date
+                                                    )}
+
+                                                </div>
+
+                                                <div class="event-icon">
+
+                                                    ${icon}
+
+                                                </div>
+
+                                                <div class="timeline-event-info">
+
+                                                    <strong>
+                                                        ${escapeHtml(
+                                                            event.description
+                                                        )}
+                                                    </strong>
+
+                                                </div>
+
+                                                ${
+                                                    amount
+                                                    ? `
+
+                                                        <div class="timeline-event-amount">
+
+                                                            ${amount}
+
+                                                        </div>
+
+                                                    `
+                                                    : ""
+                                                }
+
+                                                <div class="timeline-event-chevron">
+
+                                                    ›
+
+                                                </div>
+
+                                            </div>
+
+                                        `;
+
+                                    }
+
+                                ).join("")
+                            }
+
+                        </div>
 
                     </div>
 
                 `;
 
-            }).join("");
+            }
+
+        ).join("");
 
 }
 
+function toggleTimelineMonth(id) {
 
-function renderTimelineEvent(
-    event
-) {
+    const section =
+        document.getElementById(id);
 
-    const date =
-        new Date(event.date);
-
-    const day =
-        String(
-            date.getDate()
-        ).padStart(
-            2,
-            "0"
+    const arrow =
+        document.getElementById(
+            id + "-arrow"
         );
 
-    const icon =
-        eventIcons[
-            event.type
-        ] ||
-        "📌";
+    if (!section) return;
 
-    const amount =
-        event.amount
-            ? `: ${formatAmount(
-                event.amount
-              )}`
-            : "";
+    if (
+        section.style.display ===
+        "none"
+    ) {
 
+        section.style.display =
+            "block";
 
-    return `
+        if (arrow) {
 
-        <div
-            class="timeline-event"
-            onclick="openTimelineEvent('${event.id}')">
+            arrow.textContent = "⌄";
 
-            <div class="timeline-day">
-                ${day}
-            </div>
+        }
 
-            <div class="timeline-event-icon">
-                ${icon}
-            </div>
+    } else {
 
-            <div class="timeline-event-info">
+        section.style.display =
+            "none";
 
-                <div class="timeline-event-title">
-                    ${escapeHtml(
-                        event.description ||
-                        event.type
-                    )}${amount}
-                </div>
+        if (arrow) {
 
-            </div>
+            arrow.textContent = "›";
 
-            <div class="timeline-event-arrow">
-                ›
-            </div>
+        }
 
-        </div>
-
-    `;
+    }
 
 }
 
+/* -----------------------------
+   TIMELINE NAVIGATION
+----------------------------- */
 
-function toggleTimelineMonth(
-    month
-) {
-
-    collapsedMonths[
-        month
-    ] =
-        !collapsedMonths[
-            month
-        ];
-
-    renderTimeline();
-
-}
-
-
-function openTimelineEvent(
-    id
-) {
+function openTimelineEvent(id) {
 
     const thing =
         things.find(
-            t =>
-                t.id ===
-                currentThingId
+            item =>
+                item.id === currentThingId
         );
 
     if (!thing) return;
 
     const event =
-        (thing.events || [])
-            .find(
-                e =>
-                    e.id === id
-            );
+        thing.events.find(
+            item =>
+                item.id === id
+        );
 
     if (!event) return;
 
-
     if (event.documentId) {
 
-        editDocument(
-            event.documentId
-        );
+        const documentItem =
+            thing.documents.find(
+                item =>
+                    item.id === event.documentId
+            );
+
+        if (documentItem) {
+
+            editDocument(
+                documentItem.id
+            );
+
+            return;
+
+        }
 
     }
-    else {
 
-        editEvent(
-            id
-        );
-
-    }
+    editEvent(event.id);
 
 }
 
+function openTimelineDocument(
+    documentId
+) {
 
+    const thing =
+        things.find(
+            item =>
+                item.id === currentThingId
+        );
 
-/* =========================================================
-   EVENTS
-========================================================= */
+    if (!thing) return;
+
+    const documentItem =
+        thing.documents.find(
+            item =>
+                item.id === documentId
+        );
+
+    if (!documentItem) {
+
+        alert("Document not found.");
+
+        return;
+
+    }
+
+    editDocument(documentId);
+
+}
+
+/* -----------------------------
+   ADD EVENT
+----------------------------- */
 
 function showAddEvent() {
-
-    hideAllViews();
-
-    document.getElementById(
-        "addEventView"
-    ).style.display = "block";
-
-    document.getElementById(
-        "eventDescription"
-    ).value = "";
 
     document.getElementById(
         "eventType"
     ).value =
-        "Maintenance";
+        "Other";
+
+    document.getElementById(
+        "eventDescription"
+    ).value =
+        "";
 
     document.getElementById(
         "eventDate"
@@ -3485,497 +3521,609 @@ function showAddEvent() {
 
     document.getElementById(
         "eventAmount"
-    ).value = "";
+    ).value =
+        "";
+
+    showView("addEventView");
 
 }
 
-
-function saveEvent() {
+function addEvent() {
 
     const thing =
         things.find(
-            t =>
-                t.id ===
-                currentThingId
+            item =>
+                item.id === currentThingId
         );
 
     if (!thing) return;
 
+    if (!Array.isArray(thing.events)) {
+
+        thing.events = [];
+
+    }
 
     const description =
         document.getElementById(
             "eventDescription"
         ).value.trim();
 
-
     if (!description) {
 
-        alert(
-            "Please enter a description."
-        );
+        alert("Please enter a description.");
 
         return;
 
     }
 
-
     const event = {
 
-        id:
-            Date.now().toString(),
-
-        description,
+        id: Date.now(),
 
         type:
             document.getElementById(
                 "eventType"
             ).value,
 
+        description:
+            description,
+
         date:
             document.getElementById(
                 "eventDate"
-            ).value,
+            ).value ||
+            today(),
 
         amount:
             document.getElementById(
                 "eventAmount"
             ).value,
 
-        documentId:
-            null
+        documentId: null
 
     };
 
+    thing.events.push(event);
 
-    thing.events =
-        thing.events || [];
+    saveThings();
 
-    thing.events.push(
-        event
-    );
-
-    saveData();
-
-    showThing(
-        currentThingId
-    );
+    showThing(currentThingId);
 
 }
 
+/* -----------------------------
+   EDIT EVENT
+----------------------------- */
 
 function editEvent(id) {
 
+    currentEventId = id;
+
     const thing =
         things.find(
-            t =>
-                t.id ===
-                currentThingId
+            item =>
+                item.id === currentThingId
         );
 
     if (!thing) return;
 
-
     const event =
-        (thing.events || [])
-            .find(
-                e =>
-                    e.id === id
-            );
+        thing.events.find(
+            item =>
+                item.id === id
+        );
 
     if (!event) return;
-
-
-    currentEventId =
-        id;
-
-
-    hideAllViews();
-
-    document.getElementById(
-        "editEventView"
-    ).style.display = "block";
-
-
-    document.getElementById(
-        "editEventDescription"
-    ).value =
-        event.description || "";
-
 
     document.getElementById(
         "editEventType"
     ).value =
         event.type || "Other";
 
+    document.getElementById(
+        "editEventDescription"
+    ).value =
+        event.description || "";
 
     document.getElementById(
         "editEventDate"
     ).value =
         event.date || "";
 
-
     document.getElementById(
         "editEventAmount"
     ).value =
         event.amount || "";
 
+    showView("editEventView");
+
 }
 
-
-function updateEvent() {
+function saveEventEdit() {
 
     const thing =
         things.find(
-            t =>
-                t.id ===
-                currentThingId
+            item =>
+                item.id === currentThingId
         );
 
     if (!thing) return;
 
-
     const event =
-        (thing.events || [])
-            .find(
-                e =>
-                    e.id ===
-                    currentEventId
-            );
+        thing.events.find(
+            item =>
+                item.id === currentEventId
+        );
 
     if (!event) return;
 
-
-    event.description =
+    const description =
         document.getElementById(
             "editEventDescription"
         ).value.trim();
 
+    if (!description) {
+
+        alert("Please enter a description.");
+
+        return;
+
+    }
 
     event.type =
         document.getElementById(
             "editEventType"
         ).value;
 
+    event.description =
+        description;
 
     event.date =
         document.getElementById(
             "editEventDate"
-        ).value;
-
+        ).value ||
+        today();
 
     event.amount =
         document.getElementById(
             "editEventAmount"
         ).value;
 
+    saveThings();
 
-    saveData();
-
-    showThing(
-        currentThingId
-    );
+    showThing(currentThingId);
 
 }
-
 
 function deleteEvent() {
 
     const thing =
         things.find(
-            t =>
-                t.id ===
-                currentThingId
+            item =>
+                item.id === currentThingId
         );
 
     if (!thing) return;
 
-
     const event =
-        (thing.events || [])
-            .find(
-                e =>
-                    e.id ===
-                    currentEventId
-            );
+        thing.events.find(
+            item =>
+                item.id === currentEventId
+        );
 
     if (!event) return;
 
-
     const confirmed =
         confirm(
-            `Delete "${event.description}"?`
+            `Delete "${event.description}" from the Timeline?`
         );
-
 
     if (!confirmed) return;
 
-
-    thing.events =
-        (thing.events || [])
-            .filter(
-                e =>
-                    e.id !==
-                    currentEventId
-            );
-
-
     if (event.documentId) {
 
-        const linkedDocument =
-            (thing.documents || [])
-                .find(
-                    d =>
-                        d.id ===
-                        event.documentId
-                );
+        const documentItem =
+            thing.documents.find(
+                item =>
+                    item.id === event.documentId
+            );
 
+        if (documentItem) {
 
-        if (linkedDocument) {
-
-            linkedDocument.timelineEventId =
+            documentItem.timelineEventId =
                 null;
 
         }
 
     }
 
+    thing.events =
+        thing.events.filter(
+            item =>
+                item.id !== currentEventId
+        );
 
-    saveData();
+    saveThings();
 
-    showThing(
-        currentThingId
-    );
+    currentEventId = null;
+
+    showThing(currentThingId);
 
 }
 
-
-
-/* =========================================================
+/* -----------------------------
    COMING UP
-========================================================= */
+----------------------------- */
 
 function renderComingUp() {
 
     const container =
         document.getElementById(
-            "comingUpList"
+            "comingUp"
         );
-
-    if (!container) return;
-
-
-    const now =
-        new Date();
-
 
     const todayDate =
-        new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate()
-        );
+        new Date();
 
-
-    const limit =
-        new Date(
-            todayDate
-        );
-
-
-    limit.setDate(
-        limit.getDate() + 30
+    todayDate.setHours(
+        0,
+        0,
+        0,
+        0
     );
 
+    const limitDate =
+        new Date(todayDate);
 
-    const items = [];
+    limitDate.setDate(
+        limitDate.getDate() + 30
+    );
 
+    const upcoming = [];
 
     things.forEach(thing => {
 
-        (thing.documents || [])
-            .forEach(doc => {
+        if (
+            !Array.isArray(
+                thing.documents
+            )
+        ) {
 
-                if (
-                    !doc.dateType ||
-                    doc.dateType === "None" ||
-                    !doc.importantDate
-                ) {
-                    return;
-                }
+            return;
 
+        }
 
-                if (
-                    doc.notificationAcknowledged
-                ) {
+        thing.documents.forEach(
+            documentItem => {
+
+                let dateType =
+                    documentItem.dateType;
+
+                let importantDate =
+                    documentItem.importantDate;
+
+                if (!dateType) {
 
                     if (
-                        doc.repeat &&
-                        doc.repeat !== "Never"
+                        documentItem.expiryDate
                     ) {
 
-                        advanceRecurringNotification(
-                            doc
-                        );
+                        dateType =
+                            "Expiry Date";
 
-                    }
-                    else {
+                        importantDate =
+                            documentItem.expiryDate;
 
-                        return;
+                    } else {
+
+                        dateType =
+                            "None";
 
                     }
 
                 }
-
-
-                if (!doc.importantDate) {
-                    return;
-                }
-
-
-                const date =
-                    parseLocalDate(
-                        doc.importantDate
-                    );
-
 
                 if (
-                    date <= limit
+                    dateType === "None" ||
+                    !importantDate
                 ) {
 
-                    items.push({
+                    return;
+
+                }
+
+                const important =
+                    new Date(
+                        importantDate +
+                        "T00:00:00"
+                    );
+
+                let notificationDate =
+                    new Date(important);
+
+                const repeat =
+                    documentItem.repeat ||
+                    "Never";
+
+                if (
+                    documentItem.notificationAcknowledged &&
+                    repeat !== "Never"
+                ) {
+
+                    while (
+                        notificationDate <
+                        todayDate
+                    ) {
+
+                        notificationDate =
+                            addRepeat(
+                                notificationDate,
+                                repeat
+                            );
+
+                    }
+
+                }
+
+                if (
+                    documentItem.notificationAcknowledged &&
+                    notificationDate >
+                    limitDate
+                ) {
+
+                    return;
+
+                }
+
+                if (
+                    documentItem.notificationAcknowledged &&
+                    repeat === "Never"
+                ) {
+
+                    return;
+
+                }
+
+                if (
+                    notificationDate <=
+                    limitDate
+                ) {
+
+                    upcoming.push({
 
                         thing,
 
-                        doc,
+                        document:
+                            documentItem,
 
-                        date
+                        dateType,
+
+                        importantDate:
+                            formatDateForStorage(
+                                notificationDate
+                            ),
+
+                        important:
+                            notificationDate
 
                     });
 
                 }
 
-            });
+            }
+        );
 
     });
 
-
-    items.sort(
+    upcoming.sort(
         (a, b) =>
-            a.date - b.date
+            a.important - b.important
     );
 
-
-    if (!items.length) {
+    if (
+        upcoming.length === 0
+    ) {
 
         container.innerHTML = `
-            <div class="empty">
+
+            <div class="card empty">
+
                 Nothing coming up.
+
             </div>
+
         `;
 
         return;
 
     }
 
-
     container.innerHTML =
-        items.map(item => {
+        upcoming.map(
+            item => {
 
-            const {
-                thing,
-                doc,
-                date
-            } = item;
+                const diff =
+                    Math.ceil(
+                        (
+                            item.important -
+                            todayDate
+                        ) /
+                        (
+                            1000 *
+                            60 *
+                            60 *
+                            24
+                        )
+                    );
 
+                const isDue =
+                    item.dateType ===
+                    "Due Date";
 
-            const icon =
-                documentIcons[
-                    doc.type
-                ] ||
-                "📄";
+                let status;
+                let className;
 
+                if (
+                    diff < 0
+                ) {
 
-            const status =
-                formatImportantDateStatus(
-                    date,
-                    doc.dateType
-                );
+                    const days =
+                        Math.abs(diff);
 
+                    if (isDue) {
 
-            const repeatInfo =
-                doc.repeat &&
-                doc.repeat !== "Never"
-                    ? ` · ${escapeHtml(
-                        doc.repeat
-                      )}`
-                    : "";
+                        status =
+                            `Overdue ${days} ${
+                                days === 1
+                                ? "day"
+                                : "days"
+                            }`;
 
+                    } else {
 
-            return `
+                        status =
+                            `Expired ${days} ${
+                                days === 1
+                                ? "day"
+                                : "days"
+                            } ago`;
 
-                <div
-                    class="coming-card"
-                    onclick="showThing('${thing.id}')">
+                    }
 
-                    <div class="coming-row">
+                    className =
+                        "coming-up-overdue";
 
-                        <div class="coming-icon">
-                            ${icon}
+                } else if (
+                    diff === 0
+                ) {
+
+                    status =
+                        isDue
+                            ? "Due today"
+                            : "Expires today";
+
+                    className =
+                        "coming-up-overdue";
+
+                } else {
+
+                    status =
+                        isDue
+                            ? `Due in ${diff} ${
+                                diff === 1
+                                ? "day"
+                                : "days"
+                              }`
+                            : `Expires in ${diff} ${
+                                diff === 1
+                                ? "day"
+                                : "days"
+                              }`;
+
+                    className =
+                        "coming-up";
+
+                }
+
+                const icon =
+                    documentIcons[
+                        item.document.type
+                    ] || "📄";
+
+                return `
+
+                    <div class="card ${className}"
+                         onclick="openThing(${item.thing.id})"
+                         style="cursor:pointer;">
+
+                        <div style="
+                            display:flex;
+                            gap:12px;
+                        ">
+
+                            <div class="document-icon">
+
+                                ${icon}
+
+                            </div>
+
+                            <div style="flex:1;">
+
+                                <div class="coming-up-title">
+
+                                    ${escapeHtml(
+                                        item.document.name
+                                    )}
+
+                                </div>
+
+                                <div class="coming-up-meta">
+
+                                    ${escapeHtml(
+                                        item.thing.name
+                                    )}
+
+                                </div>
+
+                                <div class="coming-up-meta">
+
+                                    ${escapeHtml(
+                                        item.dateType
+                                    )}
+                                    ·
+                                    ${formatDate(
+                                        item.importantDate
+                                    )}
+
+                                    ${
+                                        item.document.repeat &&
+                                        item.document.repeat !== "Never"
+                                        ? ` · ${escapeHtml(
+                                            item.document.repeat
+                                          )}`
+                                        : ""
+                                    }
+
+                                </div>
+
+                                <div class="coming-up-status">
+
+                                    ${status}
+
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div class="coming-info">
+                        <div class="coming-up-actions">
 
-                            <strong>
-                                ${escapeHtml(
-                                    doc.name
-                                )}
-                            </strong>
+                            <button
+                                class="secondary small coming-up-acknowledge"
+                                onclick="acknowledgeNotification(${item.document.id}, event)">
 
-                            <span>
-                                ${escapeHtml(
-                                    thing.name
-                                )}
-                                ·
-                                ${status}
-                                ${repeatInfo}
-                            </span>
+                                Acknowledge
 
-                        </div>
+                            </button>
 
-                        <div class="chevron">
-                            ›
                         </div>
 
                     </div>
 
+                `;
 
-                    <div class="coming-action">
+            }
 
-                        <button
-                            class="ack-button"
-                            onclick="
-                                acknowledgeNotification(
-                                    '${thing.id}',
-                                    '${doc.id}',
-                                    event
-                                )
-                            ">
-                            Acknowledge
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
+        ).join("");
 
 }
 
+/* -----------------------------
+   NOTIFICATIONS
+----------------------------- */
 
 function acknowledgeNotification(
-    thingId,
     documentId,
     clickEvent
 ) {
@@ -3986,610 +4134,88 @@ function acknowledgeNotification(
 
     }
 
+    let found = false;
 
-    const thing =
-        things.find(
-            t =>
-                t.id === thingId
-        );
-
-    if (!thing) return;
-
-
-    const doc =
-        (thing.documents || [])
-            .find(
-                d =>
-                    d.id === documentId
-            );
-
-    if (!doc) return;
-
-
-    if (
-        doc.repeat &&
-        doc.repeat !== "Never"
-    ) {
-
-        const nextDate =
-            addRepeat(
-                parseLocalDate(
-                    doc.importantDate
-                ),
-                doc.repeat
-            );
-
-
-        doc.importantDate =
-            formatDateForStorage(
-                nextDate
-            );
-
+    things.forEach(thing => {
 
         if (
-            doc.dateType ===
-            "Expiry Date"
+            !Array.isArray(
+                thing.documents
+            )
         ) {
 
-            doc.expiryDate =
-                doc.importantDate;
+            return;
 
         }
 
-    }
+        const documentItem =
+            thing.documents.find(
+                item =>
+                    item.id === documentId
+            );
 
+        if (!documentItem) {
 
-    doc.notificationAcknowledged =
-        true;
+            return;
 
+        }
 
-    saveData();
+        documentItem.notificationAcknowledged =
+            true;
+
+        const repeat =
+            documentItem.repeat ||
+            "Never";
+
+        if (
+            repeat !== "Never" &&
+            documentItem.importantDate
+        ) {
+
+            const currentDate =
+                new Date(
+                    documentItem.importantDate +
+                    "T00:00:00"
+                );
+
+            const nextDate =
+                addRepeat(
+                    currentDate,
+                    repeat
+                );
+
+            documentItem.importantDate =
+                formatDateForStorage(
+                    nextDate
+                );
+
+            if (
+                documentItem.dateType ===
+                "Expiry Date"
+            ) {
+
+                documentItem.expiryDate =
+                    documentItem.importantDate;
+
+            }
+
+        }
+
+        found = true;
+
+    });
+
+    if (!found) return;
+
+    saveThings();
 
     renderComingUp();
 
 }
 
-
-function advanceRecurringNotification(
-    doc
-) {
-
-    if (
-        !doc.repeat ||
-        doc.repeat === "Never" ||
-        !doc.importantDate
-    ) {
-
-        return;
-
-    }
-
-
-    const todayDate =
-        parseLocalDate(
-            today()
-        );
-
-
-    let date =
-        parseLocalDate(
-            doc.importantDate
-        );
-
-
-    while (
-        date < todayDate
-    ) {
-
-        date =
-            addRepeat(
-                date,
-                doc.repeat
-            );
-
-    }
-
-
-    doc.importantDate =
-        formatDateForStorage(
-            date
-        );
-
-
-    if (
-        doc.dateType ===
-        "Expiry Date"
-    ) {
-
-        doc.expiryDate =
-            doc.importantDate;
-
-    }
-
-}
-
-
-function formatImportantDateStatus(
-    date,
-    dateType
-) {
-
-    const todayDate =
-        parseLocalDate(
-            today()
-        );
-
-
-    const diff =
-        Math.round(
-            (
-                date -
-                todayDate
-            ) /
-            86400000
-        );
-
-
-    const label =
-        dateType ===
-            "Due Date"
-            ? "Due"
-            : "Expires";
-
-
-    if (diff < 0) {
-
-        const days =
-            Math.abs(diff);
-
-        return `
-            ${label}
-            ${days}
-            day${days === 1 ? "" : "s"}
-            ago
-        `;
-
-    }
-
-
-    if (diff === 0) {
-
-        return `
-            ${label} today
-        `;
-
-    }
-
-
-    return `
-        ${label}
-        in
-        ${diff}
-        day${diff === 1 ? "" : "s"}
-    `;
-
-}
-
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function normalizeText(
-    value
-) {
-
-    return String(
-        value || ""
-    )
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(
-            /[\u0300-\u036f]/g,
-            ""
-        );
-
-}
-
-
-function renderSearchResults() {
-
-    const input =
-        document.getElementById(
-            "searchInput"
-        );
-
-
-    const query =
-        normalizeText(
-            input
-                ? input.value.trim()
-                : ""
-        );
-
-
-    const categories =
-        document.getElementById(
-            "homeCategories"
-        );
-
-
-    const comingUp =
-        document.getElementById(
-            "homeComingUpSection"
-        );
-
-
-    const resultsSection =
-        document.getElementById(
-            "searchResultsSection"
-        );
-
-
-    const resultsList =
-        document.getElementById(
-            "searchResultsList"
-        );
-
-
-    if (!query) {
-
-        categories.style.display =
-            "block";
-
-        comingUp.style.display =
-            "block";
-
-        resultsSection.style.display =
-            "none";
-
-        resultsList.innerHTML =
-            "";
-
-        return;
-
-    }
-
-
-    categories.style.display =
-        "none";
-
-    comingUp.style.display =
-        "none";
-
-    resultsSection.style.display =
-        "block";
-
-
-    const results = [];
-
-
-    things.forEach(thing => {
-
-
-        /*
-           Thing
-        */
-
-        const thingSearch =
-            normalizeText(
-                [
-                    thing.name,
-                    thing.category,
-                    thing.reference
-                ].join(" ")
-            );
-
-
-        if (
-            thingSearch.includes(
-                query
-            )
-        ) {
-
-            results.push({
-
-                kind:
-                    "thing",
-
-                id:
-                    thing.id,
-
-                thingId:
-                    thing.id,
-
-                title:
-                    thing.name,
-
-                subtitle:
-                    thing.category,
-
-                icon:
-                    thing.icon ||
-                    categoryIcons[
-                        thing.category
-                    ] ||
-                    "📦"
-
-            });
-
-        }
-
-
-        /*
-           Documents
-        */
-
-        (thing.documents || [])
-            .forEach(doc => {
-
-                const documentSearch =
-                    normalizeText(
-                        [
-                            doc.name,
-                            doc.type,
-                            doc.dateType,
-                            thing.name,
-                            thing.category
-                        ].join(" ")
-                    );
-
-
-                if (
-                    documentSearch.includes(
-                        query
-                    )
-                ) {
-
-                    results.push({
-
-                        kind:
-                            "document",
-
-                        id:
-                            doc.id,
-
-                        thingId:
-                            thing.id,
-
-                        title:
-                            doc.name,
-
-                        subtitle:
-                            `${thing.name} · Document`,
-
-                        icon:
-                            documentIcons[
-                                doc.type
-                            ] ||
-                            "📄"
-
-                    });
-
-                }
-
-            });
-
-
-        /*
-           Events
-        */
-
-        (thing.events || [])
-            .forEach(event => {
-
-                const eventSearch =
-                    normalizeText(
-                        [
-                            event.description,
-                            event.type,
-                            thing.name,
-                            thing.category
-                        ].join(" ")
-                    );
-
-
-                if (
-                    eventSearch.includes(
-                        query
-                    )
-                ) {
-
-                    results.push({
-
-                        kind:
-                            "event",
-
-                        id:
-                            event.id,
-
-                        thingId:
-                            thing.id,
-
-                        title:
-                            event.description ||
-                            event.type,
-
-                        subtitle:
-                            `${thing.name} · Timeline`,
-
-                        icon:
-                            eventIcons[
-                                event.type
-                            ] ||
-                            "📌"
-
-                    });
-
-                }
-
-            });
-
-    });
-
-
-    if (!results.length) {
-
-        resultsList.innerHTML = `
-            <div class="search-empty">
-                No results found.
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    resultsList.innerHTML =
-        results.map(result => {
-
-            let onclick = "";
-
-
-            if (
-                result.kind ===
-                "thing"
-            ) {
-
-                onclick =
-                    `showThing('${result.id}')`;
-
-            }
-            else if (
-                result.kind ===
-                "document"
-            ) {
-
-                onclick =
-                    `openSearchDocument(
-                        '${result.thingId}',
-                        '${result.id}'
-                    )`;
-
-            }
-            else if (
-                result.kind ===
-                "event"
-            ) {
-
-                onclick =
-                    `openSearchEvent(
-                        '${result.thingId}',
-                        '${result.id}'
-                    )`;
-
-            }
-
-
-            return `
-
-                <div
-                    class="card search-result"
-                    onclick="${onclick}">
-
-                    <div class="search-result-icon">
-                        ${result.icon}
-                    </div>
-
-                    <div class="search-result-info">
-
-                        <strong>
-                            ${escapeHtml(
-                                result.title
-                            )}
-                        </strong>
-
-                        <span>
-                            ${escapeHtml(
-                                result.subtitle
-                            )}
-                        </span>
-
-                    </div>
-
-                    <div class="search-result-arrow">
-                        ›
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
-
-}
-
-
-function openSearchDocument(
-    thingId,
-    documentId
-) {
-
-    currentThingId =
-        thingId;
-
-
-    const thing =
-        things.find(
-            t =>
-                t.id ===
-                thingId
-        );
-
-
-    if (thing) {
-
-        currentThingCategory =
-            thing.category;
-
-    }
-
-
-    editDocument(
-        documentId
-    );
-
-}
-
-
-function openSearchEvent(
-    thingId,
-    eventId
-) {
-
-    currentThingId =
-        thingId;
-
-
-    const thing =
-        things.find(
-            t =>
-                t.id ===
-                thingId
-        );
-
-
-    if (thing) {
-
-        currentThingCategory =
-            thing.category;
-
-    }
-
-
-    editEvent(
-        eventId
-    );
-
-}
-
-
-
-/* =========================================================
+/* -----------------------------
    REPEAT HELPERS
-========================================================= */
+----------------------------- */
 
 function addRepeat(
     date,
@@ -4597,150 +4223,156 @@ function addRepeat(
 ) {
 
     const result =
-        new Date(
-            date
-        );
+        new Date(date);
 
-
-    if (
-        repeat ===
-        "Yearly"
-    ) {
+    if (repeat === "Yearly") {
 
         result.setFullYear(
-            result.getFullYear() +
-            1
+            result.getFullYear() + 1
         );
 
-    }
-    else if (
-        repeat ===
-        "Monthly"
+    } else if (
+        repeat === "Monthly"
     ) {
 
         result.setMonth(
-            result.getMonth() +
-            1
+            result.getMonth() + 1
         );
 
     }
-
 
     return result;
 
 }
 
-
 function formatDateForStorage(
     date
 ) {
 
-    return [
+    const year =
+        date.getFullYear();
 
-        date.getFullYear(),
-
+    const month =
         String(
             date.getMonth() + 1
         ).padStart(
             2,
             "0"
-        ),
+        );
 
+    const day =
         String(
             date.getDate()
         ).padStart(
             2,
             "0"
-        )
+        );
 
-    ].join("-");
+    return `${year}-${month}-${day}`;
 
 }
 
-
-
-/* =========================================================
+/* -----------------------------
    HELPERS
-========================================================= */
+----------------------------- */
+
+function mapDocumentToEvent(type) {
+
+    const mapping = {
+
+        Invoice: "Expense",
+        Contract: "Other",
+        Insurance: "Insurance",
+        Warranty: "Other",
+        Tax: "Expense",
+        Certificate: "Other",
+        Repair: "Repair",
+        Other: "Other"
+
+    };
+
+    return mapping[type] ||
+        "Other";
+
+}
 
 function today() {
 
-    return formatDateForStorage(
-        new Date()
-    );
+    const date =
+        new Date();
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+    return `${year}-${month}-${day}`;
 
 }
 
+function formatDate(dateString) {
 
-function parseLocalDate(
-    value
-) {
+    if (!dateString) {
 
-    if (!value) {
-
-        return new Date(
-            NaN
-        );
+        return "—";
 
     }
-
 
     const parts =
-        value
-            .split("-")
-            .map(Number);
-
-
-    return new Date(
-        parts[0],
-        parts[1] - 1,
-        parts[2]
-    );
-
-}
-
-
-function formatDate(
-    value
-) {
-
-    if (!value) {
-        return "—";
-    }
-
-
-    const date =
-        parseLocalDate(
-            value
-        );
-
+        dateString.split("-");
 
     if (
-        isNaN(
-            date.getTime()
-        )
+        parts.length !== 3
     ) {
+
+        return dateString;
+
+    }
+
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+
+}
+
+function formatDay(dateString) {
+
+    if (!dateString) {
 
         return "—";
 
     }
 
+    const parts =
+        dateString.split("-");
 
-    return date.toLocaleDateString(
-        "en-GB",
-        {
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
-        }
+    if (
+        parts.length !== 3
+    ) {
+
+        return dateString;
+
+    }
+
+    return String(
+        Number(parts[2])
     );
 
 }
 
-
-function formatAmount(
-    value
-) {
+function formatMoney(value) {
 
     if (
         value === "" ||
@@ -4752,54 +4384,60 @@ function formatAmount(
 
     }
 
-
     const number =
         Number(value);
 
-
     if (
-        isNaN(number)
+        Number.isNaN(number)
     ) {
 
         return "—";
 
     }
 
-
-    return number.toLocaleString(
+    return new Intl.NumberFormat(
         "pt-PT",
         {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
+            style: "currency",
+            currency: "EUR"
         }
-    ) + " €";
+    ).format(number);
 
 }
 
+function escapeHtml(value) {
 
-function escapeHtml(
-    value
-) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
 
-    return String(
-        value || ""
-    )
+        return "";
+
+    }
+
+    return String(value)
+
         .replace(
             /&/g,
             "&amp;"
         )
+
         .replace(
             /</g,
             "&lt;"
         )
+
         .replace(
             />/g,
             "&gt;"
         )
+
         .replace(
             /"/g,
             "&quot;"
         )
+
         .replace(
             /'/g,
             "&#039;"
@@ -4807,159 +4445,143 @@ function escapeHtml(
 
 }
 
+/* -----------------------------
+   DATA MIGRATION
+----------------------------- */
 
+things.forEach(thing => {
 
-/* =========================================================
-   MIGRATION
-========================================================= */
+    if (
+        thing.category === "Home"
+    ) {
 
-function migrateData() {
+        thing.category =
+            "Real Estate";
 
-    let changed = false;
+    }
 
+    if (
+        thing.category === "Vehicle"
+    ) {
 
-    things.forEach(thing => {
+        thing.category =
+            "Vehicles";
 
-        if (!thing.documents) {
+    }
 
-            thing.documents = [];
+    if (
+        thing.category === "Appliance"
+    ) {
 
-            changed = true;
+        thing.category =
+            "Other";
 
-        }
+    }
 
+    if (
+        !Array.isArray(
+            thing.documents
+        )
+    ) {
 
-        if (!thing.events) {
+        thing.documents = [];
 
-            thing.events = [];
+    }
 
-            changed = true;
+    if (
+        !Array.isArray(
+            thing.events
+        )
+    ) {
 
-        }
+        thing.events = [];
 
+    }
 
-        thing.documents.forEach(doc => {
+    thing.documents.forEach(
+        documentItem => {
 
+            if (
+                documentItem.timelineEventId ===
+                undefined
+            ) {
 
-            if (!doc.dateType) {
+                documentItem.timelineEventId =
+                    null;
 
-                if (doc.expiryDate) {
+            }
 
-                    doc.dateType =
+            if (
+                documentItem.notificationAcknowledged ===
+                undefined
+            ) {
+
+                documentItem.notificationAcknowledged =
+                    false;
+
+            }
+
+            if (
+                !documentItem.dateType
+            ) {
+
+                if (
+                    documentItem.expiryDate
+                ) {
+
+                    documentItem.dateType =
                         "Expiry Date";
 
-                    doc.importantDate =
-                        doc.expiryDate;
+                    documentItem.importantDate =
+                        documentItem.expiryDate;
 
-                }
-                else {
+                } else {
 
-                    doc.dateType =
+                    documentItem.dateType =
                         "None";
 
-                    doc.importantDate =
+                    documentItem.importantDate =
                         "";
 
                 }
 
-                changed = true;
-
-            }
-
-
-            if (
-                doc.notificationAcknowledged ===
+            } else if (
+                documentItem.importantDate ===
                 undefined
             ) {
 
-                doc.notificationAcknowledged =
-                    false;
-
-                changed = true;
+                documentItem.importantDate =
+                    documentItem.expiryDate ||
+                    "";
 
             }
 
+            if (
+                documentItem.repeat ===
+                undefined
+            ) {
 
-            if (!doc.repeat) {
-
-                doc.repeat =
+                documentItem.repeat =
                     "Never";
 
-                changed = true;
-
             }
 
+        }
+    );
 
-            if (
-                doc.dateType ===
-                    "Expiry Date" &&
-                !doc.expiryDate &&
-                doc.importantDate
-            ) {
+});
 
-                doc.expiryDate =
-                    doc.importantDate;
+saveThings();
 
-                changed = true;
+/* -----------------------------
+   INITIAL LOAD
+----------------------------- */
 
-            }
-
-
-            /*
-               Attachment migration.
-
-               Existing documents simply
-               have no attachment.
-            */
-
-            if (
-                doc.hasAttachment ===
-                undefined
-            ) {
-
-                doc.hasAttachment =
-                    false;
-
-                changed = true;
-
-            }
-
-        });
-
-    });
-
-
-    if (changed) {
-
-        saveData();
-
-    }
-
-}
-
-
-
-/* =========================================================
-   START
-========================================================= */
-
-migrateData();
-
-openAttachmentDB()
-    .catch(error => {
-
-        console.error(
-            "Attachment storage unavailable:",
-            error
-        );
-
-    });
-
-renderHomeCounts();
-
+renderCategoryCounts();
 renderComingUp();
 
 </script>
 
 </body>
+
 </html>
