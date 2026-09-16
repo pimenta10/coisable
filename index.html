@@ -215,6 +215,10 @@ textarea {
     color: #111;
 }
 
+input[type="file"] {
+    padding: 11px;
+}
+
 textarea {
     min-height: 90px;
     resize: vertical;
@@ -319,6 +323,80 @@ textarea {
     background: #f0f0f0;
     font-size: 12px;
     color: #555;
+}
+
+.attachment-badge {
+    display: inline-block;
+    margin-top: 7px;
+    padding: 5px 8px;
+    border-radius: 7px;
+    background: #f0f0f0;
+    font-size: 12px;
+    color: #555;
+}
+
+.attachment-box {
+    background: #f7f7f7;
+    border-radius: 13px;
+    padding: 14px;
+    margin-bottom: 17px;
+}
+
+.attachment-row {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.attachment-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.attachment-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.attachment-info strong {
+    display: block;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.attachment-info span {
+    display: block;
+    color: #888;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.attachment-actions {
+    display: flex;
+    gap: 7px;
+    margin-top: 11px;
+}
+
+.attachment-button {
+    background: white;
+    border-radius: 9px;
+    padding: 8px 11px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.attachment-remove {
+    background: #ffe5e5;
+    color: #c40000;
 }
 
 .coming-card {
@@ -841,6 +919,16 @@ textarea {
             Add to Timeline
         </label>
 
+        <div class="section">
+
+            <label>Attachment</label>
+
+            <input id="documentAttachment"
+                   type="file"
+                   accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt">
+
+        </div>
+
         <div class="form-actions">
 
             <button class="primary"
@@ -914,6 +1002,18 @@ textarea {
             <option value="Yearly">Yearly</option>
             <option value="Monthly">Monthly</option>
         </select>
+
+        <div class="section">
+
+            <label>Attachment</label>
+
+            <div id="editDocumentAttachment"></div>
+
+            <input id="editDocumentAttachmentInput"
+                   type="file"
+                   accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt">
+
+        </div>
 
         <div class="form-actions">
 
@@ -1030,6 +1130,10 @@ textarea {
 
 <script>
 
+/* =========================================================
+   CONSTANTS
+========================================================= */
+
 const categoryIcons = {
     "Real Estate": "🏠",
     "Vehicles": "🚗",
@@ -1058,6 +1162,11 @@ const eventIcons = {
     "Other": "📌"
 };
 
+
+/* =========================================================
+   DATA
+========================================================= */
+
 let things = JSON.parse(
     localStorage.getItem("coisableThings") || "[]"
 );
@@ -1070,10 +1179,218 @@ let currentEventId = null;
 let collapsedMonths = {};
 
 
+/* =========================================================
+   INDEXED DB
+========================================================= */
 
-/* =========================
+let attachmentDB = null;
+
+function openAttachmentDB() {
+
+    return new Promise((resolve, reject) => {
+
+        const request =
+            indexedDB.open(
+                "CoisableAttachments",
+                1
+            );
+
+        request.onupgradeneeded = function(event) {
+
+            const db =
+                event.target.result;
+
+            if (
+                !db.objectStoreNames.contains(
+                    "attachments"
+                )
+            ) {
+
+                db.createObjectStore(
+                    "attachments",
+                    {
+                        keyPath: "id"
+                    }
+                );
+
+            }
+
+        };
+
+        request.onsuccess = function(event) {
+
+            attachmentDB =
+                event.target.result;
+
+            resolve(attachmentDB);
+
+        };
+
+        request.onerror = function() {
+
+            reject(
+                request.error
+            );
+
+        };
+
+    });
+
+}
+
+
+async function saveAttachment(
+    documentId,
+    file
+) {
+
+    const db =
+        attachmentDB ||
+        await openAttachmentDB();
+
+    return new Promise((resolve, reject) => {
+
+        const transaction =
+            db.transaction(
+                ["attachments"],
+                "readwrite"
+            );
+
+        const store =
+            transaction.objectStore(
+                "attachments"
+            );
+
+        const data = {
+
+            id: documentId,
+
+            name: file.name,
+
+            type: file.type,
+
+            size: file.size,
+
+            blob: file,
+
+            createdAt: Date.now()
+
+        };
+
+        const request =
+            store.put(data);
+
+        request.onsuccess =
+            () => resolve();
+
+        request.onerror =
+            () => reject(request.error);
+
+    });
+
+}
+
+
+async function getAttachment(
+    documentId
+) {
+
+    const db =
+        attachmentDB ||
+        await openAttachmentDB();
+
+    return new Promise((resolve, reject) => {
+
+        const transaction =
+            db.transaction(
+                ["attachments"],
+                "readonly"
+            );
+
+        const store =
+            transaction.objectStore(
+                "attachments"
+            );
+
+        const request =
+            store.get(documentId);
+
+        request.onsuccess =
+            () => resolve(request.result);
+
+        request.onerror =
+            () => reject(request.error);
+
+    });
+
+}
+
+
+async function deleteAttachment(
+    documentId
+) {
+
+    const db =
+        attachmentDB ||
+        await openAttachmentDB();
+
+    return new Promise((resolve, reject) => {
+
+        const transaction =
+            db.transaction(
+                ["attachments"],
+                "readwrite"
+            );
+
+        const store =
+            transaction.objectStore(
+                "attachments"
+            );
+
+        const request =
+            store.delete(documentId);
+
+        request.onsuccess =
+            () => resolve();
+
+        request.onerror =
+            () => reject(request.error);
+
+    });
+
+}
+
+
+function formatFileSize(bytes) {
+
+    if (!bytes) {
+        return "";
+    }
+
+    if (bytes < 1024) {
+        return bytes + " B";
+    }
+
+    if (bytes < 1024 * 1024) {
+
+        return (
+            bytes / 1024
+        ).toFixed(1) + " KB";
+
+    }
+
+    return (
+        bytes /
+        (1024 * 1024)
+    ).toFixed(1) + " MB";
+
+}
+
+
+
+/* =========================================================
    STORAGE
-========================= */
+========================================================= */
 
 function saveData() {
 
@@ -1086,9 +1403,9 @@ function saveData() {
 
 
 
-/* =========================
+/* =========================================================
    VIEWS
-========================= */
+========================================================= */
 
 function hideAllViews() {
 
@@ -1105,7 +1422,10 @@ function hideAllViews() {
     ];
 
     views.forEach(id => {
-        document.getElementById(id).style.display = "none";
+
+        document.getElementById(id)
+            .style.display = "none";
+
     });
 
 }
@@ -1115,7 +1435,8 @@ function showHome() {
 
     hideAllViews();
 
-    document.getElementById("homeView").style.display = "block";
+    document.getElementById("homeView")
+        .style.display = "block";
 
     const searchInput =
         document.getElementById("searchInput");
@@ -1135,7 +1456,8 @@ function showCategory(category) {
 
     hideAllViews();
 
-    currentThingCategory = category;
+    currentThingCategory =
+        category;
 
     document.getElementById("categoryView")
         .style.display = "block";
@@ -1144,16 +1466,27 @@ function showCategory(category) {
         .textContent = category;
 
     const button =
-        document.getElementById("categoryAddButton");
+        document.getElementById(
+            "categoryAddButton"
+        );
 
     if (category === "Real Estate") {
-        button.textContent = "+ Add Property";
+
+        button.textContent =
+            "+ Add Property";
+
     }
     else if (category === "Vehicles") {
-        button.textContent = "+ Add Vehicle";
+
+        button.textContent =
+            "+ Add Vehicle";
+
     }
     else {
-        button.textContent = "+ Add";
+
+        button.textContent =
+            "+ Add";
+
     }
 
     renderCategory(category);
@@ -1178,10 +1511,16 @@ function showThing(id) {
 function backToCategory() {
 
     if (currentThingCategory) {
-        showCategory(currentThingCategory);
+
+        showCategory(
+            currentThingCategory
+        );
+
     }
     else {
+
         showHome();
+
     }
 
 }
@@ -1190,19 +1529,25 @@ function backToCategory() {
 function backToThing() {
 
     if (currentThingId) {
-        showThing(currentThingId);
+
+        showThing(
+            currentThingId
+        );
+
     }
     else {
+
         showHome();
+
     }
 
 }
 
 
 
-/* =========================
+/* =========================================================
    HOME
-========================= */
+========================================================= */
 
 function renderHomeCounts() {
 
@@ -1217,12 +1562,14 @@ function renderHomeCounts() {
 
         const count =
             things.filter(
-                t => t.category === category
+                t =>
+                    t.category === category
             ).length;
 
         const el =
             document.getElementById(
-                "count" + category.replace(" ", "")
+                "count" +
+                category.replace(" ", "")
             );
 
         if (el) {
@@ -1240,18 +1587,21 @@ function renderHomeCounts() {
 
 
 
-/* =========================
+/* =========================================================
    CATEGORY
-========================= */
+========================================================= */
 
 function renderCategory(category) {
 
     const container =
-        document.getElementById("categoryThings");
+        document.getElementById(
+            "categoryThings"
+        );
 
     const filtered =
         things.filter(
-            thing => thing.category === category
+            thing =>
+                thing.category === category
         );
 
     if (!filtered.length) {
@@ -1263,6 +1613,7 @@ function renderCategory(category) {
         `;
 
         return;
+
     }
 
     container.innerHTML =
@@ -1270,10 +1621,13 @@ function renderCategory(category) {
 
             const icon =
                 thing.icon ||
-                categoryIcons[thing.category] ||
+                categoryIcons[
+                    thing.category
+                ] ||
                 "📦";
 
             return `
+
                 <div class="card clickable"
                      onclick="showThing('${thing.id}')">
 
@@ -1284,13 +1638,19 @@ function renderCategory(category) {
                         </div>
 
                         <div class="info">
+
                             <strong>
-                                ${escapeHtml(thing.name)}
+                                ${escapeHtml(
+                                    thing.name
+                                )}
                             </strong>
 
                             <span>
-                                ${escapeHtml(thing.category)}
+                                ${escapeHtml(
+                                    thing.category
+                                )}
                             </span>
+
                         </div>
 
                         <div class="chevron">
@@ -1300,6 +1660,7 @@ function renderCategory(category) {
                     </div>
 
                 </div>
+
             `;
 
         }).join("");
@@ -1308,31 +1669,40 @@ function renderCategory(category) {
 
 
 
-/* =========================
+/* =========================================================
    ADD THING
-========================= */
+========================================================= */
 
 function showAddThing() {
 
     hideAllViews();
 
-    document.getElementById("addThingView")
-        .style.display = "block";
+    document.getElementById(
+        "addThingView"
+    ).style.display = "block";
 
-    document.getElementById("addThingTitle")
-        .textContent =
+    document.getElementById(
+        "addThingTitle"
+    ).textContent =
         currentThingCategory === "Real Estate"
             ? "Add Property"
             : currentThingCategory === "Vehicles"
                 ? "Add Vehicle"
                 : "Add Thing";
 
-    document.getElementById("thingName").value = "";
+    document.getElementById(
+        "thingName"
+    ).value = "";
 
-    document.getElementById("thingCategory").value =
-        currentThingCategory || "Other";
+    document.getElementById(
+        "thingCategory"
+    ).value =
+        currentThingCategory ||
+        "Other";
 
-    document.getElementById("thingIcon").value =
+    document.getElementById(
+        "thingIcon"
+    ).value =
         currentThingCategory === "Real Estate"
             ? "🏠"
             : currentThingCategory === "Vehicles"
@@ -1341,10 +1711,21 @@ function showAddThing() {
                     ? "📱"
                     : "📦";
 
-    document.getElementById("thingPurchaseDate").value = "";
-    document.getElementById("thingPurchasePrice").value = "";
-    document.getElementById("thingCurrentValue").value = "";
-    document.getElementById("thingReference").value = "";
+    document.getElementById(
+        "thingPurchaseDate"
+    ).value = "";
+
+    document.getElementById(
+        "thingPurchasePrice"
+    ).value = "";
+
+    document.getElementById(
+        "thingCurrentValue"
+    ).value = "";
+
+    document.getElementById(
+        "thingReference"
+    ).value = "";
 
 }
 
@@ -1352,12 +1733,18 @@ function showAddThing() {
 function saveThing() {
 
     const name =
-        document.getElementById("thingName")
-            .value.trim();
+        document.getElementById(
+            "thingName"
+        ).value.trim();
 
     if (!name) {
-        alert("Please enter a name.");
+
+        alert(
+            "Please enter a name."
+        );
+
         return;
+
     }
 
     const thing = {
@@ -1368,28 +1755,34 @@ function saveThing() {
         name,
 
         category:
-            document.getElementById("thingCategory")
-                .value,
+            document.getElementById(
+                "thingCategory"
+            ).value,
 
         icon:
-            document.getElementById("thingIcon")
-                .value,
+            document.getElementById(
+                "thingIcon"
+            ).value,
 
         purchaseDate:
-            document.getElementById("thingPurchaseDate")
-                .value,
+            document.getElementById(
+                "thingPurchaseDate"
+            ).value,
 
         purchasePrice:
-            document.getElementById("thingPurchasePrice")
-                .value,
+            document.getElementById(
+                "thingPurchasePrice"
+            ).value,
 
         currentValue:
-            document.getElementById("thingCurrentValue")
-                .value,
+            document.getElementById(
+                "thingCurrentValue"
+            ).value,
 
         reference:
-            document.getElementById("thingReference")
-                .value.trim(),
+            document.getElementById(
+                "thingReference"
+            ).value.trim(),
 
         documents: [],
 
@@ -1401,38 +1794,51 @@ function saveThing() {
 
     saveData();
 
-    currentThingId = thing.id;
-    currentThingCategory = thing.category;
+    currentThingId =
+        thing.id;
 
-    showThing(thing.id);
+    currentThingCategory =
+        thing.category;
+
+    showThing(
+        thing.id
+    );
 
 }
 
 
 
-/* =========================
+/* =========================================================
    THING DETAIL
-========================= */
+========================================================= */
 
 function renderThingDetail() {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id === currentThingId
         );
 
     if (!thing) {
+
         showHome();
+
         return;
+
     }
 
     const icon =
         thing.icon ||
-        categoryIcons[thing.category] ||
+        categoryIcons[
+            thing.category
+        ] ||
         "📦";
 
     const container =
-        document.getElementById("thingDetail");
+        document.getElementById(
+            "thingDetail"
+        );
 
     container.innerHTML = `
 
@@ -1445,11 +1851,15 @@ function renderThingDetail() {
             <div class="detail-title">
 
                 <h2>
-                    ${escapeHtml(thing.name)}
+                    ${escapeHtml(
+                        thing.name
+                    )}
                 </h2>
 
                 <span>
-                    ${escapeHtml(thing.category)}
+                    ${escapeHtml(
+                        thing.category
+                    )}
                 </span>
 
             </div>
@@ -1470,31 +1880,63 @@ function renderThingDetail() {
         <div class="detail-grid">
 
             <div class="detail-item">
-                <small>Purchase Date</small>
+
+                <small>
+                    Purchase Date
+                </small>
+
                 <strong>
-                    ${formatDate(thing.purchaseDate)}
+                    ${formatDate(
+                        thing.purchaseDate
+                    )}
                 </strong>
+
             </div>
 
-            <div class="detail-item">
-                <small>Purchase Price</small>
-                <strong>
-                    ${formatAmount(thing.purchasePrice)}
-                </strong>
-            </div>
 
             <div class="detail-item">
-                <small>Current Value</small>
+
+                <small>
+                    Purchase Price
+                </small>
+
                 <strong>
-                    ${formatAmount(thing.currentValue)}
+                    ${formatAmount(
+                        thing.purchasePrice
+                    )}
                 </strong>
+
             </div>
 
+
             <div class="detail-item">
-                <small>ID / Reference</small>
+
+                <small>
+                    Current Value
+                </small>
+
                 <strong>
-                    ${escapeHtml(thing.reference || "—")}
+                    ${formatAmount(
+                        thing.currentValue
+                    )}
                 </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <small>
+                    ID / Reference
+                </small>
+
+                <strong>
+                    ${escapeHtml(
+                        thing.reference ||
+                        "—"
+                    )}
+                </strong>
+
             </div>
 
         </div>
@@ -1552,49 +1994,66 @@ function renderThingDetail() {
     `;
 
     renderDocuments();
+
     renderTimeline();
 
 }
 
 
 
-/* =========================
+/* =========================================================
    EDIT THING
-========================= */
+========================================================= */
 
 function showEditThing() {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id === currentThingId
         );
 
     if (!thing) return;
 
     hideAllViews();
 
-    document.getElementById("editThingView")
-        .style.display = "block";
+    document.getElementById(
+        "editThingView"
+    ).style.display = "block";
 
-    document.getElementById("editThingName").value =
+    document.getElementById(
+        "editThingName"
+    ).value =
         thing.name || "";
 
-    document.getElementById("editThingCategory").value =
+    document.getElementById(
+        "editThingCategory"
+    ).value =
         thing.category || "Other";
 
-    document.getElementById("editThingIcon").value =
+    document.getElementById(
+        "editThingIcon"
+    ).value =
         thing.icon || "📦";
 
-    document.getElementById("editThingPurchaseDate").value =
+    document.getElementById(
+        "editThingPurchaseDate"
+    ).value =
         thing.purchaseDate || "";
 
-    document.getElementById("editThingPurchasePrice").value =
+    document.getElementById(
+        "editThingPurchasePrice"
+    ).value =
         thing.purchasePrice || "";
 
-    document.getElementById("editThingCurrentValue").value =
+    document.getElementById(
+        "editThingCurrentValue"
+    ).value =
         thing.currentValue || "";
 
-    document.getElementById("editThingReference").value =
+    document.getElementById(
+        "editThingReference"
+    ).value =
         thing.reference || "";
 
 }
@@ -1604,51 +2063,67 @@ function updateThing() {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id === currentThingId
         );
 
     if (!thing) return;
 
     const name =
-        document.getElementById("editThingName")
-            .value.trim();
+        document.getElementById(
+            "editThingName"
+        ).value.trim();
 
     if (!name) {
-        alert("Please enter a name.");
+
+        alert(
+            "Please enter a name."
+        );
+
         return;
+
     }
 
     thing.name = name;
 
     thing.category =
-        document.getElementById("editThingCategory")
-            .value;
+        document.getElementById(
+            "editThingCategory"
+        ).value;
 
     thing.icon =
-        document.getElementById("editThingIcon")
-            .value;
+        document.getElementById(
+            "editThingIcon"
+        ).value;
 
     thing.purchaseDate =
-        document.getElementById("editThingPurchaseDate")
-            .value;
+        document.getElementById(
+            "editThingPurchaseDate"
+        ).value;
 
     thing.purchasePrice =
-        document.getElementById("editThingPurchasePrice")
-            .value;
+        document.getElementById(
+            "editThingPurchasePrice"
+        ).value;
 
     thing.currentValue =
-        document.getElementById("editThingCurrentValue")
-            .value;
+        document.getElementById(
+            "editThingCurrentValue"
+        ).value;
 
     thing.reference =
-        document.getElementById("editThingReference")
-            .value.trim();
+        document.getElementById(
+            "editThingReference"
+        ).value.trim();
 
-    currentThingCategory = thing.category;
+    currentThingCategory =
+        thing.category;
 
     saveData();
 
-    showThing(currentThingId);
+    showThing(
+        currentThingId
+    );
 
 }
 
@@ -1657,7 +2132,8 @@ function deleteThing() {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id === currentThingId
         );
 
     if (!thing) return;
@@ -1669,9 +2145,27 @@ function deleteThing() {
 
     if (!confirmed) return;
 
+    /*
+       Remove attachments belonging
+       to this Thing.
+    */
+    (thing.documents || [])
+        .forEach(doc => {
+
+            if (doc.hasAttachment) {
+
+                deleteAttachment(
+                    doc.id
+                ).catch(() => {});
+
+            }
+
+        });
+
     things =
         things.filter(
-            t => t.id !== currentThingId
+            t =>
+                t.id !== currentThingId
         );
 
     saveData();
@@ -1684,56 +2178,95 @@ function deleteThing() {
 
 
 
-/* =========================
-   DOCUMENTS
-========================= */
+/* =========================================================
+   ADD DOCUMENT
+========================================================= */
 
 function showAddDocument() {
 
     hideAllViews();
 
-    document.getElementById("addDocumentView")
-        .style.display = "block";
+    document.getElementById(
+        "addDocumentView"
+    ).style.display = "block";
 
-    document.getElementById("documentName").value = "";
-    document.getElementById("documentType").value = "Invoice";
-    document.getElementById("documentDate").value = today();
-    document.getElementById("documentDateType").value = "None";
-    document.getElementById("documentImportantDate").value = "";
-    document.getElementById("documentAmount").value = "";
-    document.getElementById("documentRepeat").value = "Never";
-    document.getElementById("documentAddTimeline").checked = true;
+    document.getElementById(
+        "documentName"
+    ).value = "";
 
-    updateImportantDateLabel("document");
+    document.getElementById(
+        "documentType"
+    ).value = "Invoice";
+
+    document.getElementById(
+        "documentDate"
+    ).value = today();
+
+    document.getElementById(
+        "documentDateType"
+    ).value = "None";
+
+    document.getElementById(
+        "documentImportantDate"
+    ).value = "";
+
+    document.getElementById(
+        "documentAmount"
+    ).value = "";
+
+    document.getElementById(
+        "documentRepeat"
+    ).value = "Never";
+
+    document.getElementById(
+        "documentAddTimeline"
+    ).checked = true;
+
+    document.getElementById(
+        "documentAttachment"
+    ).value = "";
+
+    updateImportantDateLabel(
+        "document"
+    );
 
 }
 
 
-function saveDocument() {
+async function saveDocument() {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id === currentThingId
         );
 
     if (!thing) return;
 
     const name =
-        document.getElementById("documentName")
-            .value.trim();
+        document.getElementById(
+            "documentName"
+        ).value.trim();
 
     if (!name) {
-        alert("Please enter a document name.");
+
+        alert(
+            "Please enter a document name."
+        );
+
         return;
+
     }
 
     const dateType =
-        document.getElementById("documentDateType")
-            .value;
+        document.getElementById(
+            "documentDateType"
+        ).value;
 
     const importantDate =
-        document.getElementById("documentImportantDate")
-            .value;
+        document.getElementById(
+            "documentImportantDate"
+        ).value;
 
     const documentItem = {
 
@@ -1743,12 +2276,14 @@ function saveDocument() {
         name,
 
         type:
-            document.getElementById("documentType")
-                .value,
+            document.getElementById(
+                "documentType"
+            ).value,
 
         date:
-            document.getElementById("documentDate")
-                .value,
+            document.getElementById(
+                "documentDate"
+            ).value,
 
         dateType,
 
@@ -1763,16 +2298,23 @@ function saveDocument() {
                 : "",
 
         amount:
-            document.getElementById("documentAmount")
-                .value,
+            document.getElementById(
+                "documentAmount"
+            ).value,
 
         repeat:
-            document.getElementById("documentRepeat")
-                .value,
+            document.getElementById(
+                "documentRepeat"
+            ).value,
 
-        notificationAcknowledged: false,
+        notificationAcknowledged:
+            false,
 
-        timelineEventId: null
+        timelineEventId:
+            null,
+
+        hasAttachment:
+            false
 
     };
 
@@ -1782,20 +2324,65 @@ function saveDocument() {
     thing.events =
         thing.events || [];
 
+
+    const fileInput =
+        document.getElementById(
+            "documentAttachment"
+        );
+
+    const file =
+        fileInput.files &&
+        fileInput.files[0];
+
+
+    if (file) {
+
+        try {
+
+            await saveAttachment(
+                documentItem.id,
+                file
+            );
+
+            documentItem.hasAttachment =
+                true;
+
+        }
+        catch(error) {
+
+            console.error(
+                error
+            );
+
+            alert(
+                "The attachment could not be saved."
+            );
+
+            return;
+
+        }
+
+    }
+
+
     const addTimeline =
-        document.getElementById("documentAddTimeline")
-            .checked;
+        document.getElementById(
+            "documentAddTimeline"
+        ).checked;
+
 
     if (addTimeline) {
 
         const eventId =
-            Date.now().toString() + "-event";
+            Date.now().toString() +
+            "-event";
 
         const timelineEvent = {
 
             id: eventId,
 
-            description: name,
+            description:
+                name,
 
             type:
                 documentItem.type,
@@ -1811,33 +2398,48 @@ function saveDocument() {
 
         };
 
-        thing.events.push(timelineEvent);
+        thing.events.push(
+            timelineEvent
+        );
 
         documentItem.timelineEventId =
             eventId;
 
     }
 
-    thing.documents.push(documentItem);
+
+    thing.documents.push(
+        documentItem
+    );
 
     saveData();
 
-    showThing(currentThingId);
+    showThing(
+        currentThingId
+    );
 
 }
 
+
+
+/* =========================================================
+   RENDER DOCUMENTS
+========================================================= */
 
 function renderDocuments() {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id === currentThingId
         );
 
     if (!thing) return;
 
     const container =
-        document.getElementById("documentsList");
+        document.getElementById(
+            "documentsList"
+        );
 
     const docs =
         thing.documents || [];
@@ -1851,25 +2453,40 @@ function renderDocuments() {
         `;
 
         return;
+
     }
 
     container.innerHTML =
         docs.map(doc => {
 
             const icon =
-                documentIcons[doc.type] || "📄";
+                documentIcons[
+                    doc.type
+                ] ||
+                "📄";
 
             let dateInfo = "";
 
-            if (doc.dateType &&
+            if (
+                doc.dateType &&
                 doc.dateType !== "None" &&
-                doc.importantDate) {
+                doc.importantDate
+            ) {
 
                 dateInfo = `
+
                     <div class="date-badge">
-                        ${escapeHtml(doc.dateType)}:
-                        ${formatDate(doc.importantDate)}
+
+                        ${escapeHtml(
+                            doc.dateType
+                        )}:
+
+                        ${formatDate(
+                            doc.importantDate
+                        )}
+
                     </div>
+
                 `;
 
             }
@@ -1877,7 +2494,18 @@ function renderDocuments() {
             const repeatInfo =
                 doc.repeat &&
                 doc.repeat !== "Never"
-                    ? ` · ${escapeHtml(doc.repeat)}`
+                    ? ` · ${escapeHtml(
+                        doc.repeat
+                      )}`
+                    : "";
+
+            const attachmentInfo =
+                doc.hasAttachment
+                    ? `
+                        <div class="attachment-badge">
+                            📎 Attachment
+                        </div>
+                      `
                     : "";
 
             return `
@@ -1894,24 +2522,37 @@ function renderDocuments() {
                         <div class="info">
 
                             <strong>
-                                ${escapeHtml(doc.name)}
+                                ${escapeHtml(
+                                    doc.name
+                                )}
                             </strong>
 
                             <span>
-                                ${escapeHtml(doc.type)}
-                                · ${formatDate(doc.date)}
+                                ${escapeHtml(
+                                    doc.type
+                                )}
+                                ·
+                                ${formatDate(
+                                    doc.date
+                                )}
                                 ${repeatInfo}
                             </span>
 
                             ${
                                 doc.amount
-                                    ? `<div class="document-amount">
-                                         ${formatAmount(doc.amount)}
-                                       </div>`
+                                    ? `
+                                        <div class="document-amount">
+                                            ${formatAmount(
+                                                doc.amount
+                                            )}
+                                        </div>
+                                      `
                                     : ""
                             }
 
                             ${dateInfo}
+
+                            ${attachmentInfo}
 
                         </div>
 
@@ -1930,59 +2571,17 @@ function renderDocuments() {
 }
 
 
-function editDocument(id) {
+
+/* =========================================================
+   EDIT DOCUMENT
+========================================================= */
+
+async function editDocument(id) {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
-        );
-
-    if (!thing) return;
-
-    const documentItem =
-        (thing.documents || [])
-            .find(d => d.id === id);
-
-    if (!documentItem) return;
-
-    currentDocumentId = id;
-
-    hideAllViews();
-
-    document.getElementById("editDocumentView")
-        .style.display = "block";
-
-    document.getElementById("editDocumentName").value =
-        documentItem.name || "";
-
-    document.getElementById("editDocumentType").value =
-        documentItem.type || "Other";
-
-    document.getElementById("editDocumentDate").value =
-        documentItem.date || "";
-
-    document.getElementById("editDocumentDateType").value =
-        documentItem.dateType || "None";
-
-    document.getElementById("editDocumentImportantDate").value =
-        documentItem.importantDate || "";
-
-    document.getElementById("editDocumentAmount").value =
-        documentItem.amount || "";
-
-    document.getElementById("editDocumentRepeat").value =
-        documentItem.repeat || "Never";
-
-    updateImportantDateLabel("editDocument");
-
-}
-
-
-function updateDocument() {
-
-    const thing =
-        things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id === currentThingId
         );
 
     if (!thing) return;
@@ -1990,36 +2589,233 @@ function updateDocument() {
     const documentItem =
         (thing.documents || [])
             .find(
-                d => d.id === currentDocumentId
+                d =>
+                    d.id === id
             );
 
     if (!documentItem) return;
 
-    const oldDateType =
+    currentDocumentId =
+        id;
+
+    hideAllViews();
+
+    document.getElementById(
+        "editDocumentView"
+    ).style.display = "block";
+
+    document.getElementById(
+        "editDocumentName"
+    ).value =
+        documentItem.name || "";
+
+    document.getElementById(
+        "editDocumentType"
+    ).value =
+        documentItem.type || "Other";
+
+    document.getElementById(
+        "editDocumentDate"
+    ).value =
+        documentItem.date || "";
+
+    document.getElementById(
+        "editDocumentDateType"
+    ).value =
         documentItem.dateType || "None";
 
-    const oldImportantDate =
+    document.getElementById(
+        "editDocumentImportantDate"
+    ).value =
         documentItem.importantDate || "";
 
+    document.getElementById(
+        "editDocumentAmount"
+    ).value =
+        documentItem.amount || "";
+
+    document.getElementById(
+        "editDocumentRepeat"
+    ).value =
+        documentItem.repeat || "Never";
+
+    document.getElementById(
+        "editDocumentAttachmentInput"
+    ).value = "";
+
+    updateImportantDateLabel(
+        "editDocument"
+    );
+
+    await renderEditAttachment(
+        documentItem
+    );
+
+}
+
+
+async function renderEditAttachment(
+    documentItem
+) {
+
+    const container =
+        document.getElementById(
+            "editDocumentAttachment"
+        );
+
+    if (
+        !documentItem.hasAttachment
+    ) {
+
+        container.innerHTML = "";
+
+        return;
+
+    }
+
+    try {
+
+        const attachment =
+            await getAttachment(
+                documentItem.id
+            );
+
+        if (!attachment) {
+
+            documentItem.hasAttachment =
+                false;
+
+            saveData();
+
+            container.innerHTML = "";
+
+            return;
+
+        }
+
+        container.innerHTML = `
+
+            <div class="attachment-box">
+
+                <div class="attachment-row">
+
+                    <div class="attachment-icon">
+                        📎
+                    </div>
+
+                    <div class="attachment-info">
+
+                        <strong>
+                            ${escapeHtml(
+                                attachment.name
+                            )}
+                        </strong>
+
+                        <span>
+                            ${escapeHtml(
+                                attachment.type ||
+                                "File"
+                            )}
+                            ·
+                            ${formatFileSize(
+                                attachment.size
+                            )}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="attachment-actions">
+
+                    <button
+                        class="attachment-button"
+                        onclick="openAttachment('${documentItem.id}')">
+                        Open
+                    </button>
+
+                    <button
+                        class="attachment-button attachment-remove"
+                        onclick="removeAttachment('${documentItem.id}')">
+                        Remove
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+    catch(error) {
+
+        console.error(
+            error
+        );
+
+        container.innerHTML = "";
+
+    }
+
+}
+
+
+async function updateDocument() {
+
+    const thing =
+        things.find(
+            t =>
+                t.id === currentThingId
+        );
+
+    if (!thing) return;
+
+    const documentItem =
+        (thing.documents || [])
+            .find(
+                d =>
+                    d.id ===
+                    currentDocumentId
+            );
+
+    if (!documentItem) return;
+
+
+    const oldDateType =
+        documentItem.dateType ||
+        "None";
+
+    const oldImportantDate =
+        documentItem.importantDate ||
+        "";
+
+
     const newDateType =
-        document.getElementById("editDocumentDateType")
-            .value;
+        document.getElementById(
+            "editDocumentDateType"
+        ).value;
 
     const newImportantDate =
-        document.getElementById("editDocumentImportantDate")
-            .value;
+        document.getElementById(
+            "editDocumentImportantDate"
+        ).value;
+
 
     documentItem.name =
-        document.getElementById("editDocumentName")
-            .value.trim();
+        document.getElementById(
+            "editDocumentName"
+        ).value.trim();
 
     documentItem.type =
-        document.getElementById("editDocumentType")
-            .value;
+        document.getElementById(
+            "editDocumentType"
+        ).value;
 
     documentItem.date =
-        document.getElementById("editDocumentDate")
-            .value;
+        document.getElementById(
+            "editDocumentDate"
+        ).value;
 
     documentItem.dateType =
         newDateType;
@@ -2035,27 +2831,89 @@ function updateDocument() {
             : "";
 
     documentItem.amount =
-        document.getElementById("editDocumentAmount")
-            .value;
+        document.getElementById(
+            "editDocumentAmount"
+        ).value;
 
     documentItem.repeat =
-        document.getElementById("editDocumentRepeat")
-            .value;
+        document.getElementById(
+            "editDocumentRepeat"
+        ).value;
+
 
     if (
-        oldDateType !== newDateType ||
-        oldImportantDate !== newImportantDate
+        oldDateType !==
+            newDateType ||
+        oldImportantDate !==
+            newImportantDate
     ) {
-        documentItem.notificationAcknowledged = false;
+
+        documentItem.notificationAcknowledged =
+            false;
+
     }
+
+
+    /*
+       Optional new attachment.
+       If selected, replace the old one.
+    */
+
+    const fileInput =
+        document.getElementById(
+            "editDocumentAttachmentInput"
+        );
+
+    const file =
+        fileInput.files &&
+        fileInput.files[0];
+
+
+    if (file) {
+
+        try {
+
+            await saveAttachment(
+                documentItem.id,
+                file
+            );
+
+            documentItem.hasAttachment =
+                true;
+
+        }
+        catch(error) {
+
+            console.error(
+                error
+            );
+
+            alert(
+                "The attachment could not be saved."
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    /*
+       Keep linked timeline event
+       synchronized.
+    */
 
     const linkedEvent =
         (thing.events || [])
             .find(
                 e =>
-                    e.documentId === documentItem.id ||
-                    e.id === documentItem.timelineEventId
+                    e.documentId ===
+                        documentItem.id ||
+                    e.id ===
+                        documentItem.timelineEventId
             );
+
 
     if (linkedEvent) {
 
@@ -2073,18 +2931,140 @@ function updateDocument() {
 
     }
 
+
     saveData();
 
-    showThing(currentThingId);
+    showThing(
+        currentThingId
+    );
 
 }
 
 
-function deleteDocument() {
+async function removeAttachment(
+    documentId
+) {
+
+    const confirmed =
+        confirm(
+            "Remove this attachment?"
+        );
+
+    if (!confirmed) return;
+
+    try {
+
+        await deleteAttachment(
+            documentId
+        );
+
+    }
+    catch(error) {
+
+        console.error(
+            error
+        );
+
+    }
+
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id === currentThingId
+        );
+
+    if (thing) {
+
+        const doc =
+            (thing.documents || [])
+                .find(
+                    d =>
+                        d.id ===
+                        documentId
+                );
+
+        if (doc) {
+
+            doc.hasAttachment =
+                false;
+
+        }
+
+    }
+
+    saveData();
+
+    editDocument(
+        documentId
+    );
+
+}
+
+
+async function openAttachment(
+    documentId
+) {
+
+    try {
+
+        const attachment =
+            await getAttachment(
+                documentId
+            );
+
+        if (!attachment) {
+
+            alert(
+                "Attachment not found."
+            );
+
+            return;
+
+        }
+
+        const url =
+            URL.createObjectURL(
+                attachment.blob
+            );
+
+        window.open(
+            url,
+            "_blank"
+        );
+
+        setTimeout(
+            () => URL.revokeObjectURL(url),
+            60000
+        );
+
+    }
+    catch(error) {
+
+        console.error(
+            error
+        );
+
+        alert(
+            "The attachment could not be opened."
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   DELETE DOCUMENT
+========================================================= */
+
+async function deleteDocument() {
+
+    const thing =
+        things.find(
+            t =>
+                t.id === currentThingId
         );
 
     if (!thing) return;
@@ -2092,10 +3072,13 @@ function deleteDocument() {
     const documentItem =
         (thing.documents || [])
             .find(
-                d => d.id === currentDocumentId
+                d =>
+                    d.id ===
+                    currentDocumentId
             );
 
     if (!documentItem) return;
+
 
     const confirmed =
         confirm(
@@ -2104,13 +3087,41 @@ function deleteDocument() {
 
     if (!confirmed) return;
 
+
+    if (
+        documentItem.hasAttachment
+    ) {
+
+        try {
+
+            await deleteAttachment(
+                documentItem.id
+            );
+
+        }
+        catch(error) {
+
+            console.error(
+                error
+            );
+
+        }
+
+    }
+
+
     thing.documents =
         (thing.documents || [])
             .filter(
-                d => d.id !== currentDocumentId
+                d =>
+                    d.id !==
+                    currentDocumentId
             );
 
-    if (documentItem.timelineEventId) {
+
+    if (
+        documentItem.timelineEventId
+    ) {
 
         thing.events =
             (thing.events || [])
@@ -2122,46 +3133,59 @@ function deleteDocument() {
 
     }
 
+
     saveData();
 
-    showThing(currentThingId);
+    showThing(
+        currentThingId
+    );
 
 }
 
 
 
-/* =========================
+/* =========================================================
    IMPORTANT DATE
-========================= */
+========================================================= */
 
-function updateImportantDateLabel(prefix) {
+function updateImportantDateLabel(
+    prefix
+) {
 
     const select =
         document.getElementById(
-            prefix + "DateType"
+            prefix +
+            "DateType"
         );
 
     const wrapper =
         document.getElementById(
-            prefix + "ImportantDateWrapper"
+            prefix +
+            "ImportantDateWrapper"
         );
 
     const label =
         document.getElementById(
-            prefix + "ImportantDateLabel"
+            prefix +
+            "ImportantDateLabel"
         );
 
     const value =
         select.value;
 
+
     if (value === "None") {
 
-        wrapper.style.display = "none";
+        wrapper.style.display =
+            "none";
 
         return;
+
     }
 
-    wrapper.style.display = "block";
+
+    wrapper.style.display =
+        "block";
 
     label.textContent =
         value;
@@ -2170,21 +3194,24 @@ function updateImportantDateLabel(prefix) {
 
 
 
-/* =========================
+/* =========================================================
    TIMELINE
-========================= */
+========================================================= */
 
 function renderTimeline() {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id === currentThingId
         );
 
     if (!thing) return;
 
     const container =
-        document.getElementById("timelineList");
+        document.getElementById(
+            "timelineList"
+        );
 
     const events =
         thing.events || [];
@@ -2198,16 +3225,20 @@ function renderTimeline() {
         `;
 
         return;
+
     }
+
 
     const sorted =
         [...events].sort(
-            (a,b) =>
+            (a, b) =>
                 new Date(b.date) -
                 new Date(a.date)
         );
 
+
     const grouped = {};
+
 
     sorted.forEach(event => {
 
@@ -2224,52 +3255,73 @@ function renderTimeline() {
             );
 
         if (!grouped[key]) {
+
             grouped[key] = [];
+
         }
 
-        grouped[key].push(event);
+        grouped[key].push(
+            event
+        );
 
     });
+
 
     container.innerHTML =
         Object.keys(grouped)
             .map(month => {
 
                 const collapsed =
-                    collapsedMonths[month] === true;
+                    collapsedMonths[
+                        month
+                    ] === true;
+
 
                 return `
 
                     <div class="timeline-month">
 
-                        <div class="timeline-month-header"
-                             onclick="toggleTimelineMonth('${month}')">
+                        <div
+                            class="timeline-month-header"
+                            onclick="toggleTimelineMonth('${month}')">
 
                             <span>
                                 ${month}
                             </span>
 
-                            <span class="timeline-month-arrow">
-                                ${collapsed ? "›" : "⌄"}
+                            <span
+                                class="timeline-month-arrow">
+                                ${
+                                    collapsed
+                                        ? "›"
+                                        : "⌄"
+                                }
                             </span>
 
                         </div>
+
 
                         ${
                             collapsed
                                 ? ""
                                 : `
-                                    <div class="timeline-events">
+
+                                    <div
+                                        class="timeline-events">
 
                                         ${
                                             grouped[month]
-                                                .map(event =>
-                                                    renderTimelineEvent(event)
+                                                .map(
+                                                    event =>
+                                                        renderTimelineEvent(
+                                                            event
+                                                        )
                                                 )
                                                 .join("")
                                         }
 
                                     </div>
+
                                   `
                         }
 
@@ -2282,27 +3334,40 @@ function renderTimeline() {
 }
 
 
-function renderTimelineEvent(event) {
+function renderTimelineEvent(
+    event
+) {
 
     const date =
         new Date(event.date);
 
     const day =
-        String(date.getDate())
-            .padStart(2, "0");
+        String(
+            date.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
 
     const icon =
-        eventIcons[event.type] || "📌";
+        eventIcons[
+            event.type
+        ] ||
+        "📌";
 
     const amount =
         event.amount
-            ? `: ${formatAmount(event.amount)}`
+            ? `: ${formatAmount(
+                event.amount
+              )}`
             : "";
+
 
     return `
 
-        <div class="timeline-event"
-             onclick="openTimelineEvent('${event.id}')">
+        <div
+            class="timeline-event"
+            onclick="openTimelineEvent('${event.id}')">
 
             <div class="timeline-day">
                 ${day}
@@ -2315,7 +3380,10 @@ function renderTimelineEvent(event) {
             <div class="timeline-event-info">
 
                 <div class="timeline-event-title">
-                    ${escapeHtml(event.description || event.type)}${amount}
+                    ${escapeHtml(
+                        event.description ||
+                        event.type
+                    )}${amount}
                 </div>
 
             </div>
@@ -2331,39 +3399,57 @@ function renderTimelineEvent(event) {
 }
 
 
-function toggleTimelineMonth(month) {
+function toggleTimelineMonth(
+    month
+) {
 
-    collapsedMonths[month] =
-        !collapsedMonths[month];
+    collapsedMonths[
+        month
+    ] =
+        !collapsedMonths[
+            month
+        ];
 
     renderTimeline();
 
 }
 
 
-function openTimelineEvent(id) {
+function openTimelineEvent(
+    id
+) {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id ===
+                currentThingId
         );
 
     if (!thing) return;
 
     const event =
         (thing.events || [])
-            .find(e => e.id === id);
+            .find(
+                e =>
+                    e.id === id
+            );
 
     if (!event) return;
 
+
     if (event.documentId) {
 
-        editDocument(event.documentId);
+        editDocument(
+            event.documentId
+        );
 
     }
     else {
 
-        editEvent(id);
+        editEvent(
+            id
+        );
 
     }
 
@@ -2371,21 +3457,35 @@ function openTimelineEvent(id) {
 
 
 
-/* =========================
+/* =========================================================
    EVENTS
-========================= */
+========================================================= */
 
 function showAddEvent() {
 
     hideAllViews();
 
-    document.getElementById("addEventView")
-        .style.display = "block";
+    document.getElementById(
+        "addEventView"
+    ).style.display = "block";
 
-    document.getElementById("eventDescription").value = "";
-    document.getElementById("eventType").value = "Maintenance";
-    document.getElementById("eventDate").value = today();
-    document.getElementById("eventAmount").value = "";
+    document.getElementById(
+        "eventDescription"
+    ).value = "";
+
+    document.getElementById(
+        "eventType"
+    ).value =
+        "Maintenance";
+
+    document.getElementById(
+        "eventDate"
+    ).value =
+        today();
+
+    document.getElementById(
+        "eventAmount"
+    ).value = "";
 
 }
 
@@ -2394,19 +3494,30 @@ function saveEvent() {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id ===
+                currentThingId
         );
 
     if (!thing) return;
 
+
     const description =
-        document.getElementById("eventDescription")
-            .value.trim();
+        document.getElementById(
+            "eventDescription"
+        ).value.trim();
+
 
     if (!description) {
-        alert("Please enter a description.");
+
+        alert(
+            "Please enter a description."
+        );
+
         return;
+
     }
+
 
     const event = {
 
@@ -2416,29 +3527,38 @@ function saveEvent() {
         description,
 
         type:
-            document.getElementById("eventType")
-                .value,
+            document.getElementById(
+                "eventType"
+            ).value,
 
         date:
-            document.getElementById("eventDate")
-                .value,
+            document.getElementById(
+                "eventDate"
+            ).value,
 
         amount:
-            document.getElementById("eventAmount")
-                .value,
+            document.getElementById(
+                "eventAmount"
+            ).value,
 
-        documentId: null
+        documentId:
+            null
 
     };
+
 
     thing.events =
         thing.events || [];
 
-    thing.events.push(event);
+    thing.events.push(
+        event
+    );
 
     saveData();
 
-    showThing(currentThingId);
+    showThing(
+        currentThingId
+    );
 
 }
 
@@ -2447,34 +3567,56 @@ function editEvent(id) {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id ===
+                currentThingId
         );
 
     if (!thing) return;
 
+
     const event =
         (thing.events || [])
-            .find(e => e.id === id);
+            .find(
+                e =>
+                    e.id === id
+            );
 
     if (!event) return;
 
-    currentEventId = id;
+
+    currentEventId =
+        id;
+
 
     hideAllViews();
 
-    document.getElementById("editEventView")
-        .style.display = "block";
+    document.getElementById(
+        "editEventView"
+    ).style.display = "block";
 
-    document.getElementById("editEventDescription").value =
+
+    document.getElementById(
+        "editEventDescription"
+    ).value =
         event.description || "";
 
-    document.getElementById("editEventType").value =
+
+    document.getElementById(
+        "editEventType"
+    ).value =
         event.type || "Other";
 
-    document.getElementById("editEventDate").value =
+
+    document.getElementById(
+        "editEventDate"
+    ).value =
         event.date || "";
 
-    document.getElementById("editEventAmount").value =
+
+    document.getElementById(
+        "editEventAmount"
+    ).value =
         event.amount || "";
 
 }
@@ -2484,38 +3626,54 @@ function updateEvent() {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id ===
+                currentThingId
         );
 
     if (!thing) return;
 
+
     const event =
         (thing.events || [])
             .find(
-                e => e.id === currentEventId
+                e =>
+                    e.id ===
+                    currentEventId
             );
 
     if (!event) return;
 
+
     event.description =
-        document.getElementById("editEventDescription")
-            .value.trim();
+        document.getElementById(
+            "editEventDescription"
+        ).value.trim();
+
 
     event.type =
-        document.getElementById("editEventType")
-            .value;
+        document.getElementById(
+            "editEventType"
+        ).value;
+
 
     event.date =
-        document.getElementById("editEventDate")
-            .value;
+        document.getElementById(
+            "editEventDate"
+        ).value;
+
 
     event.amount =
-        document.getElementById("editEventAmount")
-            .value;
+        document.getElementById(
+            "editEventAmount"
+        ).value;
+
 
     saveData();
 
-    showThing(currentThingId);
+    showThing(
+        currentThingId
+    );
 
 }
 
@@ -2524,69 +3682,91 @@ function deleteEvent() {
 
     const thing =
         things.find(
-            t => t.id === currentThingId
+            t =>
+                t.id ===
+                currentThingId
         );
 
     if (!thing) return;
 
+
     const event =
         (thing.events || [])
             .find(
-                e => e.id === currentEventId
+                e =>
+                    e.id ===
+                    currentEventId
             );
 
     if (!event) return;
+
 
     const confirmed =
         confirm(
             `Delete "${event.description}"?`
         );
 
+
     if (!confirmed) return;
+
 
     thing.events =
         (thing.events || [])
             .filter(
-                e => e.id !== currentEventId
+                e =>
+                    e.id !==
+                    currentEventId
             );
+
 
     if (event.documentId) {
 
         const linkedDocument =
             (thing.documents || [])
                 .find(
-                    d => d.id === event.documentId
+                    d =>
+                        d.id ===
+                        event.documentId
                 );
+
 
         if (linkedDocument) {
 
-            linkedDocument.timelineEventId = null;
+            linkedDocument.timelineEventId =
+                null;
 
         }
 
     }
 
+
     saveData();
 
-    showThing(currentThingId);
+    showThing(
+        currentThingId
+    );
 
 }
 
 
 
-/* =========================
+/* =========================================================
    COMING UP
-========================= */
+========================================================= */
 
 function renderComingUp() {
 
     const container =
-        document.getElementById("comingUpList");
+        document.getElementById(
+            "comingUpList"
+        );
 
     if (!container) return;
 
+
     const now =
         new Date();
+
 
     const todayDate =
         new Date(
@@ -2595,14 +3775,20 @@ function renderComingUp() {
             now.getDate()
         );
 
+
     const limit =
-        new Date(todayDate);
+        new Date(
+            todayDate
+        );
+
 
     limit.setDate(
         limit.getDate() + 30
     );
 
+
     const items = [];
+
 
     things.forEach(thing => {
 
@@ -2617,7 +3803,10 @@ function renderComingUp() {
                     return;
                 }
 
-                if (doc.notificationAcknowledged) {
+
+                if (
+                    doc.notificationAcknowledged
+                ) {
 
                     if (
                         doc.repeat &&
@@ -2637,21 +3826,30 @@ function renderComingUp() {
 
                 }
 
-                if (!doc.importantDate) return;
+
+                if (!doc.importantDate) {
+                    return;
+                }
+
 
                 const date =
                     parseLocalDate(
                         doc.importantDate
                     );
 
+
                 if (
                     date <= limit
                 ) {
 
                     items.push({
+
                         thing,
+
                         doc,
+
                         date
+
                     });
 
                 }
@@ -2660,10 +3858,12 @@ function renderComingUp() {
 
     });
 
+
     items.sort(
-        (a,b) =>
+        (a, b) =>
             a.date - b.date
     );
+
 
     if (!items.length) {
 
@@ -2677,6 +3877,7 @@ function renderComingUp() {
 
     }
 
+
     container.innerHTML =
         items.map(item => {
 
@@ -2686,8 +3887,13 @@ function renderComingUp() {
                 date
             } = item;
 
+
             const icon =
-                documentIcons[doc.type] || "📄";
+                documentIcons[
+                    doc.type
+                ] ||
+                "📄";
+
 
             const status =
                 formatImportantDateStatus(
@@ -2695,16 +3901,21 @@ function renderComingUp() {
                     doc.dateType
                 );
 
+
             const repeatInfo =
                 doc.repeat &&
                 doc.repeat !== "Never"
-                    ? ` · ${escapeHtml(doc.repeat)}`
+                    ? ` · ${escapeHtml(
+                        doc.repeat
+                      )}`
                     : "";
+
 
             return `
 
-                <div class="coming-card"
-                     onclick="showThing('${thing.id}')">
+                <div
+                    class="coming-card"
+                    onclick="showThing('${thing.id}')">
 
                     <div class="coming-row">
 
@@ -2715,11 +3926,15 @@ function renderComingUp() {
                         <div class="coming-info">
 
                             <strong>
-                                ${escapeHtml(doc.name)}
+                                ${escapeHtml(
+                                    doc.name
+                                )}
                             </strong>
 
                             <span>
-                                ${escapeHtml(thing.name)}
+                                ${escapeHtml(
+                                    thing.name
+                                )}
                                 ·
                                 ${status}
                                 ${repeatInfo}
@@ -2733,11 +3948,18 @@ function renderComingUp() {
 
                     </div>
 
+
                     <div class="coming-action">
 
                         <button
                             class="ack-button"
-                            onclick="acknowledgeNotification('${thing.id}','${doc.id}',event)">
+                            onclick="
+                                acknowledgeNotification(
+                                    '${thing.id}',
+                                    '${doc.id}',
+                                    event
+                                )
+                            ">
                             Acknowledge
                         </button>
 
@@ -2759,23 +3981,30 @@ function acknowledgeNotification(
 ) {
 
     if (clickEvent) {
+
         clickEvent.stopPropagation();
+
     }
+
 
     const thing =
         things.find(
-            t => t.id === thingId
+            t =>
+                t.id === thingId
         );
 
     if (!thing) return;
 
+
     const doc =
         (thing.documents || [])
             .find(
-                d => d.id === documentId
+                d =>
+                    d.id === documentId
             );
 
     if (!doc) return;
+
 
     if (
         doc.repeat &&
@@ -2790,17 +4019,29 @@ function acknowledgeNotification(
                 doc.repeat
             );
 
-        doc.importantDate =
-            formatDateForStorage(nextDate);
 
-        if (doc.dateType === "Expiry Date") {
+        doc.importantDate =
+            formatDateForStorage(
+                nextDate
+            );
+
+
+        if (
+            doc.dateType ===
+            "Expiry Date"
+        ) {
+
             doc.expiryDate =
                 doc.importantDate;
+
         }
 
     }
 
-    doc.notificationAcknowledged = true;
+
+    doc.notificationAcknowledged =
+        true;
+
 
     saveData();
 
@@ -2809,27 +4050,36 @@ function acknowledgeNotification(
 }
 
 
-function advanceRecurringNotification(doc) {
+function advanceRecurringNotification(
+    doc
+) {
 
     if (
         !doc.repeat ||
         doc.repeat === "Never" ||
         !doc.importantDate
     ) {
+
         return;
+
     }
+
 
     const todayDate =
         parseLocalDate(
             today()
         );
 
+
     let date =
         parseLocalDate(
             doc.importantDate
         );
 
-    while (date < todayDate) {
+
+    while (
+        date < todayDate
+    ) {
 
         date =
             addRepeat(
@@ -2839,12 +4089,21 @@ function advanceRecurringNotification(doc) {
 
     }
 
-    doc.importantDate =
-        formatDateForStorage(date);
 
-    if (doc.dateType === "Expiry Date") {
+    doc.importantDate =
+        formatDateForStorage(
+            date
+        );
+
+
+    if (
+        doc.dateType ===
+        "Expiry Date"
+    ) {
+
         doc.expiryDate =
             doc.importantDate;
+
     }
 
 }
@@ -2860,6 +4119,7 @@ function formatImportantDateStatus(
             today()
         );
 
+
     const diff =
         Math.round(
             (
@@ -2869,42 +4129,66 @@ function formatImportantDateStatus(
             86400000
         );
 
+
     const label =
-        dateType === "Due Date"
+        dateType ===
+            "Due Date"
             ? "Due"
             : "Expires";
+
 
     if (diff < 0) {
 
         const days =
             Math.abs(diff);
 
-        return `${label} ${days} day${days === 1 ? "" : "s"} ago`;
+        return `
+            ${label}
+            ${days}
+            day${days === 1 ? "" : "s"}
+            ago
+        `;
 
     }
+
 
     if (diff === 0) {
 
-        return `${label} today`;
+        return `
+            ${label} today
+        `;
 
     }
 
-    return `${label} in ${diff} day${diff === 1 ? "" : "s"}`;
+
+    return `
+        ${label}
+        in
+        ${diff}
+        day${diff === 1 ? "" : "s"}
+    `;
 
 }
 
 
 
-/* =========================
+/* =========================================================
    SEARCH
-========================= */
+========================================================= */
 
-function normalizeText(value) {
+function normalizeText(
+    value
+) {
 
-    return String(value || "")
+    return String(
+        value || ""
+    )
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        );
 
 }
 
@@ -2912,53 +4196,81 @@ function normalizeText(value) {
 function renderSearchResults() {
 
     const input =
-        document.getElementById("searchInput");
+        document.getElementById(
+            "searchInput"
+        );
+
 
     const query =
         normalizeText(
-            input ? input.value.trim() : ""
+            input
+                ? input.value.trim()
+                : ""
         );
+
 
     const categories =
         document.getElementById(
             "homeCategories"
         );
 
+
     const comingUp =
         document.getElementById(
             "homeComingUpSection"
         );
+
 
     const resultsSection =
         document.getElementById(
             "searchResultsSection"
         );
 
+
     const resultsList =
         document.getElementById(
             "searchResultsList"
         );
 
+
     if (!query) {
 
-        categories.style.display = "block";
-        comingUp.style.display = "block";
-        resultsSection.style.display = "none";
-        resultsList.innerHTML = "";
+        categories.style.display =
+            "block";
+
+        comingUp.style.display =
+            "block";
+
+        resultsSection.style.display =
+            "none";
+
+        resultsList.innerHTML =
+            "";
 
         return;
 
     }
 
-    categories.style.display = "none";
-    comingUp.style.display = "none";
-    resultsSection.style.display = "block";
+
+    categories.style.display =
+        "none";
+
+    comingUp.style.display =
+        "none";
+
+    resultsSection.style.display =
+        "block";
+
 
     const results = [];
 
+
     things.forEach(thing => {
 
-        /* Thing */
+
+        /*
+           Thing
+        */
 
         const thingSearch =
             normalizeText(
@@ -2969,23 +4281,35 @@ function renderSearchResults() {
                 ].join(" ")
             );
 
-        if (thingSearch.includes(query)) {
+
+        if (
+            thingSearch.includes(
+                query
+            )
+        ) {
 
             results.push({
 
-                kind: "thing",
+                kind:
+                    "thing",
 
-                id: thing.id,
+                id:
+                    thing.id,
 
-                thingId: thing.id,
+                thingId:
+                    thing.id,
 
-                title: thing.name,
+                title:
+                    thing.name,
 
-                subtitle: thing.category,
+                subtitle:
+                    thing.category,
 
                 icon:
                     thing.icon ||
-                    categoryIcons[thing.category] ||
+                    categoryIcons[
+                        thing.category
+                    ] ||
                     "📦"
 
             });
@@ -2993,7 +4317,9 @@ function renderSearchResults() {
         }
 
 
-        /* Documents */
+        /*
+           Documents
+        */
 
         (thing.documents || [])
             .forEach(doc => {
@@ -3009,25 +4335,34 @@ function renderSearchResults() {
                         ].join(" ")
                     );
 
+
                 if (
-                    documentSearch.includes(query)
+                    documentSearch.includes(
+                        query
+                    )
                 ) {
 
                     results.push({
 
-                        kind: "document",
+                        kind:
+                            "document",
 
-                        id: doc.id,
+                        id:
+                            doc.id,
 
-                        thingId: thing.id,
+                        thingId:
+                            thing.id,
 
-                        title: doc.name,
+                        title:
+                            doc.name,
 
                         subtitle:
                             `${thing.name} · Document`,
 
                         icon:
-                            documentIcons[doc.type] ||
+                            documentIcons[
+                                doc.type
+                            ] ||
                             "📄"
 
                     });
@@ -3037,7 +4372,9 @@ function renderSearchResults() {
             });
 
 
-        /* Events */
+        /*
+           Events
+        */
 
         (thing.events || [])
             .forEach(event => {
@@ -3052,17 +4389,23 @@ function renderSearchResults() {
                         ].join(" ")
                     );
 
+
                 if (
-                    eventSearch.includes(query)
+                    eventSearch.includes(
+                        query
+                    )
                 ) {
 
                     results.push({
 
-                        kind: "event",
+                        kind:
+                            "event",
 
-                        id: event.id,
+                        id:
+                            event.id,
 
-                        thingId: thing.id,
+                        thingId:
+                            thing.id,
 
                         title:
                             event.description ||
@@ -3072,7 +4415,9 @@ function renderSearchResults() {
                             `${thing.name} · Timeline`,
 
                         icon:
-                            eventIcons[event.type] ||
+                            eventIcons[
+                                event.type
+                            ] ||
                             "📌"
 
                     });
@@ -3102,29 +4447,47 @@ function renderSearchResults() {
 
             let onclick = "";
 
-            if (result.kind === "thing") {
+
+            if (
+                result.kind ===
+                "thing"
+            ) {
 
                 onclick =
                     `showThing('${result.id}')`;
 
             }
-            else if (result.kind === "document") {
+            else if (
+                result.kind ===
+                "document"
+            ) {
 
                 onclick =
-                    `openSearchDocument('${result.thingId}','${result.id}')`;
+                    `openSearchDocument(
+                        '${result.thingId}',
+                        '${result.id}'
+                    )`;
 
             }
-            else if (result.kind === "event") {
+            else if (
+                result.kind ===
+                "event"
+            ) {
 
                 onclick =
-                    `openSearchEvent('${result.thingId}','${result.id}')`;
+                    `openSearchEvent(
+                        '${result.thingId}',
+                        '${result.id}'
+                    )`;
 
             }
+
 
             return `
 
-                <div class="card search-result"
-                     onclick="${onclick}">
+                <div
+                    class="card search-result"
+                    onclick="${onclick}">
 
                     <div class="search-result-icon">
                         ${result.icon}
@@ -3133,11 +4496,15 @@ function renderSearchResults() {
                     <div class="search-result-info">
 
                         <strong>
-                            ${escapeHtml(result.title)}
+                            ${escapeHtml(
+                                result.title
+                            )}
                         </strong>
 
                         <span>
-                            ${escapeHtml(result.subtitle)}
+                            ${escapeHtml(
+                                result.subtitle
+                            )}
                         </span>
 
                     </div>
@@ -3160,19 +4527,29 @@ function openSearchDocument(
     documentId
 ) {
 
-    currentThingId = thingId;
+    currentThingId =
+        thingId;
+
 
     const thing =
         things.find(
-            t => t.id === thingId
+            t =>
+                t.id ===
+                thingId
         );
 
+
     if (thing) {
+
         currentThingCategory =
             thing.category;
+
     }
 
-    editDocument(documentId);
+
+    editDocument(
+        documentId
+    );
 
 }
 
@@ -3182,27 +4559,37 @@ function openSearchEvent(
     eventId
 ) {
 
-    currentThingId = thingId;
+    currentThingId =
+        thingId;
+
 
     const thing =
         things.find(
-            t => t.id === thingId
+            t =>
+                t.id ===
+                thingId
         );
 
+
     if (thing) {
+
         currentThingCategory =
             thing.category;
+
     }
 
-    editEvent(eventId);
+
+    editEvent(
+        eventId
+    );
 
 }
 
 
 
-/* =========================
+/* =========================================================
    REPEAT HELPERS
-========================= */
+========================================================= */
 
 function addRepeat(
     date,
@@ -3210,47 +4597,71 @@ function addRepeat(
 ) {
 
     const result =
-        new Date(date);
+        new Date(
+            date
+        );
 
-    if (repeat === "Yearly") {
+
+    if (
+        repeat ===
+        "Yearly"
+    ) {
 
         result.setFullYear(
-            result.getFullYear() + 1
+            result.getFullYear() +
+            1
         );
 
     }
-    else if (repeat === "Monthly") {
+    else if (
+        repeat ===
+        "Monthly"
+    ) {
 
         result.setMonth(
-            result.getMonth() + 1
+            result.getMonth() +
+            1
         );
 
     }
+
 
     return result;
 
 }
 
 
-function formatDateForStorage(date) {
+function formatDateForStorage(
+    date
+) {
 
     return [
+
         date.getFullYear(),
+
         String(
             date.getMonth() + 1
-        ).padStart(2, "0"),
+        ).padStart(
+            2,
+            "0"
+        ),
+
         String(
             date.getDate()
-        ).padStart(2, "0")
+        ).padStart(
+            2,
+            "0"
+        )
+
     ].join("-");
 
 }
 
 
 
-/* =========================
+/* =========================================================
    HELPERS
-========================= */
+========================================================= */
 
 function today() {
 
@@ -3261,15 +4672,24 @@ function today() {
 }
 
 
-function parseLocalDate(value) {
+function parseLocalDate(
+    value
+) {
 
     if (!value) {
-        return new Date(NaN);
+
+        return new Date(
+            NaN
+        );
+
     }
 
+
     const parts =
-        value.split("-")
+        value
+            .split("-")
             .map(Number);
+
 
     return new Date(
         parts[0],
@@ -3280,16 +4700,31 @@ function parseLocalDate(value) {
 }
 
 
-function formatDate(value) {
+function formatDate(
+    value
+) {
 
-    if (!value) return "—";
-
-    const date =
-        parseLocalDate(value);
-
-    if (isNaN(date.getTime())) {
+    if (!value) {
         return "—";
     }
+
+
+    const date =
+        parseLocalDate(
+            value
+        );
+
+
+    if (
+        isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "—";
+
+    }
+
 
     return date.toLocaleDateString(
         "en-GB",
@@ -3303,22 +4738,33 @@ function formatDate(value) {
 }
 
 
-function formatAmount(value) {
+function formatAmount(
+    value
+) {
 
     if (
         value === "" ||
         value === null ||
         value === undefined
     ) {
+
         return "—";
+
     }
+
 
     const number =
         Number(value);
 
-    if (isNaN(number)) {
+
+    if (
+        isNaN(number)
+    ) {
+
         return "—";
+
     }
+
 
     return number.toLocaleString(
         "pt-PT",
@@ -3331,41 +4777,69 @@ function formatAmount(value) {
 }
 
 
-function escapeHtml(value) {
+function escapeHtml(
+    value
+) {
 
-    return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    return String(
+        value || ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
 
-/* =========================
+/* =========================================================
    MIGRATION
-========================= */
+========================================================= */
 
 function migrateData() {
 
     let changed = false;
 
+
     things.forEach(thing => {
 
         if (!thing.documents) {
+
             thing.documents = [];
+
             changed = true;
+
         }
 
+
         if (!thing.events) {
+
             thing.events = [];
+
             changed = true;
+
         }
 
 
         thing.documents.forEach(doc => {
+
 
             if (!doc.dateType) {
 
@@ -3392,6 +4866,7 @@ function migrateData() {
 
             }
 
+
             if (
                 doc.notificationAcknowledged ===
                 undefined
@@ -3404,6 +4879,7 @@ function migrateData() {
 
             }
 
+
             if (!doc.repeat) {
 
                 doc.repeat =
@@ -3413,8 +4889,10 @@ function migrateData() {
 
             }
 
+
             if (
-                doc.dateType === "Expiry Date" &&
+                doc.dateType ===
+                    "Expiry Date" &&
                 !doc.expiryDate &&
                 doc.importantDate
             ) {
@@ -3426,20 +4904,59 @@ function migrateData() {
 
             }
 
+
+            /*
+               Attachment migration.
+
+               Existing documents simply
+               have no attachment.
+            */
+
+            if (
+                doc.hasAttachment ===
+                undefined
+            ) {
+
+                doc.hasAttachment =
+                    false;
+
+                changed = true;
+
+            }
+
         });
 
     });
 
+
     if (changed) {
+
         saveData();
+
     }
 
 }
 
 
+
+/* =========================================================
+   START
+========================================================= */
+
 migrateData();
 
+openAttachmentDB()
+    .catch(error => {
+
+        console.error(
+            "Attachment storage unavailable:",
+            error
+        );
+
+    });
+
 renderHomeCounts();
+
 renderComingUp();
 
 </script>
