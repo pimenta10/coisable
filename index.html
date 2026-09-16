@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
 
@@ -13,6 +14,7 @@
     <title>Coisable</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -37,7 +39,7 @@
         }
 
         .brand {
-            margin-bottom: 36px;
+            margin-bottom: 32px;
         }
 
         .brand-name {
@@ -88,10 +90,13 @@
             background: white;
             border-radius: 18px;
             padding: 17px;
+
             display: flex;
             align-items: center;
             gap: 14px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+
+            box-shadow:
+                0 1px 3px rgba(0,0,0,0.04);
         }
 
         .thing-icon {
@@ -99,15 +104,18 @@
             height: 46px;
             border-radius: 14px;
             background: #f0f0f0;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             font-size: 22px;
             flex-shrink: 0;
         }
 
         .thing-info {
             min-width: 0;
+            flex: 1;
         }
 
         .thing-name {
@@ -119,6 +127,19 @@
             margin-top: 3px;
             font-size: 13px;
             color: #888;
+        }
+
+        .delete-button {
+            border: 0;
+            background: transparent;
+            color: #aaa;
+            font-size: 18px;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .delete-button:active {
+            color: #111;
         }
 
         .empty {
@@ -144,6 +165,87 @@
             font-size: 14px;
             line-height: 1.5;
         }
+
+        /* FORM */
+
+        .form {
+            display: none;
+
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 28px;
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .form.visible {
+            display: block;
+        }
+
+        .form-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 7px;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 13px 14px;
+            font-size: 16px;
+            background: #fafafa;
+            color: #111;
+            outline: none;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: #111;
+            background: white;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .form-buttons button {
+            flex: 1;
+            border: 0;
+            border-radius: 13px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .cancel-button {
+            background: #eee;
+            color: #333;
+        }
+
+        .save-button {
+            background: #111;
+            color: white;
+        }
+
     </style>
 </head>
 
@@ -152,65 +254,324 @@
 <div class="app">
 
     <header class="brand">
-        <div class="brand-name">Coisable</div>
-        <div class="tagline">Your things. One place.</div>
+
+        <div class="brand-name">
+            Coisable
+        </div>
+
+        <div class="tagline">
+            Your things. One place.
+        </div>
+
     </header>
 
-    <button class="add-button">
+
+    <!-- ADD BUTTON -->
+
+    <button
+        class="add-button"
+        onclick="showForm()">
+
         + Add Thing
+
     </button>
+
+
+    <!-- FORM -->
+
+    <div
+        id="form"
+        class="form">
+
+        <div class="form-title">
+            Add Thing
+        </div>
+
+
+        <div class="field">
+
+            <label for="thingName">
+                Name
+            </label>
+
+            <input
+                id="thingName"
+                type="text"
+                placeholder="e.g. Mazda MX-5">
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="thingCategory">
+                Category
+            </label>
+
+            <select id="thingCategory">
+
+                <option value="Home">
+                    🏠 Home
+                </option>
+
+                <option value="Vehicle">
+                    🚗 Vehicle
+                </option>
+
+                <option value="Electronics">
+                    📱 Electronics
+                </option>
+
+                <option value="Appliance">
+                    🔌 Appliance
+                </option>
+
+                <option value="Other">
+                    📦 Other
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-buttons">
+
+            <button
+                class="cancel-button"
+                onclick="hideForm()">
+
+                Cancel
+
+            </button>
+
+            <button
+                class="save-button"
+                onclick="addThing()">
+
+                Add Thing
+
+            </button>
+
+        </div>
+
+    </div>
+
 
     <div class="section-title">
         My Things
     </div>
 
-    <div class="things">
 
-        <div class="thing">
-            <div class="thing-icon">🏠</div>
-
-            <div class="thing-info">
-                <div class="thing-name">
-                    My Home
-                </div>
-
-                <div class="thing-category">
-                    Home
-                </div>
-            </div>
-        </div>
-
-        <div class="thing">
-            <div class="thing-icon">🚗</div>
-
-            <div class="thing-info">
-                <div class="thing-name">
-                    Mazda MX-5
-                </div>
-
-                <div class="thing-category">
-                    Vehicle
-                </div>
-            </div>
-        </div>
-
-        <div class="thing">
-            <div class="thing-icon">📱</div>
-
-            <div class="thing-info">
-                <div class="thing-name">
-                    iPhone
-                </div>
-
-                <div class="thing-category">
-                    Electronics
-                </div>
-            </div>
-        </div>
-
+    <div
+        id="things"
+        class="things">
     </div>
+
 
 </div>
 
+
+<script>
+
+    const categoryIcons = {
+        Home: "🏠",
+        Vehicle: "🚗",
+        Electronics: "📱",
+        Appliance: "🔌",
+        Other: "📦"
+    };
+
+
+    let things =
+        JSON.parse(
+            localStorage.getItem("coisableThings")
+        ) || [];
+
+
+    function saveThings() {
+
+        localStorage.setItem(
+            "coisableThings",
+            JSON.stringify(things)
+        );
+
+    }
+
+
+    function renderThings() {
+
+        const container =
+            document.getElementById("things");
+
+
+        if (things.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        📦
+                    </div>
+
+                    <div class="empty-title">
+                        Nothing here yet
+                    </div>
+
+                    <div class="empty-text">
+                        Add your first thing to get started.
+                    </div>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        container.innerHTML =
+            things.map((thing, index) => `
+
+                <div class="thing">
+
+                    <div class="thing-icon">
+                        ${categoryIcons[thing.category] || "📦"}
+                    </div>
+
+                    <div class="thing-info">
+
+                        <div class="thing-name">
+                            ${escapeHtml(thing.name)}
+                        </div>
+
+                        <div class="thing-category">
+                            ${thing.category}
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="delete-button"
+                        onclick="deleteThing(${index})">
+
+                        ×
+
+                    </button>
+
+                </div>
+
+            `).join("");
+
+    }
+
+
+    function showForm() {
+
+        document
+            .getElementById("form")
+            .classList.add("visible");
+
+        document
+            .getElementById("thingName")
+            .focus();
+
+    }
+
+
+    function hideForm() {
+
+        document
+            .getElementById("form")
+            .classList.remove("visible");
+
+        document
+            .getElementById("thingName")
+            .value = "";
+
+    }
+
+
+    function addThing() {
+
+        const name =
+            document
+                .getElementById("thingName")
+                .value
+                .trim();
+
+
+        const category =
+            document
+                .getElementById("thingCategory")
+                .value;
+
+
+        if (!name) {
+
+            alert("Please enter a name.");
+
+            return;
+        }
+
+
+        things.push({
+
+            name: name,
+
+            category: category
+
+        });
+
+
+        saveThings();
+
+        renderThings();
+
+        hideForm();
+
+    }
+
+
+    function deleteThing(index) {
+
+        const confirmed =
+            confirm(
+                "Delete this thing?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        things.splice(index, 1);
+
+        saveThings();
+
+        renderThings();
+
+    }
+
+
+    function escapeHtml(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent = text;
+
+        return div.innerHTML;
+
+    }
+
+
+    renderThings();
+
+</script>
+
 </body>
+
 </html>
