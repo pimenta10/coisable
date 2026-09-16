@@ -284,7 +284,7 @@ label {
 }
 
 /* -----------------------------
-   COMING UP / NOTIFICATIONS
+   COMING UP
 ----------------------------- */
 
 .coming-up {
@@ -311,33 +311,16 @@ label {
     font-weight: 500;
 }
 
-.coming-up-content {
+.coming-up-actions {
+    margin-top: 10px;
     display: flex;
-    gap: 12px;
-    align-items: flex-start;
+    justify-content: flex-end;
 }
 
-.coming-up-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.coming-up-action {
-    margin-top: 12px;
-}
-
-.acknowledge-button {
-    background: #e5e5e5;
-    color: #111;
+.coming-up-acknowledge {
     width: auto;
-    padding: 9px 13px;
-    font-size: 14px;
-}
-
-.acknowledged-info {
-    font-size: 12px;
-    color: #888;
-    margin-top: 4px;
+    padding: 8px 12px;
+    font-size: 13px;
 }
 
 /* -----------------------------
@@ -943,6 +926,24 @@ label {
 
         </div>
 
+        <label>Repeat</label>
+
+        <select id="documentRepeat">
+
+            <option value="Never">
+                Never
+            </option>
+
+            <option value="Yearly">
+                Yearly
+            </option>
+
+            <option value="Monthly">
+                Monthly
+            </option>
+
+        </select>
+
         <label>Amount</label>
 
         <input id="documentAmount"
@@ -1046,6 +1047,24 @@ label {
                    type="date">
 
         </div>
+
+        <label>Repeat</label>
+
+        <select id="editDocumentRepeat">
+
+            <option value="Never">
+                Never
+            </option>
+
+            <option value="Yearly">
+                Yearly
+            </option>
+
+            <option value="Monthly">
+                Monthly
+            </option>
+
+        </select>
 
         <label>Amount</label>
 
@@ -1494,12 +1513,6 @@ function getAddTitle(category) {
 
     }
 
-    if (category === "Electronics") {
-
-        return "Add";
-
-    }
-
     return "Add";
 
 }
@@ -1925,6 +1938,10 @@ function showAddDocument() {
     ).value = "";
 
     document.getElementById(
+        "documentRepeat"
+    ).value = "Never";
+
+    document.getElementById(
         "documentAmount"
     ).value = "";
 
@@ -2007,11 +2024,17 @@ function addDocument() {
         importantDate:
             importantDate,
 
-        /* Legacy compatibility */
         expiryDate:
             dateType === "Expiry Date"
                 ? importantDate
                 : "",
+
+        repeat:
+            dateType === "None"
+                ? "Never"
+                : document.getElementById(
+                    "documentRepeat"
+                  ).value,
 
         amount:
             document.getElementById(
@@ -2020,16 +2043,7 @@ function addDocument() {
 
         timelineEventId: null,
 
-        /*
-           Notification state.
-           A new document always starts
-           as an active notification.
-        */
-        notificationStatus:
-            "Active",
-
-        acknowledgedDate:
-            null
+        notificationAcknowledged: false
 
     };
 
@@ -2140,11 +2154,6 @@ function renderDocuments(thing) {
                 let importantDate =
                     documentItem.importantDate;
 
-                /*
-                   Compatibility with documents
-                   created before 0.5.
-                */
-
                 if (!dateType) {
 
                     if (
@@ -2165,6 +2174,10 @@ function renderDocuments(thing) {
                     }
 
                 }
+
+                const repeat =
+                    documentItem.repeat ||
+                    "Never";
 
                 return `
 
@@ -2204,6 +2217,22 @@ function renderDocuments(thing) {
                                         :
                                         ${formatDate(
                                             importantDate
+                                        )}
+                                    </span>
+
+                                `
+                                : ""
+                            }
+
+                            ${
+                                repeat !== "Never" &&
+                                importantDate &&
+                                dateType !== "None"
+                                ? `
+
+                                    <span>
+                                        Repeat: ${escapeHtml(
+                                            repeat
                                         )}
                                     </span>
 
@@ -2275,10 +2304,6 @@ function editDocument(id) {
     let importantDate =
         documentItem.importantDate;
 
-    /*
-       Migration support for older documents.
-    */
-
     if (!dateType) {
 
         if (
@@ -2329,6 +2354,11 @@ function editDocument(id) {
         importantDate || "";
 
     document.getElementById(
+        "editDocumentRepeat"
+    ).value =
+        documentItem.repeat || "Never";
+
+    document.getElementById(
         "editDocumentAmount"
     ).value =
         documentItem.amount || "";
@@ -2375,6 +2405,34 @@ function saveDocumentEdit() {
 
     if (!documentItem) return;
 
+    let previousDateType =
+        documentItem.dateType;
+
+    let previousImportantDate =
+        documentItem.importantDate;
+
+    if (!previousDateType) {
+
+        if (documentItem.expiryDate) {
+
+            previousDateType =
+                "Expiry Date";
+
+            previousImportantDate =
+                documentItem.expiryDate;
+
+        } else {
+
+            previousDateType =
+                "None";
+
+            previousImportantDate =
+                "";
+
+        }
+
+    }
+
     const name =
         document.getElementById(
             "editDocumentName"
@@ -2400,29 +2458,6 @@ function saveDocumentEdit() {
                 "editDocumentImportantDate"
               ).value;
 
-    /*
-       Check whether the important date
-       changed. If it did, the notification
-       becomes active again.
-    */
-
-    const oldDateType =
-        documentItem.dateType ||
-        (
-            documentItem.expiryDate
-                ? "Expiry Date"
-                : "None"
-        );
-
-    const oldImportantDate =
-        documentItem.importantDate ||
-        documentItem.expiryDate ||
-        "";
-
-    const importantDateChanged =
-        oldDateType !== dateType ||
-        oldImportantDate !== importantDate;
-
     documentItem.name =
         name;
 
@@ -2442,12 +2477,17 @@ function saveDocumentEdit() {
     documentItem.importantDate =
         importantDate;
 
-    /* Legacy compatibility */
-
     documentItem.expiryDate =
         dateType === "Expiry Date"
             ? importantDate
             : "";
+
+    documentItem.repeat =
+        dateType === "None"
+            ? "Never"
+            : document.getElementById(
+                "editDocumentRepeat"
+              ).value;
 
     documentItem.amount =
         document.getElementById(
@@ -2455,45 +2495,23 @@ function saveDocumentEdit() {
         ).value;
 
     /*
-       Ensure notification fields exist
-       for older documents.
+       If the important date changes,
+       the notification becomes active again.
     */
 
     if (
-        !documentItem.notificationStatus
+        previousDateType !== dateType ||
+        previousImportantDate !== importantDate
     ) {
 
-        documentItem.notificationStatus =
-            "Active";
+        documentItem.notificationAcknowledged =
+            false;
 
     }
 
     if (
-        documentItem.acknowledgedDate ===
-        undefined
+        documentItem.timelineEventId
     ) {
-
-        documentItem.acknowledgedDate =
-            null;
-
-    }
-
-    /*
-       Changing the important date resets
-       the notification.
-    */
-
-    if (importantDateChanged) {
-
-        documentItem.notificationStatus =
-            "Active";
-
-        documentItem.acknowledgedDate =
-            null;
-
-    }
-
-    if (documentItem.timelineEventId) {
 
         const event =
             thing.events.find(
@@ -3185,43 +3203,6 @@ function deleteEvent() {
 }
 
 /* -----------------------------
-   NOTIFICATIONS
------------------------------ */
-
-function acknowledgeNotification(
-    thingId,
-    documentId
-) {
-
-    const thing =
-        things.find(
-            item =>
-                item.id === thingId
-        );
-
-    if (!thing) return;
-
-    const documentItem =
-        thing.documents.find(
-            item =>
-                item.id === documentId
-        );
-
-    if (!documentItem) return;
-
-    documentItem.notificationStatus =
-        "Acknowledged";
-
-    documentItem.acknowledgedDate =
-        today();
-
-    saveThings();
-
-    renderComingUp();
-
-}
-
-/* -----------------------------
    COMING UP
 ----------------------------- */
 
@@ -3272,11 +3253,6 @@ function renderComingUp() {
                 let importantDate =
                     documentItem.importantDate;
 
-                /*
-                   Support documents created
-                   before the date-type update.
-                */
-
                 if (!dateType) {
 
                     if (
@@ -3308,32 +3284,10 @@ function renderComingUp() {
                 }
 
                 /*
-                   Older documents did not have
-                   notificationStatus.
+                   Acknowledged notifications
+                   stay hidden until their
+                   next recurring occurrence.
                 */
-
-                if (
-                    !documentItem.notificationStatus
-                ) {
-
-                    documentItem.notificationStatus =
-                        "Active";
-
-                }
-
-                /*
-                   Acknowledged notifications are
-                   deliberately excluded.
-                */
-
-                if (
-                    documentItem.notificationStatus ===
-                    "Acknowledged"
-                ) {
-
-                    return;
-
-                }
 
                 const important =
                     new Date(
@@ -3341,8 +3295,73 @@ function renderComingUp() {
                         "T00:00:00"
                     );
 
+                /*
+                   For recurring documents,
+                   move the notification date
+                   forward until it represents
+                   the next relevant occurrence.
+                */
+
+                let notificationDate =
+                    new Date(important);
+
+                const repeat =
+                    documentItem.repeat ||
+                    "Never";
+
                 if (
-                    important <= limitDate
+                    documentItem.notificationAcknowledged &&
+                    repeat !== "Never"
+                ) {
+
+                    while (
+                        notificationDate <
+                        todayDate
+                    ) {
+
+                        notificationDate =
+                            addRepeat(
+                                notificationDate,
+                                repeat
+                            );
+
+                    }
+
+                }
+
+                /*
+                   If acknowledged and the next
+                   occurrence has not arrived yet,
+                   there is nothing to show.
+                */
+
+                if (
+                    documentItem.notificationAcknowledged &&
+                    notificationDate >
+                    limitDate
+                ) {
+
+                    return;
+
+                }
+
+                /*
+                   Non-recurring acknowledged
+                   notifications stay hidden.
+                */
+
+                if (
+                    documentItem.notificationAcknowledged &&
+                    repeat === "Never"
+                ) {
+
+                    return;
+
+                }
+
+                if (
+                    notificationDate <=
+                    limitDate
                 ) {
 
                     upcoming.push({
@@ -3354,9 +3373,13 @@ function renderComingUp() {
 
                         dateType,
 
-                        importantDate,
+                        importantDate:
+                            formatDateForStorage(
+                                notificationDate
+                            ),
 
-                        important
+                        important:
+                            notificationDate
 
                     });
 
@@ -3484,9 +3507,14 @@ function renderComingUp() {
 
                 return `
 
-                    <div class="card ${className}">
+                    <div class="card ${className}"
+                         onclick="openThing(${item.thing.id})"
+                         style="cursor:pointer;">
 
-                        <div class="coming-up-content">
+                        <div style="
+                            display:flex;
+                            gap:12px;
+                        ">
 
                             <div class="document-icon">
 
@@ -3494,7 +3522,7 @@ function renderComingUp() {
 
                             </div>
 
-                            <div class="coming-up-info">
+                            <div style="flex:1;">
 
                                 <div class="coming-up-title">
 
@@ -3522,6 +3550,15 @@ function renderComingUp() {
                                         item.importantDate
                                     )}
 
+                                    ${
+                                        item.document.repeat &&
+                                        item.document.repeat !== "Never"
+                                        ? ` · ${escapeHtml(
+                                            item.document.repeat
+                                          )}`
+                                        : ""
+                                    }
+
                                 </div>
 
                                 <div class="coming-up-status">
@@ -3530,19 +3567,19 @@ function renderComingUp() {
 
                                 </div>
 
-                                <div class="coming-up-action">
-
-                                    <button
-                                        class="acknowledge-button"
-                                        onclick="acknowledgeNotification(${item.thing.id}, ${item.document.id})">
-
-                                        ✓ Acknowledge
-
-                                    </button>
-
-                                </div>
-
                             </div>
+
+                        </div>
+
+                        <div class="coming-up-actions">
+
+                            <button
+                                class="secondary small coming-up-acknowledge"
+                                onclick="acknowledgeNotification(${item.document.id}, event)">
+
+                                Acknowledge
+
+                            </button>
 
                         </div>
 
@@ -3553,6 +3590,165 @@ function renderComingUp() {
             }
 
         ).join("");
+
+}
+
+/* -----------------------------
+   NOTIFICATIONS
+----------------------------- */
+
+function acknowledgeNotification(
+    documentId,
+    clickEvent
+) {
+
+    if (clickEvent) {
+
+        clickEvent.stopPropagation();
+
+    }
+
+    let found = false;
+
+    things.forEach(thing => {
+
+        if (
+            !Array.isArray(
+                thing.documents
+            )
+        ) {
+
+            return;
+
+        }
+
+        const documentItem =
+            thing.documents.find(
+                item =>
+                    item.id === documentId
+            );
+
+        if (!documentItem) {
+
+            return;
+
+        }
+
+        documentItem.notificationAcknowledged =
+            true;
+
+        /*
+           For recurring notifications,
+           calculate and store the next
+           occurrence immediately.
+        */
+
+        const repeat =
+            documentItem.repeat ||
+            "Never";
+
+        if (
+            repeat !== "Never" &&
+            documentItem.importantDate
+        ) {
+
+            const currentDate =
+                new Date(
+                    documentItem.importantDate +
+                    "T00:00:00"
+                );
+
+            const nextDate =
+                addRepeat(
+                    currentDate,
+                    repeat
+                );
+
+            documentItem.importantDate =
+                formatDateForStorage(
+                    nextDate
+                );
+
+            if (
+                documentItem.dateType ===
+                "Expiry Date"
+            ) {
+
+                documentItem.expiryDate =
+                    documentItem.importantDate;
+
+            }
+
+        }
+
+        found = true;
+
+    });
+
+    if (!found) return;
+
+    saveThings();
+
+    renderComingUp();
+
+}
+
+/* -----------------------------
+   REPEAT HELPERS
+----------------------------- */
+
+function addRepeat(
+    date,
+    repeat
+) {
+
+    const result =
+        new Date(date);
+
+    if (repeat === "Yearly") {
+
+        result.setFullYear(
+            result.getFullYear() + 1
+        );
+
+    } else if (
+        repeat === "Monthly"
+    ) {
+
+        result.setMonth(
+            result.getMonth() + 1
+        );
+
+    }
+
+    return result;
+
+}
+
+function formatDateForStorage(
+    date
+) {
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+    return `${year}-${month}-${day}`;
 
 }
 
@@ -3795,10 +3991,18 @@ things.forEach(thing => {
 
             }
 
+            if (
+                documentItem.notificationAcknowledged ===
+                undefined
+            ) {
+
+                documentItem.notificationAcknowledged =
+                    false;
+
+            }
+
             /*
-               0.5 date migration:
-               old expiryDate becomes
-               Expiry Date + importantDate.
+               0.5 date migration
             */
 
             if (
@@ -3837,25 +4041,16 @@ things.forEach(thing => {
             }
 
             /*
-               0.5.1 notification migration.
+               0.5.2 repeat migration
             */
 
             if (
-                !documentItem.notificationStatus
-            ) {
-
-                documentItem.notificationStatus =
-                    "Active";
-
-            }
-
-            if (
-                documentItem.acknowledgedDate ===
+                documentItem.repeat ===
                 undefined
             ) {
 
-                documentItem.acknowledgedDate =
-                    null;
+                documentItem.repeat =
+                    "Never";
 
             }
 
