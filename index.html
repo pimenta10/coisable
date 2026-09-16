@@ -185,10 +185,12 @@ label {
 
 .search-box input {
     margin: 0;
-    padding: 14px 16px 14px 44px;
+    padding: 14px 44px 14px 44px;
     border-radius: 14px;
     border: 1px solid #ddd;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .search-icon {
@@ -199,6 +201,31 @@ label {
     font-size: 18px;
     color: #777;
     pointer-events: none;
+    z-index: 1;
+}
+
+.search-clear {
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 50%;
+    background: #e5e5e5;
+    color: #555;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 32px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.search-clear:active {
+    transform: translateY(-50%) scale(0.95);
 }
 
 .search-results {
@@ -210,6 +237,7 @@ label {
     align-items: center;
     gap: 12px;
     cursor: pointer;
+    transition: transform 0.08s ease;
 }
 
 .search-result:active {
@@ -248,9 +276,43 @@ label {
     margin-top: 3px;
 }
 
+.search-result-type {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 3px 7px;
+    border-radius: 7px;
+    background: #f1f1f1;
+    color: #666;
+    font-size: 11px;
+    font-weight: 600;
+}
+
 .search-result-chevron {
     font-size: 22px;
     color: #888;
+    flex-shrink: 0;
+}
+
+.search-empty {
+    text-align: center;
+    padding: 30px 16px;
+}
+
+.search-empty-icon {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.search-empty strong {
+    display: block;
+    font-size: 16px;
+}
+
+.search-empty span {
+    display: block;
+    color: #777;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 /* -----------------------------
@@ -573,6 +635,17 @@ label {
                 oninput="handleSearch()"
                 autocomplete="off"
             >
+
+            <button
+                id="searchClear"
+                class="search-clear"
+                type="button"
+                onclick="clearSearch()"
+                aria-label="Clear search">
+
+                ×
+
+            </button>
 
         </div>
 
@@ -1424,6 +1497,39 @@ function normalizeSearch(value) {
 
 }
 
+function clearSearch() {
+
+    const input =
+        document.getElementById("searchInput");
+
+    if (!input) return;
+
+    input.value = "";
+
+    handleSearch();
+
+    input.focus();
+
+}
+
+function updateSearchClearButton(
+    hasText
+) {
+
+    const button =
+        document.getElementById(
+            "searchClear"
+        );
+
+    if (!button) return;
+
+    button.style.display =
+        hasText
+            ? "flex"
+            : "none";
+
+}
+
 function handleSearch() {
 
     const input =
@@ -1443,6 +1549,10 @@ function handleSearch() {
         document.getElementById(
             "normalHomeContent"
         );
+
+    updateSearchClearButton(
+        query.length > 0
+    );
 
     if (!query) {
 
@@ -1469,13 +1579,19 @@ function handleSearch() {
 
     things.forEach(thing => {
 
-        const thingMatch =
+        const thingName =
             normalizeSearch(
                 thing.name
-            ).includes(query) ||
+            );
+
+        const thingCategory =
             normalizeSearch(
                 thing.category
-            ).includes(query);
+            );
+
+        const thingMatch =
+            thingName.includes(query) ||
+            thingCategory.includes(query);
 
         if (thingMatch) {
 
@@ -1483,12 +1599,17 @@ function handleSearch() {
 
                 kind: "thing",
 
-                thingId: thing.id,
+                thingId:
+                    thing.id,
 
-                title: thing.name,
+                title:
+                    thing.name,
 
                 subtitle:
                     thing.category,
+
+                resultType:
+                    "Thing",
 
                 icon:
                     categoryIcons[
@@ -1501,6 +1622,9 @@ function handleSearch() {
 
         /*
            Search Documents
+           Includes Thing name so that
+           searching "Mazda" also finds
+           its documents.
         */
 
         if (
@@ -1518,7 +1642,8 @@ function handleSearch() {
                         ).includes(query) ||
                         normalizeSearch(
                             documentItem.type
-                        ).includes(query);
+                        ).includes(query) ||
+                        thingName.includes(query);
 
                     if (documentMatch) {
 
@@ -1538,6 +1663,9 @@ function handleSearch() {
                             subtitle:
                                 `${documentItem.type} · ${thing.name}`,
 
+                            resultType:
+                                "Document",
+
                             icon:
                                 documentIcons[
                                     documentItem.type
@@ -1554,6 +1682,9 @@ function handleSearch() {
 
         /*
            Search Timeline Events
+           Includes Thing name so that
+           searching "Mazda" also finds
+           its timeline.
         */
 
         if (
@@ -1571,7 +1702,8 @@ function handleSearch() {
                         ).includes(query) ||
                         normalizeSearch(
                             event.type
-                        ).includes(query);
+                        ).includes(query) ||
+                        thingName.includes(query);
 
                     if (eventMatch) {
 
@@ -1590,6 +1722,9 @@ function handleSearch() {
 
                             subtitle:
                                 `Timeline · ${thing.name}`,
+
+                            resultType:
+                                "Timeline",
 
                             icon:
                                 eventIcons[
@@ -1616,9 +1751,19 @@ function handleSearch() {
 
         resultsContainer.innerHTML = `
 
-            <div class="card empty">
+            <div class="card search-empty">
 
-                No results found.
+                <div class="search-empty-icon">
+                    🔎
+                </div>
+
+                <strong>
+                    No results found
+                </strong>
+
+                <span>
+                    Try another search term.
+                </span>
 
             </div>
 
@@ -1688,6 +1833,14 @@ function handleSearch() {
                             ${escapeHtml(
                                 result.subtitle
                             )}
+                        </span>
+
+                        <span class="search-result-type">
+
+                            ${escapeHtml(
+                                result.resultType
+                            )}
+
                         </span>
 
                     </div>
@@ -1780,12 +1933,6 @@ function openDocumentFromSearch(
     showThing(
         thing.id
     );
-
-    /*
-       showThing() activates the detail
-       view. We then open the document
-       editor explicitly.
-    */
 
     editDocument(
         documentItem.id
