@@ -517,14 +517,13 @@ select:focus {
 
 <div class="app">
 
-    <!-- HEADER -->
     <div class="header">
         <div class="logo">Coisable</div>
         <div class="tagline">Your things. One place.</div>
     </div>
 
 
-    <!-- ================= HOME ================= -->
+    <!-- HOME -->
 
     <div id="homeView" class="view active">
 
@@ -547,7 +546,7 @@ select:focus {
     </div>
 
 
-    <!-- ================= ADD THING ================= -->
+    <!-- ADD THING -->
 
     <div id="addView" class="view">
 
@@ -568,6 +567,7 @@ select:focus {
 
         <div class="form-group">
             <label class="form-label">Category</label>
+
             <select id="thingCategory">
                 <option value="Car">🚗 Car</option>
                 <option value="Home">🏠 Home</option>
@@ -576,6 +576,7 @@ select:focus {
                 <option value="Personal">🎒 Personal</option>
                 <option value="Other">📦 Other</option>
             </select>
+
         </div>
 
         <div class="form-group">
@@ -610,7 +611,7 @@ select:focus {
     </div>
 
 
-    <!-- ================= DETAIL ================= -->
+    <!-- DETAIL -->
 
     <div id="detailView" class="view">
 
@@ -623,7 +624,7 @@ select:focus {
     </div>
 
 
-    <!-- ================= EDIT THING ================= -->
+    <!-- EDIT THING -->
 
     <div id="editThingView" class="view">
 
@@ -642,6 +643,7 @@ select:focus {
 
         <div class="form-group">
             <label class="form-label">Category</label>
+
             <select id="editThingCategory">
                 <option value="Car">🚗 Car</option>
                 <option value="Home">🏠 Home</option>
@@ -650,6 +652,7 @@ select:focus {
                 <option value="Personal">🎒 Personal</option>
                 <option value="Other">📦 Other</option>
             </select>
+
         </div>
 
         <div class="form-group">
@@ -682,7 +685,7 @@ select:focus {
     </div>
 
 
-    <!-- ================= ADD DOCUMENT ================= -->
+    <!-- ADD DOCUMENT -->
 
     <div id="addDocumentView" class="view">
 
@@ -696,6 +699,7 @@ select:focus {
 
         <div class="form-group">
             <label class="form-label">Document Name</label>
+
             <input id="documentName"
                    type="text"
                    placeholder="e.g. Insurance policy">
@@ -703,6 +707,7 @@ select:focus {
 
         <div class="form-group">
             <label class="form-label">Type</label>
+
             <select id="documentType">
                 <option value="Invoice">🧾 Invoice</option>
                 <option value="Contract">📑 Contract</option>
@@ -713,6 +718,7 @@ select:focus {
                 <option value="Repair">🔧 Repair</option>
                 <option value="Other">📄 Other</option>
             </select>
+
         </div>
 
         <div class="form-group">
@@ -727,6 +733,7 @@ select:focus {
 
         <div class="form-group">
             <label class="form-label">Amount</label>
+
             <input id="documentAmount"
                    type="number"
                    step="0.01"
@@ -734,22 +741,35 @@ select:focus {
         </div>
 
         <label class="checkbox-row">
-            <input id="addToTimeline" type="checkbox" checked>
-            <span>Add to timeline</span>
+
+            <input id="addToTimeline"
+                   type="checkbox"
+                   checked>
+
+            <span>
+                Add to timeline
+            </span>
+
         </label>
 
-        <button class="primary-btn" onclick="addDocument()">
+        <button class="primary-btn"
+                onclick="addDocument()">
+
             Save Document
+
         </button>
 
-        <button class="secondary-btn" onclick="backToThing()">
+        <button class="secondary-btn"
+                onclick="backToThing()">
+
             Cancel
+
         </button>
 
     </div>
 
 
-    <!-- ================= EDIT DOCUMENT ================= -->
+    <!-- EDIT DOCUMENT -->
 
     <div id="editDocumentView" class="view">
 
@@ -768,6 +788,7 @@ select:focus {
 
         <div class="form-group">
             <label class="form-label">Type</label>
+
             <select id="editDocumentType">
                 <option value="Invoice">🧾 Invoice</option>
                 <option value="Contract">📑 Contract</option>
@@ -778,6 +799,7 @@ select:focus {
                 <option value="Repair">🔧 Repair</option>
                 <option value="Other">📄 Other</option>
             </select>
+
         </div>
 
         <div class="form-group">
@@ -792,23 +814,30 @@ select:focus {
 
         <div class="form-group">
             <label class="form-label">Amount</label>
+
             <input id="editDocumentAmount"
                    type="number"
                    step="0.01">
         </div>
 
-        <button class="primary-btn" onclick="saveDocumentEdit()">
+        <button class="primary-btn"
+                onclick="saveDocumentEdit()">
+
             Save Changes
+
         </button>
 
-        <button class="danger-btn" onclick="deleteDocument()">
+        <button class="danger-btn"
+                onclick="deleteDocument()">
+
             Delete Document
+
         </button>
 
     </div>
 
 
-    <!-- ================= ADD EVENT ================= -->
+    <!-- ADD EVENT -->
 
     <div id="addEventView" class="view">
 
@@ -822,6 +851,7 @@ select:focus {
 
         <div class="form-group">
             <label class="form-label">Description</label>
+
             <input id="eventName"
                    type="text"
                    placeholder="e.g. Changed tyres">
@@ -829,6 +859,7 @@ select:focus {
 
         <div class="form-group">
             <label class="form-label">Type</label>
+
             <select id="eventType">
                 <option value="Purchase">🛒 Purchase</option>
                 <option value="Repair">🔧 Repair</option>
@@ -838,6 +869,7 @@ select:focus {
                 <option value="Insurance">🛡️ Insurance</option>
                 <option value="Other">📌 Other</option>
             </select>
+
         </div>
 
         <div class="form-group">
@@ -847,24 +879,31 @@ select:focus {
 
         <div class="form-group">
             <label class="form-label">Amount</label>
+
             <input id="eventAmount"
                    type="number"
                    step="0.01"
                    placeholder="Optional">
         </div>
 
-        <button class="primary-btn" onclick="addEvent()">
+        <button class="primary-btn"
+                onclick="addEvent()">
+
             Save Event
+
         </button>
 
-        <button class="secondary-btn" onclick="backToThing()">
+        <button class="secondary-btn"
+                onclick="backToThing()">
+
             Cancel
+
         </button>
 
     </div>
 
 
-    <!-- ================= EDIT EVENT ================= -->
+    <!-- EDIT EVENT -->
 
     <div id="editEventView" class="view">
 
@@ -883,6 +922,7 @@ select:focus {
 
         <div class="form-group">
             <label class="form-label">Type</label>
+
             <select id="editEventType">
                 <option value="Purchase">🛒 Purchase</option>
                 <option value="Repair">🔧 Repair</option>
@@ -892,6 +932,7 @@ select:focus {
                 <option value="Insurance">🛡️ Insurance</option>
                 <option value="Other">📌 Other</option>
             </select>
+
         </div>
 
         <div class="form-group">
@@ -901,17 +942,24 @@ select:focus {
 
         <div class="form-group">
             <label class="form-label">Amount</label>
+
             <input id="editEventAmount"
                    type="number"
                    step="0.01">
         </div>
 
-        <button class="primary-btn" onclick="saveEventEdit()">
+        <button class="primary-btn"
+                onclick="saveEventEdit()">
+
             Save Changes
+
         </button>
 
-        <button class="danger-btn" onclick="deleteEvent()">
+        <button class="danger-btn"
+                onclick="deleteEvent()">
+
             Delete Event
+
         </button>
 
     </div>
@@ -986,8 +1034,9 @@ things = things.map(thing => {
     thing.documents = thing.documents.map(doc => {
 
         if (!doc.id) {
-            doc.id = Date.now().toString() +
-                     Math.random().toString(36).slice(2);
+            doc.id =
+                Date.now().toString() +
+                Math.random().toString(36).slice(2);
         }
 
         return doc;
@@ -996,8 +1045,9 @@ things = things.map(thing => {
     thing.events = thing.events.map(event => {
 
         if (!event.id) {
-            event.id = Date.now().toString() +
-                       Math.random().toString(36).slice(2);
+            event.id =
+                Date.now().toString() +
+                Math.random().toString(36).slice(2);
         }
 
         return event;
@@ -1029,7 +1079,9 @@ function saveThings() {
 function showView(id) {
 
     document.querySelectorAll(".view")
-        .forEach(view => view.classList.remove("active"));
+        .forEach(view =>
+            view.classList.remove("active")
+        );
 
     document.getElementById(id)
         .classList.add("active");
@@ -1074,7 +1126,9 @@ function showAddForm() {
 function addThing() {
 
     const name =
-        document.getElementById("thingName").value.trim();
+        document.getElementById("thingName")
+            .value
+            .trim();
 
     if (!name) {
         alert("Please enter a name.");
@@ -1087,7 +1141,7 @@ function addThing() {
             Date.now().toString() +
             Math.random().toString(36).slice(2),
 
-        name,
+        name: name,
 
         category:
             document.getElementById("thingCategory").value,
@@ -1140,41 +1194,44 @@ function renderThings() {
         return;
     }
 
-    container.innerHTML = things.map(thing => {
+    container.innerHTML =
+        things.map(thing => {
 
-        const icon =
-            categoryIcons[thing.category] || "📦";
+            const icon =
+                categoryIcons[thing.category] || "📦";
 
-        return `
-            <div class="thing-card"
-                 onclick="openThing('${thing.id}')">
+            return `
+                <div class="thing-card"
+                     onclick="openThing('${thing.id}')">
 
-                <div class="thing-main">
+                    <div class="thing-main">
 
-                    <div class="thing-icon">
-                        ${icon}
+                        <div class="thing-icon">
+                            ${icon}
+                        </div>
+
+                        <div>
+
+                            <div class="thing-name">
+                                ${escapeHtml(thing.name)}
+                            </div>
+
+                            <div class="thing-category">
+                                ${escapeHtml(thing.category)}
+                            </div>
+
+                        </div>
+
                     </div>
 
-                    <div>
-                        <div class="thing-name">
-                            ${escapeHtml(thing.name)}
-                        </div>
-
-                        <div class="thing-category">
-                            ${escapeHtml(thing.category)}
-                        </div>
+                    <div class="chevron">
+                        ›
                     </div>
 
                 </div>
+            `;
 
-                <div class="chevron">
-                    ›
-                </div>
-
-            </div>
-        `;
-
-    }).join("");
+        }).join("");
 }
 
 
@@ -1199,7 +1256,9 @@ function openThing(id) {
 function showThing() {
 
     const thing =
-        things.find(t => t.id === currentThingId);
+        things.find(
+            t => t.id === currentThingId
+        );
 
     if (!thing) {
         showHome();
@@ -1215,6 +1274,9 @@ function showThing() {
     const events =
         thing.events || [];
 
+
+    /* ---------- DOCUMENTS ---------- */
+
     let documentsHtml = "";
 
     if (!documents.length) {
@@ -1227,96 +1289,112 @@ function showThing() {
 
     } else {
 
-        documentsHtml = documents
-            .slice()
-            .sort((a, b) =>
-                (b.date || "").localeCompare(a.date || "")
-            )
-            .map(doc => {
+        documentsHtml =
+            documents
+                .slice()
+                .sort(
+                    (a, b) =>
+                        (b.date || "")
+                        .localeCompare(
+                            a.date || ""
+                        )
+                )
+                .map(doc => {
 
-                const docIcon =
-                    documentIcons[doc.type] || "📄";
+                    const docIcon =
+                        documentIcons[doc.type] || "📄";
 
-                const linkedEvent =
-                    events.some(event =>
-                        event.documentId === doc.id
-                    );
+                    const linkedEvent =
+                        events.some(
+                            event =>
+                                event.documentId === doc.id
+                        );
 
-                return `
-                    <div class="document-card">
+                    return `
+                        <div class="document-card">
 
-                        <div class="document-top">
+                            <div class="document-top">
 
-                            <div class="document-main">
+                                <div class="document-main">
 
-                                <div class="document-icon">
-                                    ${docIcon}
+                                    <div class="document-icon">
+                                        ${docIcon}
+                                    </div>
+
+                                    <div>
+
+                                        <div class="document-name">
+                                            ${escapeHtml(doc.name)}
+                                        </div>
+
+                                        <div class="document-type">
+                                            ${escapeHtml(doc.type)}
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
-                                <div>
+                                <div class="document-actions">
 
-                                    <div class="document-name">
-                                        ${escapeHtml(doc.name)}
-                                    </div>
+                                    <button
+                                        class="small-btn"
+                                        onclick="
+                                            event.stopPropagation();
+                                            editDocument('${doc.id}')
+                                        ">
+                                        Edit
+                                    </button>
 
-                                    <div class="document-type">
-                                        ${escapeHtml(doc.type)}
-                                    </div>
+                                    <button
+                                        class="small-btn small-danger"
+                                        onclick="
+                                            event.stopPropagation();
+                                            deleteDocumentDirect('${doc.id}')
+                                        ">
+                                        Delete
+                                    </button>
 
                                 </div>
 
                             </div>
 
-                            <div class="document-actions">
+                            <div class="document-meta">
 
-                                <button
-                                    class="small-btn"
-                                    onclick="event.stopPropagation(); editDocument('${doc.id}')">
-                                    Edit
-                                </button>
+                                ${doc.date
+                                    ? "Date: " +
+                                      formatDate(doc.date)
+                                    : ""
+                                }
 
-                                <button
-                                    class="small-btn small-danger"
-                                    onclick="event.stopPropagation(); deleteDocumentDirect('${doc.id}')">
-                                    Delete
-                                </button>
+                                ${doc.expiryDate
+                                    ? " · Expires: " +
+                                      formatDate(doc.expiryDate)
+                                    : ""
+                                }
+
+                                ${doc.amount
+                                    ? " · " +
+                                      formatMoney(doc.amount)
+                                    : ""
+                                }
 
                             </div>
 
-                        </div>
-
-                        <div class="document-meta">
-
-                            ${doc.date
-                                ? "Date: " + formatDate(doc.date)
-                                : ""
-                            }
-
-                            ${doc.expiryDate
-                                ? " · Expires: " + formatDate(doc.expiryDate)
-                                : ""
-                            }
-
-                            ${doc.amount
-                                ? " · " + formatMoney(doc.amount)
+                            ${linkedEvent
+                                ? `
+                                    <div class="timeline-link">
+                                        🔗 Added to timeline
+                                    </div>
+                                  `
                                 : ""
                             }
 
                         </div>
+                    `;
 
-                        ${linkedEvent
-                            ? `
-                                <div class="timeline-link">
-                                    🔗 Added to timeline
-                                </div>
-                              `
-                            : ""
-                        }
-
-                    </div>
-                `;
-
-            }).join("");
+                })
+                .join("");
     }
 
 
@@ -1327,8 +1405,12 @@ function showThing() {
     const sortedEvents =
         events
             .slice()
-            .sort((a, b) =>
-                (b.date || "").localeCompare(a.date || "")
+            .sort(
+                (a, b) =>
+                    (b.date || "")
+                    .localeCompare(
+                        a.date || ""
+                    )
             );
 
     if (!sortedEvents.length) {
@@ -1344,93 +1426,112 @@ function showThing() {
         timelineHtml = `
             <div class="timeline">
 
-                ${sortedEvents.map(event => {
+                ${
+                    sortedEvents
+                        .map(event => {
 
-                    const eventIcon =
-                        eventIcons[event.type] || "📌";
+                            const eventIcon =
+                                eventIcons[event.type] ||
+                                "📌";
 
-                    const linkedDocument =
-                        documents.find(doc =>
-                            doc.id === event.documentId
-                        );
+                            const linkedDocument =
+                                documents.find(
+                                    doc =>
+                                        doc.id ===
+                                        event.documentId
+                                );
 
-                    return `
-                        <div class="timeline-card">
+                            return `
+                                <div class="timeline-card">
 
-                            <div class="timeline-icon">
-                                ${eventIcon}
-                            </div>
-
-                            <div class="timeline-content">
-
-                                <div class="timeline-top">
-
-                                    <div>
-                                        <div class="timeline-title">
-                                            ${escapeHtml(event.name)}
-                                        </div>
-
-                                        <div class="timeline-type">
-                                            ${escapeHtml(event.type)}
-                                        </div>
+                                    <div class="timeline-icon">
+                                        ${eventIcon}
                                     </div>
 
-                                    ${event.amount
-                                        ? `
-                                            <div class="timeline-amount">
-                                                ${formatMoney(event.amount)}
+                                    <div class="timeline-content">
+
+                                        <div class="timeline-top">
+
+                                            <div>
+
+                                                <div class="timeline-title">
+                                                    ${escapeHtml(event.name)}
+                                                </div>
+
+                                                <div class="timeline-type">
+                                                    ${escapeHtml(event.type)}
+                                                </div>
+
                                             </div>
-                                          `
-                                        : ""
-                                    }
+
+                                            ${
+                                                event.amount
+                                                    ? `
+                                                        <div class="timeline-amount">
+                                                            ${formatMoney(event.amount)}
+                                                        </div>
+                                                      `
+                                                    : ""
+                                            }
+
+                                        </div>
+
+                                        ${
+                                            event.date
+                                                ? `
+                                                    <div class="timeline-date">
+                                                        ${formatDate(event.date)}
+                                                    </div>
+                                                  `
+                                                : ""
+                                        }
+
+                                        ${
+                                            linkedDocument
+                                                ? `
+                                                    <div class="timeline-document">
+                                                        📄
+                                                        ${escapeHtml(linkedDocument.name)}
+                                                    </div>
+                                                  `
+                                                : ""
+                                        }
+
+                                        <div class="timeline-actions">
+
+                                            <button
+                                                class="small-btn"
+                                                onclick="
+                                                    editEvent('${event.id}')
+                                                ">
+                                                Edit
+                                            </button>
+
+                                            <button
+                                                class="small-btn small-danger"
+                                                onclick="
+                                                    deleteEventDirect('${event.id}')
+                                                ">
+                                                Delete
+                                            </button>
+
+                                        </div>
+
+                                    </div>
 
                                 </div>
+                            `;
 
-                                ${event.date
-                                    ? `
-                                        <div class="timeline-date">
-                                            ${formatDate(event.date)}
-                                        </div>
-                                      `
-                                    : ""
-                                }
-
-                                ${linkedDocument
-                                    ? `
-                                        <div class="timeline-document">
-                                            📄 ${escapeHtml(linkedDocument.name)}
-                                        </div>
-                                      `
-                                    : ""
-                                }
-
-                                <div class="timeline-actions">
-
-                                    <button
-                                        class="small-btn"
-                                        onclick="editEvent('${event.id}')">
-                                        Edit
-                                    </button>
-
-                                    <button
-                                        class="small-btn small-danger"
-                                        onclick="deleteEventDirect('${event.id}')">
-                                        Delete
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    `;
-
-                }).join("")}
+                        })
+                        .join("")
+                }
 
             </div>
         `;
     }
 
+
+    /* ---------- PAGE ---------- */
 
     document.getElementById("thingDetail").innerHTML = `
 
@@ -1443,6 +1544,7 @@ function showThing() {
                 </div>
 
                 <div>
+
                     <div class="detail-name">
                         ${escapeHtml(thing.name)}
                     </div>
@@ -1450,52 +1552,73 @@ function showThing() {
                     <div class="detail-category">
                         ${escapeHtml(thing.category)}
                     </div>
+
                 </div>
 
             </div>
 
+
             <div class="info-grid">
 
                 <div class="info-box">
+
                     <div class="info-label">
                         Purchase Date
                     </div>
 
                     <div class="info-value">
-                        ${thing.purchaseDate
-                            ? formatDate(thing.purchaseDate)
-                            : "—"
+                        ${
+                            thing.purchaseDate
+                                ? formatDate(
+                                    thing.purchaseDate
+                                  )
+                                : "—"
                         }
                     </div>
+
                 </div>
 
+
                 <div class="info-box">
+
                     <div class="info-label">
                         Purchase Price
                     </div>
 
                     <div class="info-value">
-                        ${thing.purchasePrice
-                            ? formatMoney(thing.purchasePrice)
-                            : "—"
+                        ${
+                            thing.purchasePrice
+                                ? formatMoney(
+                                    thing.purchasePrice
+                                  )
+                                : "—"
                         }
                     </div>
+
                 </div>
 
+
                 <div class="info-box">
+
                     <div class="info-label">
                         Current Value
                     </div>
 
                     <div class="info-value">
-                        ${thing.currentValue
-                            ? formatMoney(thing.currentValue)
-                            : "—"
+                        ${
+                            thing.currentValue
+                                ? formatMoney(
+                                    thing.currentValue
+                                  )
+                                : "—"
                         }
                     </div>
+
                 </div>
 
+
                 <div class="info-box">
+
                     <div class="info-label">
                         Documents
                     </div>
@@ -1503,6 +1626,7 @@ function showThing() {
                     <div class="info-value">
                         ${documents.length}
                     </div>
+
                 </div>
 
             </div>
@@ -1510,9 +1634,12 @@ function showThing() {
         </div>
 
 
-        <button class="secondary-btn"
-                onclick="editThing()">
+        <button
+            class="secondary-btn"
+            onclick="editThing()">
+
             Edit Thing
+
         </button>
 
 
@@ -1520,10 +1647,15 @@ function showThing() {
             Documents
         </div>
 
-        <button class="primary-btn"
-                onclick="showAddDocument()">
+
+        <button
+            class="primary-btn"
+            onclick="showAddDocument()">
+
             + Add Document
+
         </button>
+
 
         ${documentsHtml}
 
@@ -1532,10 +1664,15 @@ function showThing() {
             Timeline
         </div>
 
-        <button class="primary-btn"
-                onclick="showAddEvent()">
+
+        <button
+            class="primary-btn"
+            onclick="showAddEvent()">
+
             + Add Event
+
         </button>
+
 
         ${timelineHtml}
 
@@ -1554,7 +1691,10 @@ function showAddDocument() {
     document.getElementById("documentDate").value = "";
     document.getElementById("documentExpiry").value = "";
     document.getElementById("documentAmount").value = "";
-    document.getElementById("addToTimeline").checked = true;
+
+    document.getElementById(
+        "addToTimeline"
+    ).checked = true;
 
     showView("addDocumentView");
 }
@@ -1563,63 +1703,80 @@ function showAddDocument() {
 function addDocument() {
 
     const thing =
-        things.find(t => t.id === currentThingId);
+        things.find(
+            t => t.id === currentThingId
+        );
 
     if (!thing) return;
+
 
     const name =
         document.getElementById("documentName")
             .value
             .trim();
 
+
     if (!name) {
 
-        alert("Please enter a document name.");
+        alert(
+            "Please enter a document name."
+        );
+
         return;
     }
+
 
     const documentId =
         Date.now().toString() +
         Math.random().toString(36).slice(2);
 
+
     const doc = {
 
         id: documentId,
 
-        name,
+        name: name,
 
         type:
-            document.getElementById("documentType").value,
+            document.getElementById(
+                "documentType"
+            ).value,
 
         date:
-            document.getElementById("documentDate").value,
+            document.getElementById(
+                "documentDate"
+            ).value,
 
         expiryDate:
-            document.getElementById("documentExpiry").value,
+            document.getElementById(
+                "documentExpiry"
+            ).value,
 
         amount:
             parseFloat(
-                document.getElementById("documentAmount").value
+                document.getElementById(
+                    "documentAmount"
+                ).value
             ) || 0
 
     };
 
+
     thing.documents.push(doc);
 
 
-    /* ---------- ADD TO TIMELINE ---------- */
+    /* ---------- TIMELINE ---------- */
 
     const addTimeline =
-        document.getElementById("addToTimeline").checked;
+        document.getElementById(
+            "addToTimeline"
+        ).checked;
+
 
     if (addTimeline) {
 
         let eventType = "Other";
 
-        /*
-         * Try to make the event type sensible
-         * based on the document type.
-         */
 
         if (doc.type === "Repair") {
             eventType = "Repair";
@@ -1637,20 +1794,12 @@ function addDocument() {
             eventType = "Inspection";
         }
 
-        else if (doc.type === "Contract") {
-            eventType = "Other";
-        }
-
-        else if (doc.type === "Warranty") {
-            eventType = "Other";
-        }
-
         else if (doc.type === "Tax") {
             eventType = "Expense";
         }
 
 
-        const event = {
+        const timelineEvent = {
 
             id:
                 Date.now().toString() +
@@ -1668,7 +1817,11 @@ function addDocument() {
 
         };
 
-        thing.events.push(event);
+
+        thing.events.push(
+            timelineEvent
+        );
+
     }
 
 
@@ -1688,41 +1841,68 @@ function editDocument(id) {
 
     currentDocumentId = id;
 
+
     const thing =
-        things.find(t => t.id === currentThingId);
+        things.find(
+            t => t.id === currentThingId
+        );
 
     if (!thing) return;
 
+
     const documentItem =
-        thing.documents.find(d => d.id === id);
+        thing.documents.find(
+            d => d.id === id
+        );
 
     if (!documentItem) return;
 
-    document.getElementById("editDocumentName").value =
+
+    document.getElementById(
+        "editDocumentName"
+    ).value =
         documentItem.name || "";
 
-    document.getElementById("editDocumentType").value =
+
+    document.getElementById(
+        "editDocumentType"
+    ).value =
         documentItem.type || "Other";
 
-    document.getElementById("editDocumentDate").value =
+
+    document.getElementById(
+        "editDocumentDate"
+    ).value =
         documentItem.date || "";
 
-    document.getElementById("editDocumentExpiry").value =
+
+    document.getElementById(
+        "editDocumentExpiry"
+    ).value =
         documentItem.expiryDate || "";
 
-    document.getElementById("editDocumentAmount").value =
+
+    document.getElementById(
+        "editDocumentAmount"
+    ).value =
         documentItem.amount || "";
 
-    showView("editDocumentView");
+
+    showView(
+        "editDocumentView"
+    );
 }
 
 
 function saveDocumentEdit() {
 
     const thing =
-        things.find(t => t.id === currentThingId);
+        things.find(
+            t => t.id === currentThingId
+        );
 
     if (!thing) return;
+
 
     const documentItem =
         thing.documents.find(
@@ -1731,40 +1911,51 @@ function saveDocumentEdit() {
 
     if (!documentItem) return;
 
-    const oldName = documentItem.name;
-    const oldType = documentItem.type;
-    const oldDate = documentItem.date;
-    const oldAmount = documentItem.amount;
 
     documentItem.name =
-        document.getElementById("editDocumentName")
-            .value
-            .trim();
+        document.getElementById(
+            "editDocumentName"
+        ).value.trim();
+
 
     documentItem.type =
-        document.getElementById("editDocumentType").value;
+        document.getElementById(
+            "editDocumentType"
+        ).value;
+
 
     documentItem.date =
-        document.getElementById("editDocumentDate").value;
+        document.getElementById(
+            "editDocumentDate"
+        ).value;
+
 
     documentItem.expiryDate =
-        document.getElementById("editDocumentExpiry").value;
+        document.getElementById(
+            "editDocumentExpiry"
+        ).value;
+
 
     documentItem.amount =
         parseFloat(
-            document.getElementById("editDocumentAmount").value
+            document.getElementById(
+                "editDocumentAmount"
+            ).value
         ) || 0;
 
 
     /*
-     * If this document already has a linked timeline event,
-     * keep the event synchronized with the document.
+     * Keep linked timeline event
+     * synchronized with document.
      */
 
     const linkedEvent =
         thing.events.find(
-            event => event.documentId === documentItem.id
+            event =>
+                event.documentId ===
+                documentItem.id
         );
+
 
     if (linkedEvent) {
 
@@ -1777,33 +1968,52 @@ function saveDocumentEdit() {
         linkedEvent.amount =
             documentItem.amount;
 
-        /*
-         * Recalculate event type if the document type changed.
-         */
 
-        if (documentItem.type === "Repair") {
-            linkedEvent.type = "Repair";
+        if (
+            documentItem.type ===
+            "Repair"
+        ) {
+            linkedEvent.type =
+                "Repair";
         }
 
-        else if (documentItem.type === "Insurance") {
-            linkedEvent.type = "Insurance";
+        else if (
+            documentItem.type ===
+            "Insurance"
+        ) {
+            linkedEvent.type =
+                "Insurance";
         }
 
-        else if (documentItem.type === "Invoice") {
-            linkedEvent.type = "Expense";
+        else if (
+            documentItem.type ===
+            "Invoice"
+        ) {
+            linkedEvent.type =
+                "Expense";
         }
 
-        else if (documentItem.type === "Certificate") {
-            linkedEvent.type = "Inspection";
+        else if (
+            documentItem.type ===
+            "Certificate"
+        ) {
+            linkedEvent.type =
+                "Inspection";
         }
 
-        else if (documentItem.type === "Tax") {
-            linkedEvent.type = "Expense";
+        else if (
+            documentItem.type ===
+            "Tax"
+        ) {
+            linkedEvent.type =
+                "Expense";
         }
 
         else {
-            linkedEvent.type = "Other";
+            linkedEvent.type =
+                "Other";
         }
+
     }
 
 
@@ -1811,7 +2021,9 @@ function saveDocumentEdit() {
 
     showThing();
 
-    showView("detailView");
+    showView(
+        "detailView"
+    );
 }
 
 
@@ -1821,35 +2033,42 @@ function saveDocumentEdit() {
 
 function deleteDocument() {
 
-    deleteDocumentDirect(currentDocumentId);
+    deleteDocumentDirect(
+        currentDocumentId
+    );
 }
 
 
 function deleteDocumentDirect(id) {
 
     const thing =
-        things.find(t => t.id === currentThingId);
+        things.find(
+            t => t.id === currentThingId
+        );
 
     if (!thing) return;
 
+
     const documentItem =
-        thing.documents.find(d => d.id === id);
+        thing.documents.find(
+            d => d.id === id
+        );
 
     if (!documentItem) return;
+
 
     const confirmed =
         confirm(
             "Delete this document?"
         );
 
+
     if (!confirmed) return;
 
 
     /*
-     * IMPORTANT:
-     *
-     * We do NOT delete the timeline event.
-     * The event remains as historical information.
+     * The timeline event remains.
+     * Only the document is removed.
      */
 
     thing.documents =
@@ -1857,11 +2076,14 @@ function deleteDocumentDirect(id) {
             d => d.id !== id
         );
 
+
     saveThings();
 
     showThing();
 
-    showView("detailView");
+    showView(
+        "detailView"
+    );
 }
 
 
@@ -1871,63 +2093,97 @@ function deleteDocumentDirect(id) {
 
 function showAddEvent() {
 
-    document.getElementById("eventName").value = "";
-    document.getElementById("eventType").value = "Purchase";
-    document.getElementById("eventDate").value = "";
-    document.getElementById("eventAmount").value = "";
+    document.getElementById(
+        "eventName"
+    ).value = "";
 
-    showView("addEventView");
+    document.getElementById(
+        "eventType"
+    ).value = "Purchase";
+
+    document.getElementById(
+        "eventDate"
+    ).value = "";
+
+    document.getElementById(
+        "eventAmount"
+    ).value = "";
+
+
+    showView(
+        "addEventView"
+    );
 }
 
 
 function addEvent() {
 
     const thing =
-        things.find(t => t.id === currentThingId);
+        things.find(
+            t => t.id === currentThingId
+        );
 
     if (!thing) return;
 
+
     const name =
-        document.getElementById("eventName")
-            .value
-            .trim();
+        document.getElementById(
+            "eventName"
+        ).value.trim();
+
 
     if (!name) {
 
-        alert("Please enter a description.");
+        alert(
+            "Please enter a description."
+        );
+
         return;
     }
 
-    const event = {
+
+    const timelineEvent = {
 
         id:
             Date.now().toString() +
             Math.random().toString(36).slice(2),
 
-        name,
+        name: name,
 
         type:
-            document.getElementById("eventType").value,
+            document.getElementById(
+                "eventType"
+            ).value,
 
         date:
-            document.getElementById("eventDate").value,
+            document.getElementById(
+                "eventDate"
+            ).value,
 
         amount:
             parseFloat(
-                document.getElementById("eventAmount").value
+                document.getElementById(
+                    "eventAmount"
+                ).value
             ) || 0,
 
         documentId: null
 
     };
 
-    thing.events.push(event);
+
+    thing.events.push(
+        timelineEvent
+    );
+
 
     saveThings();
 
     showThing();
 
-    showView("detailView");
+    showView(
+        "detailView"
+    );
 }
 
 
@@ -1939,67 +2195,104 @@ function editEvent(id) {
 
     currentEventId = id;
 
+
     const thing =
-        things.find(t => t.id === currentThingId);
+        things.find(
+            t => t.id === currentThingId
+        );
 
     if (!thing) return;
 
-    const event =
-        thing.events.find(e => e.id === id);
 
-    if (!event) return;
+    const timelineEvent =
+        thing.events.find(
+            e => e.id === id
+        );
 
-    document.getElementById("editEventName").value =
-        event.name || "";
+    if (!timelineEvent) return;
 
-    document.getElementById("editEventType").value =
-        event.type || "Other";
 
-    document.getElementById("editEventDate").value =
-        event.date || "";
+    document.getElementById(
+        "editEventName"
+    ).value =
+        timelineEvent.name || "";
 
-    document.getElementById("editEventAmount").value =
-        event.amount || "";
 
-    showView("editEventView");
+    document.getElementById(
+        "editEventType"
+    ).value =
+        timelineEvent.type || "Other";
+
+
+    document.getElementById(
+        "editEventDate"
+    ).value =
+        timelineEvent.date || "";
+
+
+    document.getElementById(
+        "editEventAmount"
+    ).value =
+        timelineEvent.amount || "";
+
+
+    showView(
+        "editEventView"
+    );
 }
 
 
 function saveEventEdit() {
 
     const thing =
-        things.find(t => t.id === currentThingId);
+        things.find(
+            t => t.id === currentThingId
+        );
 
     if (!thing) return;
 
-    const event =
+
+    const timelineEvent =
         thing.events.find(
             e => e.id === currentEventId
         );
 
-    if (!event) return;
+    if (!timelineEvent) return;
 
-    event.name =
-        document.getElementById("editEventName")
-            .value
-            .trim();
 
-    event.type =
-        document.getElementById("editEventType").value;
+    timelineEvent.name =
+        document.getElementById(
+            "editEventName"
+        ).value.trim();
 
-    event.date =
-        document.getElementById("editEventDate").value;
 
-    event.amount =
+    timelineEvent.type =
+        document.getElementById(
+            "editEventType"
+        ).value;
+
+
+    timelineEvent.date =
+        document.getElementById(
+            "editEventDate"
+        ).value;
+
+
+    timelineEvent.amount =
         parseFloat(
-            document.getElementById("editEventAmount").value
+            document.getElementById(
+                "editEventAmount"
+            ).value
         ) || 0;
+
 
     saveThings();
 
     showThing();
 
-    showView("detailView");
+    showView(
+        "detailView"
+    );
 }
 
 
@@ -2009,39 +2302,52 @@ function saveEventEdit() {
 
 function deleteEvent() {
 
-    deleteEventDirect(currentEventId);
+    deleteEventDirect(
+        currentEventId
+    );
 }
 
 
 function deleteEventDirect(id) {
 
     const thing =
-        things.find(t => t.id === currentThingId);
+        things.find(
+            t => t.id === currentThingId
+        );
 
     if (!thing) return;
 
-    const event =
-        thing.events.find(e => e.id === id);
 
-    if (!event) return;
+    const timelineEvent =
+        thing.events.find(
+            e => e.id === id
+        );
+
+    if (!timelineEvent) return;
+
 
     const confirmed =
         confirm(
             "Delete this event?"
         );
 
+
     if (!confirmed) return;
+
 
     thing.events =
         thing.events.filter(
             e => e.id !== id
         );
 
+
     saveThings();
 
     showThing();
 
-    showView("detailView");
+    showView(
+        "detailView"
+    );
 }
 
 
@@ -2052,70 +2358,113 @@ function deleteEventDirect(id) {
 function editThing() {
 
     const thing =
-        things.find(t => t.id === currentThingId);
+        things.find(
+            t => t.id === currentThingId
+        );
 
     if (!thing) return;
 
-    document.getElementById("editThingName").value =
+
+    document.getElementById(
+        "editThingName"
+    ).value =
         thing.name || "";
 
-    document.getElementById("editThingCategory").value =
+
+    document.getElementById(
+        "editThingCategory"
+    ).value =
         thing.category || "Other";
 
-    document.getElementById("editPurchaseDate").value =
+
+    document.getElementById(
+        "editPurchaseDate"
+    ).value =
         thing.purchaseDate || "";
 
-    document.getElementById("editPurchasePrice").value =
+
+    document.getElementById(
+        "editPurchasePrice"
+    ).value =
         thing.purchasePrice || "";
 
-    document.getElementById("editCurrentValue").value =
+
+    document.getElementById(
+        "editCurrentValue"
+    ).value =
         thing.currentValue || "";
 
-    showView("editThingView");
+
+    showView(
+        "editThingView"
+    );
 }
 
 
 function saveEdit() {
 
     const thing =
-        things.find(t => t.id === currentThingId);
+        things.find(
+            t => t.id === currentThingId
+        );
 
     if (!thing) return;
 
+
     const name =
-        document.getElementById("editThingName")
-            .value
-            .trim();
+        document.getElementById(
+            "editThingName"
+        ).value.trim();
+
 
     if (!name) {
 
-        alert("Please enter a name.");
+        alert(
+            "Please enter a name."
+        );
+
         return;
     }
 
+
     thing.name = name;
 
+
     thing.category =
-        document.getElementById("editThingCategory").value;
+        document.getElementById(
+            "editThingCategory"
+        ).value;
+
 
     thing.purchaseDate =
-        document.getElementById("editPurchaseDate").value;
+        document.getElementById(
+            "editPurchaseDate"
+        ).value;
+
 
     thing.purchasePrice =
         parseFloat(
-            document.getElementById("editPurchasePrice").value
+            document.getElementById(
+                "editPurchasePrice"
+            ).value
         ) || 0;
+
 
     thing.currentValue =
         parseFloat(
-            document.getElementById("editCurrentValue").value
+            document.getElementById(
+                "editCurrentValue"
+            ).value
         ) || 0;
+
 
     saveThings();
 
     showThing();
 
-    showView("detailView");
+    showView(
+        "detailView"
+    );
 }
 
 
@@ -2123,7 +2472,9 @@ function backToThing() {
 
     showThing();
 
-    showView("detailView");
+    showView(
+        "detailView"
+    );
 }
 
 
@@ -2134,21 +2485,29 @@ function backToThing() {
 function deleteThing() {
 
     const thing =
-        things.find(t => t.id === currentThingId);
+        things.find(
+            t => t.id === currentThingId
+        );
 
     if (!thing) return;
 
+
     const confirmed =
         confirm(
-            "Delete " + thing.name + " and all its data?"
+            "Delete " +
+            thing.name +
+            " and all its data?"
         );
 
+
     if (!confirmed) return;
+
 
     things =
         things.filter(
             t => t.id !== currentThingId
         );
+
 
     saveThings();
 
@@ -2163,12 +2522,21 @@ function deleteThing() {
 function renderExpiringSoon() {
 
     const container =
-        document.getElementById("expiringSoon");
+        document.getElementById(
+            "expiringSoon"
+        );
+
 
     const today =
         new Date();
 
-    today.setHours(0, 0, 0, 0);
+    today.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
 
     const limit =
         new Date(today);
@@ -2177,32 +2545,40 @@ function renderExpiringSoon() {
         limit.getDate() + 30
     );
 
+
     const items = [];
+
 
     things.forEach(thing => {
 
-        (thing.documents || []).forEach(doc => {
+        (thing.documents || [])
+            .forEach(doc => {
 
-            if (!doc.expiryDate) return;
+                if (!doc.expiryDate) {
+                    return;
+                }
 
-            const expiry =
-                new Date(
-                    doc.expiryDate + "T00:00:00"
-                );
 
-            if (
-                expiry <= limit
-            ) {
+                const expiry =
+                    new Date(
+                        doc.expiryDate +
+                        "T00:00:00"
+                    );
 
-                items.push({
-                    thing,
-                    doc,
-                    expiry
-                });
 
-            }
+                if (
+                    expiry <= limit
+                ) {
 
-        });
+                    items.push({
+                        thing,
+                        doc,
+                        expiry
+                    });
+
+                }
+
+            });
 
     });
 
@@ -2226,94 +2602,122 @@ function renderExpiringSoon() {
 
 
     container.innerHTML =
-        items.map(item => {
+        items
+            .map(item => {
 
-            const days =
-                Math.round(
-                    (
-                        item.expiry - today
-                    ) /
-                    (1000 * 60 * 60 * 24)
-                );
-
-            let status = "";
-            let statusClass = "";
-
-            if (days < 0) {
-
-                const absoluteDays =
-                    Math.abs(days);
-
-                status =
-                    "Expired " +
-                    absoluteDays +
-                    (absoluteDays === 1
-                        ? " day ago"
-                        : " days ago");
-
-                statusClass = "expired";
-
-            }
-
-            else if (days === 0) {
-
-                status =
-                    "Expires today";
-
-                statusClass =
-                    "expired";
-
-            }
-
-            else {
-
-                status =
-                    "Expires in " +
-                    days +
-                    (days === 1
-                        ? " day"
-                        : " days");
-
-                statusClass =
-                    "expiring-soon";
-            }
+                const days =
+                    Math.round(
+                        (
+                            item.expiry -
+                            today
+                        ) /
+                        (
+                            1000 *
+                            60 *
+                            60 *
+                            24
+                        )
+                    );
 
 
-            const icon =
-                documentIcons[item.doc.type] ||
-                "📄";
+                let status = "";
+                let statusClass = "";
 
 
-            return `
-                <div class="expiring-card"
-                     onclick="openThing('${item.thing.id}')">
+                if (days < 0) {
 
-                    <div class="expiring-icon">
-                        ${icon}
+                    const absoluteDays =
+                        Math.abs(days);
+
+
+                    status =
+                        "Expired " +
+                        absoluteDays +
+                        (
+                            absoluteDays === 1
+                                ? " day ago"
+                                : " days ago"
+                        );
+
+
+                    statusClass =
+                        "expired";
+
+                }
+
+                else if (days === 0) {
+
+                    status =
+                        "Expires today";
+
+                    statusClass =
+                        "expired";
+
+                }
+
+                else {
+
+                    status =
+                        "Expires in " +
+                        days +
+                        (
+                            days === 1
+                                ? " day"
+                                : " days"
+                        );
+
+                    statusClass =
+                        "expiring-soon";
+
+                }
+
+
+                const icon =
+                    documentIcons[
+                        item.doc.type
+                    ] || "📄";
+
+
+                return `
+                    <div
+                        class="expiring-card"
+                        onclick="
+                            openThing('${item.thing.id}')
+                        ">
+
+                        <div class="expiring-icon">
+                            ${icon}
+                        </div>
+
+                        <div>
+
+                            <div class="expiring-name">
+                                ${escapeHtml(
+                                    item.doc.name
+                                )}
+                            </div>
+
+                            <div class="expiring-meta">
+                                ${escapeHtml(
+                                    item.thing.name
+                                )}
+                                ·
+                                ${formatDate(
+                                    item.doc.expiryDate
+                                )}
+                            </div>
+
+                            <div class="${statusClass}">
+                                ${status}
+                            </div>
+
+                        </div>
+
                     </div>
+                `;
 
-                    <div>
-
-                        <div class="expiring-name">
-                            ${escapeHtml(item.doc.name)}
-                        </div>
-
-                        <div class="expiring-meta">
-                            ${escapeHtml(item.thing.name)}
-                            ·
-                            ${formatDate(item.doc.expiryDate)}
-                        </div>
-
-                        <div class="${statusClass}">
-                            ${status}
-                        </div>
-
-                    </div>
-
-                </div>
-            `;
-
-        }).join("");
+            })
+            .join("");
 }
 
 
@@ -2323,12 +2727,17 @@ function renderExpiringSoon() {
 
 function formatDate(dateString) {
 
-    if (!dateString) return "";
+    if (!dateString) {
+        return "";
+    }
+
 
     const date =
         new Date(
-            dateString + "T00:00:00"
+            dateString +
+            "T00:00:00"
         );
+
 
     return date.toLocaleDateString(
         "en-GB"
@@ -2350,12 +2759,29 @@ function formatMoney(value) {
 
 function escapeHtml(value) {
 
-    return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    return String(
+        value || ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 }
 
 
