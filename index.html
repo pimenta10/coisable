@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -171,12 +169,9 @@ label {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
 }
 
-/* -----------------------------
-   SEARCH
------------------------------ */
+/* SEARCH */
 
 .search-box {
     position: relative;
@@ -277,13 +272,13 @@ label {
 }
 
 .search-result-type {
-    display: inline-block;
+    display: inline-block !important;
     margin-top: 6px;
     padding: 3px 7px;
     border-radius: 7px;
     background: #f1f1f1;
-    color: #666;
-    font-size: 11px;
+    color: #666 !important;
+    font-size: 11px !important;
     font-weight: 600;
 }
 
@@ -315,9 +310,7 @@ label {
     margin-top: 5px;
 }
 
-/* -----------------------------
-   HOME CATEGORY GRID
------------------------------ */
+/* HOME */
 
 .category-grid {
     display: grid;
@@ -364,9 +357,7 @@ label {
     margin-top: 4px;
 }
 
-/* -----------------------------
-   DOCUMENTS / EVENTS
------------------------------ */
+/* DOCUMENTS / EVENTS */
 
 .document-card,
 .event-card {
@@ -432,9 +423,7 @@ label {
     color: #777;
 }
 
-/* -----------------------------
-   ATTACHMENTS
------------------------------ */
+/* ATTACHMENTS */
 
 .attachment-section {
     margin-top: 4px;
@@ -521,9 +510,51 @@ label {
     margin-top: 7px;
 }
 
-/* -----------------------------
-   COMING UP
------------------------------ */
+/* ATTACHMENT VIEW */
+
+.attachment-viewer {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.attachment-viewer iframe {
+    display: block;
+    width: 100%;
+    height: 70vh;
+    min-height: 500px;
+    border: none;
+    background: #f5f5f5;
+}
+
+.attachment-viewer img {
+    display: block;
+    width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+    background: #f5f5f5;
+}
+
+.attachment-file-info {
+    padding: 18px;
+    text-align: center;
+}
+
+.attachment-file-info strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    word-break: break-word;
+}
+
+.attachment-file-info span {
+    display: block;
+    color: #777;
+    font-size: 13px;
+}
+
+/* COMING UP */
 
 .coming-up {
     border-left: 4px solid #f59e0b;
@@ -561,9 +592,7 @@ label {
     font-size: 13px;
 }
 
-/* -----------------------------
-   TIMELINE
------------------------------ */
+/* TIMELINE */
 
 .timeline-month {
     display: flex;
@@ -696,836 +725,659 @@ label {
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
 
-    <!-- HOME -->
-
-    <div id="homeView" class="view active">
-
-        <div style="margin-bottom: 25px;">
-
-            <h1>Coisable</h1>
-
-            <p style="margin-top: 5px;">
-                Your things. One place.
-            </p>
-
-        </div>
-
-        <!-- SEARCH -->
-
-        <div class="search-box">
-
-            <div class="search-icon">
-                🔎
-            </div>
-
-            <input
-                id="searchInput"
-                type="search"
-                placeholder="Search your things"
-                oninput="handleSearch()"
-                autocomplete="off"
-            >
-
-            <button
-                id="searchClear"
-                class="search-clear"
-                type="button"
-                onclick="clearSearch()"
-                aria-label="Clear search">
-
-                ×
-
-            </button>
-
-        </div>
-
-        <div id="searchResults"
-             class="search-results"
-             style="display:none;">
-        </div>
-
-        <!-- NORMAL HOME CONTENT -->
-
-        <div id="normalHomeContent">
-
-            <div class="category-grid">
-
-                <div class="category-card"
-                     onclick="showCategory('Real Estate')">
-
-                    <div class="category-icon">
-                        🏠
-                    </div>
-
-                    <div>
-
-                        <div class="category-name">
-                            Real Estate
-                        </div>
-
-                        <div class="category-count">
-
-                            <span id="realEstateCount">0</span>
-
-                            <span id="realEstateLabel">
-                                things
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="category-card"
-                     onclick="showCategory('Vehicles')">
-
-                    <div class="category-icon">
-                        🚗
-                    </div>
-
-                    <div>
-
-                        <div class="category-name">
-                            Vehicles
-                        </div>
-
-                        <div class="category-count">
-
-                            <span id="vehiclesCount">0</span>
-
-                            <span id="vehiclesLabel">
-                                things
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="category-card"
-                     onclick="showCategory('Electronics')">
-
-                    <div class="category-icon">
-                        📱
-                    </div>
-
-                    <div>
-
-                        <div class="category-name">
-                            Electronics
-                        </div>
-
-                        <div class="category-count">
-
-                            <span id="electronicsCount">0</span>
-
-                            <span id="electronicsLabel">
-                                things
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="category-card"
-                     onclick="showCategory('Other')">
-
-                    <div class="category-icon">
-                        📦
-                    </div>
-
-                    <div>
-
-                        <div class="category-name">
-                            Other
-                        </div>
-
-                        <div class="category-count">
-
-                            <span id="otherCount">0</span>
-
-                            <span id="otherLabel">
-                                things
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="section">
-
-                <div class="section-header">
-
-                    <h2>Coming Up</h2>
-
-                </div>
-
-                <div id="comingUp"></div>
-
-            </div>
-
-        </div>
+<!-- HOME -->
+
+<div id="homeView" class="view active">
+
+    <div style="margin-bottom:25px;">
+        <h1>Coisable</h1>
+        <p style="margin-top:5px;">Your things. One place.</p>
+    </div>
+
+    <div class="search-box">
+
+        <div class="search-icon">🔎</div>
+
+        <input
+            id="searchInput"
+            type="search"
+            placeholder="Search your things"
+            oninput="handleSearch()"
+            autocomplete="off">
+
+        <button
+            id="searchClear"
+            class="search-clear"
+            type="button"
+            onclick="clearSearch()"
+            aria-label="Clear search">×</button>
 
     </div>
 
-    <!-- CATEGORY -->
+    <div id="searchResults"
+         class="search-results"
+         style="display:none;"></div>
 
-    <div id="categoryView" class="view">
+    <div id="normalHomeContent">
 
-        <div class="topbar">
+        <div class="category-grid">
 
-            <button class="back small"
-                    onclick="showHome()">
+            <div class="category-card"
+                 onclick="showCategory('Real Estate')">
 
-                ← Back
+                <div class="category-icon">🏠</div>
 
-            </button>
-
-            <h2 id="categoryTitle"></h2>
-
-        </div>
-
-        <div style="margin-bottom: 18px;">
-
-            <button id="categoryAddButton"
-                    onclick="showAddForm()">
-
-                + Add
-
-            </button>
-
-        </div>
-
-        <div id="categoryThingsList"></div>
-
-    </div>
-
-    <!-- ADD THING -->
-
-    <div id="addView" class="view">
-
-        <div class="topbar">
-
-            <button class="back small"
-                    onclick="showCategory(currentCategory)">
-
-                ← Back
-
-            </button>
-
-            <h2 id="addThingTitle">
-                Add Thing
-            </h2>
-
-        </div>
-
-        <label>Name</label>
-
-        <input id="thingName"
-               placeholder="e.g. Mazda MX-5">
-
-        <label>Category</label>
-
-        <select id="thingCategory">
-
-            <option value="Real Estate">
-                Real Estate
-            </option>
-
-            <option value="Vehicles">
-                Vehicles
-            </option>
-
-            <option value="Electronics">
-                Electronics
-            </option>
-
-            <option value="Other">
-                Other
-            </option>
-
-        </select>
-
-        <label>Purchase Date</label>
-
-        <input id="thingPurchaseDate"
-               type="date">
-
-        <label>Purchase Price</label>
-
-        <input id="thingPurchasePrice"
-               type="number"
-               step="0.01"
-               placeholder="€">
-
-        <label>Current Value</label>
-
-        <input id="thingCurrentValue"
-               type="number"
-               step="0.01"
-               placeholder="€">
-
-        <button onclick="addThing()">
-            Save Thing
-        </button>
-
-    </div>
-
-    <!-- DETAIL -->
-
-    <div id="detailView" class="view">
-
-        <div class="topbar">
-
-            <button class="back small"
-                    onclick="showCategory(currentThingCategory)">
-
-                ← Back
-
-            </button>
-
-            <h2 id="detailTitle"></h2>
-
-        </div>
-
-        <div id="thingDetails"></div>
-
-        <div class="section">
-
-            <div class="section-header">
-
-                <h2>Documents</h2>
-
-                <button class="small"
-                        onclick="showAddDocument()">
-
-                    + Add
-
-                </button>
+                <div>
+                    <div class="category-name">Real Estate</div>
+                    <div class="category-count">
+                        <span id="realEstateCount">0</span>
+                        <span id="realEstateLabel">things</span>
+                    </div>
+                </div>
 
             </div>
 
-            <div id="documentsList"></div>
+            <div class="category-card"
+                 onclick="showCategory('Vehicles')">
+
+                <div class="category-icon">🚗</div>
+
+                <div>
+                    <div class="category-name">Vehicles</div>
+                    <div class="category-count">
+                        <span id="vehiclesCount">0</span>
+                        <span id="vehiclesLabel">things</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="category-card"
+                 onclick="showCategory('Electronics')">
+
+                <div class="category-icon">📱</div>
+
+                <div>
+                    <div class="category-name">Electronics</div>
+                    <div class="category-count">
+                        <span id="electronicsCount">0</span>
+                        <span id="electronicsLabel">things</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="category-card"
+                 onclick="showCategory('Other')">
+
+                <div class="category-icon">📦</div>
+
+                <div>
+                    <div class="category-name">Other</div>
+                    <div class="category-count">
+                        <span id="otherCount">0</span>
+                        <span id="otherLabel">things</span>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
 
         <div class="section">
 
             <div class="section-header">
-
-                <h2>Timeline</h2>
-
-                <button class="small"
-                        onclick="showAddEvent()">
-
-                    + Add
-
-                </button>
-
+                <h2>Coming Up</h2>
             </div>
 
-            <div id="timelineList"></div>
-
-        </div>
-
-        <div class="section">
-
-            <button class="secondary"
-                    onclick="editThing()">
-
-                Edit Thing
-
-            </button>
-
-            <br><br>
-
-            <button class="danger"
-                    onclick="deleteThing()">
-
-                Delete Thing
-
-            </button>
+            <div id="comingUp"></div>
 
         </div>
 
     </div>
 
-    <!-- EDIT THING -->
+</div>
 
-    <div id="editView" class="view">
+<!-- CATEGORY -->
 
-        <div class="topbar">
+<div id="categoryView" class="view">
 
-            <button class="back small"
-                    onclick="showThing(currentThingId)">
+    <div class="topbar">
 
-                ← Back
+        <button class="back small"
+                onclick="showHome()">← Back</button>
 
-            </button>
+        <h2 id="categoryTitle"></h2>
 
-            <h2>Edit Thing</h2>
+    </div>
 
-        </div>
+    <div style="margin-bottom:18px;">
 
-        <label>Name</label>
+        <button id="categoryAddButton"
+                onclick="showAddForm()">+ Add</button>
 
-        <input id="editThingName">
+    </div>
 
-        <label>Category</label>
+    <div id="categoryThingsList"></div>
 
-        <select id="editThingCategory">
+</div>
 
-            <option value="Real Estate">
-                Real Estate
-            </option>
+<!-- ADD THING -->
 
-            <option value="Vehicles">
-                Vehicles
-            </option>
+<div id="addView" class="view">
 
-            <option value="Electronics">
-                Electronics
-            </option>
+    <div class="topbar">
 
-            <option value="Other">
-                Other
-            </option>
-
-        </select>
-
-        <label>Purchase Date</label>
-
-        <input id="editThingPurchaseDate"
-               type="date">
-
-        <label>Purchase Price</label>
-
-        <input id="editThingPurchasePrice"
-               type="number"
-               step="0.01">
-
-        <label>Current Value</label>
-
-        <input id="editThingCurrentValue"
-               type="number"
-               step="0.01">
-
-        <button onclick="saveEdit()">
-            Save Changes
+        <button class="back small"
+                onclick="showCategory(currentCategory)">
+            ← Back
         </button>
 
+        <h2 id="addThingTitle">Add Thing</h2>
+
     </div>
 
-    <!-- ADD DOCUMENT -->
+    <label>Name</label>
 
-    <div id="addDocumentView" class="view">
+    <input id="thingName"
+           placeholder="e.g. Mazda MX-5">
 
-        <div class="topbar">
+    <label>Category</label>
 
-            <button class="back small"
-                    onclick="showThing(currentThingId)">
+    <select id="thingCategory">
 
-                ← Back
+        <option value="Real Estate">Real Estate</option>
+        <option value="Vehicles">Vehicles</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Other">Other</option>
 
-            </button>
+    </select>
 
-            <h2>Add Document</h2>
+    <label>Purchase Date</label>
 
-        </div>
+    <input id="thingPurchaseDate" type="date">
 
-        <label>Name</label>
+    <label>Purchase Price</label>
 
-        <input id="documentName"
-               placeholder="e.g. Car Insurance 2026">
+    <input id="thingPurchasePrice"
+           type="number"
+           step="0.01"
+           placeholder="€">
 
-        <label>Type</label>
+    <label>Current Value</label>
 
-        <select id="documentType">
+    <input id="thingCurrentValue"
+           type="number"
+           step="0.01"
+           placeholder="€">
 
-            <option value="Invoice">Invoice</option>
-            <option value="Contract">Contract</option>
-            <option value="Insurance">Insurance</option>
-            <option value="Warranty">Warranty</option>
-            <option value="Tax">Tax</option>
-            <option value="Certificate">Certificate</option>
-            <option value="Repair">Repair</option>
-            <option value="Other">Other</option>
+    <button onclick="addThing()">Save Thing</button>
 
-        </select>
+</div>
 
-        <label>Date</label>
+<!-- DETAIL -->
 
-        <input id="documentDate"
-               type="date">
+<div id="detailView" class="view">
 
-        <label>Date Type</label>
+    <div class="topbar">
 
-        <select id="documentDateType"
-                onchange="updateImportantDateField('')">
-
-            <option value="None">
-                None
-            </option>
-
-            <option value="Due Date">
-                Due Date
-            </option>
-
-            <option value="Expiry Date">
-                Expiry Date
-            </option>
-
-        </select>
-
-        <div id="documentImportantDateGroup"
-             style="display:none;">
-
-            <label id="documentImportantDateLabel">
-                Important Date
-            </label>
-
-            <input id="documentImportantDate"
-                   type="date">
-
-        </div>
-
-        <label>Repeat</label>
-
-        <select id="documentRepeat">
-
-            <option value="Never">
-                Never
-            </option>
-
-            <option value="Yearly">
-                Yearly
-            </option>
-
-            <option value="Monthly">
-                Monthly
-            </option>
-
-        </select>
-
-        <label>Amount</label>
-
-        <input id="documentAmount"
-               type="number"
-               step="0.01"
-               placeholder="€">
-
-        <!-- ATTACHMENT -->
-
-        <div class="attachment-section">
-
-            <label class="attachment-label">
-                Attachment
-            </label>
-
-            <input
-                id="documentAttachment"
-                class="attachment-picker"
-                type="file"
-                accept="application/pdf,image/*">
-
-            <div id="documentAttachmentStatus"
-                 class="attachment-status">
-            </div>
-
-        </div>
-
-        <div class="checkbox-row">
-
-            <input type="checkbox"
-                   id="addToTimeline"
-                   checked>
-
-            <label for="addToTimeline">
-                Add to Timeline
-            </label>
-
-        </div>
-
-        <div class="info-box">
-
-            Date = when the document happened or was issued.
-            You can optionally add a Due Date or Expiry Date separately.
-
-        </div>
-
-        <button onclick="addDocument()">
-            Save Document
+        <button class="back small"
+                onclick="showCategory(currentThingCategory)">
+            ← Back
         </button>
 
+        <h2 id="detailTitle"></h2>
+
     </div>
 
-    <!-- EDIT DOCUMENT -->
+    <div id="thingDetails"></div>
 
-    <div id="editDocumentView" class="view">
+    <div class="section">
 
-        <div class="topbar">
+        <div class="section-header">
 
-            <button class="back small"
-                    onclick="showThing(currentThingId)">
+            <h2>Documents</h2>
 
-                ← Back
-
-            </button>
-
-            <h2>Edit Document</h2>
+            <button class="small"
+                    onclick="showAddDocument()">+ Add</button>
 
         </div>
 
-        <label>Name</label>
+        <div id="documentsList"></div>
 
-        <input id="editDocumentName">
+    </div>
 
-        <label>Type</label>
+    <div class="section">
 
-        <select id="editDocumentType">
+        <div class="section-header">
 
-            <option value="Invoice">Invoice</option>
-            <option value="Contract">Contract</option>
-            <option value="Insurance">Insurance</option>
-            <option value="Warranty">Warranty</option>
-            <option value="Tax">Tax</option>
-            <option value="Certificate">Certificate</option>
-            <option value="Repair">Repair</option>
-            <option value="Other">Other</option>
+            <h2>Timeline</h2>
 
-        </select>
-
-        <label>Date</label>
-
-        <input id="editDocumentDate"
-               type="date">
-
-        <label>Date Type</label>
-
-        <select id="editDocumentDateType"
-                onchange="updateImportantDateField('edit')">
-
-            <option value="None">
-                None
-            </option>
-
-            <option value="Due Date">
-                Due Date
-            </option>
-
-            <option value="Expiry Date">
-                Expiry Date
-            </option>
-
-        </select>
-
-        <div id="editDocumentImportantDateGroup"
-             style="display:none;">
-
-            <label id="editDocumentImportantDateLabel">
-                Important Date
-            </label>
-
-            <input id="editDocumentImportantDate"
-                   type="date">
+            <button class="small"
+                    onclick="showAddEvent()">+ Add</button>
 
         </div>
 
-        <label>Repeat</label>
+        <div id="timelineList"></div>
 
-        <select id="editDocumentRepeat">
+    </div>
 
-            <option value="Never">
-                Never
-            </option>
+    <div class="section">
 
-            <option value="Yearly">
-                Yearly
-            </option>
-
-            <option value="Monthly">
-                Monthly
-            </option>
-
-        </select>
-
-        <label>Amount</label>
-
-        <input id="editDocumentAmount"
-               type="number"
-               step="0.01">
-
-        <!-- EXISTING / NEW ATTACHMENT -->
-
-        <div class="attachment-section">
-
-            <label class="attachment-label">
-                Attachment
-            </label>
-
-            <div id="editAttachmentContainer"></div>
-
-            <input
-                id="editDocumentAttachment"
-                class="attachment-picker"
-                type="file"
-                accept="application/pdf,image/*"
-                onchange="previewNewAttachment()">
-
-            <div id="editAttachmentStatus"
-                 class="attachment-status">
-            </div>
-
-        </div>
-
-        <div class="info-box"
-             id="documentTimelineInfo">
-        </div>
-
-        <button onclick="saveDocumentEdit()">
-            Save Changes
+        <button class="secondary"
+                onclick="editThing()">
+            Edit Thing
         </button>
 
         <br><br>
 
         <button class="danger"
-                onclick="deleteDocument()">
-
-            Delete Document
-
+                onclick="deleteThing()">
+            Delete Thing
         </button>
 
     </div>
 
-    <!-- ADD EVENT -->
+</div>
 
-    <div id="addEventView" class="view">
+<!-- EDIT THING -->
 
-        <div class="topbar">
+<div id="editView" class="view">
 
-            <button class="back small"
-                    onclick="showThing(currentThingId)">
+    <div class="topbar">
 
-                ← Back
+        <button class="back small"
+                onclick="showThing(currentThingId)">
+            ← Back
+        </button>
 
-            </button>
+        <h2>Edit Thing</h2>
 
-            <h2>Add Event</h2>
+    </div>
 
-        </div>
+    <label>Name</label>
+    <input id="editThingName">
 
-        <label>Type</label>
+    <label>Category</label>
 
-        <select id="eventType">
+    <select id="editThingCategory">
+        <option value="Real Estate">Real Estate</option>
+        <option value="Vehicles">Vehicles</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Other">Other</option>
+    </select>
 
-            <option value="Purchase">Purchase</option>
-            <option value="Repair">Repair</option>
-            <option value="Maintenance">Maintenance</option>
-            <option value="Expense">Expense</option>
-            <option value="Inspection">Inspection</option>
-            <option value="Insurance">Insurance</option>
-            <option value="Other">Other</option>
+    <label>Purchase Date</label>
+    <input id="editThingPurchaseDate" type="date">
 
-        </select>
+    <label>Purchase Price</label>
+    <input id="editThingPurchasePrice"
+           type="number"
+           step="0.01">
 
-        <label>Description</label>
+    <label>Current Value</label>
+    <input id="editThingCurrentValue"
+           type="number"
+           step="0.01">
 
-        <input id="eventDescription"
-               placeholder="e.g. Annual inspection">
+    <button onclick="saveEdit()">Save Changes</button>
 
-        <label>Date</label>
+</div>
 
-        <input id="eventDate"
+<!-- ADD DOCUMENT -->
+
+<div id="addDocumentView" class="view">
+
+    <div class="topbar">
+
+        <button class="back small"
+                onclick="showThing(currentThingId)">
+            ← Back
+        </button>
+
+        <h2>Add Document</h2>
+
+    </div>
+
+    <label>Name</label>
+
+    <input id="documentName"
+           placeholder="e.g. Car Insurance 2026">
+
+    <label>Type</label>
+
+    <select id="documentType">
+
+        <option value="Invoice">Invoice</option>
+        <option value="Contract">Contract</option>
+        <option value="Insurance">Insurance</option>
+        <option value="Warranty">Warranty</option>
+        <option value="Tax">Tax</option>
+        <option value="Certificate">Certificate</option>
+        <option value="Repair">Repair</option>
+        <option value="Other">Other</option>
+
+    </select>
+
+    <label>Date</label>
+    <input id="documentDate" type="date">
+
+    <label>Date Type</label>
+
+    <select id="documentDateType"
+            onchange="updateImportantDateField('')">
+
+        <option value="None">None</option>
+        <option value="Due Date">Due Date</option>
+        <option value="Expiry Date">Expiry Date</option>
+
+    </select>
+
+    <div id="documentImportantDateGroup"
+         style="display:none;">
+
+        <label id="documentImportantDateLabel">
+            Important Date
+        </label>
+
+        <input id="documentImportantDate"
                type="date">
 
-        <label>Amount</label>
+    </div>
 
-        <input id="eventAmount"
-               type="number"
-               step="0.01"
-               placeholder="€">
+    <label>Repeat</label>
 
-        <button onclick="addEvent()">
-            Save Event
-        </button>
+    <select id="documentRepeat">
+
+        <option value="Never">Never</option>
+        <option value="Yearly">Yearly</option>
+        <option value="Monthly">Monthly</option>
+
+    </select>
+
+    <label>Amount</label>
+
+    <input id="documentAmount"
+           type="number"
+           step="0.01"
+           placeholder="€">
+
+    <div class="attachment-section">
+
+        <label class="attachment-label">
+            Attachment
+        </label>
+
+        <input
+            id="documentAttachment"
+            class="attachment-picker"
+            type="file"
+            accept="application/pdf,image/*">
+
+        <div id="documentAttachmentStatus"
+             class="attachment-status"></div>
 
     </div>
 
-    <!-- EDIT EVENT -->
+    <div class="checkbox-row">
 
-    <div id="editEventView" class="view">
+        <input type="checkbox"
+               id="addToTimeline"
+               checked>
 
-        <div class="topbar">
+        <label for="addToTimeline">
+            Add to Timeline
+        </label>
 
-            <button class="back small"
-                    onclick="showThing(currentThingId)">
+    </div>
 
-                ← Back
+    <div class="info-box">
 
-            </button>
+        Date = when the document happened or was issued.
+        You can optionally add a Due Date or Expiry Date separately.
 
-            <h2>Edit Event</h2>
+    </div>
 
-        </div>
+    <button onclick="addDocument()">
+        Save Document
+    </button>
 
-        <label>Type</label>
+</div>
 
-        <select id="editEventType">
+<!-- EDIT DOCUMENT -->
 
-            <option value="Purchase">Purchase</option>
-            <option value="Repair">Repair</option>
-            <option value="Maintenance">Maintenance</option>
-            <option value="Expense">Expense</option>
-            <option value="Inspection">Inspection</option>
-            <option value="Insurance">Insurance</option>
-            <option value="Other">Other</option>
+<div id="editDocumentView" class="view">
 
-        </select>
+    <div class="topbar">
 
-        <label>Description</label>
+        <button class="back small"
+                onclick="showThing(currentThingId)">
+            ← Back
+        </button>
 
-        <input id="editEventDescription">
+        <h2>Edit Document</h2>
 
-        <label>Date</label>
+    </div>
 
-        <input id="editEventDate"
+    <label>Name</label>
+    <input id="editDocumentName">
+
+    <label>Type</label>
+
+    <select id="editDocumentType">
+
+        <option value="Invoice">Invoice</option>
+        <option value="Contract">Contract</option>
+        <option value="Insurance">Insurance</option>
+        <option value="Warranty">Warranty</option>
+        <option value="Tax">Tax</option>
+        <option value="Certificate">Certificate</option>
+        <option value="Repair">Repair</option>
+        <option value="Other">Other</option>
+
+    </select>
+
+    <label>Date</label>
+    <input id="editDocumentDate" type="date">
+
+    <label>Date Type</label>
+
+    <select id="editDocumentDateType"
+            onchange="updateImportantDateField('edit')">
+
+        <option value="None">None</option>
+        <option value="Due Date">Due Date</option>
+        <option value="Expiry Date">Expiry Date</option>
+
+    </select>
+
+    <div id="editDocumentImportantDateGroup"
+         style="display:none;">
+
+        <label id="editDocumentImportantDateLabel">
+            Important Date
+        </label>
+
+        <input id="editDocumentImportantDate"
                type="date">
 
-        <label>Amount</label>
+    </div>
 
-        <input id="editEventAmount"
-               type="number"
-               step="0.01">
+    <label>Repeat</label>
 
-        <button onclick="saveEventEdit()">
-            Save Changes
-        </button>
+    <select id="editDocumentRepeat">
 
-        <br><br>
+        <option value="Never">Never</option>
+        <option value="Yearly">Yearly</option>
+        <option value="Monthly">Monthly</option>
 
-        <button class="danger"
-                onclick="deleteEvent()">
+    </select>
 
-            Delete Event
+    <label>Amount</label>
 
-        </button>
+    <input id="editDocumentAmount"
+           type="number"
+           step="0.01">
+
+    <div class="attachment-section">
+
+        <label class="attachment-label">
+            Attachment
+        </label>
+
+        <div id="editAttachmentContainer"></div>
+
+        <input
+            id="editDocumentAttachment"
+            class="attachment-picker"
+            type="file"
+            accept="application/pdf,image/*"
+            onchange="previewNewAttachment()">
+
+        <div id="editAttachmentStatus"
+             class="attachment-status"></div>
 
     </div>
+
+    <div class="info-box"
+         id="documentTimelineInfo"></div>
+
+    <button onclick="saveDocumentEdit()">
+        Save Changes
+    </button>
+
+    <br><br>
+
+    <button class="danger"
+            onclick="deleteDocument()">
+        Delete Document
+    </button>
+
+</div>
+
+<!-- ADD EVENT -->
+
+<div id="addEventView" class="view">
+
+    <div class="topbar">
+
+        <button class="back small"
+                onclick="showThing(currentThingId)">
+            ← Back
+        </button>
+
+        <h2>Add Event</h2>
+
+    </div>
+
+    <label>Type</label>
+
+    <select id="eventType">
+
+        <option value="Purchase">Purchase</option>
+        <option value="Repair">Repair</option>
+        <option value="Maintenance">Maintenance</option>
+        <option value="Expense">Expense</option>
+        <option value="Inspection">Inspection</option>
+        <option value="Insurance">Insurance</option>
+        <option value="Other">Other</option>
+
+    </select>
+
+    <label>Description</label>
+    <input id="eventDescription"
+           placeholder="e.g. Annual inspection">
+
+    <label>Date</label>
+    <input id="eventDate" type="date">
+
+    <label>Amount</label>
+    <input id="eventAmount"
+           type="number"
+           step="0.01"
+           placeholder="€">
+
+    <button onclick="addEvent()">Save Event</button>
+
+</div>
+
+<!-- EDIT EVENT -->
+
+<div id="editEventView" class="view">
+
+    <div class="topbar">
+
+        <button class="back small"
+                onclick="showThing(currentThingId)">
+            ← Back
+        </button>
+
+        <h2>Edit Event</h2>
+
+    </div>
+
+    <label>Type</label>
+
+    <select id="editEventType">
+
+        <option value="Purchase">Purchase</option>
+        <option value="Repair">Repair</option>
+        <option value="Maintenance">Maintenance</option>
+        <option value="Expense">Expense</option>
+        <option value="Inspection">Inspection</option>
+        <option value="Insurance">Insurance</option>
+        <option value="Other">Other</option>
+
+    </select>
+
+    <label>Description</label>
+    <input id="editEventDescription">
+
+    <label>Date</label>
+    <input id="editEventDate" type="date">
+
+    <label>Amount</label>
+    <input id="editEventAmount"
+           type="number"
+           step="0.01">
+
+    <button onclick="saveEventEdit()">
+        Save Changes
+    </button>
+
+    <br><br>
+
+    <button class="danger"
+            onclick="deleteEvent()">
+        Delete Event
+    </button>
+
+</div>
+
+<!-- ATTACHMENT VIEW -->
+
+<div id="attachmentView" class="view">
+
+    <div class="topbar">
+
+        <button class="back small"
+                onclick="backToDocument()">
+            ← Back to document
+        </button>
+
+        <h2>Attachment</h2>
+
+    </div>
+
+    <div id="attachmentViewer"></div>
+
+</div>
 
 </div>
 
@@ -1537,16 +1389,13 @@ label {
 ========================================================= */
 
 const categoryIcons = {
-
     "Real Estate": "🏠",
     "Vehicles": "🚗",
     "Electronics": "📱",
     "Other": "📦"
-
 };
 
 const documentIcons = {
-
     Invoice: "🧾",
     Contract: "📜",
     Insurance: "🛡️",
@@ -1555,11 +1404,9 @@ const documentIcons = {
     Certificate: "📜",
     Repair: "🔧",
     Other: "📄"
-
 };
 
 const eventIcons = {
-
     Purchase: "🛒",
     Repair: "🔧",
     Maintenance: "🛠️",
@@ -1567,7 +1414,6 @@ const eventIcons = {
     Inspection: "🔍",
     Insurance: "🛡️",
     Other: "📌"
-
 };
 
 let things =
@@ -1578,6 +1424,13 @@ let currentThingCategory = null;
 let currentCategory = null;
 let currentDocumentId = null;
 let currentEventId = null;
+
+/* =========================================================
+   ATTACHMENT VIEW STATE
+========================================================= */
+
+let currentAttachmentUrl = null;
+let attachmentHistoryActive = false;
 
 /* =========================================================
    INDEXEDDB — ATTACHMENTS
@@ -1596,84 +1449,76 @@ let attachmentDB = null;
 
 function initAttachmentDB() {
 
-    return new Promise(
-        (resolve, reject) => {
+    return new Promise((resolve, reject) => {
 
-            if (attachmentDB) {
+        if (attachmentDB) {
+            resolve(attachmentDB);
+            return;
+        }
+
+        if (!window.indexedDB) {
+
+            reject(
+                new Error(
+                    "IndexedDB is not supported."
+                )
+            );
+
+            return;
+        }
+
+        const request =
+            indexedDB.open(
+                ATTACHMENT_DB_NAME,
+                ATTACHMENT_DB_VERSION
+            );
+
+        request.onupgradeneeded =
+            function(event) {
+
+                const db =
+                    event.target.result;
+
+                if (
+                    !db.objectStoreNames.contains(
+                        ATTACHMENT_STORE
+                    )
+                ) {
+
+                    db.createObjectStore(
+                        ATTACHMENT_STORE,
+                        {
+                            keyPath:
+                                "documentId"
+                        }
+                    );
+
+                }
+
+            };
+
+        request.onsuccess =
+            function(event) {
+
+                attachmentDB =
+                    event.target.result;
 
                 resolve(
                     attachmentDB
                 );
 
-                return;
+            };
 
-            }
-
-            if (!window.indexedDB) {
+        request.onerror =
+            function() {
 
                 reject(
-                    new Error(
-                        "IndexedDB is not supported."
-                    )
+                    request.error
                 );
 
-                return;
+            };
 
-            }
-
-            const request =
-                indexedDB.open(
-                    ATTACHMENT_DB_NAME,
-                    ATTACHMENT_DB_VERSION
-                );
-
-            request.onupgradeneeded =
-                function(event) {
-
-                    const db =
-                        event.target.result;
-
-                    if (
-                        !db.objectStoreNames.contains(
-                            ATTACHMENT_STORE
-                        )
-                    ) {
-
-                        db.createObjectStore(
-                            ATTACHMENT_STORE,
-                            {
-                                keyPath:
-                                    "documentId"
-                            }
-                        );
-
-                    }
-
-                };
-
-            request.onsuccess =
-                function(event) {
-
-                    attachmentDB =
-                        event.target.result;
-
-                    resolve(
-                        attachmentDB
-                    );
-
-                };
-
-            request.onerror =
-                function() {
-
-                    reject(
-                        request.error
-                    );
-
-                };
-
-        }
-    );
+    });
 
 }
 
@@ -1687,62 +1532,54 @@ async function saveAttachment(
     const db =
         await initAttachmentDB();
 
-    return new Promise(
-        (resolve, reject) => {
+    return new Promise((resolve, reject) => {
 
-            const transaction =
-                db.transaction(
-                    ATTACHMENT_STORE,
-                    "readwrite"
-                );
+        const transaction =
+            db.transaction(
+                ATTACHMENT_STORE,
+                "readwrite"
+            );
 
-            const store =
-                transaction.objectStore(
-                    ATTACHMENT_STORE
-                );
+        const store =
+            transaction.objectStore(
+                ATTACHMENT_STORE
+            );
 
-            const request =
-                store.put({
+        const request =
+            store.put({
 
-                    documentId:
-                        documentId,
+                documentId:
+                    documentId,
 
-                    name:
-                        file.name,
+                name:
+                    file.name,
 
-                    type:
-                        file.type ||
-                        "application/octet-stream",
+                type:
+                    file.type ||
+                    "application/octet-stream",
 
-                    size:
-                        file.size,
+                size:
+                    file.size,
 
-                    file:
-                        file,
+                file:
+                    file,
 
-                    updatedAt:
-                        Date.now()
+                updatedAt:
+                    Date.now()
 
-                });
+            });
 
-            request.onsuccess =
-                function() {
+        request.onsuccess =
+            function() {
+                resolve();
+            };
 
-                    resolve();
+        request.onerror =
+            function() {
+                reject(request.error);
+            };
 
-                };
-
-            request.onerror =
-                function() {
-
-                    reject(
-                        request.error
-                    );
-
-                };
-
-        }
-    );
+    });
 
 }
 
@@ -1753,45 +1590,43 @@ async function getAttachment(
     const db =
         await initAttachmentDB();
 
-    return new Promise(
-        (resolve, reject) => {
+    return new Promise((resolve, reject) => {
 
-            const transaction =
-                db.transaction(
-                    ATTACHMENT_STORE,
-                    "readonly"
+        const transaction =
+            db.transaction(
+                ATTACHMENT_STORE,
+                "readonly"
+            );
+
+        const store =
+            transaction.objectStore(
+                ATTACHMENT_STORE
+            );
+
+        const request =
+            store.get(
+                documentId
+            );
+
+        request.onsuccess =
+            function() {
+
+                resolve(
+                    request.result || null
                 );
 
-            const store =
-                transaction.objectStore(
-                    ATTACHMENT_STORE
+            };
+
+        request.onerror =
+            function() {
+
+                reject(
+                    request.error
                 );
 
-            const request =
-                store.get(
-                    documentId
-                );
+            };
 
-            request.onsuccess =
-                function() {
-
-                    resolve(
-                        request.result || null
-                    );
-
-                };
-
-            request.onerror =
-                function() {
-
-                    reject(
-                        request.error
-                    );
-
-                };
-
-        }
-    );
+    });
 
 }
 
@@ -1804,43 +1639,35 @@ async function deleteAttachment(
     const db =
         await initAttachmentDB();
 
-    return new Promise(
-        (resolve, reject) => {
+    return new Promise((resolve, reject) => {
 
-            const transaction =
-                db.transaction(
-                    ATTACHMENT_STORE,
-                    "readwrite"
-                );
+        const transaction =
+            db.transaction(
+                ATTACHMENT_STORE,
+                "readwrite"
+            );
 
-            const store =
-                transaction.objectStore(
-                    ATTACHMENT_STORE
-                );
+        const store =
+            transaction.objectStore(
+                ATTACHMENT_STORE
+            );
 
-            const request =
-                store.delete(
-                    documentId
-                );
+        const request =
+            store.delete(
+                documentId
+            );
 
-            request.onsuccess =
-                function() {
+        request.onsuccess =
+            function() {
+                resolve();
+            };
 
-                    resolve();
+        request.onerror =
+            function() {
+                reject(request.error);
+            };
 
-                };
-
-            request.onerror =
-                function() {
-
-                    reject(
-                        request.error
-                    );
-
-                };
-
-        }
-    );
+    });
 
 }
 
@@ -1850,13 +1677,9 @@ async function deleteAttachmentsForThing(
 
     if (
         !thing ||
-        !Array.isArray(
-            thing.documents
-        )
+        !Array.isArray(thing.documents)
     ) {
-
         return;
-
     }
 
     for (
@@ -1895,22 +1718,14 @@ function formatFileSize(
         bytes === undefined ||
         bytes === null
     ) {
-
         return "";
-
     }
 
-    if (
-        bytes < 1024
-    ) {
-
+    if (bytes < 1024) {
         return `${bytes} B`;
-
     }
 
-    if (
-        bytes < 1024 * 1024
-    ) {
+    if (bytes < 1024 * 1024) {
 
         return `${(
             bytes / 1024
@@ -1936,25 +1751,39 @@ function getAttachmentIcon(
         ).toLowerCase();
 
     if (
-        type ===
-        "application/pdf" ||
+        type === "application/pdf" ||
         lower.endsWith(".pdf")
     ) {
-
         return "📄";
-
     }
 
     if (
         type &&
         type.startsWith("image/")
     ) {
-
         return "🖼️";
-
     }
 
     return "📎";
+
+}
+
+/* =========================================================
+   ATTACHMENT NAVIGATION
+========================================================= */
+
+function cleanupAttachmentUrl() {
+
+    if (currentAttachmentUrl) {
+
+        URL.revokeObjectURL(
+            currentAttachmentUrl
+        );
+
+        currentAttachmentUrl =
+            null;
+
+    }
 
 }
 
@@ -1979,6 +1808,26 @@ async function openAttachment(
 
         }
 
+        const thing =
+            things.find(
+                item =>
+                    Array.isArray(item.documents) &&
+                    item.documents.some(
+                        item =>
+                            item.id === documentId
+                    )
+            );
+
+        if (!thing) {
+
+            alert(
+                "The document could not be found."
+            );
+
+            return;
+
+        }
+
         const blob =
             attachment.file instanceof Blob
                 ? attachment.file
@@ -1991,33 +1840,191 @@ async function openAttachment(
                     }
                 );
 
-        const url =
+        cleanupAttachmentUrl();
+
+        currentAttachmentUrl =
             URL.createObjectURL(
                 blob
             );
 
-        const newWindow =
-            window.open(
-                url,
-                "_blank"
+        currentThingId =
+            thing.id;
+
+        currentThingCategory =
+            thing.category;
+
+        currentDocumentId =
+            documentId;
+
+        const viewer =
+            document.getElementById(
+                "attachmentViewer"
             );
 
-        if (!newWindow) {
+        if (!viewer) return;
 
-            window.location.href =
-                url;
+        const type =
+            attachment.type || "";
+
+        const lowerName =
+            String(
+                attachment.name || ""
+            ).toLowerCase();
+
+        const isPdf =
+            type === "application/pdf" ||
+            lowerName.endsWith(".pdf");
+
+        const isImage =
+            type.startsWith("image/") ||
+            /\.(jpg|jpeg|png|gif|webp|heic)$/i.test(
+                lowerName
+            );
+
+        if (isPdf) {
+
+            viewer.innerHTML = `
+
+                <div class="attachment-viewer">
+
+                    <iframe
+                        src="${currentAttachmentUrl}"
+                        title="${escapeHtml(
+                            attachment.name
+                        )}">
+                    </iframe>
+
+                </div>
+
+                <div class="attachment-file-info">
+
+                    <strong>
+                        ${escapeHtml(
+                            attachment.name
+                        )}
+                    </strong>
+
+                    <span>
+                        ${formatFileSize(
+                            attachment.size
+                        )}
+                    </span>
+
+                </div>
+
+            `;
+
+        } else if (isImage) {
+
+            viewer.innerHTML = `
+
+                <div class="attachment-viewer">
+
+                    <img
+                        src="${currentAttachmentUrl}"
+                        alt="${escapeHtml(
+                            attachment.name
+                        )}">
+
+                </div>
+
+                <div class="attachment-file-info">
+
+                    <strong>
+                        ${escapeHtml(
+                            attachment.name
+                        )}
+                    </strong>
+
+                    <span>
+                        ${formatFileSize(
+                            attachment.size
+                        )}
+                    </span>
+
+                </div>
+
+            `;
+
+        } else {
+
+            viewer.innerHTML = `
+
+                <div class="card">
+
+                    <div class="attachment-file-info">
+
+                        <div style="font-size:42px;">
+                            ${getAttachmentIcon(
+                                attachment.type,
+                                attachment.name
+                            )}
+                        </div>
+
+                        <strong>
+                            ${escapeHtml(
+                                attachment.name
+                            )}
+                        </strong>
+
+                        <span>
+                            ${formatFileSize(
+                                attachment.size
+                            )}
+                        </span>
+
+                        <br>
+
+                        <button
+                            class="secondary"
+                            onclick="window.open(
+                                currentAttachmentUrl,
+                                '_blank'
+                            )">
+
+                            Open File
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
 
         }
 
-        setTimeout(
-            function() {
+        /*
+           Add a browser history entry.
 
-                URL.revokeObjectURL(
-                    url
-                );
+           This means:
+           Attachment → browser Back → Document
 
-            },
-            60000
+           instead of:
+           Attachment → browser Back → Homepage
+        */
+
+        if (!attachmentHistoryActive) {
+
+            history.pushState(
+                {
+                    coisableAttachment:
+                        true,
+
+                    documentId:
+                        documentId
+                },
+                "",
+                location.href
+            );
+
+            attachmentHistoryActive =
+                true;
+
+        }
+
+        showView(
+            "attachmentView"
         );
 
     } catch(error) {
@@ -2033,6 +2040,98 @@ async function openAttachment(
     }
 
 }
+
+function backToDocument() {
+
+    if (attachmentHistoryActive) {
+
+        history.back();
+
+        return;
+
+    }
+
+    leaveAttachmentView();
+
+    if (currentDocumentId !== null) {
+
+        editDocument(
+            currentDocumentId
+        );
+
+    } else {
+
+        showHome();
+
+    }
+
+}
+
+function leaveAttachmentView() {
+
+    cleanupAttachmentUrl();
+
+    const viewer =
+        document.getElementById(
+            "attachmentViewer"
+        );
+
+    if (viewer) {
+
+        viewer.innerHTML =
+            "";
+
+    }
+
+    attachmentHistoryActive =
+        false;
+
+}
+
+/* =========================================================
+   BROWSER BACK / IPHONE SWIPE
+========================================================= */
+
+window.addEventListener(
+    "popstate",
+    function() {
+
+        if (
+            document.getElementById(
+                "attachmentView"
+            ) &&
+            document.getElementById(
+                "attachmentView"
+            ).classList.contains("active")
+        ) {
+
+            const documentId =
+                currentDocumentId;
+
+            leaveAttachmentView();
+
+            if (
+                documentId !== null
+            ) {
+
+                editDocument(
+                    documentId
+                );
+
+            } else {
+
+                showHome();
+
+            }
+
+        }
+
+    }
+);
+
+/* =========================================================
+   ATTACHMENT DISPLAY
+========================================================= */
 
 async function hasAttachment(
     documentId
@@ -2085,9 +2184,7 @@ async function renderExistingAttachment(
             container.innerHTML = `
 
                 <div class="attachment-status">
-
                     No attachment added yet.
-
                 </div>
 
             `;
@@ -2107,9 +2204,7 @@ async function renderExistingAttachment(
             <div class="attachment-card">
 
                 <div class="attachment-icon">
-
                     ${icon}
-
                 </div>
 
                 <div class="attachment-info">
@@ -2133,9 +2228,7 @@ async function renderExistingAttachment(
                     <button
                         class="secondary small"
                         onclick="openAttachment(${documentId})">
-
                         Open
-
                     </button>
 
                 </div>
@@ -2147,9 +2240,7 @@ async function renderExistingAttachment(
                 <button
                     class="secondary small"
                     onclick="removeExistingAttachment(${documentId})">
-
                     Remove
-
                 </button>
 
             </div>
@@ -2165,9 +2256,7 @@ async function renderExistingAttachment(
         container.innerHTML = `
 
             <div class="attachment-status">
-
                 Could not load attachment.
-
             </div>
 
         `;
@@ -2278,11 +2367,26 @@ function saveThings() {
 
 function showView(id) {
 
-    document.querySelectorAll(".view").forEach(view => {
+    const currentAttachmentView =
+        document.getElementById(
+            "attachmentView"
+        );
 
-        view.classList.remove("active");
+    if (
+        currentAttachmentView &&
+        currentAttachmentView.classList.contains("active") &&
+        id !== "attachmentView"
+    ) {
 
-    });
+        leaveAttachmentView();
+
+    }
+
+    document.querySelectorAll(".view").forEach(
+        view => {
+            view.classList.remove("active");
+        }
+    );
 
     const target =
         document.getElementById(id);
@@ -2349,21 +2453,23 @@ function updateSearchClearButton(
     if (!button) return;
 
     button.style.display =
-        hasText
-            ? "flex"
-            : "none";
+        hasText ? "flex" : "none";
 
 }
 
 function handleSearch() {
 
     const input =
-        document.getElementById("searchInput");
+        document.getElementById(
+            "searchInput"
+        );
 
     if (!input) return;
 
     const query =
-        normalizeSearch(input.value);
+        normalizeSearch(
+            input.value
+        );
 
     const resultsContainer =
         document.getElementById(
@@ -2384,7 +2490,8 @@ function handleSearch() {
         resultsContainer.style.display =
             "none";
 
-        resultsContainer.innerHTML = "";
+        resultsContainer.innerHTML =
+            "";
 
         normalHome.style.display =
             "block";
@@ -2549,9 +2656,7 @@ function handleSearch() {
 
     });
 
-    if (
-        results.length === 0
-    ) {
+    if (results.length === 0) {
 
         resultsContainer.style.display =
             "block";
@@ -2602,9 +2707,7 @@ function handleSearch() {
                 action =
                     `openDocumentFromSearch(${result.thingId}, ${result.documentId})`;
 
-            } else if (
-                result.kind === "event"
-            ) {
+            } else {
 
                 action =
                     `openEventFromSearch(${result.thingId}, ${result.eventId})`;
@@ -2617,39 +2720,27 @@ function handleSearch() {
                      onclick="${action}">
 
                     <div class="search-result-icon">
-
                         ${result.icon}
-
                     </div>
 
                     <div class="search-result-info">
 
                         <strong>
-                            ${escapeHtml(
-                                result.title
-                            )}
+                            ${escapeHtml(result.title)}
                         </strong>
 
                         <span>
-                            ${escapeHtml(
-                                result.subtitle
-                            )}
+                            ${escapeHtml(result.subtitle)}
                         </span>
 
                         <span class="search-result-type">
-
-                            ${escapeHtml(
-                                result.resultType
-                            )}
-
+                            ${escapeHtml(result.resultType)}
                         </span>
 
                     </div>
 
                     <div class="search-result-chevron">
-
                         ›
-
                     </div>
 
                 </div>
@@ -2838,9 +2929,12 @@ function renderCategoryCounts() {
 
 }
 
-function showCategory(category) {
+function showCategory(
+    category
+) {
 
-    currentCategory = category;
+    currentCategory =
+        category;
 
     const categoryTitle =
         document.getElementById(
@@ -2908,9 +3002,7 @@ function renderCategoryThings(
         container.innerHTML = `
 
             <div class="card empty">
-
                 No things yet.
-
             </div>
 
         `;
@@ -3787,9 +3879,7 @@ function renderDocuments(
         container.innerHTML = `
 
             <div class="card empty">
-
                 No documents yet.
-
             </div>
 
         `;
@@ -3814,12 +3904,6 @@ function renderDocuments(
 
             }
         );
-
-    /*
-       Render immediately.
-       Attachment indicators are added
-       asynchronously afterwards.
-    */
 
     container.innerHTML =
         sortedDocuments.map(
@@ -3866,23 +3950,18 @@ function renderDocuments(
                     <div class="card document-card">
 
                         <div class="document-icon">
-
                             ${icon}
-
                         </div>
 
                         <div class="document-info">
 
                             <strong>
-
                                 ${escapeHtml(
                                     documentItem.name
                                 )}
-
                             </strong>
 
                             <span>
-
                                 ${escapeHtml(
                                     documentItem.type
                                 )}
@@ -3890,7 +3969,6 @@ function renderDocuments(
                                 ${formatDate(
                                     documentItem.date
                                 )}
-
                             </span>
 
                             ${
@@ -3899,7 +3977,6 @@ function renderDocuments(
                                 ? `
 
                                     <span>
-
                                         ${escapeHtml(
                                             dateType
                                         )}
@@ -3907,7 +3984,6 @@ function renderDocuments(
                                         ${formatDate(
                                             importantDate
                                         )}
-
                                     </span>
 
                                 `
@@ -3921,12 +3997,10 @@ function renderDocuments(
                                 ? `
 
                                     <span>
-
                                         Repeat:
                                         ${escapeHtml(
                                             repeat
                                         )}
-
                                     </span>
 
                                 `
@@ -3938,11 +4012,9 @@ function renderDocuments(
                                 ? `
 
                                     <span>
-
                                         ${formatMoney(
                                             documentItem.amount
                                         )}
-
                                     </span>
 
                                 `
@@ -3962,9 +4034,7 @@ function renderDocuments(
                             <button
                                 class="secondary small"
                                 onclick="editDocument(${documentItem.id})">
-
                                 Edit
-
                             </button>
 
                         </div>
@@ -3974,12 +4044,7 @@ function renderDocuments(
                 `;
 
             }
-
         ).join("");
-
-    /*
-       Check which documents have files.
-    */
 
     sortedDocuments.forEach(
         async documentItem => {
@@ -4430,9 +4495,7 @@ function renderTimeline(
         container.innerHTML = `
 
             <div class="card empty">
-
                 No timeline events yet.
-
             </div>
 
         `;
@@ -4534,17 +4597,13 @@ function renderTimeline(
                             <div class="timeline-month-left">
 
                                 <div class="month-icon">
-
                                     🗓️
-
                                 </div>
 
                                 <div>
 
                                     <strong style="font-size:17px;">
-
                                         ${monthName}
-
                                     </strong>
 
                                     <div style="
@@ -4554,7 +4613,6 @@ function renderTimeline(
                                     ">
 
                                         ${events.length}
-
                                         ${
                                             events.length === 1
                                             ? "event"
@@ -4569,9 +4627,7 @@ function renderTimeline(
 
                             <div class="chevron"
                                  id="${sectionId}-arrow">
-
                                 ›
-
                             </div>
 
                         </div>
@@ -4587,8 +4643,7 @@ function renderTimeline(
                                         const icon =
                                             eventIcons[
                                                 event.type
-                                            ] ||
-                                            "📌";
+                                            ] || "📌";
 
                                         const amount =
                                             event.amount
@@ -4603,27 +4658,21 @@ function renderTimeline(
                                                  onclick="openTimelineEvent(${event.id})">
 
                                                 <div class="timeline-event-date">
-
                                                     ${formatDay(
                                                         event.date
                                                     )}
-
                                                 </div>
 
                                                 <div class="event-icon">
-
                                                     ${icon}
-
                                                 </div>
 
                                                 <div class="timeline-event-info">
 
                                                     <strong>
-
                                                         ${escapeHtml(
                                                             event.description
                                                         )}
-
                                                     </strong>
 
                                                 </div>
@@ -4633,9 +4682,7 @@ function renderTimeline(
                                                     ? `
 
                                                         <div class="timeline-event-amount">
-
                                                             ${amount}
-
                                                         </div>
 
                                                     `
@@ -4643,9 +4690,7 @@ function renderTimeline(
                                                 }
 
                                                 <div class="timeline-event-chevron">
-
                                                     ›
-
                                                 </div>
 
                                             </div>
@@ -4692,10 +4737,8 @@ function toggleTimelineMonth(
             "block";
 
         if (arrow) {
-
             arrow.textContent =
                 "⌄";
-
         }
 
     } else {
@@ -4704,10 +4747,8 @@ function toggleTimelineMonth(
             "none";
 
         if (arrow) {
-
             arrow.textContent =
                 "›";
-
         }
 
     }
@@ -5128,9 +5169,7 @@ function renderComingUp() {
                     thing.documents
                 )
             ) {
-
                 return;
-
             }
 
             thing.documents.forEach(
@@ -5167,9 +5206,7 @@ function renderComingUp() {
                         dateType === "None" ||
                         !importantDate
                     ) {
-
                         return;
-
                     }
 
                     const important =
@@ -5212,18 +5249,14 @@ function renderComingUp() {
                         notificationDate >
                         limitDate
                     ) {
-
                         return;
-
                     }
 
                     if (
                         documentItem.notificationAcknowledged &&
                         repeat === "Never"
                     ) {
-
                         return;
-
                     }
 
                     if (
@@ -5271,9 +5304,7 @@ function renderComingUp() {
         container.innerHTML = `
 
             <div class="card empty">
-
                 Nothing coming up.
-
             </div>
 
         `;
@@ -5388,9 +5419,7 @@ function renderComingUp() {
                         ">
 
                             <div class="document-icon">
-
                                 ${icon}
-
                             </div>
 
                             <div style="flex:1;">
@@ -5433,9 +5462,7 @@ function renderComingUp() {
                                 </div>
 
                                 <div class="coming-up-status">
-
                                     ${status}
-
                                 </div>
 
                             </div>
@@ -5447,9 +5474,7 @@ function renderComingUp() {
                             <button
                                 class="secondary small coming-up-acknowledge"
                                 onclick="acknowledgeNotification(${item.document.id}, event)">
-
                                 Acknowledge
-
                             </button>
 
                         </div>
@@ -5473,9 +5498,7 @@ function acknowledgeNotification(
 ) {
 
     if (clickEvent) {
-
         clickEvent.stopPropagation();
-
     }
 
     let found = false;
@@ -5488,9 +5511,7 @@ function acknowledgeNotification(
                     thing.documents
                 )
             ) {
-
                 return;
-
             }
 
             const documentItem =
@@ -5501,9 +5522,7 @@ function acknowledgeNotification(
                 );
 
             if (!documentItem) {
-
                 return;
-
             }
 
             documentItem.notificationAcknowledged =
@@ -5697,22 +5716,16 @@ function formatDate(
 ) {
 
     if (!dateString) {
-
         return "—";
-
     }
 
     const parts =
-        dateString.split(
-            "-"
-        );
+        dateString.split("-");
 
     if (
         parts.length !== 3
     ) {
-
         return dateString;
-
     }
 
     return `${parts[2]}/${parts[1]}/${parts[0]}`;
@@ -5724,28 +5737,20 @@ function formatDay(
 ) {
 
     if (!dateString) {
-
         return "—";
-
     }
 
     const parts =
-        dateString.split(
-            "-"
-        );
+        dateString.split("-");
 
     if (
         parts.length !== 3
     ) {
-
         return dateString;
-
     }
 
     return String(
-        Number(
-            parts[2]
-        )
+        Number(parts[2])
     );
 
 }
@@ -5759,24 +5764,16 @@ function formatMoney(
         value === null ||
         value === undefined
     ) {
-
         return "—";
-
     }
 
     const number =
-        Number(
-            value
-        );
+        Number(value);
 
     if (
-        Number.isNaN(
-            number
-        )
+        Number.isNaN(number)
     ) {
-
         return "—";
-
     }
 
     return new Intl.NumberFormat(
@@ -5787,9 +5784,7 @@ function formatMoney(
             currency:
                 "EUR"
         }
-    ).format(
-        number
-    );
+    ).format(number);
 
 }
 
@@ -5801,14 +5796,10 @@ function escapeHtml(
         value === null ||
         value === undefined
     ) {
-
         return "";
-
     }
 
-    return String(
-        value
-    )
+    return String(value)
 
         .replace(
             /&/g,
@@ -5995,5 +5986,4 @@ initAttachmentDB()
 </script>
 
 </body>
-
 </html>
