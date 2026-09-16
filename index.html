@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-
       content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>Coisable</title>
@@ -15,665 +14,417 @@
 <style>
 
 * {
-
     box-sizing: border-box;
-
 }
 
 body {
-
     margin: 0;
-
     background: #f5f5f5;
-
     color: #111;
-
     font-family:
-
         -apple-system,
-
         BlinkMacSystemFont,
-
         "Segoe UI",
-
         sans-serif;
-
 }
 
 .container {
-
     max-width: 700px;
-
     margin: 0 auto;
-
     padding: 20px;
-
 }
 
 h1 {
-
     font-size: 28px;
-
     margin: 0;
-
 }
 
 h2 {
-
     font-size: 22px;
-
     margin: 0 0 18px 0;
-
 }
 
 h3 {
-
     margin: 0;
-
     font-size: 18px;
-
 }
 
 p {
-
     color: #666;
-
 }
 
 button {
-
     width: 100%;
-
     padding: 14px;
-
     border: none;
-
     border-radius: 12px;
-
     background: #111;
-
     color: white;
-
     font-size: 16px;
-
     font-weight: 600;
-
     cursor: pointer;
-
 }
 
 button.secondary {
-
     background: #e5e5e5;
-
     color: #111;
-
 }
 
 button.danger {
-
     background: #d92d20;
-
 }
 
 button.small {
-
     width: auto;
-
     padding: 9px 13px;
-
     font-size: 14px;
-
 }
 
 input,
-
 select {
-
     width: 100%;
-
     padding: 13px;
-
     margin-top: 7px;
-
     margin-bottom: 16px;
-
     border: 1px solid #ddd;
-
     border-radius: 10px;
-
     background: white;
-
     font-size: 16px;
-
 }
 
 label {
-
     font-size: 14px;
-
     font-weight: 600;
-
 }
 
 .card {
-
     background: white;
-
     border-radius: 16px;
-
     padding: 16px;
-
     margin-bottom: 12px;
-
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-
 }
 
 .thing-card {
-
     display: flex;
-
     align-items: center;
-
     gap: 14px;
-
     cursor: pointer;
-
 }
 
 .icon {
-
     width: 48px;
-
     height: 48px;
-
     border-radius: 14px;
-
     background: #f1f1f1;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 25px;
-
     flex-shrink: 0;
-
 }
 
 .thing-info {
-
     flex: 1;
-
 }
 
 .thing-info strong {
-
     display: block;
-
     font-size: 17px;
-
 }
 
 .thing-info span {
-
     display: block;
-
     margin-top: 3px;
-
     color: #777;
-
     font-size: 14px;
-
 }
 
 .view {
-
     display: none;
-
 }
 
 .view.active {
-
     display: block;
-
 }
 
 .topbar {
-
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
     margin-bottom: 22px;
-
 }
 
 .back {
-
     width: auto;
-
     padding: 9px 12px;
-
     background: #e5e5e5;
-
     color: #111;
-
     font-size: 14px;
-
 }
 
 .section {
-
     margin-top: 28px;
-
 }
 
 .section-header {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     margin-bottom: 12px;
-
 }
 
 /* -----------------------------
-
    HOME CATEGORY GRID
-
 ----------------------------- */
 
 .category-grid {
-
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 12px;
-
 }
 
 .category-card {
-
     background: white;
-
     border-radius: 16px;
-
     padding: 18px;
-
     min-height: 145px;
-
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-
     cursor: pointer;
-
     display: flex;
-
     flex-direction: column;
-
     justify-content: space-between;
-
 }
 
 .category-card:active {
-
     transform: scale(0.98);
-
 }
 
 .category-icon {
-
     width: 50px;
-
     height: 50px;
-
     border-radius: 14px;
-
     background: #f1f1f1;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 26px;
-
 }
 
 .category-name {
-
     font-size: 17px;
-
     font-weight: 600;
-
     margin-top: 14px;
-
 }
 
 .category-count {
-
     color: #777;
-
     font-size: 13px;
-
     margin-top: 4px;
-
 }
 
 /* -----------------------------
-
    DOCUMENTS / EVENTS
-
 ----------------------------- */
 
 .document-card,
-
 .event-card {
-
     display: flex;
-
     gap: 12px;
-
     align-items: flex-start;
-
 }
 
 .document-icon,
-
 .event-icon {
-
     width: 42px;
-
     height: 42px;
-
     border-radius: 12px;
-
     background: #f1f1f1;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 21px;
-
     flex-shrink: 0;
-
 }
 
 .document-info,
-
 .event-info {
-
     flex: 1;
-
 }
 
 .document-info strong,
-
 .event-info strong {
-
     display: block;
-
     font-size: 16px;
-
 }
 
 .document-info span,
-
 .event-info span {
-
     display: block;
-
     color: #777;
-
     font-size: 13px;
-
     margin-top: 4px;
-
 }
 
 .document-actions,
-
 .event-actions {
-
     display: flex;
-
     gap: 6px;
-
 }
 
 .document-actions button,
-
 .event-actions button {
-
     width: auto;
-
 }
 
 .empty {
-
     text-align: center;
-
     padding: 25px 10px;
-
     color: #777;
-
 }
 
 .expiring {
-
     border-left: 4px solid #f59e0b;
-
 }
 
 .expired {
-
     border-left: 4px solid #d92d20;
-
 }
 
 .expiring-title {
-
     font-weight: 600;
-
 }
 
 .expiring-status {
-
     font-size: 13px;
-
     margin-top: 4px;
-
 }
 
 /* -----------------------------
-
    TIMELINE
-
 ----------------------------- */
 
 .timeline-month {
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     cursor: pointer;
-
 }
 
 .timeline-month-left {
-
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
 }
 
 .month-icon {
-
     width: 44px;
-
     height: 44px;
-
     border-radius: 12px;
-
     background: #f1f1f1;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 21px;
-
 }
 
 .chevron {
-
     font-size: 22px;
-
     color: #888;
-
 }
 
 .timeline-events {
-
     margin-top: 10px;
-
 }
 
 .timeline-event {
-
     display: flex;
-
     align-items: center;
-
-    gap: 12px;
-
+    gap: 10px;
     padding: 12px 0;
-
     border-bottom: 1px solid #eee;
-
+    cursor: pointer;
 }
 
 .timeline-event:last-child {
-
     border-bottom: none;
+}
 
+.timeline-event-date {
+    width: 24px;
+    flex-shrink: 0;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 600;
+    color: #777;
+}
+
+.timeline-event .event-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-size: 19px;
 }
 
 .timeline-event-info {
-
     flex: 1;
-
+    min-width: 0;
 }
 
 .timeline-event-info strong {
-
     display: block;
-
     font-size: 15px;
-
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.timeline-event-info span {
-
-    display: block;
-
-    color: #777;
-
-    font-size: 13px;
-
-    margin-top: 3px;
-
+.timeline-event-chevron {
+    font-size: 22px;
+    color: #888;
+    flex-shrink: 0;
 }
 
 .checkbox-row {
-
     display: flex;
-
     align-items: center;
-
     gap: 10px;
-
     margin: 4px 0 18px 0;
-
 }
 
 .checkbox-row input {
-
     width: 20px;
-
     height: 20px;
-
     margin: 0;
-
 }
 
 .checkbox-row label {
-
     font-weight: 500;
-
     font-size: 15px;
-
 }
 
 .info-box {
-
     background: #f1f1f1;
-
     border-radius: 12px;
-
     padding: 12px;
-
     margin-bottom: 18px;
-
     font-size: 14px;
-
     color: #555;
-
 }
 
 .detail-value {
-
     margin-bottom: 15px;
-
 }
 
 .detail-label {
-
     font-size: 13px;
-
     color: #777;
-
 }
 
 .detail-value strong {
-
     display: block;
-
     margin-top: 3px;
-
     font-size: 16px;
-
 }
 
 </style>
@@ -693,9 +444,7 @@ label {
             <h1>Coisable</h1>
 
             <p style="margin-top: 5px;">
-
                 Your things. One place.
-
             </p>
 
         </div>
@@ -703,28 +452,25 @@ label {
         <div class="category-grid">
 
             <div class="category-card"
-
                  onclick="showCategory('Real Estate')">
 
                 <div class="category-icon">
-
                     🏠
-
                 </div>
 
                 <div>
 
                     <div class="category-name">
-
                         Real Estate
-
                     </div>
 
                     <div class="category-count">
 
                         <span id="realEstateCount">0</span>
 
-                        <span id="realEstateLabel">things</span>
+                        <span id="realEstateLabel">
+                            things
+                        </span>
 
                     </div>
 
@@ -733,28 +479,25 @@ label {
             </div>
 
             <div class="category-card"
-
                  onclick="showCategory('Vehicles')">
 
                 <div class="category-icon">
-
                     🚗
-
                 </div>
 
                 <div>
 
                     <div class="category-name">
-
                         Vehicles
-
                     </div>
 
                     <div class="category-count">
 
                         <span id="vehiclesCount">0</span>
 
-                        <span id="vehiclesLabel">things</span>
+                        <span id="vehiclesLabel">
+                            things
+                        </span>
 
                     </div>
 
@@ -763,28 +506,25 @@ label {
             </div>
 
             <div class="category-card"
-
                  onclick="showCategory('Electronics')">
 
                 <div class="category-icon">
-
                     📱
-
                 </div>
 
                 <div>
 
                     <div class="category-name">
-
                         Electronics
-
                     </div>
 
                     <div class="category-count">
 
                         <span id="electronicsCount">0</span>
 
-                        <span id="electronicsLabel">things</span>
+                        <span id="electronicsLabel">
+                            things
+                        </span>
 
                     </div>
 
@@ -793,28 +533,25 @@ label {
             </div>
 
             <div class="category-card"
-
                  onclick="showCategory('Other')">
 
                 <div class="category-icon">
-
                     📦
-
                 </div>
 
                 <div>
 
                     <div class="category-name">
-
                         Other
-
                     </div>
 
                     <div class="category-count">
 
                         <span id="otherCount">0</span>
 
-                        <span id="otherLabel">things</span>
+                        <span id="otherLabel">
+                            things
+                        </span>
 
                     </div>
 
@@ -845,7 +582,6 @@ label {
         <div class="topbar">
 
             <button class="back small"
-
                     onclick="showHome()">
 
                 ← Back
@@ -859,7 +595,6 @@ label {
         <div style="margin-bottom: 18px;">
 
             <button id="categoryAddButton"
-
                     onclick="showAddForm()">
 
                 + Add
@@ -879,7 +614,6 @@ label {
         <div class="topbar">
 
             <button class="back small"
-
                     onclick="showCategory(currentCategory)">
 
                 ← Back
@@ -887,9 +621,7 @@ label {
             </button>
 
             <h2 id="addThingTitle">
-
                 Add Thing
-
             </h2>
 
         </div>
@@ -897,7 +629,6 @@ label {
         <label>Name</label>
 
         <input id="thingName"
-
                placeholder="e.g. Mazda MX-5">
 
         <label>Category</label>
@@ -905,27 +636,19 @@ label {
         <select id="thingCategory">
 
             <option value="Real Estate">
-
                 Real Estate
-
             </option>
 
             <option value="Vehicles">
-
                 Vehicles
-
             </option>
 
             <option value="Electronics">
-
                 Electronics
-
             </option>
 
             <option value="Other">
-
                 Other
-
             </option>
 
         </select>
@@ -933,33 +656,24 @@ label {
         <label>Purchase Date</label>
 
         <input id="thingPurchaseDate"
-
                type="date">
 
         <label>Purchase Price</label>
 
         <input id="thingPurchasePrice"
-
                type="number"
-
                step="0.01"
-
                placeholder="€">
 
         <label>Current Value</label>
 
         <input id="thingCurrentValue"
-
                type="number"
-
                step="0.01"
-
                placeholder="€">
 
         <button onclick="addThing()">
-
             Save Thing
-
         </button>
 
     </div>
@@ -971,7 +685,6 @@ label {
         <div class="topbar">
 
             <button class="back small"
-
                     onclick="showCategory(currentThingCategory)">
 
                 ← Back
@@ -991,7 +704,6 @@ label {
                 <h2>Documents</h2>
 
                 <button class="small"
-
                         onclick="showAddDocument()">
 
                     + Add
@@ -1011,7 +723,6 @@ label {
                 <h2>Timeline</h2>
 
                 <button class="small"
-
                         onclick="showAddEvent()">
 
                     + Add
@@ -1027,7 +738,6 @@ label {
         <div class="section">
 
             <button class="secondary"
-
                     onclick="editThing()">
 
                 Edit Thing
@@ -1037,7 +747,6 @@ label {
             <br><br>
 
             <button class="danger"
-
                     onclick="deleteThing()">
 
                 Delete Thing
@@ -1055,7 +764,6 @@ label {
         <div class="topbar">
 
             <button class="back small"
-
                     onclick="showThing(currentThingId)">
 
                 ← Back
@@ -1075,27 +783,19 @@ label {
         <select id="editThingCategory">
 
             <option value="Real Estate">
-
                 Real Estate
-
             </option>
 
             <option value="Vehicles">
-
                 Vehicles
-
             </option>
 
             <option value="Electronics">
-
                 Electronics
-
             </option>
 
             <option value="Other">
-
                 Other
-
             </option>
 
         </select>
@@ -1103,29 +803,22 @@ label {
         <label>Purchase Date</label>
 
         <input id="editThingPurchaseDate"
-
                type="date">
 
         <label>Purchase Price</label>
 
         <input id="editThingPurchasePrice"
-
                type="number"
-
                step="0.01">
 
         <label>Current Value</label>
 
         <input id="editThingCurrentValue"
-
                type="number"
-
                step="0.01">
 
         <button onclick="saveEdit()">
-
             Save Changes
-
         </button>
 
     </div>
@@ -1137,7 +830,6 @@ label {
         <div class="topbar">
 
             <button class="back small"
-
                     onclick="showThing(currentThingId)">
 
                 ← Back
@@ -1151,7 +843,6 @@ label {
         <label>Name</label>
 
         <input id="documentName"
-
                placeholder="e.g. Car Insurance 2026">
 
         <label>Type</label>
@@ -1159,19 +850,12 @@ label {
         <select id="documentType">
 
             <option value="Invoice">Invoice</option>
-
             <option value="Contract">Contract</option>
-
             <option value="Insurance">Insurance</option>
-
             <option value="Warranty">Warranty</option>
-
             <option value="Tax">Tax</option>
-
             <option value="Certificate">Certificate</option>
-
             <option value="Repair">Repair</option>
-
             <option value="Other">Other</option>
 
         </select>
@@ -1179,37 +863,28 @@ label {
         <label>Date</label>
 
         <input id="documentDate"
-
                type="date">
 
         <label>Expiry Date</label>
 
         <input id="documentExpiryDate"
-
                type="date">
 
         <label>Amount</label>
 
         <input id="documentAmount"
-
                type="number"
-
                step="0.01"
-
                placeholder="€">
 
         <div class="checkbox-row">
 
             <input type="checkbox"
-
                    id="addToTimeline"
-
                    checked>
 
             <label for="addToTimeline">
-
                 Add to Timeline
-
             </label>
 
         </div>
@@ -1217,17 +892,13 @@ label {
         <div class="info-box">
 
             If enabled, this document will also create
-
             an event in the Thing's Timeline using the
-
             document date and amount.
 
         </div>
 
         <button onclick="addDocument()">
-
             Save Document
-
         </button>
 
     </div>
@@ -1239,7 +910,6 @@ label {
         <div class="topbar">
 
             <button class="back small"
-
                     onclick="showThing(currentThingId)">
 
                 ← Back
@@ -1259,19 +929,12 @@ label {
         <select id="editDocumentType">
 
             <option value="Invoice">Invoice</option>
-
             <option value="Contract">Contract</option>
-
             <option value="Insurance">Insurance</option>
-
             <option value="Warranty">Warranty</option>
-
             <option value="Tax">Tax</option>
-
             <option value="Certificate">Certificate</option>
-
             <option value="Repair">Repair</option>
-
             <option value="Other">Other</option>
 
         </select>
@@ -1279,39 +942,30 @@ label {
         <label>Date</label>
 
         <input id="editDocumentDate"
-
                type="date">
 
         <label>Expiry Date</label>
 
         <input id="editDocumentExpiryDate"
-
                type="date">
 
         <label>Amount</label>
 
         <input id="editDocumentAmount"
-
                type="number"
-
                step="0.01">
 
         <div class="info-box"
-
              id="documentTimelineInfo">
-
         </div>
 
         <button onclick="saveDocumentEdit()">
-
             Save Changes
-
         </button>
 
         <br><br>
 
         <button class="danger"
-
                 onclick="deleteDocument()">
 
             Delete Document
@@ -1327,7 +981,6 @@ label {
         <div class="topbar">
 
             <button class="back small"
-
                     onclick="showThing(currentThingId)">
 
                 ← Back
@@ -1343,17 +996,11 @@ label {
         <select id="eventType">
 
             <option value="Purchase">Purchase</option>
-
             <option value="Repair">Repair</option>
-
             <option value="Maintenance">Maintenance</option>
-
             <option value="Expense">Expense</option>
-
             <option value="Inspection">Inspection</option>
-
             <option value="Insurance">Insurance</option>
-
             <option value="Other">Other</option>
 
         </select>
@@ -1361,29 +1008,22 @@ label {
         <label>Description</label>
 
         <input id="eventDescription"
-
                placeholder="e.g. Annual inspection">
 
         <label>Date</label>
 
         <input id="eventDate"
-
                type="date">
 
         <label>Amount</label>
 
         <input id="eventAmount"
-
                type="number"
-
                step="0.01"
-
                placeholder="€">
 
         <button onclick="addEvent()">
-
             Save Event
-
         </button>
 
     </div>
@@ -1395,7 +1035,6 @@ label {
         <div class="topbar">
 
             <button class="back small"
-
                     onclick="showThing(currentThingId)">
 
                 ← Back
@@ -1411,17 +1050,11 @@ label {
         <select id="editEventType">
 
             <option value="Purchase">Purchase</option>
-
             <option value="Repair">Repair</option>
-
             <option value="Maintenance">Maintenance</option>
-
             <option value="Expense">Expense</option>
-
             <option value="Inspection">Inspection</option>
-
             <option value="Insurance">Insurance</option>
-
             <option value="Other">Other</option>
 
         </select>
@@ -1433,27 +1066,21 @@ label {
         <label>Date</label>
 
         <input id="editEventDate"
-
                type="date">
 
         <label>Amount</label>
 
         <input id="editEventAmount"
-
                type="number"
-
                step="0.01">
 
         <button onclick="saveEventEdit()">
-
             Save Changes
-
         </button>
 
         <br><br>
 
         <button class="danger"
-
                 onclick="deleteEvent()">
 
             Delete Event
@@ -1469,11 +1096,8 @@ label {
 const categoryIcons = {
 
     "Real Estate": "🏠",
-
     "Vehicles": "🚗",
-
     "Electronics": "📱",
-
     "Other": "📦"
 
 };
@@ -1481,19 +1105,12 @@ const categoryIcons = {
 const documentIcons = {
 
     Invoice: "🧾",
-
     Contract: "📜",
-
     Insurance: "🛡️",
-
     Warranty: "🔒",
-
     Tax: "💶",
-
     Certificate: "📜",
-
     Repair: "🔧",
-
     Other: "📄"
 
 };
@@ -1501,57 +1118,39 @@ const documentIcons = {
 const eventIcons = {
 
     Purchase: "🛒",
-
     Repair: "🔧",
-
     Maintenance: "🛠️",
-
     Expense: "💶",
-
     Inspection: "🔍",
-
     Insurance: "🛡️",
-
     Other: "📌"
 
 };
 
 let things =
-
     JSON.parse(localStorage.getItem("coisableThings")) || [];
 
 let currentThingId = null;
-
 let currentThingCategory = null;
-
 let currentCategory = null;
-
 let currentDocumentId = null;
-
 let currentEventId = null;
 
 /* -----------------------------
-
    STORAGE
-
 ----------------------------- */
 
 function saveThings() {
 
     localStorage.setItem(
-
         "coisableThings",
-
         JSON.stringify(things)
-
     );
 
 }
 
 /* -----------------------------
-
    VIEW MANAGEMENT
-
 ----------------------------- */
 
 function showView(id) {
@@ -1569,7 +1168,6 @@ function showView(id) {
 function showHome() {
 
     renderCategoryCounts();
-
     renderExpiringSoon();
 
     showView("homeView");
@@ -1577,9 +1175,7 @@ function showHome() {
 }
 
 /* -----------------------------
-
    HOME / CATEGORIES
-
 ----------------------------- */
 
 function renderCategoryCounts() {
@@ -1587,11 +1183,8 @@ function renderCategoryCounts() {
     const categories = {
 
         "Real Estate": "realEstate",
-
         "Vehicles": "vehicles",
-
         "Electronics": "electronics",
-
         "Other": "other"
 
     };
@@ -1599,33 +1192,22 @@ function renderCategoryCounts() {
     Object.keys(categories).forEach(category => {
 
         const prefix =
-
             categories[category];
 
         const count =
-
             things.filter(
-
                 thing =>
-
                     thing.category === category
-
             ).length;
 
         const countElement =
-
             document.getElementById(
-
                 prefix + "Count"
-
             );
 
         const labelElement =
-
             document.getElementById(
-
                 prefix + "Label"
-
             );
 
         if (countElement) {
@@ -1637,11 +1219,8 @@ function renderCategoryCounts() {
         if (labelElement) {
 
             labelElement.textContent =
-
                 count === 1
-
                     ? "thing"
-
                     : "things";
 
         }
@@ -1655,33 +1234,27 @@ function showCategory(category) {
     currentCategory = category;
 
     const categoryTitle =
-
         document.getElementById("categoryTitle");
 
     const addButton =
-
         document.getElementById("categoryAddButton");
 
     categoryTitle.textContent =
-
         category;
 
     if (category === "Real Estate") {
 
         addButton.textContent =
-
             "+ Add Property";
 
     } else if (category === "Vehicles") {
 
         addButton.textContent =
-
             "+ Add Vehicle";
 
     } else {
 
         addButton.textContent =
-
             "+ Add";
 
     }
@@ -1695,21 +1268,14 @@ function showCategory(category) {
 function renderCategoryThings(category) {
 
     const container =
-
         document.getElementById(
-
             "categoryThingsList"
-
         );
 
     const categoryThings =
-
         things.filter(
-
             thing =>
-
                 thing.category === category
-
         );
 
     if (categoryThings.length === 0) {
@@ -1729,39 +1295,29 @@ function renderCategoryThings(category) {
     }
 
     container.innerHTML =
-
         categoryThings.map(thing => {
 
             const icon =
-
                 categoryIcons[thing.category] ||
-
                 "📦";
 
             return `
 
                 <div class="card thing-card"
-
                      onclick="openThing(${thing.id})">
 
                     <div class="icon">
-
                         ${icon}
-
                     </div>
 
                     <div class="thing-info">
 
                         <strong>
-
                             ${escapeHtml(thing.name)}
-
                         </strong>
 
                         <span>
-
                             ${escapeHtml(thing.category)}
-
                         </span>
 
                     </div>
@@ -1775,83 +1331,51 @@ function renderCategoryThings(category) {
 }
 
 /* -----------------------------
-
    ADD THING
-
 ----------------------------- */
 
 function showAddForm(category = currentCategory) {
 
     currentCategory =
-
         category || "Other";
 
     document.getElementById(
-
         "thingName"
-
     ).value = "";
 
     document.getElementById(
-
         "thingCategory"
-
     ).value = currentCategory;
 
     document.getElementById(
-
         "thingPurchaseDate"
-
     ).value = "";
 
     document.getElementById(
-
         "thingPurchasePrice"
-
     ).value = "";
 
     document.getElementById(
-
         "thingCurrentValue"
-
     ).value = "";
 
     const title =
-
         document.getElementById(
-
             "addThingTitle"
-
         );
 
     const categorySelect =
-
         document.getElementById(
-
             "thingCategory"
-
         );
 
     title.textContent =
-
         getAddTitle(currentCategory);
 
-    /*
-
-       The category is already known from the
-
-       category screen, so the user doesn't
-
-       need to change it here.
-
-    */
-
     categorySelect.style.display =
-
         "none";
 
     categorySelect.previousElementSibling.style.display =
-
         "none";
 
     showView("addView");
@@ -1885,11 +1409,8 @@ function getAddTitle(category) {
 function addThing() {
 
     const name =
-
         document.getElementById(
-
             "thingName"
-
         ).value.trim();
 
     if (!name) {
@@ -1907,31 +1428,21 @@ function addThing() {
         name: name,
 
         category:
-
             currentCategory || "Other",
 
         purchaseDate:
-
             document.getElementById(
-
                 "thingPurchaseDate"
-
             ).value,
 
         purchasePrice:
-
             document.getElementById(
-
                 "thingPurchasePrice"
-
             ).value,
 
         currentValue:
-
             document.getElementById(
-
                 "thingCurrentValue"
-
             ).value,
 
         documents: [],
@@ -1949,9 +1460,7 @@ function addThing() {
 }
 
 /* -----------------------------
-
    THINGS
-
 ----------------------------- */
 
 function openThing(id) {
@@ -1967,13 +1476,9 @@ function showThing(id) {
     currentThingId = id;
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === id
-
         );
 
     if (!thing) {
@@ -1985,7 +1490,6 @@ function showThing(id) {
     }
 
     currentThingCategory =
-
         thing.category;
 
     if (!Array.isArray(thing.documents)) {
@@ -2001,59 +1505,40 @@ function showThing(id) {
     }
 
     document.getElementById(
-
         "detailTitle"
-
     ).textContent =
-
         thing.name;
 
     const icon =
-
         categoryIcons[
-
             thing.category
-
         ] || "📦";
 
     document.getElementById(
-
         "thingDetails"
-
     ).innerHTML = `
 
         <div class="card">
 
             <div style="
-
                 display:flex;
-
                 gap:14px;
-
                 align-items:center;
-
             ">
 
                 <div class="icon">
-
                     ${icon}
-
                 </div>
 
                 <div>
 
                     <strong style="font-size:18px;">
-
                         ${escapeHtml(thing.name)}
-
                     </strong>
 
                     <div style="
-
                         color:#777;
-
                         margin-top:4px;
-
                     ">
 
                         ${escapeHtml(thing.category)}
@@ -2069,19 +1554,13 @@ function showThing(id) {
                 <div class="detail-value">
 
                     <div class="detail-label">
-
                         Purchase Date
-
                     </div>
 
                     <strong>
-
                         ${formatDate(
-
                             thing.purchaseDate
-
                         )}
-
                     </strong>
 
                 </div>
@@ -2089,19 +1568,13 @@ function showThing(id) {
                 <div class="detail-value">
 
                     <div class="detail-label">
-
                         Purchase Price
-
                     </div>
 
                     <strong>
-
                         ${formatMoney(
-
                             thing.purchasePrice
-
                         )}
-
                     </strong>
 
                 </div>
@@ -2109,19 +1582,13 @@ function showThing(id) {
                 <div class="detail-value">
 
                     <div class="detail-label">
-
                         Current Value
-
                     </div>
 
                     <strong>
-
                         ${formatMoney(
-
                             thing.currentValue
-
                         )}
-
                     </strong>
 
                 </div>
@@ -2133,7 +1600,6 @@ function showThing(id) {
     `;
 
     renderDocuments(thing);
-
     renderTimeline(thing);
 
     showView("detailView");
@@ -2141,63 +1607,42 @@ function showThing(id) {
 }
 
 /* -----------------------------
-
    EDIT THING
-
 ----------------------------- */
 
 function editThing() {
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === currentThingId
-
         );
 
     if (!thing) return;
 
     document.getElementById(
-
         "editThingName"
-
     ).value =
-
         thing.name || "";
 
     document.getElementById(
-
         "editThingCategory"
-
     ).value =
-
         thing.category || "Other";
 
     document.getElementById(
-
         "editThingPurchaseDate"
-
     ).value =
-
         thing.purchaseDate || "";
 
     document.getElementById(
-
         "editThingPurchasePrice"
-
     ).value =
-
         thing.purchasePrice || "";
 
     document.getElementById(
-
         "editThingCurrentValue"
-
     ).value =
-
         thing.currentValue || "";
 
     showView("editView");
@@ -2207,23 +1652,16 @@ function editThing() {
 function saveEdit() {
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === currentThingId
-
         );
 
     if (!thing) return;
 
     const name =
-
         document.getElementById(
-
             "editThingName"
-
         ).value.trim();
 
     if (!name) {
@@ -2237,39 +1675,26 @@ function saveEdit() {
     thing.name = name;
 
     thing.category =
-
         document.getElementById(
-
             "editThingCategory"
-
         ).value;
 
     thing.purchaseDate =
-
         document.getElementById(
-
             "editThingPurchaseDate"
-
         ).value;
 
     thing.purchasePrice =
-
         document.getElementById(
-
             "editThingPurchasePrice"
-
         ).value;
 
     thing.currentValue =
-
         document.getElementById(
-
             "editThingCurrentValue"
-
         ).value;
 
     currentThingCategory =
-
         thing.category;
 
     saveThings();
@@ -2281,41 +1706,29 @@ function saveEdit() {
 function deleteThing() {
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === currentThingId
-
         );
 
     if (!thing) return;
 
     const confirmed =
-
         confirm(
-
             `Delete "${thing.name}" and all its documents and timeline events?`
-
         );
 
     if (!confirmed) return;
 
     things =
-
         things.filter(
-
             item =>
-
                 item.id !== currentThingId
-
         );
 
     saveThings();
 
     currentThingId = null;
-
     currentThingCategory = null;
 
     showHome();
@@ -2323,47 +1736,33 @@ function deleteThing() {
 }
 
 /* -----------------------------
-
    DOCUMENTS
-
 ----------------------------- */
 
 function showAddDocument() {
 
     document.getElementById(
-
         "documentName"
-
     ).value = "";
 
     document.getElementById(
-
         "documentType"
-
     ).value = "Invoice";
 
     document.getElementById(
-
         "documentDate"
-
     ).value = "";
 
     document.getElementById(
-
         "documentExpiryDate"
-
     ).value = "";
 
     document.getElementById(
-
         "documentAmount"
-
     ).value = "";
 
     document.getElementById(
-
         "addToTimeline"
-
     ).checked = true;
 
     showView("addDocumentView");
@@ -2373,13 +1772,9 @@ function showAddDocument() {
 function addDocument() {
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === currentThingId
-
         );
 
     if (!thing) return;
@@ -2397,11 +1792,8 @@ function addDocument() {
     }
 
     const name =
-
         document.getElementById(
-
             "documentName"
-
         ).value.trim();
 
     if (!name) {
@@ -2419,35 +1811,23 @@ function addDocument() {
         name: name,
 
         type:
-
             document.getElementById(
-
                 "documentType"
-
             ).value,
 
         date:
-
             document.getElementById(
-
                 "documentDate"
-
             ).value,
 
         expiryDate:
-
             document.getElementById(
-
                 "documentExpiryDate"
-
             ).value,
 
         amount:
-
             document.getElementById(
-
                 "documentAmount"
-
             ).value,
 
         timelineEventId: null
@@ -2455,11 +1835,8 @@ function addDocument() {
     };
 
     const addToTimeline =
-
         document.getElementById(
-
             "addToTimeline"
-
         ).checked;
 
     if (addToTimeline) {
@@ -2469,31 +1846,22 @@ function addDocument() {
             id: Date.now() + 1,
 
             type:
-
                 mapDocumentToEvent(
-
                     documentItem.type
-
                 ),
 
             description:
-
                 documentItem.name,
 
             date:
-
                 documentItem.date ||
-
                 today(),
 
             amount:
-
                 documentItem.amount ||
-
                 "",
 
             documentId:
-
                 documentItem.id
 
         };
@@ -2501,15 +1869,12 @@ function addDocument() {
         thing.events.push(event);
 
         documentItem.timelineEventId =
-
             event.id;
 
     }
 
     thing.documents.push(
-
         documentItem
-
     );
 
     saveThings();
@@ -2521,19 +1886,13 @@ function addDocument() {
 function renderDocuments(thing) {
 
     const container =
-
         document.getElementById(
-
             "documentsList"
-
         );
 
     if (
-
         !thing.documents ||
-
         thing.documents.length === 0
-
     ) {
 
         container.innerHTML = `
@@ -2551,41 +1910,29 @@ function renderDocuments(thing) {
     }
 
     const sortedDocuments =
-
         [...thing.documents].sort(
-
             (a, b) => {
 
                 const dateA =
-
                     a.date || "";
 
                 const dateB =
-
                     b.date || "";
 
                 return dateB.localeCompare(
-
                     dateA
-
                 );
 
             }
-
         );
 
     container.innerHTML =
-
         sortedDocuments.map(
-
             documentItem => {
 
                 const icon =
-
                     documentIcons[
-
                         documentItem.type
-
                     ] || "📄";
 
                 return `
@@ -2593,85 +1940,54 @@ function renderDocuments(thing) {
                     <div class="card document-card">
 
                         <div class="document-icon">
-
                             ${icon}
-
                         </div>
 
                         <div class="document-info">
 
                             <strong>
-
                                 ${escapeHtml(
-
                                     documentItem.name
-
                                 )}
-
                             </strong>
 
                             <span>
-
                                 ${escapeHtml(
-
                                     documentItem.type
-
                                 )}
-
                                 ·
-
                                 ${formatDate(
-
                                     documentItem.date
-
                                 )}
-
                             </span>
 
                             ${
-
                                 documentItem.expiryDate
-
                                 ? `
 
                                     <span>
-
                                         Expires:
-
                                         ${formatDate(
-
                                             documentItem.expiryDate
-
                                         )}
-
                                     </span>
 
                                 `
-
                                 : ""
-
                             }
 
                             ${
-
                                 documentItem.amount
-
                                 ? `
 
                                     <span>
-
                                         ${formatMoney(
-
                                             documentItem.amount
-
                                         )}
-
                                     </span>
 
                                 `
-
                                 : ""
-
                             }
 
                         </div>
@@ -2679,9 +1995,7 @@ function renderDocuments(thing) {
                         <div class="document-actions">
 
                             <button
-
                                 class="secondary small"
-
                                 onclick="editDocument(${documentItem.id})">
 
                                 Edit
@@ -2705,89 +2019,60 @@ function editDocument(id) {
     currentDocumentId = id;
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === currentThingId
-
         );
 
     if (!thing) return;
 
     const documentItem =
-
         thing.documents.find(
-
             item =>
-
                 item.id === id
-
         );
 
     if (!documentItem) return;
 
     document.getElementById(
-
         "editDocumentName"
-
     ).value =
-
         documentItem.name || "";
 
     document.getElementById(
-
         "editDocumentType"
-
     ).value =
-
         documentItem.type || "Other";
 
     document.getElementById(
-
         "editDocumentDate"
-
     ).value =
-
         documentItem.date || "";
 
     document.getElementById(
-
         "editDocumentExpiryDate"
-
     ).value =
-
         documentItem.expiryDate || "";
 
     document.getElementById(
-
         "editDocumentAmount"
-
     ).value =
-
         documentItem.amount || "";
 
     const timelineInfo =
-
         document.getElementById(
-
             "documentTimelineInfo"
-
         );
 
     if (documentItem.timelineEventId) {
 
         timelineInfo.innerHTML =
-
             "🔗 This document is linked to a Timeline event. " +
-
             "Changes to the document will update that event automatically.";
 
     } else {
 
         timelineInfo.innerHTML =
-
             "This document is not currently linked to a Timeline event.";
 
     }
@@ -2799,35 +2084,24 @@ function editDocument(id) {
 function saveDocumentEdit() {
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === currentThingId
-
         );
 
     if (!thing) return;
 
     const documentItem =
-
         thing.documents.find(
-
             item =>
-
                 item.id === currentDocumentId
-
         );
 
     if (!documentItem) return;
 
     const name =
-
         document.getElementById(
-
             "editDocumentName"
-
         ).value.trim();
 
     if (!name) {
@@ -2841,75 +2115,50 @@ function saveDocumentEdit() {
     documentItem.name = name;
 
     documentItem.type =
-
         document.getElementById(
-
             "editDocumentType"
-
         ).value;
 
     documentItem.date =
-
         document.getElementById(
-
             "editDocumentDate"
-
         ).value;
 
     documentItem.expiryDate =
-
         document.getElementById(
-
             "editDocumentExpiryDate"
-
         ).value;
 
     documentItem.amount =
-
         document.getElementById(
-
             "editDocumentAmount"
-
         ).value;
 
     if (documentItem.timelineEventId) {
 
         const event =
-
             thing.events.find(
-
                 item =>
-
                     item.id ===
-
                     documentItem.timelineEventId
-
             );
 
         if (event) {
 
             event.type =
-
                 mapDocumentToEvent(
-
                     documentItem.type
-
                 );
 
             event.description =
-
                 documentItem.name;
 
             event.date =
-
                 documentItem.date ||
-
                 today();
 
             event.amount =
-
                 documentItem.amount ||
-
                 "";
 
         }
@@ -2925,35 +2174,24 @@ function saveDocumentEdit() {
 function deleteDocument() {
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === currentThingId
-
         );
 
     if (!thing) return;
 
     const documentItem =
-
         thing.documents.find(
-
             item =>
-
                 item.id === currentDocumentId
-
         );
 
     if (!documentItem) return;
 
     const confirmed =
-
         confirm(
-
             `Delete "${documentItem.name}"?`
-
         );
 
     if (!confirmed) return;
@@ -2961,27 +2199,18 @@ function deleteDocument() {
     if (documentItem.timelineEventId) {
 
         thing.events =
-
             thing.events.filter(
-
                 event =>
-
                     event.id !==
-
                     documentItem.timelineEventId
-
             );
 
     }
 
     thing.documents =
-
         thing.documents.filter(
-
             item =>
-
                 item.id !== currentDocumentId
-
         );
 
     saveThings();
@@ -2993,27 +2222,19 @@ function deleteDocument() {
 }
 
 /* -----------------------------
-
    TIMELINE
-
 ----------------------------- */
 
 function renderTimeline(thing) {
 
     const container =
-
         document.getElementById(
-
             "timelineList"
-
         );
 
     if (
-
         !thing.events ||
-
         thing.events.length === 0
-
     ) {
 
         container.innerHTML = `
@@ -3035,13 +2256,10 @@ function renderTimeline(thing) {
     thing.events.forEach(event => {
 
         const date =
-
             event.date ||
-
             today();
 
         const key =
-
             date.substring(0, 7);
 
         if (!grouped[key]) {
@@ -3055,77 +2273,47 @@ function renderTimeline(thing) {
     });
 
     const months =
-
         Object.keys(grouped).sort(
-
             (a, b) =>
-
                 b.localeCompare(a)
-
         );
 
     container.innerHTML =
-
         months.map(
-
             monthKey => {
 
                 const events =
-
                     grouped[monthKey].sort(
-
                         (a, b) =>
-
                             (b.date || "")
-
                             .localeCompare(
-
                                 a.date || ""
-
                             )
-
                     );
 
                 const [year, month] =
-
                     monthKey.split("-");
 
                 const monthDate =
-
                     new Date(
-
                         Number(year),
-
                         Number(month) - 1,
-
                         1
-
                     );
 
                 const monthName =
-
                     monthDate.toLocaleDateString(
-
                         "en-GB",
-
                         {
-
                             month: "long",
-
                             year: "numeric"
-
                         }
-
                     );
 
                 const sectionId =
-
                     `timeline-${monthKey.replace(
-
                         "-",
-
                         ""
-
                     )}`;
 
                 return `
@@ -3133,45 +2321,32 @@ function renderTimeline(thing) {
                     <div class="card">
 
                         <div class="timeline-month"
-
                              onclick="toggleTimelineMonth('${sectionId}')">
 
                             <div class="timeline-month-left">
 
                                 <div class="month-icon">
-
                                     🗓️
-
                                 </div>
 
                                 <div>
 
                                     <strong style="font-size:17px;">
-
                                         ${monthName}
-
                                     </strong>
 
                                     <div style="
-
                                         color:#777;
-
                                         font-size:13px;
-
                                         margin-top:3px;
-
                                     ">
 
                                         ${events.length}
 
                                         ${
-
                                             events.length === 1
-
                                             ? "event"
-
                                             : "events"
-
                                         }
 
                                     </div>
@@ -3181,7 +2356,6 @@ function renderTimeline(thing) {
                             </div>
 
                             <div class="chevron"
-
                                  id="${sectionId}-arrow">
 
                                 ›
@@ -3191,64 +2365,30 @@ function renderTimeline(thing) {
                         </div>
 
                         <div class="timeline-events"
-
                              id="${sectionId}"
-
                              style="display:none;">
 
                             ${
-
                                 events.map(
-
                                     event => {
 
                                         const icon =
-
                                             eventIcons[
-
                                                 event.type
-
                                             ] || "📌";
-
-                                        const linkedDocument =
-
-                                            event.documentId
-
-                                            ? thing.documents.find(
-
-                                                documentItem =>
-
-                                                    documentItem.id ===
-
-                                                    event.documentId
-
-                                              )
-
-                                            : null;
 
                                         return `
 
                                             <div class="timeline-event"
+                                                 onclick="openTimelineEvent(${event.id})">
 
-                                                 ${
+                                                <div class="timeline-event-date">
 
-                                                     linkedDocument
+                                                    ${formatDay(
+                                                        event.date
+                                                    )}
 
-                                                     ? `onclick="openTimelineDocument(${linkedDocument.id})"`
-
-                                                     : ""
-
-                                                 }
-
-                                                 style="${
-
-                                                     linkedDocument
-
-                                                     ? "cursor:pointer;"
-
-                                                     : ""
-
-                                                 }">
+                                                </div>
 
                                                 <div class="event-icon">
 
@@ -3261,90 +2401,18 @@ function renderTimeline(thing) {
                                                     <strong>
 
                                                         ${escapeHtml(
-
                                                             event.description
-
                                                         )}
 
                                                     </strong>
 
-                                                    <span>
-
-                                                        ${formatDate(
-
-                                                            event.date
-
-                                                        )}
-
-                                                        ·
-
-                                                        ${escapeHtml(
-
-                                                            event.type
-
-                                                        )}
-
-                                                        ${
-
-                                                            event.amount
-
-                                                            ? ` · ${formatMoney(
-
-                                                                event.amount
-
-                                                              )}`
-
-                                                            : ""
-
-                                                        }
-
-                                                    </span>
-
-                                                    ${
-
-                                                        linkedDocument
-
-                                                        ? `
-
-                                                            <span>
-
-                                                                📄 Document
-
-                                                            </span>
-
-                                                        `
-
-                                                        : ""
-
-                                                    }
-
                                                 </div>
 
-                                                ${
+                                                <div class="timeline-event-chevron">
 
-                                                    linkedDocument
+                                                    ›
 
-                                                    ? `
-
-                                                        <div style="
-
-                                                            color:#888;
-
-                                                            font-size:20px;
-
-                                                            padding-left:4px;
-
-                                                        ">
-
-                                                            ›
-
-                                                        </div>
-
-                                                    `
-
-                                                    : ""
-
-                                                }
+                                                </div>
 
                                             </div>
 
@@ -3353,7 +2421,6 @@ function renderTimeline(thing) {
                                     }
 
                                 ).join("")
-
                             }
 
                         </div>
@@ -3371,29 +2438,21 @@ function renderTimeline(thing) {
 function toggleTimelineMonth(id) {
 
     const section =
-
         document.getElementById(id);
 
     const arrow =
-
         document.getElementById(
-
             id + "-arrow"
-
         );
 
     if (!section) return;
 
     if (
-
         section.style.display ===
-
         "none"
-
     ) {
 
         section.style.display =
-
             "block";
 
         if (arrow) {
@@ -3405,7 +2464,6 @@ function toggleTimelineMonth(id) {
     } else {
 
         section.style.display =
-
             "none";
 
         if (arrow) {
@@ -3419,37 +2477,78 @@ function toggleTimelineMonth(id) {
 }
 
 /* -----------------------------
-
-   TIMELINE → DOCUMENT
-
+   TIMELINE NAVIGATION
 ----------------------------- */
 
+function openTimelineEvent(id) {
+
+    const thing =
+        things.find(
+            item =>
+                item.id === currentThingId
+        );
+
+    if (!thing) return;
+
+    const event =
+        thing.events.find(
+            item =>
+                item.id === id
+        );
+
+    if (!event) return;
+
+    if (event.documentId) {
+
+        const documentItem =
+            thing.documents.find(
+                item =>
+                    item.id === event.documentId
+            );
+
+        if (documentItem) {
+
+            editDocument(
+                documentItem.id
+            );
+
+            return;
+
+        }
+
+    }
+
+    editEvent(event.id);
+
+}
+
+/* -----------------------------
+   TIMELINE → DOCUMENT
+----------------------------- */
+
+/*
+
+   Kept for compatibility with
+   previous Coisable versions.
+
+*/
+
 function openTimelineDocument(
-
     documentId
-
 ) {
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === currentThingId
-
         );
 
     if (!thing) return;
 
     const documentItem =
-
         thing.documents.find(
-
             item =>
-
                 item.id === documentId
-
         );
 
     if (!documentItem) {
@@ -3465,43 +2564,29 @@ function openTimelineDocument(
 }
 
 /* -----------------------------
-
    ADD EVENT
-
 ----------------------------- */
 
 function showAddEvent() {
 
     document.getElementById(
-
         "eventType"
-
     ).value =
-
         "Other";
 
     document.getElementById(
-
         "eventDescription"
-
     ).value =
-
         "";
 
     document.getElementById(
-
         "eventDate"
-
     ).value =
-
         today();
 
     document.getElementById(
-
         "eventAmount"
-
     ).value =
-
         "";
 
     showView("addEventView");
@@ -3511,13 +2596,9 @@ function showAddEvent() {
 function addEvent() {
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === currentThingId
-
         );
 
     if (!thing) return;
@@ -3529,11 +2610,8 @@ function addEvent() {
     }
 
     const description =
-
         document.getElementById(
-
             "eventDescription"
-
         ).value.trim();
 
     if (!description) {
@@ -3549,33 +2627,22 @@ function addEvent() {
         id: Date.now(),
 
         type:
-
             document.getElementById(
-
                 "eventType"
-
             ).value,
 
         description:
-
             description,
 
         date:
-
             document.getElementById(
-
                 "eventDate"
-
             ).value ||
-
             today(),
 
         amount:
-
             document.getElementById(
-
                 "eventAmount"
-
             ).value,
 
         documentId: null
@@ -3591,9 +2658,7 @@ function addEvent() {
 }
 
 /* -----------------------------
-
    EDIT EVENT
-
 ----------------------------- */
 
 function editEvent(id) {
@@ -3601,59 +2666,39 @@ function editEvent(id) {
     currentEventId = id;
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === currentThingId
-
         );
 
     if (!thing) return;
 
     const event =
-
         thing.events.find(
-
             item =>
-
                 item.id === id
-
         );
 
     if (!event) return;
 
     document.getElementById(
-
         "editEventType"
-
     ).value =
-
         event.type || "Other";
 
     document.getElementById(
-
         "editEventDescription"
-
     ).value =
-
         event.description || "";
 
     document.getElementById(
-
         "editEventDate"
-
     ).value =
-
         event.date || "";
 
     document.getElementById(
-
         "editEventAmount"
-
     ).value =
-
         event.amount || "";
 
     showView("editEventView");
@@ -3663,35 +2708,24 @@ function editEvent(id) {
 function saveEventEdit() {
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === currentThingId
-
         );
 
     if (!thing) return;
 
     const event =
-
         thing.events.find(
-
             item =>
-
                 item.id === currentEventId
-
         );
 
     if (!event) return;
 
     const description =
-
         document.getElementById(
-
             "editEventDescription"
-
         ).value.trim();
 
     if (!description) {
@@ -3703,33 +2737,22 @@ function saveEventEdit() {
     }
 
     event.type =
-
         document.getElementById(
-
             "editEventType"
-
         ).value;
 
     event.description =
-
         description;
 
     event.date =
-
         document.getElementById(
-
             "editEventDate"
-
         ).value ||
-
         today();
 
     event.amount =
-
         document.getElementById(
-
             "editEventAmount"
-
         ).value;
 
     saveThings();
@@ -3741,35 +2764,24 @@ function saveEventEdit() {
 function deleteEvent() {
 
     const thing =
-
         things.find(
-
             item =>
-
                 item.id === currentThingId
-
         );
 
     if (!thing) return;
 
     const event =
-
         thing.events.find(
-
             item =>
-
                 item.id === currentEventId
-
         );
 
     if (!event) return;
 
     const confirmed =
-
         confirm(
-
             `Delete "${event.description}" from the Timeline?`
-
         );
 
     if (!confirmed) return;
@@ -3777,19 +2789,14 @@ function deleteEvent() {
     if (event.documentId) {
 
         const documentItem =
-
             thing.documents.find(
-
                 item =>
-
                     item.id === event.documentId
-
             );
 
         if (documentItem) {
 
             documentItem.timelineEventId =
-
                 null;
 
         }
@@ -3797,13 +2804,9 @@ function deleteEvent() {
     }
 
     thing.events =
-
         thing.events.filter(
-
             item =>
-
                 item.id !== currentEventId
-
         );
 
     saveThings();
@@ -3815,45 +2818,31 @@ function deleteEvent() {
 }
 
 /* -----------------------------
-
    EXPIRING SOON
-
 ----------------------------- */
 
 function renderExpiringSoon() {
 
     const container =
-
         document.getElementById(
-
             "expiringSoon"
-
         );
 
     const todayDate =
-
         new Date();
 
     todayDate.setHours(
-
         0,
-
         0,
-
         0,
-
         0
-
     );
 
     const limitDate =
-
         new Date(todayDate);
 
     limitDate.setDate(
-
         limitDate.getDate() + 30
-
     );
 
     const expiring = [];
@@ -3861,13 +2850,9 @@ function renderExpiringSoon() {
     things.forEach(thing => {
 
         if (
-
             !Array.isArray(
-
                 thing.documents
-
             )
-
         ) {
 
             return;
@@ -3875,13 +2860,10 @@ function renderExpiringSoon() {
         }
 
         thing.documents.forEach(
-
             documentItem => {
 
                 if (
-
                     !documentItem.expiryDate
-
                 ) {
 
                     return;
@@ -3889,19 +2871,13 @@ function renderExpiringSoon() {
                 }
 
                 const expiry =
-
                     new Date(
-
                         documentItem.expiryDate +
-
                         "T00:00:00"
-
                     );
 
                 if (
-
                     expiry <= limitDate
-
                 ) {
 
                     expiring.push({
@@ -3909,7 +2885,6 @@ function renderExpiringSoon() {
                         thing,
 
                         document:
-
                             documentItem,
 
                         expiry
@@ -3919,23 +2894,17 @@ function renderExpiringSoon() {
                 }
 
             }
-
         );
 
     });
 
     expiring.sort(
-
         (a, b) =>
-
             a.expiry - b.expiry
-
     );
 
     if (
-
         expiring.length === 0
-
     ) {
 
         container.innerHTML = `
@@ -3953,127 +2922,84 @@ function renderExpiringSoon() {
     }
 
     container.innerHTML =
-
         expiring.map(
-
             item => {
 
                 const expiry =
-
                     new Date(
-
                         item.expiry
-
                     );
 
                 const diff =
-
                     Math.ceil(
-
                         (
-
                             expiry -
-
                             todayDate
-
                         ) /
-
                         (
-
                             1000 *
-
                             60 *
-
                             60 *
-
                             24
-
                         )
-
                     );
 
                 let status;
-
                 let className;
 
                 if (diff < 0) {
 
                     const days =
-
                         Math.abs(diff);
 
                     status =
-
                         `Expired ${days} ${
-
                             days === 1
-
                             ? "day"
-
                             : "days"
-
                         } ago`;
 
                     className =
-
                         "expired";
 
                 } else if (
-
                     diff === 0
-
                 ) {
 
                     status =
-
                         "Expires today";
 
                     className =
-
                         "expired";
 
                 } else {
 
                     status =
-
                         `Expires in ${diff} ${
-
                             diff === 1
-
                             ? "day"
-
                             : "days"
-
                         }`;
 
                     className =
-
                         "expiring";
 
                 }
 
                 const icon =
-
                     documentIcons[
-
                         item.document.type
-
                     ] || "📄";
 
                 return `
 
                     <div class="card ${className}"
-
                          onclick="openThing(${item.thing.id})"
-
                          style="cursor:pointer;">
 
                         <div style="
-
                             display:flex;
-
                             gap:12px;
-
                         ">
 
                             <div class="document-icon">
@@ -4087,27 +3013,19 @@ function renderExpiringSoon() {
                                 <div class="expiring-title">
 
                                     ${escapeHtml(
-
                                         item.document.name
-
                                     )}
 
                                 </div>
 
                                 <div style="
-
                                     font-size:13px;
-
                                     color:#777;
-
                                     margin-top:3px;
-
                                 ">
 
                                     ${escapeHtml(
-
                                         item.thing.name
-
                                     )}
 
                                 </div>
@@ -4133,9 +3051,7 @@ function renderExpiringSoon() {
 }
 
 /* -----------------------------
-
    HELPERS
-
 ----------------------------- */
 
 function mapDocumentToEvent(type) {
@@ -4143,25 +3059,17 @@ function mapDocumentToEvent(type) {
     const mapping = {
 
         Invoice: "Expense",
-
         Contract: "Other",
-
         Insurance: "Insurance",
-
         Warranty: "Other",
-
         Tax: "Expense",
-
         Certificate: "Other",
-
         Repair: "Repair",
-
         Other: "Other"
 
     };
 
     return mapping[type] ||
-
         "Other";
 
 }
@@ -4169,39 +3077,25 @@ function mapDocumentToEvent(type) {
 function today() {
 
     const date =
-
         new Date();
 
     const year =
-
         date.getFullYear();
 
     const month =
-
         String(
-
             date.getMonth() + 1
-
         ).padStart(
-
             2,
-
             "0"
-
         );
 
     const day =
-
         String(
-
             date.getDate()
-
         ).padStart(
-
             2,
-
             "0"
-
         );
 
     return `${year}-${month}-${day}`;
@@ -4217,13 +3111,10 @@ function formatDate(dateString) {
     }
 
     const parts =
-
         dateString.split("-");
 
     if (
-
         parts.length !== 3
-
     ) {
 
         return dateString;
@@ -4234,16 +3125,37 @@ function formatDate(dateString) {
 
 }
 
+function formatDay(dateString) {
+
+    if (!dateString) {
+
+        return "—";
+
+    }
+
+    const parts =
+        dateString.split("-");
+
+    if (
+        parts.length !== 3
+    ) {
+
+        return dateString;
+
+    }
+
+    return String(
+        Number(parts[2])
+    );
+
+}
+
 function formatMoney(value) {
 
     if (
-
         value === "" ||
-
         value === null ||
-
         value === undefined
-
     ) {
 
         return "—";
@@ -4251,13 +3163,10 @@ function formatMoney(value) {
     }
 
     const number =
-
         Number(value);
 
     if (
-
         Number.isNaN(number)
-
     ) {
 
         return "—";
@@ -4265,17 +3174,11 @@ function formatMoney(value) {
     }
 
     return new Intl.NumberFormat(
-
         "pt-PT",
-
         {
-
             style: "currency",
-
             currency: "EUR"
-
         }
-
     ).format(number);
 
 }
@@ -4283,11 +3186,8 @@ function formatMoney(value) {
 function escapeHtml(value) {
 
     if (
-
         value === null ||
-
         value === undefined
-
     ) {
 
         return "";
@@ -4297,57 +3197,39 @@ function escapeHtml(value) {
     return String(value)
 
         .replace(
-
             /&/g,
-
             "&amp;"
-
         )
 
         .replace(
-
             /</g,
-
             "&lt;"
-
         )
 
         .replace(
-
             />/g,
-
             "&gt;"
-
         )
 
         .replace(
-
             /"/g,
-
             "&quot;"
-
         )
 
         .replace(
-
             /'/g,
-
             "&#039;"
-
         );
 
 }
 
 /* -----------------------------
-
    DATA MIGRATION
-
 ----------------------------- */
 
 /*
 
    Convert old category names from
-
    previous Coisable versions.
 
 */
@@ -4355,63 +3237,36 @@ function escapeHtml(value) {
 things.forEach(thing => {
 
     if (
-
         thing.category === "Home"
-
     ) {
 
         thing.category =
-
             "Real Estate";
 
     }
 
     if (
-
         thing.category === "Vehicle"
-
     ) {
 
         thing.category =
-
             "Vehicles";
 
     }
 
-    /*
-
-       Appliances were previously their
-
-       own category. They now fall under
-
-       Other until we decide whether
-
-       Appliances deserve their own
-
-       category in the future.
-
-    */
-
     if (
-
         thing.category === "Appliance"
-
     ) {
 
         thing.category =
-
             "Other";
 
     }
 
     if (
-
         !Array.isArray(
-
             thing.documents
-
         )
-
     ) {
 
         thing.documents = [];
@@ -4419,13 +3274,9 @@ things.forEach(thing => {
     }
 
     if (
-
         !Array.isArray(
-
             thing.events
-
         )
-
     ) {
 
         thing.events = [];
@@ -4433,25 +3284,19 @@ things.forEach(thing => {
     }
 
     thing.documents.forEach(
-
         documentItem => {
 
             if (
-
                 documentItem.timelineEventId ===
-
                 undefined
-
             ) {
 
                 documentItem.timelineEventId =
-
                     null;
 
             }
 
         }
-
     );
 
 });
@@ -4459,13 +3304,10 @@ things.forEach(thing => {
 saveThings();
 
 /* -----------------------------
-
    INITIAL LOAD
-
 ----------------------------- */
 
 renderCategoryCounts();
-
 renderExpiringSoon();
 
 </script>
